@@ -1,6 +1,9 @@
 from pathlib import Path
 import os
+import sys
 from dotenv import load_dotenv
+
+sys.path.insert(0, str(Path(__file__).resolve().parent.parent / 'apps'))
 
 load_dotenv()
 
