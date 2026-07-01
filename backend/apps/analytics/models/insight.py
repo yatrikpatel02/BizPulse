@@ -9,6 +9,7 @@ class Insight(models.Model):
         ('inventory_risk', 'Inventory Risk'),
     ]
     business = models.ForeignKey('businesses.Business', on_delete=models.CASCADE, related_name='insights')
+    import_batch = models.ForeignKey('integrations.ImportBatch', on_delete=models.CASCADE, related_name='insights', null=True, blank=True)
     insight_type = models.CharField(max_length=30, choices=INSIGHT_TYPE_CHOICES)
     title = models.CharField(max_length=255)
     description = models.TextField()

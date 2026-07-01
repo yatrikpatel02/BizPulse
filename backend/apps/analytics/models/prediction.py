@@ -9,6 +9,7 @@ class Prediction(models.Model):
         ('demand_forecast', 'Demand Forecast'),
     ]
     business = models.ForeignKey('businesses.Business', on_delete=models.CASCADE, related_name='predictions')
+    import_batch = models.ForeignKey('integrations.ImportBatch', on_delete=models.CASCADE, related_name='predictions', null=True, blank=True)
     prediction_type = models.CharField(max_length=30, choices=PREDICTION_TYPE_CHOICES)
     predicted_at = models.DateTimeField(auto_now_add=True)
     period_start = models.DateField()

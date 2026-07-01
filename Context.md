@@ -219,6 +219,7 @@ integrations
 * GoogleTrendsData
 * CompetitorPrice
 * ColumnMapping
+* ImportBatch
 
 reports
 
@@ -334,6 +335,18 @@ Column mapping happens before validation.
 
 Mappings are stored for future imports.
 
+Column Mapping Technical Notes
+
+* ColumnMapping.source_type distinguishes the three dataset types: sales, inventory, reviews
+* Each business has its own set of mappings (business-scoped, not global)
+* The expected source columns per dataset type are:
+    sales: date, product/product_name, quantity/qty, revenue/amount, cost
+    inventory: date, product/product_name, quantity_on_hand, reorder_point
+    reviews: date, product/product_name (optional), rating, text/review, author_name
+* Suggested mappings use a confidence score (float 0-1) based on fuzzy matching
+* When a mapping does not exist, show manual dropdown for user to select target column
+* Once mapped and confirmed by user, save the mapping for future imports of the same business and dataset_type
+
 ---
 
 # UI Philosophy
@@ -374,22 +387,19 @@ Most navigation happens inside pages using tabs.
 
 Purpose
 
-Executive Overview.
-
-Do NOT duplicate analytics pages.
+Executive Overview for a quick business health check.
 
 Contains
 
-* KPI Cards
-* Business Health Score
-* Revenue Overview
-* Inventory Alerts
-* Recent Insights
-* Quick Actions
+* Key Business Metrics (KPI Cards)
+* Important Alerts (Inventory, Revenue anomalies)
+* Recent Activity (Recent  csv uploads, Quick Actions)
+
+Detailed charts, filtering, drill-downs, and advanced analysis are handled by the Analytics page.
 
 Dashboard answers
 
-"How is my business performing?"
+"What's the current state of my business?"
 
 ---
 

@@ -4,6 +4,7 @@ from django.db import models
 class CustomerReview(models.Model):
     business = models.ForeignKey('businesses.Business', on_delete=models.CASCADE, related_name='customer_reviews')
     product = models.ForeignKey('products.Product', on_delete=models.CASCADE, related_name='customer_reviews', null=True, blank=True)
+    import_batch = models.ForeignKey('integrations.ImportBatch', on_delete=models.CASCADE, related_name='customer_reviews', null=True, blank=True)
     source = models.CharField(max_length=50)
     external_id = models.CharField(max_length=100, blank=True)
     review_date = models.DateField()
