@@ -3,13 +3,14 @@
 ## Phase 1: Backend Foundation
 
 ### 1.1 User Authentication
-- [ ] Implement User model with JWT authentication in `accounts/models/user.py`
-- [ ] Create custom User Manager for user creation
-- [ ] Implement UserSerializer in `accounts/serializers/`
-- [ ] Create UserRegistrationAPIView (signup endpoint)
-- [ ] Create UserLoginAPIView (login endpoint)
-- [ ] Implement token refresh functionality
-- [ ] Add password validation and hashing
+- [x] Implement User model with JWT authentication in `accounts/models/user.py`
+- [x] Create custom User Manager for user creation (uses Django's `create_user`)
+- [x] Implement UserSerializer in `accounts/serializers/`
+- [x] Create UserRegistrationAPIView (signup endpoint)
+- [x] Create UserLoginAPIView (login endpoint)
+- [x] Implement token refresh functionality
+- [x] Add password validation and hashing
+- [x] Add JWT token blacklist (logout)
 - [ ] Write unit tests for authentication endpoints
 - [ ] Document API endpoints with Postman collection
 
@@ -64,7 +65,7 @@
 ## Phase 3: REST API Layer
 
 ### 3.1 Core API Endpoints
-- [ ] Register all app URLs in project urls.py
+- [x] Register all app URLs in project urls.py
 - [ ] Implement list/create endpoints for all models
 - [ ] Add filtering capabilities (by date, product, etc.)
 - [ ] Implement pagination for large datasets
@@ -121,16 +122,16 @@
 ## Phase 6: Frontend Development
 
 ### 6.1 Project Setup
-- [ ] Initialize React + Vite project
-- [ ] Configure Tailwind CSS
-- [ ] Set up Axios for API calls
-- [ ] Configure React Router
+- [x] Initialize React + Vite project
+- [x] Configure Tailwind CSS
+- [x] Set up Axios for API calls
+- [x] Configure React Router
 
 ### 6.2 Authentication UI
-- [ ] Create login page
-- [ ] Create registration page
-- [ ] Implement protected route wrapper
-- [ ] Add JWT token management (storage, refresh)
+- [x] Create login page
+- [x] Create registration page
+- [x] Implement protected route wrapper
+- [x] Add JWT token management (storage, refresh)
 - [ ] Build profile management page
 
 ### 6.3 Dashboard
@@ -199,20 +200,22 @@
 - [ ] Implement async tasks (Celery)
 
 ### 8.3 Security
-- [ ] Add rate limiting
-- [ ] Implement CORS configuration
+- [x] Add rate limiting (AnonRateThrottle)
+- [x] Implement CORS configuration
 - [ ] Add audit logging
 
 ---
 
 ## Current Status
-- Database: Models defined with migrations (SalesRecord updated with unit_price)
-- Backend: ~25% complete (models exist, authentication/serializers/views needed)
-- Frontend: Not started
+- Database: Complete (all models migrated: accounts, businesses, products, analytics, integrations, reports, token_blacklist)
+- Backend Auth: ~90% complete (serializers, views, URLs, JWT, rate limiting implemented; tests missing)
+- Backend API: 10% complete (only auth endpoints implemented)
+- Frontend: ~30% complete (project setup, routing, auth UI pages, API integration; dashboard placeholder only)
 - Analytics: Not started
 - ML: Not started
 
 ## Recommended Next Steps
-1. Complete authentication (serializers, views for User/Business/Product)
+1. Implement Business + Product serializers and CRUD endpoints (Phase 1.2 / 1.3)
 2. Implement data upload services (Phase 2)
-3. Create basic frontend structure (Phase 6)
+3. Write backend auth tests and frontend component tests
+4. Build remaining frontend pages: Dashboard, Data, Analytics, Insights, Reports, Settings

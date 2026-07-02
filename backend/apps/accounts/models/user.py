@@ -3,4 +3,7 @@ from django.db import models
 
 
 class User(AbstractUser):
-    pass
+    USERNAME_FIELD = 'email'
+    REQUIRED_FIELDS = ['username']
+
+    email = models.EmailField('email address', unique=True)

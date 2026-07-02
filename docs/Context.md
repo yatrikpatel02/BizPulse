@@ -109,19 +109,27 @@ Business logic belongs in the backend.
 bizpulse/
 
 README.md
-CONTEXT.md
+
+requirements.txt
 
 backend/
 
 frontend/
+
+docs/
+
+    Context.md
+    milestone.md
+
 ```
+
 
 Backend
 
 ```
 backend/
 
-config/
+BizPulse/
 
 apps/
 
@@ -145,7 +153,6 @@ logs/
 
 scripts/
 
-requirements.txt
 
 .env
 
