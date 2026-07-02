@@ -17,12 +17,16 @@ export const AuthProvider = ({ children }) => {
     });
 
     const initAuth = async () => {
+      const hasRefreshCookie = document.cookie.split(';').some((c) => c.trim().startsWith('refresh_token='));
+      if (!hasRefreshCookie) {
+        setLoading(false);
+        return;
+      }
       try {
         const profile = await getProfile();
         setUser(profile);
       } catch {
-        // Interceptor handles 401 -> redirect to login
-        // Other errors keep user as null
+        // 401 or other auth errors leave user as null; interceptor calls onAuthError
       }
       setLoading(false);
     };

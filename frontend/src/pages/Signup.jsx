@@ -1,6 +1,14 @@
-import React, { useState } from 'react';
+import React, { useState, useMemo } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
+
+const checks = [
+  { label: 'At least 8 characters', test: (p) => p.length >= 8 },
+  { label: 'At least one uppercase letter', test: (p) => /[A-Z]/.test(p) },
+  { label: 'At least one lowercase letter', test: (p) => /[a-z]/.test(p) },
+  { label: 'At least one number', test: (p) => /\d/.test(p) },
+  { label: 'At least one special character', test: (p) => /[^A-Za-z0-9]/.test(p) },
+];
 
 export default function Signup() {
   const [formData, setFormData] = useState({
@@ -15,6 +23,10 @@ export default function Signup() {
   const [loading, setLoading] = useState(false);
   const { register } = useAuth();
   const navigate = useNavigate();
+
+  const passwordChecks = useMemo(() => checks.map((c) => ({ ...c, passed: c.test(formData.password) })), [formData.password]);
+  const allChecksPassed = passwordChecks.every((c) => c.passed);
+  const passwordsMatch = formData.password === formData.password_confirm && formData.password_confirm !== '';
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -101,23 +113,35 @@ export default function Signup() {
             value={formData.password}
             onChange={handleChange}
           />
+          {formData.password && (
+            <ul className="mt-2 space-y-1 text-xs">
+              {passwordChecks.map((c, i) => (
+                <li key={i} className={c.passed ? 'text-green-600' : 'text-gray-500'}>
+                  {c.passed ? '✓' : '✗'} {c.label}
+                </li>
+              ))}
+            </ul>
+          )}
         </div>
         <div>
           <input
             name="password_confirm"
             type="password"
             required
-            className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
+            className={`appearance-none rounded-none relative block w-full px-3 py-2 border placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm ${formData.password_confirm && !passwordsMatch ? 'border-red-400' : 'border-gray-300'}`}
             placeholder="Confirm password"
             value={formData.password_confirm}
             onChange={handleChange}
           />
+          {formData.password_confirm && !passwordsMatch && (
+            <p className="mt-1 text-xs text-red-600">Passwords do not match.</p>
+          )}
         </div>
 
         <div>
           <button
             type="submit"
-            disabled={loading}
+            disabled={loading || !allChecksPassed || !passwordsMatch}
             className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 disabled:opacity-50"
           >
             {loading ? 'Creating account...' : 'Create account'}

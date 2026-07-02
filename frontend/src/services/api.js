@@ -56,7 +56,6 @@ api.interceptors.response.use(
       } catch (err) {
         currentAccessToken = null;
         if (authErrorCallback) authErrorCallback();
-        window.location.href = '/login';
         return Promise.reject(err);
       }
     }

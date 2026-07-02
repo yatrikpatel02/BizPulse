@@ -1,4 +1,5 @@
 from django.contrib.auth import get_user_model
+from django.utils import timezone
 from rest_framework import generics, permissions, status, views
 from rest_framework.throttling import AnonRateThrottle
 from rest_framework.response import Response
@@ -50,6 +51,8 @@ class RegisterView(generics.CreateAPIView):
         serializer = self.get_serializer(data=request.data)
         serializer.is_valid(raise_exception=True)
         user = serializer.save()
+        user.last_login = timezone.now()
+        user.save(update_fields=['last_login'])
         token_data = get_tokens_for_user(user)
         user_data = UserSerializer(user).data
         response = Response({
@@ -72,6 +75,8 @@ class LoginView(generics.GenericAPIView):
         serializer = self.get_serializer(data=request.data)
         serializer.is_valid(raise_exception=True)
         user = serializer.validated_data['user']
+        user.last_login = timezone.now()
+        user.save(update_fields=['last_login'])
         token_data = get_tokens_for_user(user)
         user_data = UserSerializer(user).data
         response = Response({

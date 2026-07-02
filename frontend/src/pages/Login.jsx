@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 
 export default function Login() {
@@ -8,6 +8,7 @@ export default function Login() {
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
   const { login } = useAuth();
+  const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -15,7 +16,7 @@ export default function Login() {
     setLoading(true);
     try {
       await login({ email, password });
-      window.location.href = '/dashboard';
+      navigate('/dashboard');
     } catch (err) {
       const data = err.response?.data;
       const message = data?.detail || data?.non_field_errors?.[0] || 'Login failed. Please check your credentials.';
