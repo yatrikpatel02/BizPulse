@@ -12,6 +12,4 @@ class BusinessViewSet(viewsets.ModelViewSet):
         return Business.objects.filter(owner=self.request.user)
 
     def perform_create(self, serializer):
-        if Business.objects.filter(owner=self.request.user).exists():
-            raise ValidationError({"detail": "User already has a business."})
         serializer.save(owner=self.request.user)

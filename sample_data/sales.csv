@@ -1,0 +1,11 @@
+date,product_name,qty_sold,amount,cost
+2023-10-01,Wireless Mouse,50,1250.00,500.00
+2023-10-01,Mechanical Keyboard,20,2400.00,1200.00
+2023-10-02,Wireless Mouse,45,1125.00,450.00
+2023-10-02,USB-C Hub,30,900.00,400.00
+2023-10-03,Mechanical Keyboard,25,3000.00,1500.00
+2023-10-03,Monitor Stand,15,600.00,250.00
+2023-10-04,Wireless Mouse,60,1500.00,600.00
+2023-10-04,USB-C Hub,40,1200.00,533.33
+2023-10-05,Monitor Stand,20,800.00,333.33
+2023-10-05,Mechanical Keyboard,35,4200.00,2100.00

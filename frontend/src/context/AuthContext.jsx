@@ -6,7 +6,7 @@ const AuthContext = createContext(null);
 
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
-  const [accessToken, setAccessToken] = useState(null);
+  const [accessToken, setAccessToken] = useState(localStorage.getItem('access_token') || null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -17,11 +17,6 @@ export const AuthProvider = ({ children }) => {
     });
 
     const initAuth = async () => {
-      const hasRefreshCookie = document.cookie.split(';').some((c) => c.trim().startsWith('refresh_token='));
-      if (!hasRefreshCookie) {
-        setLoading(false);
-        return;
-      }
       try {
         const profile = await getProfile();
         setUser(profile);

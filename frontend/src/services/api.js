@@ -2,12 +2,17 @@ import axios from 'axios';
 
 const API_BASE_URL = import.meta.env.VITE_API_URL || '';
 
-let currentAccessToken = null;
+let currentAccessToken = localStorage.getItem('access_token') || null;
 let tokenRefreshCallback = null;
 let authErrorCallback = null;
 
 export const setCurrentAccessToken = (token) => {
   currentAccessToken = token;
+  if (token) {
+    localStorage.setItem('access_token', token);
+  } else {
+    localStorage.removeItem('access_token');
+  }
 };
 
 export const onTokenRefreshed = (cb) => {
