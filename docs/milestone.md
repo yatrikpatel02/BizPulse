@@ -16,15 +16,15 @@
 
 ### 1.2 Business Management
 - [x] Create Business model in `businesses/models/business.py`
-- [ ] Implement BusinessSerializer
-- [ ] Build CRUD endpoints for business entity
+- [x] Implement BusinessSerializer
+- [x] Build CRUD endpoints for business entity
 - [ ] Add business-scoped permissions
 - [ ] Write business tests
 
 ### 1.3 Product Management
 - [x] Implement Product model in `products/models/product.py`
-- [ ] Implement ProductSerializer
-- [ ] Build endpoints for product CRUD operations
+- [x] Implement ProductSerializer
+- [x] Build endpoints for product CRUD operations
 - [ ] Add unique constraint validation (business + SKU)
 
 ### 1.4 Analytics Models
