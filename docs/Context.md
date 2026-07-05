@@ -205,7 +205,7 @@ accounts
 
 businesses
 
-* Business
+* Business (Note: A single User can own multiple Businesses)
 
 products
 
