@@ -8,6 +8,7 @@ class InventorySnapshot(models.Model):
     quantity_on_hand = models.IntegerField()
     reorder_point = models.IntegerField(null=True, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
+    import_batch = models.ForeignKey('integrations.ImportBatch', on_delete=models.CASCADE, related_name='inventory_snapshots', null=True, blank=True)
 
     def __str__(self):
         return f'{self.business.name} - {self.product.name} - {self.date}'
