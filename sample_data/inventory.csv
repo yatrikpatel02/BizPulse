@@ -1,0 +1,9 @@
+date,product_name,quantity_on_hand,reorder_point
+2023-10-01,Wireless Mouse,200,50
+2023-10-01,Mechanical Keyboard,150,30
+2023-10-01,USB-C Hub,100,20
+2023-10-01,Monitor Stand,80,15
+2023-10-05,Wireless Mouse,145,50
+2023-10-05,Mechanical Keyboard,90,30
+2023-10-05,USB-C Hub,30,20
+2023-10-05,Monitor Stand,45,15
