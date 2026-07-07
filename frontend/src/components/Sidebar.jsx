@@ -1,12 +1,11 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
-import { useTheme } from '../context/ThemeContext';
+
 import CompanySwitcher from './CompanySwitcher';
 
 export default function Sidebar({ isOpen, setIsOpen }) {
   const { logout } = useAuth();
-  const { isDarkMode, toggleTheme } = useTheme();
 
   const navItems = [
     { name: 'Dashboard', path: '/dashboard', icon: '📊' },
@@ -59,13 +58,7 @@ export default function Sidebar({ isOpen, setIsOpen }) {
           </nav>
         </div>
         <div className="border-t dark:border-slate-800 p-4 min-w-[16rem] space-y-2">
-          <button
-            onClick={toggleTheme}
-            className="flex items-center w-full px-4 py-3 text-sm font-medium text-gray-600 dark:text-slate-400 rounded-lg hover:bg-gray-50 dark:hover:bg-slate-800/50 transition-colors"
-          >
-            <span className="mr-3 text-lg">{isDarkMode ? '☀️' : '🌙'}</span>
-            {isDarkMode ? 'Light Mode' : 'Dark Mode'}
-          </button>
+          
           <button
             onClick={logout}
             className="flex items-center w-full px-4 py-3 text-sm font-medium text-red-600 dark:text-red-400 rounded-lg hover:bg-red-50 dark:hover:bg-red-900/30 transition-colors"
