@@ -2,7 +2,7 @@ import React from 'react';
 
 export default function RecentActivity({ activities }) {
   return (
-    <div className="bg-white dark:bg-slate-900 rounded-xl shadow-sm border border-gray-100 dark:border-slate-800 p-6 h-full transition-colors">
+    <div className="bg-indigo-50/50 dark:bg-indigo-900/20 rounded-xl shadow-[0_0_8px_rgba(99,102,241,0.5)] border border-gray-100 dark:border-slate-800 p-6 h-full transition-colors">
       <h3 className="text-lg font-semibold text-gray-800 dark:text-slate-100 mb-4">Recent Activity</h3>
       <div className="space-y-4">
         {activities.map((activity, index) => (
@@ -10,7 +10,7 @@ export default function RecentActivity({ activities }) {
             <div className="flex-shrink-0 w-2 h-2 mt-2 rounded-full bg-indigo-500 dark:bg-indigo-400 shadow-[0_0_8px_rgba(99,102,241,0.5)]"></div>
             <div>
               <p className="text-sm font-medium text-gray-900 dark:text-slate-200">{activity.title}</p>
-              <p className="text-xs text-gray-500 dark:text-slate-400">{activity.time}</p>
+              <p className="text-xs text-gray-500 dark:text-slate-400 mt-1 dark:text-slate-400">{activity.time}</p>
             </div>
           </div>
         ))}
