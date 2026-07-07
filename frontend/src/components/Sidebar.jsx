@@ -14,7 +14,6 @@ export default function Sidebar({ isOpen, setIsOpen }) {
     { name: 'Analytics', path: '/analytics', icon: '📈' },
     { name: 'Insights', path: '/insights', icon: '💡' },
     { name: 'Reports', path: '/reports', icon: '📄' },
-    { name: 'Settings', path: '/settings', icon: '⚙️' },
   ];
 
   return (
