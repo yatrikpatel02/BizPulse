@@ -1,6 +1,7 @@
 import React, { useState, useMemo } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
+import SocialButtons from '../components/SocialButtons';
 
 const checks = [
   { label: 'At least 8 characters', test: (p) => p.length >= 8 },
@@ -153,6 +154,8 @@ export default function Signup() {
             Already have an account? Sign in
           </Link>
         </div>
+
+        <SocialButtons onSuccess={() => navigate('/dashboard')} onError={setError} />
       </form>
     </div>
   );

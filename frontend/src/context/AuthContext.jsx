@@ -1,5 +1,5 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
-import { login as loginService, register as registerService, logout as logoutService, getProfile, updateProfile as updateProfileService } from '../services/auth';
+import { login as loginService, register as registerService, socialLogin as socialLoginService, logout as logoutService, getProfile, updateProfile as updateProfileService } from '../services/auth';
 import { setCurrentAccessToken, onTokenRefreshed, onAuthError } from '../services/api';
 
 const AuthContext = createContext(null);
@@ -53,6 +53,15 @@ export const AuthProvider = ({ children }) => {
     setUser(null);
   };
 
+  const socialLogin = async (token) => {
+    const data = await socialLoginService(token);
+    const access = data.token.access;
+    setCurrentAccessToken(access);
+    setAccessToken(access);
+    setUser(data.user);
+    return data;
+  };
+
   const updateProfile = async (data) => {
     const updated = await updateProfileService(data);
     setUser(updated);
@@ -60,7 +69,7 @@ export const AuthProvider = ({ children }) => {
   };
 
   return (
-    <AuthContext.Provider value={{ user, accessToken, loading, login, register, logout, updateProfile }}>
+    <AuthContext.Provider value={{ user, accessToken, loading, login, register, socialLogin, logout, updateProfile }}>
       {children}
     </AuthContext.Provider>
   );

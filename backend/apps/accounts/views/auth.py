@@ -7,35 +7,13 @@ from rest_framework_simplejwt.views import TokenRefreshView
 from rest_framework_simplejwt.tokens import RefreshToken
 from rest_framework_simplejwt.exceptions import TokenError
 from rest_framework_simplejwt.serializers import TokenRefreshSerializer
-from django.conf import settings
 from ..serializers.user import RegisterSerializer, LoginSerializer, UserSerializer, ProfileUpdateSerializer
-
-
-COOKIE_NAME = 'refresh_token'
-COOKIE_MAX_AGE = 7 * 24 * 60 * 60
-
-
-def _set_refresh_cookie(response, refresh_token):
-    response.set_cookie(
-        key=COOKIE_NAME,
-        value=refresh_token,
-        httponly=True,
-        secure=getattr(settings, 'JWT_COOKIE_SECURE', False),
-        samesite='Lax',
-        max_age=COOKIE_MAX_AGE,
-    )
-
-
-def _clear_refresh_cookie(response):
-    response.delete_cookie(COOKIE_NAME)
-
-
-def get_tokens_for_user(user):
-    refresh = RefreshToken.for_user(user)
-    return {
-        'refresh': str(refresh),
-        'access': str(refresh.access_token),
-    }
+from ..services.token_utils import (
+    get_tokens_for_user,
+    set_refresh_cookie,
+    clear_refresh_cookie,
+    COOKIE_NAME,
+)
 
 
 User = get_user_model()
@@ -62,7 +40,7 @@ class RegisterView(generics.CreateAPIView):
                 'refresh': token_data['refresh'],
             },
         }, status=status.HTTP_201_CREATED)
-        _set_refresh_cookie(response, token_data['refresh'])
+        set_refresh_cookie(response, token_data['refresh'])
         return response
 
 
@@ -86,7 +64,7 @@ class LoginView(generics.GenericAPIView):
                 'refresh': token_data['refresh'],
             },
         }, status=status.HTTP_200_OK)
-        _set_refresh_cookie(response, token_data['refresh'])
+        set_refresh_cookie(response, token_data['refresh'])
         return response
 
 
@@ -102,7 +80,7 @@ class LogoutView(views.APIView):
             except TokenError:
                 pass
         response = Response({'detail': 'Logout successful.'})
-        _clear_refresh_cookie(response)
+        clear_refresh_cookie(response)
         return response
 
 
@@ -146,5 +124,5 @@ class CookieTokenRefreshView(views.APIView):
 
         response = Response(response_data)
         if new_refresh:
-            _set_refresh_cookie(response, new_refresh)
+            set_refresh_cookie(response, new_refresh)
         return response

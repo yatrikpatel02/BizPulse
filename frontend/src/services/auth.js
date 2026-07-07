@@ -10,6 +10,11 @@ export const login = async (credentials) => {
   return response.data;
 };
 
+export const socialLogin = async (token) => {
+  const response = await api.post('/accounts/social/google/', { id_token: token });
+  return response.data;
+};
+
 export const logout = async () => {
   await api.post('/accounts/logout/');
 };
