@@ -3,6 +3,9 @@ from rest_framework.routers import DefaultRouter
 from integrations.views import (
     FileUploadView,
     ColumnMappingViewSet,
+    CompetitorPriceViewSet,
+    GoogleTrendsDataViewSet,
+    ImportBatchViewSet,
     ImportPreviewView,
     SalesImportCommitView,
     InventoryImportCommitView,
@@ -11,6 +14,9 @@ from integrations.views import (
 
 router = DefaultRouter()
 router.register('column-mappings', ColumnMappingViewSet, basename='column-mapping')
+router.register('competitor-prices', CompetitorPriceViewSet, basename='competitor-price')
+router.register('google-trends', GoogleTrendsDataViewSet, basename='google-trends-data')
+router.register('import-batches', ImportBatchViewSet, basename='import-batch')
 
 urlpatterns = [
     path('upload/', FileUploadView.as_view(), name='file-upload'),

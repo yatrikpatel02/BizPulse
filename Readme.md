@@ -460,6 +460,22 @@ Stores business entities managed by users.
 
 ---
 
+# API Architecture Standards
+
+BizPulse uses Django REST Framework (DRF) as its API layer. All backend APIs must follow the architecture guidelines defined in [docs/Context.md](docs/Context.md).
+
+The core conventions are:
+
+* **ViewSets** for standard resource-based CRUD APIs (with **Routers** for automatic URL generation)
+* Specialized DRF views (`APIView`, `GenericAPIView`, custom `@action`) for business logic and workflow endpoints
+* RESTful conventions: plural noun endpoints, standard HTTP methods, consistent status codes and response formats
+* **Filtering** (query parameters) as the preferred approach for querying resources
+* **Pagination** as the default behavior for collection endpoints
+* All APIs must be included in the generated OpenAPI/Swagger documentation
+* Reusable, maintainable, and scalable API design — avoid duplicate code and inconsistent patterns
+
+---
+
 # Key Design Decisions
 
 1. BizPulse is a Business Intelligence platform, not an ERP or CRM.
@@ -485,7 +501,8 @@ Before making significant changes:
 
 1. Create a new branch.
 2. Open an issue describing the proposed change.
-3. Submit a pull request with clear documentation.
+3. Follow the API Architecture Standards defined in the project documentation.
+4. Submit a pull request with clear documentation.
 
 ---
 

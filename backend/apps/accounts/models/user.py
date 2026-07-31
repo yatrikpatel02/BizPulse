@@ -22,5 +22,10 @@ class User(AbstractUser):
     social_uid = models.CharField(max_length=255, blank=True, null=True)
     avatar = models.URLField(blank=True, null=True)
 
+    @property
+    def business(self):
+        """Return the user's first business, or None if they own none."""
+        return self.businesses.first()
+
     def __str__(self):
         return self.email

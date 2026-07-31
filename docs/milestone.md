@@ -64,12 +64,15 @@
 
 ## Phase 3: REST API Layer
 
+All APIs follow the project's DRF architecture standards: ViewSets for standard CRUD resources, Routers for URL generation, and specialized views (`APIView`, `GenericAPIView`, custom actions) for business logic and workflow endpoints.
+
 ### 3.1 Core API Endpoints
+
 - [x] Register all app URLs in project urls.py
-- [ ] Implement list/create endpoints for all models
-- [ ] Add filtering capabilities (by date, product, etc.)
-- [ ] Implement pagination for large datasets
-- [ ] Add API documentation with DRF Spectacular or Swagger
+- [x] Implement ViewSet-based CRUD endpoints for all models (use ViewSets + Routers as the default pattern)
+- [x] Add filtering capabilities (by date, product, etc.) using query parameters instead of specialized endpoints
+- [x] Implement pagination for all collection endpoints
+- [ ] Add API documentation with DRF Spectacular or Swagger (all APIs must be included in the generated OpenAPI schema)
 
 ### 3.2 Integration APIs
 - [ ] Create Google Trends data collection service
@@ -209,13 +212,14 @@
 ## Current Status
 - Database: Complete (all models migrated: accounts, businesses, products, analytics, integrations, reports, token_blacklist)
 - Backend Auth: ~90% complete (serializers, views, URLs, JWT, rate limiting implemented; tests missing)
-- Backend API: ~20% complete (auth endpoints, basic business CRUD endpoints)
+- Backend API: ~20% complete (auth endpoints, basic business CRUD endpoints using ViewSets + Routers)
 - Frontend: ~45% complete (project setup, routing, auth UI pages, Dashboard Layout & Widgets, Multi-Business context, Dark Mode built; some API integration complete)
 - Analytics: Not started
 - ML: Not started
 
 ## Recommended Next Steps
-1. Implement Business + Product serializers and CRUD endpoints (Phase 1.2 / 1.3)
+1. Implement Business + Product serializers and CRUD endpoints using ViewSets + Routers (Phase 1.2 / 1.3)
 2. Implement data upload services (Phase 2)
 3. Write backend auth tests and frontend component tests
 4. Build remaining frontend pages: Dashboard, Data, Analytics, Insights, Reports, Settings
+5. Implement remaining API endpoints following ViewSets + Routers standard (Phase 3)
