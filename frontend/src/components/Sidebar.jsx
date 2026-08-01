@@ -71,6 +71,7 @@ export default function Sidebar({ isOpen, setIsOpen }) {
               <NavLink
                 key={item.name}
                 to={item.path}
+                end
                 className={({ isActive }) =>
                   `flex items-center px-4 py-3 text-sm font-medium rounded-lg transition-colors duration-200 ${
                     isActive
@@ -86,7 +87,6 @@ export default function Sidebar({ isOpen, setIsOpen }) {
           </nav>
         </div>
         <div className="border-t dark:border-slate-800 p-4 min-w-[16rem] space-y-2">
-          
           <button
             onClick={logout}
             className="flex items-center w-full px-4 py-3 text-sm font-medium text-red-600 dark:text-red-400 rounded-lg hover:bg-red-50 dark:hover:bg-red-900/30 transition-colors"
