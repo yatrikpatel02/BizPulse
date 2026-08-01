@@ -42,16 +42,16 @@ export default function CompanySwitcher() {
               <div className="px-4 py-2 text-sm text-gray-500 dark:text-slate-400 italic">No companies found</div>
             ) : (
               businesses.map(business => (
-                <div key={business.id} className="flex items-center group">
+                <div key={business.id} className="flex items-center group px-1 py-0.5">
                   <button
                     onClick={() => {
                       changeActiveBusiness(business.id);
                       setIsOpen(false);
                     }}
-                    className={`flex-1 text-left px-4 py-2 text-sm transition-colors ${
+                    className={`flex-1 text-left px-3 py-1.5 text-sm rounded-md border transition-colors ${
                       activeBusiness?.id === business.id 
-                        ? 'text-indigo-600 dark:text-indigo-400 font-semibold bg-indigo-50 dark:bg-indigo-900/30' 
-                        : 'text-gray-700 dark:text-slate-300 hover:bg-indigo-50 dark:hover:bg-slate-700'
+                        ? 'text-indigo-600 dark:text-indigo-400 font-semibold bg-indigo-50 dark:bg-indigo-900/30 border-black dark:border-white' 
+                        : 'border-transparent text-gray-700 dark:text-slate-300 hover:bg-indigo-50 dark:hover:bg-slate-700'
                     }`}
                   >
                     <span className="truncate block">{business.name}</span>
