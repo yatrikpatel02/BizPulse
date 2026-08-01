@@ -73,10 +73,10 @@ export default function Sidebar({ isOpen, setIsOpen }) {
                 to={item.path}
                 end
                 className={({ isActive }) =>
-                  `flex items-center px-4 py-3 text-sm font-medium rounded-lg transition-colors duration-200 ${
+                  `flex items-center px-4 py-3 text-sm font-medium rounded-lg border transition-colors duration-200 ${
                     isActive
-                      ? 'bg-indigo-50 dark:bg-indigo-900/30 text-indigo-700 dark:text-indigo-300'
-                      : 'text-gray-600 dark:text-slate-400 hover:bg-gray-50 dark:hover:bg-slate-800/50 hover:text-gray-900 dark:hover:text-slate-200'
+                      ? 'bg-indigo-50 dark:bg-indigo-900/30 text-indigo-700 dark:text-indigo-300 border-black dark:border-white'
+                      : 'border-transparent text-gray-600 dark:text-slate-400 hover:bg-gray-50 dark:hover:bg-slate-800/50 hover:text-gray-900 dark:hover:text-slate-200'
                   }`
                 }
               >
