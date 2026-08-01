@@ -36,6 +36,10 @@ api.interceptors.request.use(
     if (currentAccessToken) {
       config.headers.Authorization = `Bearer ${currentAccessToken}`;
     }
+    const activeBusinessId = localStorage.getItem('active_business_id');
+    if (activeBusinessId) {
+      config.headers['X-Business-Id'] = activeBusinessId;
+    }
     return config;
   },
   (error) => Promise.reject(error)

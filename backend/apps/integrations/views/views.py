@@ -21,7 +21,8 @@ class FileUploadView(APIView):
     parser_classes = [MultiPartParser, FormParser]
 
     def post(self, request, *args, **kwargs):
-        business = getattr(request.user, 'business', None)
+        business_id = request.headers.get('X-Business-Id')
+        business = request.user.businesses.filter(id=business_id).first() if business_id else request.user.businesses.first()
         if not business:
             return Response(
                 {"detail": "Business profile not found. Please create a business profile first."},
@@ -93,7 +94,8 @@ class ColumnMappingViewSet(viewsets.ModelViewSet):
     serializer_class = ColumnMappingSerializer
 
     def get_queryset(self):
-        business = getattr(self.request.user, 'business', None)
+        business_id = self.request.headers.get('X-Business-Id')
+        business = self.request.user.businesses.filter(id=business_id).first() if business_id else self.request.user.businesses.first()
         if not business:
             return ColumnMapping.objects.none()
 
@@ -105,7 +107,8 @@ class ColumnMappingViewSet(viewsets.ModelViewSet):
         return queryset
 
     def perform_create(self, serializer):
-        business = getattr(self.request.user, 'business', None)
+        business_id = self.request.headers.get('X-Business-Id')
+        business = self.request.user.businesses.filter(id=business_id).first() if business_id else self.request.user.businesses.first()
         if not business:
             raise serializers.ValidationError("Business profile not found. Please create a business profile first.")
         serializer.save(business=business)
@@ -116,7 +119,8 @@ class ColumnMappingViewSet(viewsets.ModelViewSet):
         Saves multiple column mappings for a specific source_type.
         Overwrites any existing mappings for this business and source_type.
         """
-        business = getattr(request.user, 'business', None)
+        business_id = request.headers.get('X-Business-Id')
+        business = request.user.businesses.filter(id=business_id).first() if business_id else request.user.businesses.first()
         if not business:
             return Response(
                 {"detail": "Business profile not found. Please create a business profile first."},

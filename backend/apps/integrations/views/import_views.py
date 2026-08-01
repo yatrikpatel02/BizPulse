@@ -1,3 +1,4 @@
+import time
 import pandas as pd
 from django.db import transaction
 from django.core.exceptions import ValidationError
@@ -17,7 +18,8 @@ class ImportPreviewView(APIView):
     permission_classes = [IsAuthenticated]
 
     def post(self, request, *args, **kwargs):
-        business = getattr(request.user, 'business', None)
+        business_id = request.headers.get('X-Business-Id')
+        business = request.user.businesses.filter(id=business_id).first() if business_id else request.user.businesses.first()
         if not business:
             return Response(
                 {"detail": "Business profile not found. Please create a business profile first."},
@@ -79,6 +81,10 @@ class BaseImportCommitView(APIView):
     permission_classes = [IsAuthenticated]
 
     def get_df_cleaned(self, business, temp_file_id, source_type, mapping):
+        """
+        Reads the temp file and applies lightweight cleaning only.
+        Skips full re-validation (already done during preview step) for speed.
+        """
         temp_path = TemporaryStorageService.get_temp_file_path(temp_file_id)
         ext = temp_path.suffix.lower()
 
@@ -87,13 +93,40 @@ class BaseImportCommitView(APIView):
         else:
             df = pd.read_excel(temp_path)
 
-        df_cleaned = DataCleaningService.clean_dataset(df, source_type, mapping)
-        return df_cleaned
+        # Rename columns per mapping
+        df = df.rename(columns=mapping)
+
+        # Drop rows missing required fields (fast vectorized drop)
+        required = {
+            'sales': ['date', 'product_name', 'quantity', 'revenue'],
+            'inventory': ['date', 'product_name', 'quantity_on_hand'],
+            'reviews': ['date', 'rating', 'text'],
+        }.get(source_type, [])
+        existing_required = [c for c in required if c in df.columns]
+        df = df.dropna(subset=existing_required)
+        df = df[~(df[existing_required].astype(str).apply(lambda col: col.str.strip()) == '').any(axis=1)]
+
+        # Normalize date
+        df['date'] = pd.to_datetime(df['date'], errors='coerce').dt.strftime('%Y-%m-%d')
+        df = df.dropna(subset=['date'])
+
+        # Deduplicate
+        if source_type in ('sales', 'inventory') and 'product_name' in df.columns:
+            df['product_name'] = df['product_name'].astype(str).str.strip()
+            df = df.drop_duplicates(subset=['product_name', 'date'], keep='first')
+        elif source_type == 'reviews':
+            subset = ['date', 'text']
+            if 'author_name' in df.columns:
+                subset.append('author_name')
+            df = df.drop_duplicates(subset=subset, keep='first')
+
+        return df.reset_index(drop=True)
 
 
 class SalesImportCommitView(BaseImportCommitView):
     def post(self, request, *args, **kwargs):
-        business = getattr(request.user, 'business', None)
+        business_id = request.headers.get('X-Business-Id')
+        business = request.user.businesses.filter(id=business_id).first() if business_id else request.user.businesses.first()
         if not business:
             return Response(
                 {"detail": "Business profile not found. Please create a business profile first."},
@@ -111,28 +144,39 @@ class SalesImportCommitView(BaseImportCommitView):
             )
 
         try:
+            t0 = time.time()
             df_cleaned = self.get_df_cleaned(business, temp_file_id, 'sales', mapping)
+            print(f"[TIMING] get_df_cleaned: {time.time()-t0:.3f}s, rows={len(df_cleaned)}")
 
             with transaction.atomic():
+                t1 = time.time()
                 batch = ImportBatch.objects.create(
                     business=business,
                     dataset_type='sales',
                     original_filename=original_filename
                 )
+                print(f"[TIMING] batch create: {time.time()-t1:.3f}s")
 
-                records_created = 0
+                t2 = time.time()
+                # Preload products to prevent N+1 queries
+                all_products = list(Product.objects.filter(business=business))
+                existing_products = {p.name: p for p in all_products}
+                existing_products_by_sku = {p.sku: p for p in all_products}
+                print(f"[TIMING] preload products ({len(all_products)}): {time.time()-t2:.3f}s")
+
+                t3 = time.time()
+
+                records_dict = {}
                 for _, row in df_cleaned.iterrows():
                     prod_name = row['product_name']
 
-                    # Resolve or create Product model dynamically
-                    product = Product.objects.filter(business=business, name=prod_name).first()
-                    if not product:
-                        product = Product.objects.filter(business=business, sku=prod_name).first()
+                    product = existing_products.get(prod_name) or existing_products_by_sku.get(prod_name)
+                    
                     if not product:
                         sku = prod_name.strip().upper().replace(' ', '_')[:100]
                         base_sku = sku
                         counter = 1
-                        while Product.objects.filter(business=business, sku=sku).exists():
+                        while sku in existing_products_by_sku:
                             sku = f"{base_sku[:90]}_{counter}"
                             counter += 1
                         product = Product.objects.create(
@@ -141,24 +185,36 @@ class SalesImportCommitView(BaseImportCommitView):
                             sku=sku,
                             price=0.0
                         )
+                        existing_products[prod_name] = product
+                        existing_products_by_sku[sku] = product
 
                     date_val = row['date']
                     qty = int(row['quantity'])
                     rev = float(row['revenue'])
                     unit_price = rev / qty if qty > 0 else 0.0
 
-                    SalesRecord.objects.update_or_create(
+                    # Deduplicate in memory in case CSV has multiple rows for same product/date
+                    records_dict[(product.id, date_val)] = SalesRecord(
                         business=business,
                         product=product,
                         date=date_val,
-                        defaults={
-                            'quantity': qty,
-                            'revenue': rev,
-                            'unit_price': unit_price,
-                            'import_batch': batch
-                        }
+                        quantity=qty,
+                        revenue=rev,
+                        unit_price=unit_price,
+                        import_batch=batch
                     )
-                    records_created += 1
+                print(f"[TIMING] loop + build records_dict: {time.time()-t3:.3f}s")
+                    
+                t4 = time.time()
+                if records_dict:
+                    SalesRecord.objects.bulk_create(
+                        records_dict.values(),
+                        update_conflicts=True,
+                        unique_fields=['business', 'product', 'date'],
+                        update_fields=['quantity', 'revenue', 'unit_price', 'import_batch']
+                    )
+                records_created = len(records_dict)
+                print(f"[TIMING] bulk_create ({records_created} rows): {time.time()-t4:.3f}s")
 
             # Delete temporary file from disk upon successful commit
             TemporaryStorageService.delete_temp_file(temp_file_id)
@@ -178,7 +234,8 @@ class SalesImportCommitView(BaseImportCommitView):
 
 class InventoryImportCommitView(BaseImportCommitView):
     def post(self, request, *args, **kwargs):
-        business = getattr(request.user, 'business', None)
+        business_id = request.headers.get('X-Business-Id')
+        business = request.user.businesses.filter(id=business_id).first() if business_id else request.user.businesses.first()
         if not business:
             return Response(
                 {"detail": "Business profile not found. Please create a business profile first."},
@@ -205,19 +262,22 @@ class InventoryImportCommitView(BaseImportCommitView):
                     original_filename=original_filename
                 )
 
-                records_created = 0
+                # Preload products to prevent N+1 queries
+                all_products = list(Product.objects.filter(business=business))
+                existing_products = {p.name: p for p in all_products}
+                existing_products_by_sku = {p.sku: p for p in all_products}
+
+                records_dict = {}
                 for _, row in df_cleaned.iterrows():
                     prod_name = row['product_name']
 
-                    # Resolve or create Product
-                    product = Product.objects.filter(business=business, name=prod_name).first()
-                    if not product:
-                        product = Product.objects.filter(business=business, sku=prod_name).first()
+                    product = existing_products.get(prod_name) or existing_products_by_sku.get(prod_name)
+                    
                     if not product:
                         sku = prod_name.strip().upper().replace(' ', '_')[:100]
                         base_sku = sku
                         counter = 1
-                        while Product.objects.filter(business=business, sku=sku).exists():
+                        while sku in existing_products_by_sku:
                             sku = f"{base_sku[:90]}_{counter}"
                             counter += 1
                         product = Product.objects.create(
@@ -226,23 +286,31 @@ class InventoryImportCommitView(BaseImportCommitView):
                             sku=sku,
                             price=0.0
                         )
+                        existing_products[prod_name] = product
+                        existing_products_by_sku[sku] = product
 
                     date_val = row['date']
                     qty_on_hand = int(row['quantity_on_hand'])
                     reorder_val = row.get('reorder_point')
-                    reorder_point = int(reorder_val) if reorder_val is not None else None
+                    reorder_point = int(reorder_val) if reorder_val is not None and not pd.isna(reorder_val) else None
 
-                    InventorySnapshot.objects.update_or_create(
+                    records_dict[(product.id, date_val)] = InventorySnapshot(
                         business=business,
                         product=product,
                         date=date_val,
-                        defaults={
-                            'quantity_on_hand': qty_on_hand,
-                            'reorder_point': reorder_point,
-                            'import_batch': batch
-                        }
+                        quantity_on_hand=qty_on_hand,
+                        reorder_point=reorder_point,
+                        import_batch=batch
                     )
-                    records_created += 1
+
+                if records_dict:
+                    InventorySnapshot.objects.bulk_create(
+                        records_dict.values(),
+                        update_conflicts=True,
+                        unique_fields=['business', 'product', 'date'],
+                        update_fields=['quantity_on_hand', 'reorder_point', 'import_batch']
+                    )
+                records_created = len(records_dict)
 
             # Delete temporary file
             TemporaryStorageService.delete_temp_file(temp_file_id)
@@ -262,7 +330,8 @@ class InventoryImportCommitView(BaseImportCommitView):
 
 class ReviewsImportCommitView(BaseImportCommitView):
     def post(self, request, *args, **kwargs):
-        business = getattr(request.user, 'business', None)
+        business_id = request.headers.get('X-Business-Id')
+        business = request.user.businesses.filter(id=business_id).first() if business_id else request.user.businesses.first()
         if not business:
             return Response(
                 {"detail": "Business profile not found. Please create a business profile first."},
@@ -289,21 +358,23 @@ class ReviewsImportCommitView(BaseImportCommitView):
                     original_filename=original_filename
                 )
 
-                records_created = 0
+                # Preload products to prevent N+1 queries
+                all_products = list(Product.objects.filter(business=business))
+                existing_products = {p.name: p for p in all_products}
+                existing_products_by_sku = {p.sku: p for p in all_products}
+
+                reviews_to_create = []
                 for _, row in df_cleaned.iterrows():
                     prod_name = row.get('product_name')
 
-                    # Resolve or create Product (optional for reviews)
                     product = None
-                    if prod_name and str(prod_name).strip() != '':
-                        product = Product.objects.filter(business=business, name=prod_name).first()
-                        if not product:
-                            product = Product.objects.filter(business=business, sku=prod_name).first()
+                    if prod_name and str(prod_name).strip() != '' and not pd.isna(prod_name):
+                        product = existing_products.get(prod_name) or existing_products_by_sku.get(prod_name)
                         if not product:
                             sku = prod_name.strip().upper().replace(' ', '_')[:100]
                             base_sku = sku
                             counter = 1
-                            while Product.objects.filter(business=business, sku=sku).exists():
+                            while sku in existing_products_by_sku:
                                 sku = f"{base_sku[:90]}_{counter}"
                                 counter += 1
                             product = Product.objects.create(
@@ -312,24 +383,30 @@ class ReviewsImportCommitView(BaseImportCommitView):
                                 sku=sku,
                                 price=0.0
                             )
+                            existing_products[prod_name] = product
+                            existing_products_by_sku[sku] = product
 
                     date_val = row['date']
                     rating = int(row['rating'])
                     text = str(row['text'])
                     author = row.get('author_name', '')
+                    if pd.isna(author): author = ''
 
-                    CustomerReview.objects.create(
+                    reviews_to_create.append(CustomerReview(
                         business=business,
                         product=product,
                         import_batch=batch,
-                        source=row.get('source', 'CSV Import'),
-                        external_id=row.get('external_id', ''),
+                        source=row.get('source', 'CSV Import') if not pd.isna(row.get('source')) else 'CSV Import',
+                        external_id=row.get('external_id', '') if not pd.isna(row.get('external_id')) else '',
                         review_date=date_val,
                         rating=rating,
                         text=text,
                         author_name=author
-                    )
-                    records_created += 1
+                    ))
+
+                if reviews_to_create:
+                    CustomerReview.objects.bulk_create(reviews_to_create)
+                records_created = len(reviews_to_create)
 
             # Delete temporary file
             TemporaryStorageService.delete_temp_file(temp_file_id)

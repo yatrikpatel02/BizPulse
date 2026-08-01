@@ -6,8 +6,8 @@ from integrations.models import ColumnMapping
 class ColumnMappingService:
     TARGET_COLUMNS = {
         'sales': ['date', 'product_name', 'quantity', 'revenue', 'cost'],
-        'inventory': ['date', 'product_name', 'quantity_on_hand', 'reorder_point'],
-        'reviews': ['date', 'product_name', 'rating', 'text', 'author_name']
+        'inventory': ['date', 'product_name', 'quantity_on_hand', 'reorder_point', 'unit_cost', 'location', 'supplier'],
+        'reviews': ['date', 'product_name', 'rating', 'text', 'author_name', 'source', 'external_id']
     }
 
     ALIASES = {
@@ -21,15 +21,20 @@ class ColumnMappingService:
         'inventory': {
             'date': ['date', 'snapshot_date', 'timestamp', 'recorded_at', 'inventory date'],
             'product_name': ['product', 'product_name', 'item', 'item_name', 'sku', 'product_sku', 'product_id', 'item_code', 'item sku', 'item_sku'],
-            'quantity_on_hand': ['quantity_on_hand', 'qty_on_hand', 'stock', 'stock_level', 'quantity', 'qty', 'on_hand', 'stock_quantity'],
-            'reorder_point': ['reorder_point', 'reorder', 'reorder_level', 'minimum_stock', 'min_stock', 'alert_threshold']
+            'quantity_on_hand': ['quantity_on_hand', 'qty_on_hand', 'stock', 'stock_level', 'quantity', 'qty', 'on_hand', 'stock_quantity', 'available_qty', 'closing_stock'],
+            'reorder_point': ['reorder_point', 'reorder', 'reorder_level', 'minimum_stock', 'min_stock', 'alert_threshold', 'safety_stock'],
+            'unit_cost': ['unit_cost', 'cost', 'purchase_price', 'cost_price', 'buying_price', 'unit_price', 'avg_cost'],
+            'location': ['location', 'warehouse', 'warehouse_location', 'bin', 'shelf', 'store', 'godown'],
+            'supplier': ['supplier', 'supplier_name', 'vendor', 'vendor_name', 'manufacturer'],
         },
         'reviews': {
-            'date': ['date', 'review_date', 'timestamp', 'created_at', 'review date'],
+            'date': ['date', 'review_date', 'timestamp', 'created_at', 'review date', 'posted_date', 'post_date'],
             'product_name': ['product', 'product_name', 'item', 'item_name', 'sku', 'product_sku', 'item sku', 'item_sku'],
-            'rating': ['rating', 'score', 'stars', 'review_rating', 'points'],
-            'text': ['text', 'review', 'comment', 'review_text', 'body', 'content', 'message', 'feedback'],
-            'author_name': ['author_name', 'author', 'reviewer', 'reviewer_name', 'customer_name', 'name', 'reviewer name']
+            'rating': ['rating', 'score', 'stars', 'review_rating', 'points', 'star_rating', 'review_score'],
+            'text': ['text', 'review', 'comment', 'review_text', 'body', 'content', 'message', 'feedback', 'description', 'remarks'],
+            'author_name': ['author_name', 'author', 'reviewer', 'reviewer_name', 'customer_name', 'name', 'reviewer name', 'user_name', 'username'],
+            'source': ['source', 'platform', 'channel', 'source_platform', 'origin', 'review_source'],
+            'external_id': ['external_id', 'ext_id', 'review_id', 'id', 'external_review_id', 'ref_id'],
         }
     }
 
