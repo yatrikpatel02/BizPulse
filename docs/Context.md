@@ -82,6 +82,71 @@ Instead, BizPulse focuses on:
 
 ---
 
+# API Architecture Standards
+
+BizPulse uses Django REST Framework (DRF) as its API layer. All backend APIs must follow the architecture guidelines defined below to ensure consistency, maintainability, and scalability across the project.
+
+## ViewSets for Standard CRUD
+
+Use **ViewSets** for all standard resource-based CRUD APIs. ViewSets reduce boilerplate, keep the codebase consistent, and integrate cleanly with DRF routers.
+
+```python
+class ProductViewSet(viewsets.ModelViewSet):
+    serializer_class = ProductSerializer
+    permission_classes = [permissions.IsAuthenticated]
+
+    def get_queryset(self):
+        return Product.objects.filter(business__owner=self.request.user)
+```
+
+Use **Routers** for automatic URL generation instead of manually defining CRUD routes.
+
+```python
+from rest_framework.routers import SimpleRouter
+
+router = SimpleRouter()
+router.register(r'products', ProductViewSet, basename='product')
+urlpatterns = [path('', include(router.urls))]
+```
+
+## Specialized Views for Business Logic
+
+Use more specialized DRF views (`APIView`, `GenericAPIView`, custom actions) only when the endpoint represents business logic, workflows, or behavior that does not naturally fit a standard CRUD resource.
+
+Examples of appropriate specialized views:
+
+* File upload and import workflows (`APIView`)
+* Authentication endpoints (`GenericAPIView`, `CreateAPIView`)
+* Token refresh with cookie handling (`APIView`)
+* Action-based endpoints that perform multi-step operations (`@action` on ViewSets)
+
+## RESTful Conventions
+
+All APIs must follow RESTful conventions:
+
+* **Endpoint naming**: Use plural nouns for resource collections (`/api/products/`, `/api/businesses/`).
+* **HTTP methods**: `GET` for reads, `POST` for creation, `PUT`/`PATCH` for updates, `DELETE` for removal.
+* **Status codes**: Use standard HTTP status codes (`200`, `201`, `400`, `401`, `403`, `404`, `500`).
+* **Response format**: Consistent JSON responses with `detail` for error messages and resource data for success responses.
+
+## Filtering and Pagination
+
+* Use **filtering** as the preferred approach for querying resources instead of creating numerous specialized endpoints.
+* Use **pagination** as the default behavior for all endpoints returning collections of data.
+
+## API Documentation
+
+All APIs must be automatically included in the generated OpenAPI/Swagger documentation. Use DRF Spectacular or an equivalent tool to generate schema documentation.
+
+## Design Principles
+
+* APIs should be reusable, maintainable, and scalable.
+* Avoid duplicate code and inconsistent patterns across apps.
+* Keep views lightweight; put business logic in services.
+* Use serializers for validation, deserialization, and response formatting consistently.
+
+---
+
 # Development Philosophy
 
 The project follows a **Backend First** architecture.
@@ -609,6 +674,15 @@ Preferences
 * Keep business logic inside services
 * Views should remain lightweight
 * Models should represent data only
+* Use ViewSets for standard resource-based CRUD APIs
+* Use Routers for automatic URL generation
+* Use APIView, GenericAPIView, or custom actions for business logic and workflow endpoints
+* Follow RESTful conventions: plural noun endpoints, standard HTTP methods, consistent status codes and response formats
+* Apply filtering as the preferred approach for querying resources
+* Apply pagination as the default behavior for collection endpoints
+* Standardize serializer usage for validation and response formatting
+* Ensure all APIs are included in the generated OpenAPI/Swagger documentation
+* Encourage reusable, maintainable, and scalable API design
 
 ---
 
@@ -626,6 +700,12 @@ Preferences
 * Tailwind CSS is the frontend framework
 * Feature-based application architecture
 * Package-based app organization
+* ViewSets are the default for standard CRUD APIs
+* Routers provide automatic URL generation for resource endpoints
+* Specialized DRF views (APIView, GenericAPIView) are used for business logic and workflow endpoints
+* Filtering is the preferred approach for querying resources
+* Pagination is the default behavior for collection endpoints
+* All APIs are documented via generated OpenAPI/Swagger documentation
 
 ---
 

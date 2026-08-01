@@ -5,3 +5,6 @@ from .import_views import (
     InventoryImportCommitView,
     ReviewsImportCommitView
 )
+from .competitor_price import CompetitorPriceViewSet
+from .google_trends_data import GoogleTrendsDataViewSet
+from .import_batch import ImportBatchViewSet
