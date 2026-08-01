@@ -9,6 +9,9 @@ from .views import (
     PredictionViewSet,
     InsightViewSet,
 )
+from .views.sales_analytics import SalesAnalyticsView
+from .views.inventory_analytics import InventoryAnalyticsView
+from .views.customer_intelligence import CustomerIntelligenceView
 
 router = SimpleRouter()
 router.register(r'sales-records', SalesRecordViewSet, basename='sales-record')
@@ -20,5 +23,8 @@ router.register(r'predictions', PredictionViewSet, basename='prediction')
 router.register(r'insights', InsightViewSet, basename='insight')
 
 urlpatterns = [
+    path('sales-analysis/', SalesAnalyticsView.as_view(), name='sales-analytics'),
+    path('inventory-analysis/', InventoryAnalyticsView.as_view(), name='inventory-analytics'),
+    path('customer-analysis/', CustomerIntelligenceView.as_view(), name='customer-analysis'),
     path('', include(router.urls)),
 ]
