@@ -2,7 +2,7 @@ import React from 'react';
 
 export default function KPICard({ title, value, subtitle, change, isPositive, trendText, icon }) {
   return (
-    <div className="bg-white dark:bg-slate-900 border border-gray-200 dark:border-slate-800 rounded-2xl p-6 shadow-sm flex flex-col transition-all duration-300 hover:shadow-md">
+    <div className="bg-white dark:bg-slate-900 border border-gray-200 dark:border-slate-800 hover:border-indigo-500/40 dark:hover:border-indigo-500/40 hover:-translate-y-1 hover:shadow-lg hover:shadow-indigo-500/5 rounded-2xl p-6 shadow-sm flex flex-col transition-all duration-300">
       <div className="flex items-center justify-between mb-4">
         <h3 className="text-sm font-semibold text-gray-500 dark:text-slate-400 font-display">{title}</h3>
         {icon && (
