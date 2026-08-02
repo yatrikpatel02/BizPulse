@@ -10,7 +10,7 @@ export default function RevenueByCategory() {
 
   const [hoveredIdx, setHoveredIdx] = useState(null);
 
-  const r = 30;
+  const r = 37;
   const cx = 50;
   const cy = 50;
   const circumference = 2 * Math.PI * r;
@@ -26,7 +26,7 @@ export default function RevenueByCategory() {
 
       {/* Donut Chart Visual */}
       <div className="flex items-center justify-center py-6">
-        <svg viewBox="0 0 100 100" className="w-40 h-40 transform -rotate-90 overflow-visible">
+        <svg viewBox="0 0 100 100" className="w-44 h-44 transform -rotate-90 overflow-visible">
           {segments.map((seg, idx) => {
             const segmentCircumference = (seg.value / 100) * circumference;
             // Subtract a small gap (2px) from segment stroke to create spacing
@@ -61,21 +61,21 @@ export default function RevenueByCategory() {
             <g className="text-center transform rotate-90 select-none pointer-events-none origin-center">
               <text
                 x={cx}
-                y={cy - 5}
+                y={cy - 4}
                 textAnchor="middle"
                 className={`${
-                  segments[hoveredIdx].label.length > 8 ? 'text-[5px]' : 'text-[6.5px]'
+                  segments[hoveredIdx].label.length > 8 ? 'text-[7px]' : 'text-[8.5px]'
                 } font-bold fill-gray-400 dark:fill-slate-500 uppercase tracking-wider`}
-                textLength={segments[hoveredIdx].label.length > 8 ? "34" : undefined}
+                textLength={segments[hoveredIdx].label.length > 8 ? "42" : undefined}
                 lengthAdjust={segments[hoveredIdx].label.length > 8 ? "spacingAndGlyphs" : undefined}
               >
                 {segments[hoveredIdx].label}
               </text>
               <text
                 x={cx}
-                y={cy + 9}
+                y={cy + 10}
                 textAnchor="middle"
-                className="text-[12px] font-extrabold fill-gray-900 dark:fill-white font-display"
+                className="text-[14px] font-extrabold fill-gray-900 dark:fill-white font-display"
               >
                 {segments[hoveredIdx].value}%
               </text>
@@ -84,17 +84,17 @@ export default function RevenueByCategory() {
             <g className="text-center transform rotate-90 select-none pointer-events-none origin-center">
               <text
                 x={cx}
-                y={cy - 5}
+                y={cy - 4}
                 textAnchor="middle"
-                className="text-[6.5px] font-bold fill-gray-400 dark:fill-slate-500 uppercase tracking-wider"
+                className="text-[8.5px] font-bold fill-gray-400 dark:fill-slate-500 uppercase tracking-wider"
               >
                 Total
               </text>
               <text
                 x={cx}
-                y={cy + 9}
+                y={cy + 10}
                 textAnchor="middle"
-                className="text-[12px] font-extrabold fill-gray-900 dark:fill-white font-display"
+                className="text-[14px] font-extrabold fill-gray-900 dark:fill-white font-display"
               >
                 100%
               </text>
