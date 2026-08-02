@@ -13,7 +13,7 @@ export default function KPICard({ title, value, subtitle, change, isPositive, tr
       </div>
       
       <div className="space-y-1.5 flex-1">
-        <div className="text-3xl font-bold text-gray-900 dark:text-white font-display">
+        <div className="text-2xl sm:text-[28px] lg:text-2xl xl:text-3xl font-bold text-gray-900 dark:text-white font-display tracking-tight truncate">
           {value}
         </div>
         {subtitle && (
@@ -24,12 +24,12 @@ export default function KPICard({ title, value, subtitle, change, isPositive, tr
       </div>
       
       {(change || trendText) && (
-        <div className="mt-4 flex items-center text-xs font-semibold">
-          <span className={`flex items-center mr-1.5 ${isPositive ? 'text-emerald-600 dark:text-emerald-400' : 'text-rose-600 dark:text-rose-400'}`}>
+        <div className="mt-4 flex flex-wrap items-center gap-x-1.5 gap-y-0.5 text-xs font-semibold leading-none">
+          <span className={`inline-flex items-center ${isPositive ? 'text-emerald-600 dark:text-emerald-400' : 'text-rose-600 dark:text-rose-400'}`}>
             {isPositive ? '↗' : '↘'} {change}
           </span>
           {trendText && (
-            <span className="text-gray-400 dark:text-slate-500 font-medium">{trendText}</span>
+            <span className="text-gray-400 dark:text-slate-500 font-medium whitespace-nowrap">{trendText}</span>
           )}
         </div>
       )}
