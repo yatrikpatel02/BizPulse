@@ -50,33 +50,35 @@ export default function Sidebar({ isOpen, setIsOpen }) {
       {/* Mobile overlay */}
       {isOpen && (
         <div 
-          className="fixed inset-0 bg-gray-800 bg-opacity-50 z-20 lg:hidden"
+          className="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-20 lg:hidden"
           onClick={() => setIsOpen(false)}
         />
       )}
       
       {/* Sidebar */}
-      <div className={`fixed lg:static inset-y-0 left-0 z-30 flex flex-col bg-white dark:bg-slate-900 border-r dark:border-slate-800 h-screen transition-all duration-300 ease-in-out overflow-hidden ${
+      <div className={`fixed lg:static inset-y-0 left-0 z-30 flex flex-col bg-white dark:bg-slate-900/80 backdrop-blur-md border-r border-gray-200/60 dark:border-slate-800/60 h-screen transition-all duration-300 ease-in-out overflow-hidden ${
         isOpen ? 'w-64 translate-x-0' : 'w-0 -translate-x-full lg:translate-x-0'
       }`}>
-        <div className="flex items-center justify-center h-16 border-b dark:border-slate-800 min-w-[16rem]">
-          <h1 className="text-2xl font-bold text-indigo-600 dark:text-indigo-400">BizPulse</h1>
+        <div className="flex items-center justify-center h-16 border-b border-gray-200/60 dark:border-slate-800/60 min-w-[16rem]">
+          <h1 className="text-2xl font-bold tracking-tight font-display bg-clip-text text-transparent bg-gradient-to-r from-indigo-500 to-indigo-600 dark:from-indigo-400 dark:to-indigo-500">
+            BizPulse
+          </h1>
         </div>
         <div className="min-w-[16rem]">
           <CompanySwitcher />
         </div>
         <div className="flex flex-col flex-1 overflow-y-auto min-w-[16rem]">
-          <nav className="flex-1 px-4 py-4 space-y-2">
+          <nav className="flex-1 px-4 py-4 space-y-1">
             {navItems.map((item) => (
               <NavLink
                 key={item.name}
                 to={item.path}
                 end
                 className={({ isActive }) =>
-                  `flex items-center px-4 py-3 text-sm font-medium rounded-lg border transition-colors duration-200 ${
+                  `flex items-center px-4 py-3 text-sm font-semibold rounded-xl border transition-all duration-200 ${
                     isActive
-                      ? 'bg-indigo-50 dark:bg-indigo-900/30 text-indigo-700 dark:text-indigo-300 border-black dark:border-white'
-                      : 'border-transparent text-gray-600 dark:text-slate-400 hover:bg-gray-50 dark:hover:bg-slate-800/50 hover:text-gray-900 dark:hover:text-slate-200'
+                      ? 'bg-indigo-50 dark:bg-indigo-950/40 text-indigo-600 dark:text-indigo-400 border-indigo-500/50 dark:border-indigo-500/30 shadow-sm'
+                      : 'border-transparent text-gray-700 dark:text-slate-300 hover:bg-gray-100/50 dark:hover:bg-slate-800/50 hover:text-gray-900 dark:hover:text-white'
                   }`
                 }
               >
@@ -86,10 +88,10 @@ export default function Sidebar({ isOpen, setIsOpen }) {
             ))}
           </nav>
         </div>
-        <div className="border-t dark:border-slate-800 p-4 min-w-[16rem] space-y-2">
+        <div className="border-t border-gray-200/60 dark:border-slate-800/60 p-4 min-w-[16rem] space-y-2">
           <button
             onClick={logout}
-            className="flex items-center w-full px-4 py-3 text-sm font-medium text-red-600 dark:text-red-400 rounded-lg hover:bg-red-50 dark:hover:bg-red-900/30 transition-colors"
+            className="flex items-center w-full px-4 py-3 text-sm font-semibold text-red-600 dark:text-red-400 rounded-xl hover:bg-red-50 dark:hover:bg-red-950/20 transition-all duration-200"
           >
             <svg className="mr-3 w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" /></svg>
             Logout

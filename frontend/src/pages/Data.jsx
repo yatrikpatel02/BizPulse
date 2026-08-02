@@ -92,7 +92,7 @@ export default function Data() {
                   {stepNumber < 3 && (
                     <div className={`absolute top-5 left-1/2 w-full h-[2px] -z-10 ${
                       isPast ? 'bg-indigo-200 dark:bg-indigo-900/50' : 'bg-gray-200 dark:bg-slate-800'
-                    }`} style={{ transform: 'translateX(50%)' }} />
+                    }`} />
                   )}
                 </div>
               );
