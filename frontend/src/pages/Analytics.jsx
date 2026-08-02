@@ -397,7 +397,7 @@ export default function Analytics() {
                       {card.icon}
                     </div>
                   </div>
-                  <div className="text-2xl font-extrabold text-gray-900 dark:text-slate-50 tracking-tight">
+                  <div className="text-xl sm:text-2xl lg:text-lg xl:text-2xl font-extrabold text-gray-900 dark:text-slate-50 tracking-tight truncate">
                     <AnimatedCounter 
                       value={card.value} 
                       prefix={card.isAmount ? '₹' : ''} 
@@ -513,7 +513,7 @@ export default function Analytics() {
                       {card.icon}
                     </div>
                   </div>
-                  <div className="text-2xl font-extrabold text-gray-900 dark:text-slate-50 tracking-tight">
+                  <div className="text-xl sm:text-2xl lg:text-lg xl:text-2xl font-extrabold text-gray-900 dark:text-slate-50 tracking-tight truncate">
                     <AnimatedCounter 
                       value={card.value} 
                       prefix={card.isAmount ? '₹' : ''} 
@@ -598,7 +598,7 @@ export default function Analytics() {
                       {card.icon}
                     </div>
                   </div>
-                  <div className="text-2xl font-extrabold text-gray-900 dark:text-slate-50 tracking-tight">
+                  <div className="text-xl sm:text-2xl lg:text-lg xl:text-2xl font-extrabold text-gray-900 dark:text-slate-50 tracking-tight truncate">
                     <AnimatedCounter 
                       value={card.value} 
                       prefix={card.isAmount ? '₹' : ''} 
