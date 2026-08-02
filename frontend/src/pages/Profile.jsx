@@ -13,7 +13,7 @@ const checks = [
 ];
 
 export default function Profile() {
-  const { user, updateProfile, logout } = useAuth();
+  const { user, updateProfile } = useAuth();
   const { businesses, removeBusiness, editBusiness } = useBusiness();
   const [isAddModalOpen, setIsAddModalOpen] = useState(false);
 
@@ -34,12 +34,6 @@ export default function Profile() {
   const [passwordError, setPasswordError] = useState('');
   const [passwordSuccess, setPasswordSuccess] = useState('');
   const [passwordLoading, setPasswordLoading] = useState(false);
-
-  // Delete account state
-  const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
-  const [deleteLoading, setDeleteLoading] = useState(false);
-  const [confirmPassword, setConfirmPassword] = useState('');
-  const [deleteError, setDeleteError] = useState('');
 
   // Inline edit state
   const [editingId, setEditingId] = useState(null);
@@ -91,22 +85,6 @@ export default function Profile() {
       setPasswordError(err.response?.data?.detail || err.response?.data?.old_password?.[0] || err.response?.data?.new_password?.[0] || 'Failed to update password.');
     } finally {
       setPasswordLoading(false);
-    }
-  };
-
-  const handleDeleteAccount = async () => {
-    if (!confirmPassword) {
-      setDeleteError('Password is required.');
-      return;
-    }
-    setDeleteLoading(true);
-    setDeleteError('');
-    try {
-      await api.delete('/accounts/profile/delete/', { data: { password: confirmPassword } });
-      logout();
-    } catch (err) {
-      setDeleteError(err.response?.data?.detail || 'Failed to delete account. Please check your password.');
-      setDeleteLoading(false);
     }
   };
 
@@ -204,7 +182,7 @@ export default function Profile() {
 
       {/* Lower section grid */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-        {/* Security & Danger Zone section */}
+        {/* Security section */}
         <div className="lg:col-span-1 space-y-6">
           {/* Change Password Card */}
           <div className="glass-card rounded-2xl p-6 shadow-sm">
@@ -318,73 +296,6 @@ export default function Profile() {
                     {passwordLoading ? 'Updating...' : 'Update Password'}
                   </button>
                 </form>
-              </div>
-            )}
-          </div>
-
-          {/* Danger Zone Card */}
-          <div className="glass-card rounded-2xl p-6 border border-red-200/10 dark:border-red-500/10 shadow-sm bg-red-500/[0.01] space-y-4">
-            <h3 className="text-lg font-bold text-red-600 dark:text-red-400 font-display">Delete Account</h3>
-            <p className="text-xs text-gray-500 dark:text-slate-400 leading-relaxed">
-              Once you delete your account, all your uploaded datasets and analytics will be permanently removed.
-            </p>
-            
-            {deleteError && (
-              <div className="bg-red-500/10 border border-red-500/20 text-red-400 p-2.5 rounded-xl text-xs font-semibold">
-                {deleteError}
-              </div>
-            )}
-            
-            {!showDeleteConfirm ? (
-              <button
-                type="button"
-                onClick={() => {
-                  setShowDeleteConfirm(true);
-                  setDeleteError('');
-                }}
-                className="w-full py-2.5 bg-red-600 hover:bg-red-700 text-white text-xs font-semibold rounded-xl transition-all shadow-sm shadow-red-500/10"
-              >
-                Delete Account
-              </button>
-            ) : (
-              <div className="space-y-4 animate-fade-in">
-                <div className="bg-red-500/10 border border-red-500/20 text-red-600 dark:text-red-400 p-3 rounded-xl text-xs font-medium">
-                  Are you absolutely sure? This action is irreversible.
-                </div>
-                
-                <div className="space-y-1.5">
-                  <label className="block text-[10px] font-semibold text-gray-400 dark:text-slate-500 uppercase tracking-wider">Confirm with Password</label>
-                  <input
-                    type="password"
-                    value={confirmPassword}
-                    onChange={(e) => setConfirmPassword(e.target.value)}
-                    required
-                    className="block w-full px-3.5 py-2.5 bg-gray-50/50 dark:bg-slate-950/40 border border-gray-250 dark:border-slate-800 focus:border-indigo-500 rounded-xl text-gray-900 dark:text-white placeholder-gray-400 focus:outline-none text-xs transition-all"
-                    placeholder="••••••••"
-                  />
-                </div>
-
-                <div className="flex gap-2">
-                  <button
-                    type="button"
-                    onClick={handleDeleteAccount}
-                    disabled={deleteLoading || !confirmPassword}
-                    className="flex-1 py-2 bg-red-600 hover:bg-red-700 text-white text-xs font-semibold rounded-xl transition-all disabled:opacity-40"
-                  >
-                    {deleteLoading ? 'Deleting...' : 'Yes, Delete'}
-                  </button>
-                  <button
-                    type="button"
-                    onClick={() => {
-                      setShowDeleteConfirm(false);
-                      setConfirmPassword('');
-                      setDeleteError('');
-                    }}
-                    className="flex-1 py-2 border border-gray-200 dark:border-slate-800 hover:bg-gray-50 dark:hover:bg-slate-800 text-gray-700 dark:text-slate-300 text-xs font-semibold rounded-xl transition-all"
-                  >
-                    Cancel
-                  </button>
-                </div>
               </div>
             )}
           </div>
