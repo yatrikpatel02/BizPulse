@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 export default function RevenueByCategory() {
   const segments = [
@@ -7,6 +7,8 @@ export default function RevenueByCategory() {
     { label: 'Home & Living', value: 18, color: '#c7d2fe' },
     { label: 'Beauty', value: 15, color: '#e0e7ff' },
   ];
+
+  const [hoveredIdx, setHoveredIdx] = useState(null);
 
   const r = 30;
   const cx = 50;
@@ -40,31 +42,88 @@ export default function RevenueByCategory() {
                 cx={cx}
                 cy={cy}
                 r={r}
-                fill="transparent"
+                fill="none"
                 stroke={seg.color}
-                strokeWidth={10}
+                strokeWidth={hoveredIdx === idx ? 13 : 10}
                 strokeDasharray={strokeDash}
                 strokeDashoffset={strokeOffset}
                 strokeLinecap="round"
-                className="transition-all duration-500"
+                onMouseEnter={() => setHoveredIdx(idx)}
+                onMouseLeave={() => setHoveredIdx(null)}
+                className="transition-all duration-300 ease-out cursor-pointer"
+                pointerEvents="stroke"
               />
             );
           })}
+
+          {/* Donut Hole Centered Information */}
+          {hoveredIdx !== null ? (
+            <g className="text-center transform rotate-90 select-none pointer-events-none origin-center">
+              <text
+                x={cx}
+                y={cy - 2}
+                textAnchor="middle"
+                className="text-[6.5px] font-bold fill-gray-400 dark:fill-slate-500 uppercase tracking-wider"
+              >
+                {segments[hoveredIdx].label}
+              </text>
+              <text
+                x={cx}
+                y={cy + 7}
+                textAnchor="middle"
+                className="text-[12px] font-extrabold fill-gray-900 dark:fill-white font-display"
+              >
+                {segments[hoveredIdx].value}%
+              </text>
+            </g>
+          ) : (
+            <g className="text-center transform rotate-90 select-none pointer-events-none origin-center">
+              <text
+                x={cx}
+                y={cy - 2}
+                textAnchor="middle"
+                className="text-[6.5px] font-bold fill-gray-400 dark:fill-slate-500 uppercase tracking-wider"
+              >
+                Total
+              </text>
+              <text
+                x={cx}
+                y={cy + 7}
+                textAnchor="middle"
+                className="text-[12px] font-extrabold fill-gray-900 dark:fill-white font-display"
+              >
+                100%
+              </text>
+            </g>
+          )}
         </svg>
       </div>
 
       {/* Legend list */}
-      <div className="space-y-3 mt-2 border-t border-gray-50 dark:border-slate-800/60 pt-4">
+      <div className="space-y-1.5 mt-2 border-t border-gray-50 dark:border-slate-800/60 pt-4">
         {segments.map((seg, idx) => (
-          <div key={idx} className="flex items-center justify-between text-sm">
+          <div 
+            key={idx} 
+            className={`flex items-center justify-between text-sm px-2.5 py-1.5 rounded-xl transition-all duration-200 cursor-pointer ${
+              hoveredIdx === idx 
+                ? 'bg-indigo-50/50 dark:bg-indigo-950/20 translate-x-1.5' 
+                : 'hover:bg-gray-50/50 dark:hover:bg-slate-850/30'
+            }`}
+            onMouseEnter={() => setHoveredIdx(idx)}
+            onMouseLeave={() => setHoveredIdx(null)}
+          >
             <div className="flex items-center gap-2">
               <span 
-                className="w-3 h-3 rounded-full flex-shrink-0"
+                className="w-2.5 h-2.5 rounded-full flex-shrink-0"
                 style={{ backgroundColor: seg.color }}
               />
-              <span className="font-semibold text-gray-700 dark:text-slate-300">{seg.label}</span>
+              <span className={`font-semibold transition-colors ${
+                hoveredIdx === idx ? 'text-indigo-600 dark:text-indigo-400 font-bold' : 'text-gray-700 dark:text-slate-350'
+              }`}>{seg.label}</span>
             </div>
-            <span className="font-bold text-gray-900 dark:text-white">{seg.value}%</span>
+            <span className={`font-bold transition-colors ${
+              hoveredIdx === idx ? 'text-indigo-600 dark:text-indigo-400 font-extrabold' : 'text-gray-900 dark:text-white'
+            }`}>{seg.value}%</span>
           </div>
         ))}
       </div>

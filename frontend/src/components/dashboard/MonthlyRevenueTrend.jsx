@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 export default function MonthlyRevenueTrend() {
   const data = [
@@ -9,6 +9,8 @@ export default function MonthlyRevenueTrend() {
     { month: 'May', value: 144 },
     { month: 'Jun', value: 162 }
   ];
+
+  const [hoveredIndex, setHoveredIndex] = useState(null);
 
   // Graph dimensions
   const width = 500;
@@ -88,6 +90,19 @@ export default function MonthlyRevenueTrend() {
             fill="url(#revenueAreaGradient)"
           />
 
+          {/* Vertical guide line on hover */}
+          {hoveredIndex !== null && (
+            <line
+              x1={getX(hoveredIndex)}
+              y1={paddingTop}
+              x2={getX(hoveredIndex)}
+              y2={paddingTop + chartHeight}
+              className="stroke-indigo-500/30 dark:stroke-indigo-400/25"
+              strokeWidth={1.5}
+              strokeDasharray="3 3"
+            />
+          )}
+
           {/* Main Line */}
           <polyline
             fill="none"
@@ -98,15 +113,52 @@ export default function MonthlyRevenueTrend() {
             strokeLinejoin="round"
           />
 
-          {/* Interactive Marker Dots */}
+          {/* Static Marker Dots */}
           {data.map((d, i) => (
             <circle
               key={i}
               cx={getX(i)}
               cy={getY(d.value)}
-              r={4.5}
-              className="fill-indigo-600 dark:fill-indigo-400 stroke-white dark:stroke-slate-900"
-              strokeWidth={2}
+              r={hoveredIndex === i ? 6 : 4.5}
+              className="fill-indigo-600 dark:fill-indigo-400 stroke-white dark:stroke-slate-900 transition-all duration-150"
+              strokeWidth={hoveredIndex === i ? 2.5 : 2}
+            />
+          ))}
+
+          {/* Tooltip Popup */}
+          {hoveredIndex !== null && (
+            <g transform={`translate(${getX(hoveredIndex)}, ${getY(data[hoveredIndex].value) - 28})`} className="pointer-events-none select-none">
+              {/* Tooltip Background Card */}
+              <rect
+                x={-35}
+                y={-18}
+                width={70}
+                height={26}
+                rx={6}
+                className="fill-slate-900/90 dark:fill-slate-100/95"
+              />
+              {/* Tooltip Text */}
+              <text
+                className="text-[10px] font-bold fill-white dark:fill-slate-900 font-sans"
+                textAnchor="middle"
+                y={-1}
+                dy=".3em"
+              >
+                ₹{data[hoveredIndex].value}K
+              </text>
+            </g>
+          )}
+
+          {/* Invisible larger hover triggers for easy mouse interactions */}
+          {data.map((d, i) => (
+            <circle
+              key={`trigger-${i}`}
+              cx={getX(i)}
+              cy={getY(d.value)}
+              r={20}
+              className="fill-transparent cursor-pointer"
+              onMouseEnter={() => setHoveredIndex(i)}
+              onMouseLeave={() => setHoveredIndex(null)}
             />
           ))}
 
