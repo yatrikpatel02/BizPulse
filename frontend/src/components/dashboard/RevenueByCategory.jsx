@@ -63,7 +63,11 @@ export default function RevenueByCategory() {
                 x={cx}
                 y={cy - 5}
                 textAnchor="middle"
-                className="text-[6.5px] font-bold fill-gray-400 dark:fill-slate-500 uppercase tracking-wider"
+                className={`${
+                  segments[hoveredIdx].label.length > 8 ? 'text-[5px]' : 'text-[6.5px]'
+                } font-bold fill-gray-400 dark:fill-slate-500 uppercase tracking-wider`}
+                textLength={segments[hoveredIdx].label.length > 8 ? "34" : undefined}
+                lengthAdjust={segments[hoveredIdx].label.length > 8 ? "spacingAndGlyphs" : undefined}
               >
                 {segments[hoveredIdx].label}
               </text>
