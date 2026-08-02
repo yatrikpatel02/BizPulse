@@ -102,84 +102,94 @@ export default function Profile() {
   const userInitials = (user?.first_name?.charAt(0) || '') + (user?.last_name?.charAt(0) || '') || user?.username?.charAt(0) || 'U';
 
   return (
-    <div className="space-y-8">
+    <div className="space-y-8 animate-fade-in">
       {/* Header */}
       <div>
         <h1 className="text-3xl font-bold text-gray-900 dark:text-slate-100 font-display">Profile Management</h1>
         <p className="text-sm text-gray-500 dark:text-slate-400 mt-1">Manage your user profile settings, password, and registered companies</p>
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-        {/* Left Column: Account Details & Security */}
-        <div className="lg:col-span-1 space-y-8">
-          {/* User Info Card */}
-          <div className="glass-card rounded-2xl p-6 shadow-sm flex flex-col items-center text-center">
-            <div className="w-20 h-20 bg-indigo-500/10 rounded-full flex items-center justify-center text-indigo-600 dark:text-indigo-400 font-bold text-2.5xl uppercase ring-4 ring-indigo-500/10 shadow-md mb-4 font-display">
-              {userInitials}
+      {/* User Info Card (Wider, horizontal design with decreased height) */}
+      <div className="glass-card rounded-2xl p-6 shadow-sm flex flex-col md:flex-row items-center md:items-start gap-8">
+        {/* Left: Avatar */}
+        <div className="flex flex-col items-center text-center md:border-r border-gray-100 dark:border-slate-800 md:pr-8 md:min-w-[200px]">
+          <div className="w-20 h-20 bg-indigo-500/10 rounded-full flex items-center justify-center text-indigo-600 dark:text-indigo-400 font-bold text-2.5xl uppercase ring-4 ring-indigo-500/10 shadow-md mb-4 font-display">
+            {userInitials}
+          </div>
+          <h2 className="text-xl font-bold text-gray-800 dark:text-slate-100 font-display">
+            {user?.first_name || user?.last_name ? `${user.first_name} ${user.last_name}` : user?.username}
+          </h2>
+          <p className="text-xs text-gray-500 dark:text-slate-400 mt-1">{user?.email}</p>
+        </div>
+
+        {/* Right: Personal details fields side-by-side */}
+        <div className="flex-1 w-full">
+          <form onSubmit={handleProfileUpdate} className="space-y-5">
+            <div className="flex items-center justify-between">
+              <h3 className="text-xs font-bold text-gray-400 dark:text-slate-500 uppercase tracking-wider">Personal Profile Details</h3>
+              {profileSuccess && (
+                <p className="text-xs font-semibold text-emerald-500">{profileSuccess}</p>
+              )}
+              {profileError && (
+                <p className="text-xs font-semibold text-red-500">{profileError}</p>
+              )}
             </div>
-            <h2 className="text-xl font-bold text-gray-800 dark:text-slate-100 font-display">
-              {user?.first_name || user?.last_name ? `${user.first_name} ${user.last_name}` : user?.username}
-            </h2>
-            <p className="text-xs text-gray-500 dark:text-slate-400 mt-1">{user?.email}</p>
 
-            <div className="w-full border-t dark:border-slate-800 my-4"></div>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div>
+                <label className="block text-[10px] font-semibold text-gray-400 dark:text-slate-500 uppercase tracking-wider mb-1.5">First Name</label>
+                <input
+                  type="text"
+                  value={firstName}
+                  onChange={(e) => setFirstName(e.target.value)}
+                  className="block w-full px-3.5 py-2 bg-gray-50/50 dark:bg-slate-950/40 border border-gray-200 dark:border-slate-800 focus:border-indigo-500 rounded-xl text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-slate-500 focus:outline-none text-xs transition-all"
+                  placeholder="First Name"
+                />
+              </div>
+              <div>
+                <label className="block text-[10px] font-semibold text-gray-400 dark:text-slate-500 uppercase tracking-wider mb-1.5">Last Name</label>
+                <input
+                  type="text"
+                  value={lastName}
+                  onChange={(e) => setLastName(e.target.value)}
+                  className="block w-full px-3.5 py-2 bg-gray-50/50 dark:bg-slate-950/40 border border-gray-200 dark:border-slate-800 focus:border-indigo-500 rounded-xl text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-slate-500 focus:outline-none text-xs transition-all"
+                  placeholder="Last Name"
+                />
+              </div>
+            </div>
 
-            <div className="w-full text-left space-y-4">
-              <form onSubmit={handleProfileUpdate} className="space-y-3.5">
-                {profileSuccess && (
-                  <p className="text-xs font-semibold text-emerald-500">{profileSuccess}</p>
-                )}
-                {profileError && (
-                  <p className="text-xs font-semibold text-red-500">{profileError}</p>
-                )}
-                <div className="grid grid-cols-2 gap-3">
-                  <div>
-                    <label className="block text-[10px] font-semibold text-gray-400 dark:text-slate-500 uppercase tracking-wider mb-1">First Name</label>
-                    <input
-                      type="text"
-                      value={firstName}
-                      onChange={(e) => setFirstName(e.target.value)}
-                      className="block w-full px-3 py-1.5 bg-gray-50/50 dark:bg-slate-950/40 border border-gray-200 dark:border-slate-800 focus:border-indigo-500 rounded-xl text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-slate-500 focus:outline-none text-xs transition-all"
-                      placeholder="First Name"
-                    />
-                  </div>
-                  <div>
-                    <label className="block text-[10px] font-semibold text-gray-400 dark:text-slate-500 uppercase tracking-wider mb-1">Last Name</label>
-                    <input
-                      type="text"
-                      value={lastName}
-                      onChange={(e) => setLastName(e.target.value)}
-                      className="block w-full px-3 py-1.5 bg-gray-50/50 dark:bg-slate-950/40 border border-gray-200 dark:border-slate-800 focus:border-indigo-500 rounded-xl text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-slate-500 focus:outline-none text-xs transition-all"
-                      placeholder="Last Name"
-                    />
-                  </div>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div>
+                <span className="block text-[10px] font-semibold text-gray-400 dark:text-slate-500 uppercase tracking-wider mb-1.5">Username</span>
+                <div className="px-3.5 py-2 bg-gray-100/70 dark:bg-slate-900 border border-gray-200 dark:border-slate-850 rounded-xl text-gray-500 dark:text-slate-400 text-xs font-semibold">
+                  {user?.username}
                 </div>
-                
-                <button
-                  type="submit"
-                  disabled={profileLoading}
-                  className="w-full py-2 bg-indigo-600 hover:bg-indigo-700 dark:bg-indigo-500 dark:hover:bg-indigo-600 text-white text-[11px] font-semibold rounded-xl transition-all"
-                >
-                  {profileLoading ? 'Saving...' : 'Save Profile Details'}
-                </button>
-              </form>
-
-              <div className="w-full border-t dark:border-slate-800 my-4"></div>
-
-              <div className="space-y-3">
-                <div>
-                  <span className="text-[11px] font-semibold text-gray-400 dark:text-slate-500 uppercase tracking-wider block">Username</span>
-                  <span className="text-sm font-semibold text-gray-700 dark:text-slate-300">{user?.username}</span>
-                </div>
-                <div>
-                  <span className="text-[11px] font-semibold text-gray-400 dark:text-slate-500 uppercase tracking-wider block">Email Address</span>
-                  <span className="text-sm font-semibold text-gray-700 dark:text-slate-300">{user?.email}</span>
+              </div>
+              <div>
+                <span className="block text-[10px] font-semibold text-gray-400 dark:text-slate-500 uppercase tracking-wider mb-1.5">Email Address</span>
+                <div className="px-3.5 py-2 bg-gray-100/70 dark:bg-slate-900 border border-gray-200 dark:border-slate-850 rounded-xl text-gray-500 dark:text-slate-400 text-xs font-semibold">
+                  {user?.email}
                 </div>
               </div>
             </div>
-          </div>
+            
+            <div className="pt-1 flex justify-end">
+              <button
+                type="submit"
+                disabled={profileLoading}
+                className="px-6 py-2.5 bg-indigo-600 hover:bg-indigo-700 dark:bg-indigo-500 dark:hover:bg-indigo-600 text-white text-xs font-semibold rounded-xl transition-all shadow-sm shadow-indigo-500/10"
+              >
+                {profileLoading ? 'Saving...' : 'Save Profile Details'}
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
 
-          {/* Change Password Card */}
+      {/* Lower section grid */}
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+        {/* Security & Password section */}
+        <div className="lg:col-span-1">
           <div className="glass-card rounded-2xl p-6 shadow-sm">
             {!showPasswordForm ? (
               <div className="py-4 text-center space-y-4">
@@ -296,7 +306,7 @@ export default function Profile() {
           </div>
         </div>
 
-        {/* Right Column: Manage Companies */}
+        {/* Manage Companies section */}
         <div className="lg:col-span-2 space-y-6">
           <div className="glass-card rounded-2xl p-6 shadow-sm space-y-6">
             <div className="flex items-center justify-between">
@@ -315,17 +325,17 @@ export default function Profile() {
               </div>
             )}
 
-            <div className="border dark:border-slate-800 rounded-xl overflow-hidden">
+            <div className="border border-gray-100 dark:border-slate-800 rounded-xl overflow-hidden">
               <table className="w-full text-sm">
                 <thead>
-                  <tr className="bg-gray-50 dark:bg-slate-800/40 border-b dark:border-slate-800">
+                  <tr className="bg-gray-50 dark:bg-slate-850 border-b border-gray-100 dark:border-slate-800">
                     <th className="px-5 py-3 text-left text-xs font-semibold text-gray-400 dark:text-slate-500 uppercase tracking-wider">Company Name</th>
                     <th className="px-5 py-3 text-right text-xs font-semibold text-gray-400 dark:text-slate-500 uppercase tracking-wider">Actions</th>
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-gray-150 dark:divide-slate-800/60">
                   {businesses.map((business) => (
-                    <tr key={business.id} className="hover:bg-gray-50 dark:hover:bg-slate-800/20 transition-colors">
+                    <tr key={business.id} className="hover:bg-gray-50/50 dark:hover:bg-slate-800/20 transition-colors">
                       <td className="px-5 py-4">
                         {editingId === business.id ? (
                           <input
