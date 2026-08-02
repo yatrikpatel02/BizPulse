@@ -138,3 +138,20 @@ class ChangePasswordView(views.APIView):
         user.set_password(serializer.validated_data['new_password'])
         user.save()
         return Response({'detail': 'Password changed successfully.'}, status=status.HTTP_200_OK)
+
+
+class DeleteAccountView(views.APIView):
+    permission_classes = [permissions.IsAuthenticated]
+
+    def delete(self, request, *args, **kwargs):
+        user = request.user
+        password = request.data.get('password')
+        if not password:
+            return Response({'detail': 'Password is required.'}, status=status.HTTP_400_BAD_REQUEST)
+        if not user.check_password(password):
+            return Response({'detail': 'Incorrect password.'}, status=status.HTTP_400_BAD_REQUEST)
+
+        user.delete()
+        response = Response({'detail': 'Account deleted successfully.'}, status=status.HTTP_204_NO_CONTENT)
+        clear_refresh_cookie(response)
+        return response

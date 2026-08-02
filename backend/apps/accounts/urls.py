@@ -9,5 +9,6 @@ urlpatterns = [
     path('token/refresh/', auth.CookieTokenRefreshView.as_view(), name='token_refresh'),
     path('profile/', auth.ProfileView.as_view(), name='profile'),
     path('profile/change-password/', auth.ChangePasswordView.as_view(), name='change_password'),
+    path('profile/delete/', auth.DeleteAccountView.as_view(), name='delete_account'),
     path('social/google/', social_auth.GoogleAuthView.as_view(), name='social_google'),
 ]

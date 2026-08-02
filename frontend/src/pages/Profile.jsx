@@ -13,7 +13,7 @@ const checks = [
 ];
 
 export default function Profile() {
-  const { user, updateProfile } = useAuth();
+  const { user, updateProfile, logout } = useAuth();
   const { businesses, removeBusiness, editBusiness } = useBusiness();
   const [isAddModalOpen, setIsAddModalOpen] = useState(false);
 
@@ -34,6 +34,12 @@ export default function Profile() {
   const [passwordError, setPasswordError] = useState('');
   const [passwordSuccess, setPasswordSuccess] = useState('');
   const [passwordLoading, setPasswordLoading] = useState(false);
+
+  // Delete account state
+  const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
+  const [deleteLoading, setDeleteLoading] = useState(false);
+  const [confirmPassword, setConfirmPassword] = useState('');
+  const [deleteError, setDeleteError] = useState('');
 
   // Inline edit state
   const [editingId, setEditingId] = useState(null);
@@ -88,6 +94,22 @@ export default function Profile() {
     }
   };
 
+  const handleDeleteAccount = async () => {
+    if (!confirmPassword) {
+      setDeleteError('Password is required.');
+      return;
+    }
+    setDeleteLoading(true);
+    setDeleteError('');
+    try {
+      await api.delete('/accounts/profile/delete/', { data: { password: confirmPassword } });
+      logout();
+    } catch (err) {
+      setDeleteError(err.response?.data?.detail || 'Failed to delete account. Please check your password.');
+      setDeleteLoading(false);
+    }
+  };
+
   const handleSaveEdit = async (id) => {
     if (!editName.trim()) return;
     setEditError('');
@@ -103,7 +125,6 @@ export default function Profile() {
 
   return (
     <div className="space-y-8 animate-fade-in">
-
       {/* User Info Card (Wider, horizontal design with decreased height) */}
       <div className="glass-card rounded-2xl p-6 shadow-sm flex flex-col md:flex-row items-center md:items-start gap-8">
         {/* Left: Avatar */}
@@ -183,8 +204,9 @@ export default function Profile() {
 
       {/* Lower section grid */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-        {/* Security & Password section */}
-        <div className="lg:col-span-1">
+        {/* Security & Danger Zone section */}
+        <div className="lg:col-span-1 space-y-6">
+          {/* Change Password Card */}
           <div className="glass-card rounded-2xl p-6 shadow-sm">
             {!showPasswordForm ? (
               <div className="py-4 text-center space-y-4">
@@ -299,6 +321,73 @@ export default function Profile() {
               </div>
             )}
           </div>
+
+          {/* Danger Zone Card */}
+          <div className="glass-card rounded-2xl p-6 border border-red-200/10 dark:border-red-500/10 shadow-sm bg-red-500/[0.01] space-y-4">
+            <h3 className="text-lg font-bold text-red-600 dark:text-red-400 font-display">Delete Account</h3>
+            <p className="text-xs text-gray-500 dark:text-slate-400 leading-relaxed">
+              Once you delete your account, all your uploaded datasets and analytics will be permanently removed.
+            </p>
+            
+            {deleteError && (
+              <div className="bg-red-500/10 border border-red-500/20 text-red-400 p-2.5 rounded-xl text-xs font-semibold">
+                {deleteError}
+              </div>
+            )}
+            
+            {!showDeleteConfirm ? (
+              <button
+                type="button"
+                onClick={() => {
+                  setShowDeleteConfirm(true);
+                  setDeleteError('');
+                }}
+                className="w-full py-2.5 bg-red-600 hover:bg-red-700 text-white text-xs font-semibold rounded-xl transition-all shadow-sm shadow-red-500/10"
+              >
+                Delete Account
+              </button>
+            ) : (
+              <div className="space-y-4 animate-fade-in">
+                <div className="bg-red-500/10 border border-red-500/20 text-red-600 dark:text-red-400 p-3 rounded-xl text-xs font-medium">
+                  Are you absolutely sure? This action is irreversible.
+                </div>
+                
+                <div className="space-y-1.5">
+                  <label className="block text-[10px] font-semibold text-gray-400 dark:text-slate-500 uppercase tracking-wider">Confirm with Password</label>
+                  <input
+                    type="password"
+                    value={confirmPassword}
+                    onChange={(e) => setConfirmPassword(e.target.value)}
+                    required
+                    className="block w-full px-3.5 py-2.5 bg-gray-50/50 dark:bg-slate-950/40 border border-gray-250 dark:border-slate-800 focus:border-indigo-500 rounded-xl text-gray-900 dark:text-white placeholder-gray-400 focus:outline-none text-xs transition-all"
+                    placeholder="••••••••"
+                  />
+                </div>
+
+                <div className="flex gap-2">
+                  <button
+                    type="button"
+                    onClick={handleDeleteAccount}
+                    disabled={deleteLoading || !confirmPassword}
+                    className="flex-1 py-2 bg-red-600 hover:bg-red-700 text-white text-xs font-semibold rounded-xl transition-all disabled:opacity-40"
+                  >
+                    {deleteLoading ? 'Deleting...' : 'Yes, Delete'}
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setShowDeleteConfirm(false);
+                      setConfirmPassword('');
+                      setDeleteError('');
+                    }}
+                    className="flex-1 py-2 border border-gray-200 dark:border-slate-800 hover:bg-gray-50 dark:hover:bg-slate-800 text-gray-700 dark:text-slate-300 text-xs font-semibold rounded-xl transition-all"
+                  >
+                    Cancel
+                  </button>
+                </div>
+              </div>
+            )}
+          </div>
         </div>
 
         {/* Manage Companies section */}
@@ -372,7 +461,7 @@ export default function Profile() {
                                 title="Rename Company"
                               >
                                 <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15.232 5.232l3.536 3.536m-2.036-2.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />
+                                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15.232 5.232l3.536 3.536m-2.036-2.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />
                                 </svg>
                               </button>
                               <button
@@ -381,7 +470,7 @@ export default function Profile() {
                                 title="Delete Company"
                               >
                                 <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
                                 </svg>
                               </button>
                             </>

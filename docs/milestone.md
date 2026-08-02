@@ -136,6 +136,7 @@ All APIs follow the project's DRF architecture standards: ViewSets for standard 
 - [x] Implement protected route wrapper
 - [x] Add JWT token management (storage, refresh)
 - [x] Build profile management page
+- [x] Implement secure delete account flow (backend verification + password confirmation)
 
 ### 6.3 Dashboard
 - [x] Create DashboardLayout component
