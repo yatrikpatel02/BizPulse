@@ -81,7 +81,7 @@ export default function DashboardLayout({ children }) {
       <Sidebar isOpen={isSidebarOpen} setIsOpen={setIsSidebarOpen} />
       <div className="flex-1 flex flex-col overflow-hidden w-full relative z-10 grid-bg">
         {/* Top Header */}
-        <header className="flex items-center justify-between px-6 py-4 bg-white/70 dark:bg-slate-900/60 backdrop-blur-md border-b border-gray-200/50 dark:border-slate-800/60 z-10 transition-colors duration-200">
+        <header className="flex-shrink-0 flex items-center justify-between px-6 py-4 bg-white/70 dark:bg-slate-900/60 backdrop-blur-md border-b border-gray-200/50 dark:border-slate-800/60 z-10 transition-colors duration-200">
           <div className="flex items-center space-x-3">
             <button 
               onClick={() => setIsSidebarOpen(!isSidebarOpen)}
@@ -94,7 +94,7 @@ export default function DashboardLayout({ children }) {
             </button>
             <div className="flex flex-col">
               <h2 className="text-base font-bold text-gray-800 dark:text-slate-200 font-display leading-tight">{title}</h2>
-              <span className="text-[11px] text-gray-500 dark:text-slate-400 font-medium hidden sm:inline">{subtitle}</span>
+              <span className="text-[11px] text-gray-500 dark:text-slate-400 font-medium hidden sm:block mt-0.5 leading-none">{subtitle}</span>
             </div>
           </div>
           <div className="flex items-center space-x-4">
@@ -124,9 +124,13 @@ export default function DashboardLayout({ children }) {
               </svg>
             </Link>
             <Link to="/profile" className="flex items-center space-x-2 border-l border-gray-200/60 dark:border-slate-800/60 pl-4 hover:opacity-80 transition-opacity">
-              <div className="w-8 h-8 bg-indigo-500/10 rounded-full flex items-center justify-center text-indigo-600 dark:text-indigo-400 font-bold uppercase ring-1 ring-indigo-500/20 shadow-sm text-xs">
-                {(user?.first_name?.charAt(0) || '') + (user?.last_name?.charAt(0) || '') || user?.username?.charAt(0) || 'U'}
-              </div>
+              {user?.avatar ? (
+                <img src={user.avatar} alt="Avatar" className="w-8 h-8 rounded-full object-cover ring-1 ring-indigo-500/20 shadow-sm" />
+              ) : (
+                <div className="w-8 h-8 bg-indigo-500/10 rounded-full flex items-center justify-center text-indigo-600 dark:text-indigo-400 font-bold uppercase ring-1 ring-indigo-500/20 shadow-sm text-xs">
+                  {(user?.first_name?.charAt(0) || '') + (user?.last_name?.charAt(0) || '') || user?.username?.charAt(0) || 'U'}
+                </div>
+              )}
               <span className="text-sm font-semibold text-gray-700 dark:text-slate-300 hidden sm:block">
                 {user?.first_name || user?.last_name ? `${user.first_name} ${user.last_name}` : user?.username}
               </span>

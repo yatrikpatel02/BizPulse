@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useEffect } from 'react';
 import { useAuth } from '../context/AuthContext';
 import { useBusiness } from '../context/BusinessContext';
 import AddCompanyModal from '../components/AddCompanyModal';
@@ -23,9 +23,13 @@ export default function Profile() {
   // Personal Profile details state
   const [firstName, setFirstName] = useState(user?.first_name || '');
   const [lastName, setLastName] = useState(user?.last_name || '');
+  const [usernameField, setUsernameField] = useState(user?.username || '');
+  const [avatarFile, setAvatarFile] = useState(null);
+  const [avatarPreview, setAvatarPreview] = useState(user?.avatar || '');
+
   const [profileLoading, setProfileLoading] = useState(false);
   const [profileError, setProfileError] = useState('');
-  const [profileSuccess, setProfileSuccess] = useState('');
+  const [showSuccessModal, setShowSuccessModal] = useState(false);
 
   // Password state
   const [oldPassword, setOldPassword] = useState('');
@@ -40,22 +44,46 @@ export default function Profile() {
   const [editName, setEditName] = useState('');
   const [editError, setEditError] = useState('');
 
+  // Sync user changes to states
+  useEffect(() => {
+    setFirstName(user?.first_name || '');
+    setLastName(user?.last_name || '');
+    setUsernameField(user?.username || '');
+    setAvatarPreview(user?.avatar || '');
+    setAvatarFile(null);
+  }, [user]);
+
   // Password strength checks
   const passwordChecks = useMemo(() => checks.map((c) => ({ ...c, passed: c.test(newPassword) })), [newPassword]);
   const allChecksPassed = passwordChecks.every((c) => c.passed);
   const passwordsMatch = newPassword === newPasswordConfirm && newPasswordConfirm !== '';
 
+  const handleAvatarChange = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      setAvatarFile(file);
+      setAvatarPreview(URL.createObjectURL(file));
+    }
+  };
+
   const handleProfileUpdate = async (e) => {
     e.preventDefault();
     setProfileError('');
-    setProfileSuccess('');
     setProfileLoading(true);
+
     try {
-      await updateProfile({ first_name: firstName, last_name: lastName });
-      setProfileSuccess('Profile updated successfully!');
-      setTimeout(() => setProfileSuccess(''), 2000);
+      const formData = new FormData();
+      formData.append('first_name', firstName);
+      formData.append('last_name', lastName);
+      formData.append('username', usernameField);
+      if (avatarFile) {
+        formData.append('avatar', avatarFile);
+      }
+
+      await updateProfile(formData);
+      setShowSuccessModal(true);
     } catch (err) {
-      setProfileError('Failed to update profile.');
+      setProfileError(err.response?.data?.username?.[0] || 'Failed to update profile.');
     } finally {
       setProfileLoading(false);
     }
@@ -105,11 +133,45 @@ export default function Profile() {
     <div className="space-y-8 animate-fade-in">
       {/* User Info Card (Wider, horizontal design with decreased height) */}
       <div className="glass-card rounded-2xl p-6 shadow-sm flex flex-col md:flex-row items-center md:items-start gap-8">
-        {/* Left: Avatar */}
+        {/* Left: Interactive Avatar Upload */}
         <div className="flex flex-col items-center text-center md:border-r border-gray-100 dark:border-slate-800 md:pr-8 md:min-w-[200px]">
-          <div className="w-20 h-20 bg-indigo-500/10 rounded-full flex items-center justify-center text-indigo-600 dark:text-indigo-400 font-bold text-2.5xl uppercase ring-4 ring-indigo-500/10 shadow-md mb-4 font-display">
-            {userInitials}
+          <div 
+            onClick={() => document.getElementById('avatar-input').click()}
+            className="group relative w-20 h-20 rounded-full cursor-pointer overflow-hidden ring-4 ring-indigo-500/10 shadow-md mb-4"
+            title="Click to change profile picture"
+          >
+            {avatarPreview ? (
+              <img src={avatarPreview} alt="Avatar" className="w-full h-full object-cover" />
+            ) : (
+              <div className="w-full h-full bg-indigo-50/70 dark:bg-indigo-950/40 flex items-center justify-center text-indigo-600 dark:text-indigo-400 font-bold text-2.5xl uppercase font-display">
+                {userInitials}
+              </div>
+            )}
+            {/* Overlay on Hover */}
+            <div className="absolute inset-0 bg-slate-900/60 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-200">
+              <svg className="w-6 h-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z" />
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 13a3 3 0 11-6 0 3 3 0 016 0z" />
+              </svg>
+            </div>
           </div>
+          <input 
+            id="avatar-input"
+            type="file"
+            accept="image/*"
+            onChange={handleAvatarChange}
+            className="hidden"
+          />
+          <button
+            type="button"
+            onClick={() => document.getElementById('avatar-input').click()}
+            className="mt-1 mb-3 px-3.5 py-1.5 border border-gray-250 dark:border-slate-800 hover:bg-gray-50 dark:hover:bg-slate-800 text-gray-700 dark:text-slate-350 text-[11px] font-semibold rounded-xl transition-all shadow-sm flex items-center gap-1"
+          >
+            <svg className="w-3.5 h-3.5 text-gray-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15.232 5.232l3.536 3.536m-2.036-2.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />
+            </svg>
+            Edit Photo
+          </button>
           <h2 className="text-xl font-bold text-gray-800 dark:text-slate-100 font-display">
             {user?.first_name || user?.last_name ? `${user.first_name} ${user.last_name}` : user?.username}
           </h2>
@@ -121,9 +183,6 @@ export default function Profile() {
           <form onSubmit={handleProfileUpdate} className="space-y-5">
             <div className="flex items-center justify-between">
               <h3 className="text-xs font-bold text-gray-400 dark:text-slate-500 uppercase tracking-wider">Personal Profile Details</h3>
-              {profileSuccess && (
-                <p className="text-xs font-semibold text-emerald-500">{profileSuccess}</p>
-              )}
               {profileError && (
                 <p className="text-xs font-semibold text-red-500">{profileError}</p>
               )}
@@ -154,10 +213,15 @@ export default function Profile() {
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div>
-                <span className="block text-[10px] font-semibold text-gray-400 dark:text-slate-500 uppercase tracking-wider mb-1.5">Username</span>
-                <div className="px-3.5 py-2 bg-gray-100/70 dark:bg-slate-900 border border-gray-200 dark:border-slate-850 rounded-xl text-gray-500 dark:text-slate-400 text-xs font-semibold">
-                  {user?.username}
-                </div>
+                <label className="block text-[10px] font-semibold text-gray-400 dark:text-slate-500 uppercase tracking-wider mb-1.5">Username</label>
+                <input
+                  type="text"
+                  value={usernameField}
+                  onChange={(e) => setUsernameField(e.target.value)}
+                  required
+                  className="block w-full px-3.5 py-2 bg-gray-50/50 dark:bg-slate-950/40 border border-gray-200 dark:border-slate-800 focus:border-indigo-500 rounded-xl text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-slate-500 focus:outline-none text-xs transition-all"
+                  placeholder="Username"
+                />
               </div>
               <div>
                 <span className="block text-[10px] font-semibold text-gray-400 dark:text-slate-500 uppercase tracking-wider mb-1.5">Email Address</span>
@@ -403,6 +467,32 @@ export default function Profile() {
       </div>
 
       <AddCompanyModal isOpen={isAddModalOpen} onClose={() => setIsAddModalOpen(false)} />
+
+      {/* Success Modal */}
+      {showSuccessModal && (
+        <div className="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 flex items-center justify-center p-4 animate-fade-in">
+          <div className="bg-white dark:bg-slate-900 border border-gray-150 dark:border-slate-800 rounded-2xl p-6 shadow-xl max-w-sm w-full text-center space-y-4 transform scale-100 transition-all duration-300">
+            <div className="w-12 h-12 bg-emerald-500/10 rounded-full flex items-center justify-center text-emerald-600 dark:text-emerald-400 mx-auto">
+              <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+              </svg>
+            </div>
+            <div>
+              <h3 className="text-lg font-bold text-gray-800 dark:text-slate-100 font-display">Profile Saved</h3>
+              <p className="text-xs text-gray-500 dark:text-slate-400 mt-1.5 leading-relaxed">
+                Your profile details and custom photo have been updated and synced successfully.
+              </p>
+            </div>
+            <button
+              type="button"
+              onClick={() => setShowSuccessModal(false)}
+              className="w-full py-2 bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-semibold rounded-xl transition-all shadow-sm shadow-indigo-500/10"
+            >
+              Got it
+            </button>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

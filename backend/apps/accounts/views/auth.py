@@ -95,6 +95,24 @@ class ProfileView(generics.GenericAPIView):
 
     def put(self, request, *args, **kwargs):
         user = request.user
+
+        # Handle avatar file upload if present
+        avatar_file = request.FILES.get('avatar')
+        if avatar_file:
+            import os
+            from django.conf import settings
+            from django.core.files.storage import default_storage
+            from django.core.files.base import ContentFile
+
+            ext = os.path.splitext(avatar_file.name)[1]
+            filename = f"avatars/user_{user.id}{ext}"
+            if default_storage.exists(filename):
+                default_storage.delete(filename)
+            path = default_storage.save(filename, ContentFile(avatar_file.read()))
+            avatar_url = request.build_absolute_uri(settings.MEDIA_URL + path)
+            user.avatar = avatar_url
+            user.save()
+
         serializer = ProfileUpdateSerializer(user, data=request.data, partial=True)
         serializer.is_valid(raise_exception=True)
         serializer.save()
