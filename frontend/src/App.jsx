@@ -9,6 +9,7 @@ import Login from './pages/Login';
 import Signup from './pages/Signup';
 import ForgotPassword from './pages/ForgotPassword';
 import Dashboard from './pages/Dashboard';
+import Analytics from './pages/Analytics';
 import ProtectedRoute from './components/ProtectedRoute';
 
 function App() {
@@ -25,6 +26,13 @@ function App() {
               <ProtectedRoute>
                 <DashboardLayout>
                   <Dashboard />
+                </DashboardLayout>
+              </ProtectedRoute>
+            } />
+            <Route path="/analytics" element={
+              <ProtectedRoute>
+                <DashboardLayout>
+                  <Analytics />
                 </DashboardLayout>
               </ProtectedRoute>
             } />
