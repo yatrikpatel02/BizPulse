@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import Sidebar from './Sidebar';
 import { useAuth } from '../context/AuthContext';
 import { useTheme } from '../context/ThemeContext';
@@ -7,6 +7,7 @@ import { useTheme } from '../context/ThemeContext';
 export default function DashboardLayout({ children }) {
   const { user } = useAuth();
   const { isDarkMode, toggleTheme } = useTheme();
+  const location = useLocation();
   
   // Default to open on desktop, closed on mobile
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
@@ -20,6 +21,60 @@ export default function DashboardLayout({ children }) {
     window.addEventListener('resize', handleResize);
     return () => window.removeEventListener('resize', handleResize);
   }, []);
+
+  const getHeaderDetails = () => {
+    const path = location.pathname;
+    switch (path) {
+      case '/dashboard':
+      case '/':
+        return {
+          title: 'Dashboard',
+          subtitle: 'Overview of your business performance'
+        };
+      case '/data':
+        return {
+          title: 'Data Management',
+          subtitle: 'Import your business data to generate insights.'
+        };
+      case '/data/records':
+        return {
+          title: 'View Records',
+          subtitle: 'Browse and search your imported business datasets.'
+        };
+      case '/products':
+        return {
+          title: 'Products',
+          subtitle: 'Manage your catalog of items and pricing.'
+        };
+      case '/analytics':
+        return {
+          title: 'Analytics',
+          subtitle: 'Deeper visual statistical breakdowns.'
+        };
+      case '/insights':
+        return {
+          title: 'Insights',
+          subtitle: 'System-generated machine learning recommendations.'
+        };
+      case '/reports':
+        return {
+          title: 'Reports',
+          subtitle: 'Exportable business performance summaries.'
+        };
+      case '/profile':
+        return {
+          title: 'Profile Management',
+          subtitle: 'Manage your user profile settings, password, and registered companies.'
+        };
+      default:
+        return {
+          title: 'BizPulse',
+          subtitle: 'Business Intelligence Suite'
+        };
+    }
+  };
+
+  const { title, subtitle } = getHeaderDetails();
 
   return (
     <div className="flex h-screen bg-gray-50 dark:bg-[#090d16] transition-colors duration-200 overflow-hidden font-sans">
@@ -37,7 +92,10 @@ export default function DashboardLayout({ children }) {
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
               </svg>
             </button>
-            <h2 className="text-lg font-bold text-gray-800 dark:text-slate-200 font-display">Executive Overview</h2>
+            <div className="flex flex-col">
+              <h2 className="text-base font-bold text-gray-800 dark:text-slate-200 font-display leading-tight">{title}</h2>
+              <span className="text-[11px] text-gray-500 dark:text-slate-400 font-medium hidden sm:inline">{subtitle}</span>
+            </div>
           </div>
           <div className="flex items-center space-x-4">
             <button

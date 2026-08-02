@@ -247,13 +247,8 @@ export default function DataViewer() {
   }[tabColor];
 
   return (
-    <div className="space-y-6">
-      {/* Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-        <div>
-          <h1 className="text-2xl font-bold text-gray-900 dark:text-slate-100">Data Viewer</h1>
-          <p className="text-sm text-gray-500 dark:text-slate-400 mt-0.5">Browse and search all your imported business data</p>
-        </div>
+    <div className="space-y-6 animate-fade-in">
+      <div className="flex justify-end mb-4">
         <button
           onClick={() => navigate('/data')}
           className="flex items-center gap-2 px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white text-sm font-medium rounded-lg shadow-sm transition-colors"

@@ -103,11 +103,6 @@ export default function Profile() {
 
   return (
     <div className="space-y-8 animate-fade-in">
-      {/* Header */}
-      <div>
-        <h1 className="text-3xl font-bold text-gray-900 dark:text-slate-100 font-display">Profile Management</h1>
-        <p className="text-sm text-gray-500 dark:text-slate-400 mt-1">Manage your user profile settings, password, and registered companies</p>
-      </div>
 
       {/* User Info Card (Wider, horizontal design with decreased height) */}
       <div className="glass-card rounded-2xl p-6 shadow-sm flex flex-col md:flex-row items-center md:items-start gap-8">
