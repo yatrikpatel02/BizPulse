@@ -1,145 +1,433 @@
 date,product_name,category,quantity_on_hand,reorder_point
-2025-01-01,Wireless Bluetooth Earbuds,Electronics,168,33
-2025-01-01,Laptop Stand Adjustable,Electronics,99,29
-2025-01-01,USB-C Fast Charging Cable,Electronics,61,23
-2025-01-01,Portable Phone Charger 20000mAh,Electronics,127,24
-2025-01-01,Smart LED Desk Lamp,Electronics,121,38
-2025-01-01,Mechanical Keyboard RGB,Electronics,111,50
-2025-01-01,Noise Cancelling Headphones,Electronics,238,45
-2025-01-01,Webcam HD 1080p,Electronics,198,49
-2025-01-01,Cotton Round Neck T-Shirt,Fashion,210,28
-2025-01-01,Slim Fit Chino Pants,Fashion,200,30
-2025-01-01,Leather Wallet Slim,Fashion,179,20
-2025-01-01,Running Sports Shoes,Fashion,139,43
-2025-01-01,Sunglasses UV400 Polarized,Fashion,140,38
-2025-01-01,Casual Denim Jacket,Fashion,24,22
-2025-01-01,Stainless Steel Water Bottle 1L,Home & Living,20,50
-2025-01-01,Non-Stick Frying Pan 26cm,Home & Living,236,47
-2025-01-01,Memory Foam Pillow,Home & Living,56,49
-2025-01-01,Bamboo Cutting Board Set,Home & Living,43,25
-2025-01-01,Scented Soy Wax Candle,Home & Living,88,48
-2025-01-01,Under Eye Cream Dark Circles,Beauty,118,22
-2025-01-01,Vitamin C Face Serum 30ml,Beauty,179,28
-2025-01-01,Moisturising Sunscreen SPF50,Beauty,188,46
-2025-01-01,Natural Aloe Vera Gel 200ml,Beauty,28,47
-2025-01-01,Collagen Face Sheet Mask Pack,Beauty,119,18
-2025-02-01,Wireless Bluetooth Earbuds,Electronics,121,23
-2025-02-01,Laptop Stand Adjustable,Electronics,136,41
-2025-02-01,USB-C Fast Charging Cable,Electronics,121,18
-2025-02-01,Portable Phone Charger 20000mAh,Electronics,148,44
-2025-02-01,Smart LED Desk Lamp,Electronics,177,34
-2025-02-01,Mechanical Keyboard RGB,Electronics,190,16
-2025-02-01,Noise Cancelling Headphones,Electronics,106,31
-2025-02-01,Webcam HD 1080p,Electronics,214,15
-2025-02-01,Cotton Round Neck T-Shirt,Fashion,195,28
-2025-02-01,Slim Fit Chino Pants,Fashion,153,19
-2025-02-01,Leather Wallet Slim,Fashion,16,42
-2025-02-01,Running Sports Shoes,Fashion,93,19
-2025-02-01,Sunglasses UV400 Polarized,Fashion,143,18
-2025-02-01,Casual Denim Jacket,Fashion,244,19
-2025-02-01,Stainless Steel Water Bottle 1L,Home & Living,244,45
-2025-02-01,Non-Stick Frying Pan 26cm,Home & Living,13,33
-2025-02-01,Memory Foam Pillow,Home & Living,109,26
-2025-02-01,Bamboo Cutting Board Set,Home & Living,201,23
-2025-02-01,Scented Soy Wax Candle,Home & Living,201,41
-2025-02-01,Under Eye Cream Dark Circles,Beauty,100,39
-2025-02-01,Vitamin C Face Serum 30ml,Beauty,119,39
-2025-02-01,Moisturising Sunscreen SPF50,Beauty,101,20
-2025-02-01,Natural Aloe Vera Gel 200ml,Beauty,179,49
-2025-02-01,Collagen Face Sheet Mask Pack,Beauty,39,37
-2025-03-01,Wireless Bluetooth Earbuds,Electronics,35,26
-2025-03-01,Laptop Stand Adjustable,Electronics,142,40
-2025-03-01,USB-C Fast Charging Cable,Electronics,140,23
-2025-03-01,Portable Phone Charger 20000mAh,Electronics,191,29
-2025-03-01,Smart LED Desk Lamp,Electronics,218,15
-2025-03-01,Mechanical Keyboard RGB,Electronics,198,16
-2025-03-01,Noise Cancelling Headphones,Electronics,81,44
-2025-03-01,Webcam HD 1080p,Electronics,177,49
-2025-03-01,Cotton Round Neck T-Shirt,Fashion,113,49
-2025-03-01,Slim Fit Chino Pants,Fashion,102,29
-2025-03-01,Leather Wallet Slim,Fashion,68,44
-2025-03-01,Running Sports Shoes,Fashion,93,24
-2025-03-01,Sunglasses UV400 Polarized,Fashion,75,27
-2025-03-01,Casual Denim Jacket,Fashion,244,22
-2025-03-01,Stainless Steel Water Bottle 1L,Home & Living,13,41
-2025-03-01,Non-Stick Frying Pan 26cm,Home & Living,162,16
-2025-03-01,Memory Foam Pillow,Home & Living,66,28
-2025-03-01,Bamboo Cutting Board Set,Home & Living,22,21
-2025-03-01,Scented Soy Wax Candle,Home & Living,157,17
-2025-03-01,Under Eye Cream Dark Circles,Beauty,119,18
-2025-03-01,Vitamin C Face Serum 30ml,Beauty,67,17
-2025-03-01,Moisturising Sunscreen SPF50,Beauty,107,43
-2025-03-01,Natural Aloe Vera Gel 200ml,Beauty,64,49
-2025-03-01,Collagen Face Sheet Mask Pack,Beauty,60,18
-2025-04-01,Wireless Bluetooth Earbuds,Electronics,40,47
-2025-04-01,Laptop Stand Adjustable,Electronics,79,29
-2025-04-01,USB-C Fast Charging Cable,Electronics,213,35
-2025-04-01,Portable Phone Charger 20000mAh,Electronics,152,35
-2025-04-01,Smart LED Desk Lamp,Electronics,65,34
-2025-04-01,Mechanical Keyboard RGB,Electronics,229,24
-2025-04-01,Noise Cancelling Headphones,Electronics,174,48
-2025-04-01,Webcam HD 1080p,Electronics,61,41
-2025-04-01,Cotton Round Neck T-Shirt,Fashion,81,32
-2025-04-01,Slim Fit Chino Pants,Fashion,20,50
-2025-04-01,Leather Wallet Slim,Fashion,247,26
-2025-04-01,Running Sports Shoes,Fashion,165,42
-2025-04-01,Sunglasses UV400 Polarized,Fashion,147,46
-2025-04-01,Casual Denim Jacket,Fashion,17,37
-2025-04-01,Stainless Steel Water Bottle 1L,Home & Living,246,39
-2025-04-01,Non-Stick Frying Pan 26cm,Home & Living,206,48
-2025-04-01,Memory Foam Pillow,Home & Living,86,41
-2025-04-01,Bamboo Cutting Board Set,Home & Living,109,24
-2025-04-01,Scented Soy Wax Candle,Home & Living,81,39
-2025-04-01,Under Eye Cream Dark Circles,Beauty,52,49
-2025-04-01,Vitamin C Face Serum 30ml,Beauty,126,30
-2025-04-01,Moisturising Sunscreen SPF50,Beauty,222,29
-2025-04-01,Natural Aloe Vera Gel 200ml,Beauty,81,24
-2025-04-01,Collagen Face Sheet Mask Pack,Beauty,211,44
-2025-05-01,Wireless Bluetooth Earbuds,Electronics,239,18
-2025-05-01,Laptop Stand Adjustable,Electronics,148,41
-2025-05-01,USB-C Fast Charging Cable,Electronics,111,50
-2025-05-01,Portable Phone Charger 20000mAh,Electronics,140,23
-2025-05-01,Smart LED Desk Lamp,Electronics,104,30
-2025-05-01,Mechanical Keyboard RGB,Electronics,70,28
-2025-05-01,Noise Cancelling Headphones,Electronics,89,20
-2025-05-01,Webcam HD 1080p,Electronics,241,43
-2025-05-01,Cotton Round Neck T-Shirt,Fashion,221,38
-2025-05-01,Slim Fit Chino Pants,Fashion,28,49
-2025-05-01,Leather Wallet Slim,Fashion,190,27
-2025-05-01,Running Sports Shoes,Fashion,18,32
-2025-05-01,Sunglasses UV400 Polarized,Fashion,101,17
-2025-05-01,Casual Denim Jacket,Fashion,228,19
-2025-05-01,Stainless Steel Water Bottle 1L,Home & Living,53,50
-2025-05-01,Non-Stick Frying Pan 26cm,Home & Living,60,45
-2025-05-01,Memory Foam Pillow,Home & Living,58,36
-2025-05-01,Bamboo Cutting Board Set,Home & Living,82,15
-2025-05-01,Scented Soy Wax Candle,Home & Living,59,27
-2025-05-01,Under Eye Cream Dark Circles,Beauty,194,22
-2025-05-01,Vitamin C Face Serum 30ml,Beauty,196,45
-2025-05-01,Moisturising Sunscreen SPF50,Beauty,239,30
-2025-05-01,Natural Aloe Vera Gel 200ml,Beauty,183,28
-2025-05-01,Collagen Face Sheet Mask Pack,Beauty,106,30
-2025-06-01,Wireless Bluetooth Earbuds,Electronics,146,35
-2025-06-01,Laptop Stand Adjustable,Electronics,203,33
-2025-06-01,USB-C Fast Charging Cable,Electronics,102,44
-2025-06-01,Portable Phone Charger 20000mAh,Electronics,141,37
-2025-06-01,Smart LED Desk Lamp,Electronics,83,31
-2025-06-01,Mechanical Keyboard RGB,Electronics,97,47
-2025-06-01,Noise Cancelling Headphones,Electronics,230,46
-2025-06-01,Webcam HD 1080p,Electronics,124,21
-2025-06-01,Cotton Round Neck T-Shirt,Fashion,210,45
-2025-06-01,Slim Fit Chino Pants,Fashion,199,35
-2025-06-01,Leather Wallet Slim,Fashion,239,28
-2025-06-01,Running Sports Shoes,Fashion,99,35
-2025-06-01,Sunglasses UV400 Polarized,Fashion,110,17
-2025-06-01,Casual Denim Jacket,Fashion,149,29
-2025-06-01,Stainless Steel Water Bottle 1L,Home & Living,194,24
-2025-06-01,Non-Stick Frying Pan 26cm,Home & Living,9,31
-2025-06-01,Memory Foam Pillow,Home & Living,146,41
-2025-06-01,Bamboo Cutting Board Set,Home & Living,80,24
-2025-06-01,Scented Soy Wax Candle,Home & Living,55,36
-2025-06-01,Under Eye Cream Dark Circles,Beauty,63,39
-2025-06-01,Vitamin C Face Serum 30ml,Beauty,150,30
-2025-06-01,Moisturising Sunscreen SPF50,Beauty,132,50
-2025-06-01,Natural Aloe Vera Gel 200ml,Beauty,172,36
-2025-06-01,Collagen Face Sheet Mask Pack,Beauty,70,46
+2024-01-01,Bamboo Cutting Board Set,Home & Living,202,30
+2024-01-01,Casual Denim Jacket,Fashion,211,19
+2024-01-01,Collagen Face Sheet Mask Pack,Beauty,77,16
+2024-01-01,Cotton Round Neck T-Shirt,Fashion,73,34
+2024-01-01,Laptop Stand Adjustable,Electronics,167,33
+2024-01-01,Leather Wallet Slim,Fashion,233,33
+2024-01-01,Mechanical Keyboard RGB,Electronics,166,40
+2024-01-01,Memory Foam Pillow,Home & Living,111,30
+2024-01-01,Moisturising Sunscreen SPF50,Beauty,157,32
+2024-01-01,Natural Aloe Vera Gel 200ml,Beauty,234,41
+2024-01-01,Noise Cancelling Headphones,Electronics,99,33
+2024-01-01,Non-Stick Frying Pan 26cm,Home & Living,166,22
+2024-01-01,Portable Phone Charger 20000mAh,Electronics,168,50
+2024-01-01,Running Sports Shoes,Fashion,200,29
+2024-01-01,Scented Soy Wax Candle,Home & Living,223,31
+2024-01-01,Slim Fit Chino Pants,Fashion,94,31
+2024-01-01,Smart LED Desk Lamp,Electronics,225,36
+2024-01-01,Stainless Steel Water Bottle 1L,Home & Living,212,34
+2024-01-01,Sunglasses UV400 Polarized,Fashion,88,31
+2024-01-01,USB-C Fast Charging Cable,Electronics,244,48
+2024-01-01,Under Eye Cream Dark Circles,Beauty,80,43
+2024-01-01,Vitamin C Face Serum 30ml,Beauty,82,29
+2024-01-01,Webcam HD 1080p,Electronics,115,42
+2024-01-01,Wireless Bluetooth Earbuds,Electronics,30,35
+2024-02-01,Bamboo Cutting Board Set,Home & Living,132,35
+2024-02-01,Casual Denim Jacket,Fashion,43,18
+2024-02-01,Collagen Face Sheet Mask Pack,Beauty,229,23
+2024-02-01,Cotton Round Neck T-Shirt,Fashion,174,48
+2024-02-01,Laptop Stand Adjustable,Electronics,53,24
+2024-02-01,Leather Wallet Slim,Fashion,35,30
+2024-02-01,Mechanical Keyboard RGB,Electronics,42,45
+2024-02-01,Memory Foam Pillow,Home & Living,204,17
+2024-02-01,Moisturising Sunscreen SPF50,Beauty,104,36
+2024-02-01,Natural Aloe Vera Gel 200ml,Beauty,130,23
+2024-02-01,Noise Cancelling Headphones,Electronics,195,28
+2024-02-01,Non-Stick Frying Pan 26cm,Home & Living,39,45
+2024-02-01,Portable Phone Charger 20000mAh,Electronics,161,36
+2024-02-01,Running Sports Shoes,Fashion,50,21
+2024-02-01,Scented Soy Wax Candle,Home & Living,87,48
+2024-02-01,Slim Fit Chino Pants,Fashion,159,32
+2024-02-01,Smart LED Desk Lamp,Electronics,138,41
+2024-02-01,Stainless Steel Water Bottle 1L,Home & Living,186,26
+2024-02-01,Sunglasses UV400 Polarized,Fashion,12,43
+2024-02-01,USB-C Fast Charging Cable,Electronics,67,18
+2024-02-01,Under Eye Cream Dark Circles,Beauty,99,27
+2024-02-01,Vitamin C Face Serum 30ml,Beauty,83,41
+2024-02-01,Webcam HD 1080p,Electronics,157,49
+2024-02-01,Wireless Bluetooth Earbuds,Electronics,144,50
+2024-03-01,Bamboo Cutting Board Set,Home & Living,159,36
+2024-03-01,Casual Denim Jacket,Fashion,95,40
+2024-03-01,Collagen Face Sheet Mask Pack,Beauty,27,31
+2024-03-01,Cotton Round Neck T-Shirt,Fashion,220,16
+2024-03-01,Laptop Stand Adjustable,Electronics,12,17
+2024-03-01,Leather Wallet Slim,Fashion,37,23
+2024-03-01,Mechanical Keyboard RGB,Electronics,107,19
+2024-03-01,Memory Foam Pillow,Home & Living,58,36
+2024-03-01,Moisturising Sunscreen SPF50,Beauty,216,20
+2024-03-01,Natural Aloe Vera Gel 200ml,Beauty,246,28
+2024-03-01,Noise Cancelling Headphones,Electronics,47,29
+2024-03-01,Non-Stick Frying Pan 26cm,Home & Living,145,40
+2024-03-01,Portable Phone Charger 20000mAh,Electronics,155,42
+2024-03-01,Running Sports Shoes,Fashion,209,22
+2024-03-01,Scented Soy Wax Candle,Home & Living,170,45
+2024-03-01,Slim Fit Chino Pants,Fashion,46,37
+2024-03-01,Smart LED Desk Lamp,Electronics,227,34
+2024-03-01,Stainless Steel Water Bottle 1L,Home & Living,231,37
+2024-03-01,Sunglasses UV400 Polarized,Fashion,62,44
+2024-03-01,USB-C Fast Charging Cable,Electronics,87,32
+2024-03-01,Under Eye Cream Dark Circles,Beauty,10,50
+2024-03-01,Vitamin C Face Serum 30ml,Beauty,250,42
+2024-03-01,Webcam HD 1080p,Electronics,155,18
+2024-03-01,Wireless Bluetooth Earbuds,Electronics,19,30
+2024-04-01,Bamboo Cutting Board Set,Home & Living,114,28
+2024-04-01,Casual Denim Jacket,Fashion,18,30
+2024-04-01,Collagen Face Sheet Mask Pack,Beauty,210,49
+2024-04-01,Cotton Round Neck T-Shirt,Fashion,150,38
+2024-04-01,Laptop Stand Adjustable,Electronics,151,34
+2024-04-01,Leather Wallet Slim,Fashion,85,26
+2024-04-01,Mechanical Keyboard RGB,Electronics,66,20
+2024-04-01,Memory Foam Pillow,Home & Living,56,31
+2024-04-01,Moisturising Sunscreen SPF50,Beauty,192,41
+2024-04-01,Natural Aloe Vera Gel 200ml,Beauty,139,40
+2024-04-01,Noise Cancelling Headphones,Electronics,28,29
+2024-04-01,Non-Stick Frying Pan 26cm,Home & Living,127,33
+2024-04-01,Portable Phone Charger 20000mAh,Electronics,188,35
+2024-04-01,Running Sports Shoes,Fashion,58,41
+2024-04-01,Scented Soy Wax Candle,Home & Living,177,21
+2024-04-01,Slim Fit Chino Pants,Fashion,22,28
+2024-04-01,Smart LED Desk Lamp,Electronics,111,39
+2024-04-01,Stainless Steel Water Bottle 1L,Home & Living,59,34
+2024-04-01,Sunglasses UV400 Polarized,Fashion,50,23
+2024-04-01,USB-C Fast Charging Cable,Electronics,58,31
+2024-04-01,Under Eye Cream Dark Circles,Beauty,14,34
+2024-04-01,Vitamin C Face Serum 30ml,Beauty,69,43
+2024-04-01,Webcam HD 1080p,Electronics,249,49
+2024-04-01,Wireless Bluetooth Earbuds,Electronics,190,38
+2024-05-01,Bamboo Cutting Board Set,Home & Living,51,50
+2024-05-01,Casual Denim Jacket,Fashion,24,24
+2024-05-01,Collagen Face Sheet Mask Pack,Beauty,60,27
+2024-05-01,Cotton Round Neck T-Shirt,Fashion,122,33
+2024-05-01,Laptop Stand Adjustable,Electronics,18,50
+2024-05-01,Leather Wallet Slim,Fashion,77,27
+2024-05-01,Mechanical Keyboard RGB,Electronics,107,18
+2024-05-01,Memory Foam Pillow,Home & Living,22,25
+2024-05-01,Moisturising Sunscreen SPF50,Beauty,124,36
+2024-05-01,Natural Aloe Vera Gel 200ml,Beauty,196,25
+2024-05-01,Noise Cancelling Headphones,Electronics,49,20
+2024-05-01,Non-Stick Frying Pan 26cm,Home & Living,213,38
+2024-05-01,Portable Phone Charger 20000mAh,Electronics,191,24
+2024-05-01,Running Sports Shoes,Fashion,19,34
+2024-05-01,Scented Soy Wax Candle,Home & Living,166,32
+2024-05-01,Slim Fit Chino Pants,Fashion,26,44
+2024-05-01,Smart LED Desk Lamp,Electronics,155,32
+2024-05-01,Stainless Steel Water Bottle 1L,Home & Living,68,49
+2024-05-01,Sunglasses UV400 Polarized,Fashion,63,35
+2024-05-01,USB-C Fast Charging Cable,Electronics,212,35
+2024-05-01,Under Eye Cream Dark Circles,Beauty,118,40
+2024-05-01,Vitamin C Face Serum 30ml,Beauty,96,26
+2024-05-01,Webcam HD 1080p,Electronics,175,46
+2024-05-01,Wireless Bluetooth Earbuds,Electronics,222,16
+2024-06-01,Bamboo Cutting Board Set,Home & Living,46,45
+2024-06-01,Casual Denim Jacket,Fashion,181,42
+2024-06-01,Collagen Face Sheet Mask Pack,Beauty,63,18
+2024-06-01,Cotton Round Neck T-Shirt,Fashion,68,16
+2024-06-01,Laptop Stand Adjustable,Electronics,49,29
+2024-06-01,Leather Wallet Slim,Fashion,74,41
+2024-06-01,Mechanical Keyboard RGB,Electronics,156,21
+2024-06-01,Memory Foam Pillow,Home & Living,122,42
+2024-06-01,Moisturising Sunscreen SPF50,Beauty,54,32
+2024-06-01,Natural Aloe Vera Gel 200ml,Beauty,174,38
+2024-06-01,Noise Cancelling Headphones,Electronics,65,28
+2024-06-01,Non-Stick Frying Pan 26cm,Home & Living,103,15
+2024-06-01,Portable Phone Charger 20000mAh,Electronics,14,23
+2024-06-01,Running Sports Shoes,Fashion,129,43
+2024-06-01,Scented Soy Wax Candle,Home & Living,166,37
+2024-06-01,Slim Fit Chino Pants,Fashion,66,27
+2024-06-01,Smart LED Desk Lamp,Electronics,94,40
+2024-06-01,Stainless Steel Water Bottle 1L,Home & Living,210,44
+2024-06-01,Sunglasses UV400 Polarized,Fashion,27,22
+2024-06-01,USB-C Fast Charging Cable,Electronics,12,23
+2024-06-01,Under Eye Cream Dark Circles,Beauty,202,35
+2024-06-01,Vitamin C Face Serum 30ml,Beauty,73,18
+2024-06-01,Webcam HD 1080p,Electronics,234,15
+2024-06-01,Wireless Bluetooth Earbuds,Electronics,44,48
+2024-07-01,Bamboo Cutting Board Set,Home & Living,24,43
+2024-07-01,Casual Denim Jacket,Fashion,193,25
+2024-07-01,Collagen Face Sheet Mask Pack,Beauty,174,46
+2024-07-01,Cotton Round Neck T-Shirt,Fashion,21,23
+2024-07-01,Laptop Stand Adjustable,Electronics,243,29
+2024-07-01,Leather Wallet Slim,Fashion,127,19
+2024-07-01,Mechanical Keyboard RGB,Electronics,53,30
+2024-07-01,Memory Foam Pillow,Home & Living,235,38
+2024-07-01,Moisturising Sunscreen SPF50,Beauty,128,21
+2024-07-01,Natural Aloe Vera Gel 200ml,Beauty,222,45
+2024-07-01,Noise Cancelling Headphones,Electronics,17,28
+2024-07-01,Non-Stick Frying Pan 26cm,Home & Living,84,18
+2024-07-01,Portable Phone Charger 20000mAh,Electronics,207,31
+2024-07-01,Running Sports Shoes,Fashion,214,16
+2024-07-01,Scented Soy Wax Candle,Home & Living,218,41
+2024-07-01,Slim Fit Chino Pants,Fashion,148,33
+2024-07-01,Smart LED Desk Lamp,Electronics,218,46
+2024-07-01,Stainless Steel Water Bottle 1L,Home & Living,51,23
+2024-07-01,Sunglasses UV400 Polarized,Fashion,33,44
+2024-07-01,USB-C Fast Charging Cable,Electronics,198,50
+2024-07-01,Under Eye Cream Dark Circles,Beauty,244,31
+2024-07-01,Vitamin C Face Serum 30ml,Beauty,179,49
+2024-07-01,Webcam HD 1080p,Electronics,79,23
+2024-07-01,Wireless Bluetooth Earbuds,Electronics,30,26
+2024-08-01,Bamboo Cutting Board Set,Home & Living,82,31
+2024-08-01,Casual Denim Jacket,Fashion,91,17
+2024-08-01,Collagen Face Sheet Mask Pack,Beauty,213,26
+2024-08-01,Cotton Round Neck T-Shirt,Fashion,49,45
+2024-08-01,Laptop Stand Adjustable,Electronics,115,21
+2024-08-01,Leather Wallet Slim,Fashion,96,47
+2024-08-01,Mechanical Keyboard RGB,Electronics,102,49
+2024-08-01,Memory Foam Pillow,Home & Living,204,49
+2024-08-01,Moisturising Sunscreen SPF50,Beauty,73,27
+2024-08-01,Natural Aloe Vera Gel 200ml,Beauty,125,19
+2024-08-01,Noise Cancelling Headphones,Electronics,68,49
+2024-08-01,Non-Stick Frying Pan 26cm,Home & Living,108,40
+2024-08-01,Portable Phone Charger 20000mAh,Electronics,246,31
+2024-08-01,Running Sports Shoes,Fashion,233,19
+2024-08-01,Scented Soy Wax Candle,Home & Living,244,47
+2024-08-01,Slim Fit Chino Pants,Fashion,171,24
+2024-08-01,Smart LED Desk Lamp,Electronics,22,39
+2024-08-01,Stainless Steel Water Bottle 1L,Home & Living,215,36
+2024-08-01,Sunglasses UV400 Polarized,Fashion,56,24
+2024-08-01,USB-C Fast Charging Cable,Electronics,169,26
+2024-08-01,Under Eye Cream Dark Circles,Beauty,195,24
+2024-08-01,Vitamin C Face Serum 30ml,Beauty,73,46
+2024-08-01,Webcam HD 1080p,Electronics,233,43
+2024-08-01,Wireless Bluetooth Earbuds,Electronics,92,31
+2024-09-01,Bamboo Cutting Board Set,Home & Living,55,35
+2024-09-01,Casual Denim Jacket,Fashion,163,24
+2024-09-01,Collagen Face Sheet Mask Pack,Beauty,73,29
+2024-09-01,Cotton Round Neck T-Shirt,Fashion,181,19
+2024-09-01,Laptop Stand Adjustable,Electronics,31,20
+2024-09-01,Leather Wallet Slim,Fashion,230,46
+2024-09-01,Mechanical Keyboard RGB,Electronics,70,37
+2024-09-01,Memory Foam Pillow,Home & Living,187,37
+2024-09-01,Moisturising Sunscreen SPF50,Beauty,46,46
+2024-09-01,Natural Aloe Vera Gel 200ml,Beauty,109,31
+2024-09-01,Noise Cancelling Headphones,Electronics,186,50
+2024-09-01,Non-Stick Frying Pan 26cm,Home & Living,160,31
+2024-09-01,Portable Phone Charger 20000mAh,Electronics,145,44
+2024-09-01,Running Sports Shoes,Fashion,84,17
+2024-09-01,Scented Soy Wax Candle,Home & Living,198,22
+2024-09-01,Slim Fit Chino Pants,Fashion,126,18
+2024-09-01,Smart LED Desk Lamp,Electronics,141,17
+2024-09-01,Stainless Steel Water Bottle 1L,Home & Living,100,21
+2024-09-01,Sunglasses UV400 Polarized,Fashion,214,29
+2024-09-01,USB-C Fast Charging Cable,Electronics,22,22
+2024-09-01,Under Eye Cream Dark Circles,Beauty,136,21
+2024-09-01,Vitamin C Face Serum 30ml,Beauty,54,26
+2024-09-01,Webcam HD 1080p,Electronics,116,18
+2024-09-01,Wireless Bluetooth Earbuds,Electronics,35,23
+2024-10-01,Bamboo Cutting Board Set,Home & Living,123,16
+2024-10-01,Casual Denim Jacket,Fashion,187,49
+2024-10-01,Collagen Face Sheet Mask Pack,Beauty,128,16
+2024-10-01,Cotton Round Neck T-Shirt,Fashion,185,31
+2024-10-01,Laptop Stand Adjustable,Electronics,56,25
+2024-10-01,Leather Wallet Slim,Fashion,227,27
+2024-10-01,Mechanical Keyboard RGB,Electronics,38,39
+2024-10-01,Memory Foam Pillow,Home & Living,85,34
+2024-10-01,Moisturising Sunscreen SPF50,Beauty,163,36
+2024-10-01,Natural Aloe Vera Gel 200ml,Beauty,13,32
+2024-10-01,Noise Cancelling Headphones,Electronics,55,39
+2024-10-01,Non-Stick Frying Pan 26cm,Home & Living,61,33
+2024-10-01,Portable Phone Charger 20000mAh,Electronics,229,33
+2024-10-01,Running Sports Shoes,Fashion,242,27
+2024-10-01,Scented Soy Wax Candle,Home & Living,88,47
+2024-10-01,Slim Fit Chino Pants,Fashion,161,39
+2024-10-01,Smart LED Desk Lamp,Electronics,48,24
+2024-10-01,Stainless Steel Water Bottle 1L,Home & Living,219,27
+2024-10-01,Sunglasses UV400 Polarized,Fashion,199,15
+2024-10-01,USB-C Fast Charging Cable,Electronics,15,38
+2024-10-01,Under Eye Cream Dark Circles,Beauty,225,48
+2024-10-01,Vitamin C Face Serum 30ml,Beauty,137,47
+2024-10-01,Webcam HD 1080p,Electronics,183,35
+2024-10-01,Wireless Bluetooth Earbuds,Electronics,152,44
+2024-11-01,Bamboo Cutting Board Set,Home & Living,50,37
+2024-11-01,Casual Denim Jacket,Fashion,78,26
+2024-11-01,Collagen Face Sheet Mask Pack,Beauty,217,23
+2024-11-01,Cotton Round Neck T-Shirt,Fashion,169,26
+2024-11-01,Laptop Stand Adjustable,Electronics,12,38
+2024-11-01,Leather Wallet Slim,Fashion,172,28
+2024-11-01,Mechanical Keyboard RGB,Electronics,28,35
+2024-11-01,Memory Foam Pillow,Home & Living,213,25
+2024-11-01,Moisturising Sunscreen SPF50,Beauty,99,49
+2024-11-01,Natural Aloe Vera Gel 200ml,Beauty,31,24
+2024-11-01,Noise Cancelling Headphones,Electronics,58,43
+2024-11-01,Non-Stick Frying Pan 26cm,Home & Living,131,35
+2024-11-01,Portable Phone Charger 20000mAh,Electronics,206,47
+2024-11-01,Running Sports Shoes,Fashion,50,35
+2024-11-01,Scented Soy Wax Candle,Home & Living,155,24
+2024-11-01,Slim Fit Chino Pants,Fashion,111,42
+2024-11-01,Smart LED Desk Lamp,Electronics,185,37
+2024-11-01,Stainless Steel Water Bottle 1L,Home & Living,125,46
+2024-11-01,Sunglasses UV400 Polarized,Fashion,116,29
+2024-11-01,USB-C Fast Charging Cable,Electronics,167,39
+2024-11-01,Under Eye Cream Dark Circles,Beauty,14,41
+2024-11-01,Vitamin C Face Serum 30ml,Beauty,30,40
+2024-11-01,Webcam HD 1080p,Electronics,137,31
+2024-11-01,Wireless Bluetooth Earbuds,Electronics,215,25
+2024-12-01,Bamboo Cutting Board Set,Home & Living,169,47
+2024-12-01,Casual Denim Jacket,Fashion,180,26
+2024-12-01,Collagen Face Sheet Mask Pack,Beauty,204,17
+2024-12-01,Cotton Round Neck T-Shirt,Fashion,69,42
+2024-12-01,Laptop Stand Adjustable,Electronics,156,25
+2024-12-01,Leather Wallet Slim,Fashion,181,24
+2024-12-01,Mechanical Keyboard RGB,Electronics,65,17
+2024-12-01,Memory Foam Pillow,Home & Living,95,31
+2024-12-01,Moisturising Sunscreen SPF50,Beauty,195,21
+2024-12-01,Natural Aloe Vera Gel 200ml,Beauty,67,49
+2024-12-01,Noise Cancelling Headphones,Electronics,48,35
+2024-12-01,Non-Stick Frying Pan 26cm,Home & Living,106,19
+2024-12-01,Portable Phone Charger 20000mAh,Electronics,39,19
+2024-12-01,Running Sports Shoes,Fashion,175,41
+2024-12-01,Scented Soy Wax Candle,Home & Living,16,50
+2024-12-01,Slim Fit Chino Pants,Fashion,72,44
+2024-12-01,Smart LED Desk Lamp,Electronics,92,41
+2024-12-01,Stainless Steel Water Bottle 1L,Home & Living,20,42
+2024-12-01,Sunglasses UV400 Polarized,Fashion,54,33
+2024-12-01,USB-C Fast Charging Cable,Electronics,48,33
+2024-12-01,Under Eye Cream Dark Circles,Beauty,96,21
+2024-12-01,Vitamin C Face Serum 30ml,Beauty,59,28
+2024-12-01,Webcam HD 1080p,Electronics,90,40
+2024-12-01,Wireless Bluetooth Earbuds,Electronics,17,38
+2025-01-01,Bamboo Cutting Board Set,Home & Living,36,22
+2025-01-01,Casual Denim Jacket,Fashion,149,41
+2025-01-01,Collagen Face Sheet Mask Pack,Beauty,224,15
+2025-01-01,Cotton Round Neck T-Shirt,Fashion,105,33
+2025-01-01,Laptop Stand Adjustable,Electronics,156,49
+2025-01-01,Leather Wallet Slim,Fashion,192,38
+2025-01-01,Mechanical Keyboard RGB,Electronics,55,24
+2025-01-01,Memory Foam Pillow,Home & Living,238,15
+2025-01-01,Moisturising Sunscreen SPF50,Beauty,109,34
+2025-01-01,Natural Aloe Vera Gel 200ml,Beauty,88,23
+2025-01-01,Noise Cancelling Headphones,Electronics,34,26
+2025-01-01,Non-Stick Frying Pan 26cm,Home & Living,112,34
+2025-01-01,Portable Phone Charger 20000mAh,Electronics,190,25
+2025-01-01,Running Sports Shoes,Fashion,147,24
+2025-01-01,Scented Soy Wax Candle,Home & Living,145,35
+2025-01-01,Slim Fit Chino Pants,Fashion,140,22
+2025-01-01,Smart LED Desk Lamp,Electronics,26,20
+2025-01-01,Stainless Steel Water Bottle 1L,Home & Living,147,46
+2025-01-01,Sunglasses UV400 Polarized,Fashion,232,42
+2025-01-01,USB-C Fast Charging Cable,Electronics,228,29
+2025-01-01,Under Eye Cream Dark Circles,Beauty,77,50
+2025-01-01,Vitamin C Face Serum 30ml,Beauty,147,18
+2025-01-01,Webcam HD 1080p,Electronics,210,19
+2025-01-01,Wireless Bluetooth Earbuds,Electronics,21,32
+2025-02-01,Bamboo Cutting Board Set,Home & Living,193,42
+2025-02-01,Casual Denim Jacket,Fashion,195,23
+2025-02-01,Collagen Face Sheet Mask Pack,Beauty,21,33
+2025-02-01,Cotton Round Neck T-Shirt,Fashion,173,40
+2025-02-01,Laptop Stand Adjustable,Electronics,55,47
+2025-02-01,Leather Wallet Slim,Fashion,201,34
+2025-02-01,Mechanical Keyboard RGB,Electronics,222,35
+2025-02-01,Memory Foam Pillow,Home & Living,38,24
+2025-02-01,Moisturising Sunscreen SPF50,Beauty,14,34
+2025-02-01,Natural Aloe Vera Gel 200ml,Beauty,186,19
+2025-02-01,Noise Cancelling Headphones,Electronics,143,35
+2025-02-01,Non-Stick Frying Pan 26cm,Home & Living,178,26
+2025-02-01,Portable Phone Charger 20000mAh,Electronics,123,48
+2025-02-01,Running Sports Shoes,Fashion,208,22
+2025-02-01,Scented Soy Wax Candle,Home & Living,217,24
+2025-02-01,Slim Fit Chino Pants,Fashion,82,40
+2025-02-01,Smart LED Desk Lamp,Electronics,132,30
+2025-02-01,Stainless Steel Water Bottle 1L,Home & Living,65,33
+2025-02-01,Sunglasses UV400 Polarized,Fashion,162,42
+2025-02-01,USB-C Fast Charging Cable,Electronics,244,46
+2025-02-01,Under Eye Cream Dark Circles,Beauty,55,19
+2025-02-01,Vitamin C Face Serum 30ml,Beauty,59,26
+2025-02-01,Webcam HD 1080p,Electronics,208,39
+2025-02-01,Wireless Bluetooth Earbuds,Electronics,20,39
+2025-03-01,Bamboo Cutting Board Set,Home & Living,15,25
+2025-03-01,Casual Denim Jacket,Fashion,38,50
+2025-03-01,Collagen Face Sheet Mask Pack,Beauty,59,49
+2025-03-01,Cotton Round Neck T-Shirt,Fashion,49,41
+2025-03-01,Laptop Stand Adjustable,Electronics,146,28
+2025-03-01,Leather Wallet Slim,Fashion,157,48
+2025-03-01,Mechanical Keyboard RGB,Electronics,244,22
+2025-03-01,Memory Foam Pillow,Home & Living,118,41
+2025-03-01,Moisturising Sunscreen SPF50,Beauty,201,25
+2025-03-01,Natural Aloe Vera Gel 200ml,Beauty,148,36
+2025-03-01,Noise Cancelling Headphones,Electronics,33,45
+2025-03-01,Non-Stick Frying Pan 26cm,Home & Living,66,42
+2025-03-01,Portable Phone Charger 20000mAh,Electronics,82,46
+2025-03-01,Running Sports Shoes,Fashion,34,25
+2025-03-01,Scented Soy Wax Candle,Home & Living,190,15
+2025-03-01,Slim Fit Chino Pants,Fashion,160,32
+2025-03-01,Smart LED Desk Lamp,Electronics,250,47
+2025-03-01,Stainless Steel Water Bottle 1L,Home & Living,15,18
+2025-03-01,Sunglasses UV400 Polarized,Fashion,141,27
+2025-03-01,USB-C Fast Charging Cable,Electronics,213,22
+2025-03-01,Under Eye Cream Dark Circles,Beauty,25,15
+2025-03-01,Vitamin C Face Serum 30ml,Beauty,99,27
+2025-03-01,Webcam HD 1080p,Electronics,230,43
+2025-03-01,Wireless Bluetooth Earbuds,Electronics,51,31
+2025-04-01,Bamboo Cutting Board Set,Home & Living,51,44
+2025-04-01,Casual Denim Jacket,Fashion,178,18
+2025-04-01,Collagen Face Sheet Mask Pack,Beauty,235,47
+2025-04-01,Cotton Round Neck T-Shirt,Fashion,150,15
+2025-04-01,Laptop Stand Adjustable,Electronics,233,21
+2025-04-01,Leather Wallet Slim,Fashion,151,25
+2025-04-01,Mechanical Keyboard RGB,Electronics,79,30
+2025-04-01,Memory Foam Pillow,Home & Living,188,42
+2025-04-01,Moisturising Sunscreen SPF50,Beauty,55,50
+2025-04-01,Natural Aloe Vera Gel 200ml,Beauty,237,28
+2025-04-01,Noise Cancelling Headphones,Electronics,236,48
+2025-04-01,Non-Stick Frying Pan 26cm,Home & Living,111,49
+2025-04-01,Portable Phone Charger 20000mAh,Electronics,171,17
+2025-04-01,Running Sports Shoes,Fashion,246,41
+2025-04-01,Scented Soy Wax Candle,Home & Living,203,42
+2025-04-01,Slim Fit Chino Pants,Fashion,249,37
+2025-04-01,Smart LED Desk Lamp,Electronics,93,26
+2025-04-01,Stainless Steel Water Bottle 1L,Home & Living,25,43
+2025-04-01,Sunglasses UV400 Polarized,Fashion,225,25
+2025-04-01,USB-C Fast Charging Cable,Electronics,10,35
+2025-04-01,Under Eye Cream Dark Circles,Beauty,248,30
+2025-04-01,Vitamin C Face Serum 30ml,Beauty,229,29
+2025-04-01,Webcam HD 1080p,Electronics,240,30
+2025-04-01,Wireless Bluetooth Earbuds,Electronics,111,27
+2025-05-01,Bamboo Cutting Board Set,Home & Living,61,29
+2025-05-01,Casual Denim Jacket,Fashion,10,19
+2025-05-01,Collagen Face Sheet Mask Pack,Beauty,128,19
+2025-05-01,Cotton Round Neck T-Shirt,Fashion,55,40
+2025-05-01,Laptop Stand Adjustable,Electronics,182,28
+2025-05-01,Leather Wallet Slim,Fashion,73,42
+2025-05-01,Mechanical Keyboard RGB,Electronics,172,22
+2025-05-01,Memory Foam Pillow,Home & Living,212,25
+2025-05-01,Moisturising Sunscreen SPF50,Beauty,197,29
+2025-05-01,Natural Aloe Vera Gel 200ml,Beauty,99,26
+2025-05-01,Noise Cancelling Headphones,Electronics,236,49
+2025-05-01,Non-Stick Frying Pan 26cm,Home & Living,179,47
+2025-05-01,Portable Phone Charger 20000mAh,Electronics,114,20
+2025-05-01,Running Sports Shoes,Fashion,151,34
+2025-05-01,Scented Soy Wax Candle,Home & Living,193,24
+2025-05-01,Slim Fit Chino Pants,Fashion,126,21
+2025-05-01,Smart LED Desk Lamp,Electronics,139,36
+2025-05-01,Stainless Steel Water Bottle 1L,Home & Living,58,24
+2025-05-01,Sunglasses UV400 Polarized,Fashion,208,21
+2025-05-01,USB-C Fast Charging Cable,Electronics,64,45
+2025-05-01,Under Eye Cream Dark Circles,Beauty,35,49
+2025-05-01,Vitamin C Face Serum 30ml,Beauty,227,47
+2025-05-01,Webcam HD 1080p,Electronics,243,40
+2025-05-01,Wireless Bluetooth Earbuds,Electronics,166,39
+2025-06-01,Bamboo Cutting Board Set,Home & Living,158,49
+2025-06-01,Casual Denim Jacket,Fashion,114,22
+2025-06-01,Collagen Face Sheet Mask Pack,Beauty,189,40
+2025-06-01,Cotton Round Neck T-Shirt,Fashion,143,21
+2025-06-01,Laptop Stand Adjustable,Electronics,93,16
+2025-06-01,Leather Wallet Slim,Fashion,73,19
+2025-06-01,Mechanical Keyboard RGB,Electronics,118,38
+2025-06-01,Memory Foam Pillow,Home & Living,100,41
+2025-06-01,Moisturising Sunscreen SPF50,Beauty,55,16
+2025-06-01,Natural Aloe Vera Gel 200ml,Beauty,193,24
+2025-06-01,Noise Cancelling Headphones,Electronics,221,25
+2025-06-01,Non-Stick Frying Pan 26cm,Home & Living,187,22
+2025-06-01,Portable Phone Charger 20000mAh,Electronics,136,39
+2025-06-01,Running Sports Shoes,Fashion,169,23
+2025-06-01,Scented Soy Wax Candle,Home & Living,174,30
+2025-06-01,Slim Fit Chino Pants,Fashion,229,32
+2025-06-01,Smart LED Desk Lamp,Electronics,34,17
+2025-06-01,Stainless Steel Water Bottle 1L,Home & Living,127,47
+2025-06-01,Sunglasses UV400 Polarized,Fashion,129,43
+2025-06-01,USB-C Fast Charging Cable,Electronics,113,45
+2025-06-01,Under Eye Cream Dark Circles,Beauty,148,34
+2025-06-01,Vitamin C Face Serum 30ml,Beauty,99,46
+2025-06-01,Webcam HD 1080p,Electronics,11,49
+2025-06-01,Wireless Bluetooth Earbuds,Electronics,145,45

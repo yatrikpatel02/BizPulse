@@ -61,7 +61,7 @@ export default function RevenueByCategory() {
             <g className="text-center transform rotate-90 select-none pointer-events-none origin-center">
               <text
                 x={cx}
-                y={cy - 2}
+                y={cy - 5}
                 textAnchor="middle"
                 className="text-[6.5px] font-bold fill-gray-400 dark:fill-slate-500 uppercase tracking-wider"
               >
@@ -69,7 +69,7 @@ export default function RevenueByCategory() {
               </text>
               <text
                 x={cx}
-                y={cy + 7}
+                y={cy + 9}
                 textAnchor="middle"
                 className="text-[12px] font-extrabold fill-gray-900 dark:fill-white font-display"
               >
@@ -80,7 +80,7 @@ export default function RevenueByCategory() {
             <g className="text-center transform rotate-90 select-none pointer-events-none origin-center">
               <text
                 x={cx}
-                y={cy - 2}
+                y={cy - 5}
                 textAnchor="middle"
                 className="text-[6.5px] font-bold fill-gray-400 dark:fill-slate-500 uppercase tracking-wider"
               >
@@ -88,7 +88,7 @@ export default function RevenueByCategory() {
               </text>
               <text
                 x={cx}
-                y={cy + 7}
+                y={cy + 9}
                 textAnchor="middle"
                 className="text-[12px] font-extrabold fill-gray-900 dark:fill-white font-display"
               >
