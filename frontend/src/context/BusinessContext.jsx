@@ -1,5 +1,5 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
-import { getBusinesses, createBusiness as apiCreateBusiness, deleteBusiness as apiDeleteBusiness } from '../services/business';
+import { getBusinesses, createBusiness as apiCreateBusiness, deleteBusiness as apiDeleteBusiness, updateBusiness as apiUpdateBusiness } from '../services/business';
 import { useAuth } from './AuthContext';
 
 const BusinessContext = createContext(null);
@@ -94,6 +94,20 @@ export const BusinessProvider = ({ children }) => {
     }
   };
 
+  const editBusiness = async (businessId, data) => {
+    try {
+      const updated = await apiUpdateBusiness(businessId, data);
+      setBusinesses(prev => prev.map(b => b.id === businessId ? updated : b));
+      if (activeBusiness?.id === businessId) {
+        setActiveBusiness(updated);
+      }
+      return updated;
+    } catch (err) {
+      console.error('Failed to update business:', err);
+      throw err;
+    }
+  };
+
   return (
     <BusinessContext.Provider value={{ 
       businesses, 
@@ -102,7 +116,8 @@ export const BusinessProvider = ({ children }) => {
       error, 
       addBusiness, 
       changeActiveBusiness,
-      removeBusiness
+      removeBusiness,
+      editBusiness
     }}>
       {children}
     </BusinessContext.Provider>

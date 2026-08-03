@@ -7,7 +7,7 @@ from rest_framework_simplejwt.views import TokenRefreshView
 from rest_framework_simplejwt.tokens import RefreshToken
 from rest_framework_simplejwt.exceptions import TokenError
 from rest_framework_simplejwt.serializers import TokenRefreshSerializer
-from ..serializers.user import RegisterSerializer, LoginSerializer, UserSerializer, ProfileUpdateSerializer
+from ..serializers.user import RegisterSerializer, LoginSerializer, UserSerializer, ProfileUpdateSerializer, ChangePasswordSerializer
 from ..services.token_utils import (
     get_tokens_for_user,
     set_refresh_cookie,
@@ -95,6 +95,24 @@ class ProfileView(generics.GenericAPIView):
 
     def put(self, request, *args, **kwargs):
         user = request.user
+
+        # Handle avatar file upload if present
+        avatar_file = request.FILES.get('avatar')
+        if avatar_file:
+            import os
+            from django.conf import settings
+            from django.core.files.storage import default_storage
+            from django.core.files.base import ContentFile
+
+            ext = os.path.splitext(avatar_file.name)[1]
+            filename = f"avatars/user_{user.id}{ext}"
+            if default_storage.exists(filename):
+                default_storage.delete(filename)
+            path = default_storage.save(filename, ContentFile(avatar_file.read()))
+            avatar_url = request.build_absolute_uri(settings.MEDIA_URL + path)
+            user.avatar = avatar_url
+            user.save()
+
         serializer = ProfileUpdateSerializer(user, data=request.data, partial=True)
         serializer.is_valid(raise_exception=True)
         serializer.save()
@@ -125,4 +143,33 @@ class CookieTokenRefreshView(views.APIView):
         response = Response(response_data)
         if new_refresh:
             set_refresh_cookie(response, new_refresh)
+        return response
+
+
+class ChangePasswordView(views.APIView):
+    permission_classes = [permissions.IsAuthenticated]
+
+    def post(self, request, *args, **kwargs):
+        serializer = ChangePasswordSerializer(data=request.data, context={'request': request})
+        serializer.is_valid(raise_exception=True)
+        user = request.user
+        user.set_password(serializer.validated_data['new_password'])
+        user.save()
+        return Response({'detail': 'Password changed successfully.'}, status=status.HTTP_200_OK)
+
+
+class DeleteAccountView(views.APIView):
+    permission_classes = [permissions.IsAuthenticated]
+
+    def delete(self, request, *args, **kwargs):
+        user = request.user
+        password = request.data.get('password')
+        if not password:
+            return Response({'detail': 'Password is required.'}, status=status.HTTP_400_BAD_REQUEST)
+        if not user.check_password(password):
+            return Response({'detail': 'Incorrect password.'}, status=status.HTTP_400_BAD_REQUEST)
+
+        user.delete()
+        response = Response({'detail': 'Account deleted successfully.'}, status=status.HTTP_204_NO_CONTENT)
+        clear_refresh_cookie(response)
         return response

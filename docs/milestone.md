@@ -135,7 +135,7 @@ All APIs follow the project's DRF architecture standards: ViewSets for standard 
 - [x] Create registration page
 - [x] Implement protected route wrapper
 - [x] Add JWT token management (storage, refresh)
-- [ ] Build profile management page
+- [x] Build profile management page
 
 ### 6.3 Dashboard
 - [x] Create DashboardLayout component
@@ -144,12 +144,12 @@ All APIs follow the project's DRF architecture standards: ViewSets for standard 
 - [x] Build alerts/notification system
 
 ### 6.4 Data Import UI
-- [ ] Create Data page with tabs
-- [ ] Build file upload component
-- [ ] Implement column mapping interface
-- [ ] Add mapping confirmation UI
-- [ ] Create data preview table
-- [ ] Implement import status display
+- [x] Create Data page with tabs
+- [x] Build file upload component
+- [x] Implement column mapping interface
+- [x] Add mapping confirmation UI
+- [x] Create data preview table
+- [x] Implement import status display
 
 ### 6.5 Analytics Pages
 - [x] Create Analytics layout with tabs

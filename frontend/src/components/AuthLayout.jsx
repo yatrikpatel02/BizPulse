@@ -2,7 +2,7 @@ import React from 'react';
 
 export default function AuthLayout({ children }) {
   return (
-    <div className="min-h-screen w-full flex flex-col justify-center items-center p-6 md:p-8 bg-gradient-to-tr from-[#050608] via-[#0A0B0E] to-[#12151c] text-white font-sans overflow-hidden select-none relative">
+    <div className="min-h-screen w-full flex flex-col justify-center items-center p-6 md:p-8 bg-[#050608] bg-gradient-to-tr from-[#050608] via-[#0A0B0E] to-[#12151c] text-white font-sans overflow-hidden select-none relative">
       {/* Background Decorative Glows */}
       <div className="absolute top-[10%] left-[10%] w-[500px] h-[500px] rounded-full bg-[#c09e75]/2 blur-[140px] pointer-events-none" />
       <div className="absolute bottom-[10%] right-[10%] w-[500px] h-[500px] rounded-full bg-blue-500/2 blur-[140px] pointer-events-none" />

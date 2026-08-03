@@ -290,17 +290,9 @@ export default function Analytics() {
     <div className="space-y-6 pb-12 transition-all duration-300">
       <ChartGradients />
       
-      {/* 1. Header with details */}
-      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
-        <div>
-          <h1 className="text-3xl font-extrabold text-gray-900 dark:text-slate-50 tracking-tight">Business Intelligence</h1>
-          <p className="text-sm text-gray-500 dark:text-slate-400 mt-1">
-            Analyzing performance for <span className="font-semibold text-indigo-600 dark:text-indigo-400">{activeBusiness.name}</span>
-          </p>
-        </div>
-        
-        {/* Tab Selector Links */}
-        <div className="flex p-1.5 bg-gray-100/80 dark:bg-slate-800/80 border dark:border-slate-700/60 rounded-xl backdrop-blur-md self-start md:self-auto">
+      {/* 1. Tab Selector Bar */}
+      <div className="flex justify-end">
+        <div className="flex p-1.5 bg-gray-100/80 dark:bg-slate-800/80 border dark:border-slate-700/60 rounded-xl backdrop-blur-md w-full md:w-auto overflow-x-auto">
           {[
             { id: 'sales', label: 'Sales & Revenue', icon: <svg className="w-4 h-4 mr-1.5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg> },
             { id: 'inventory', label: 'Inventory', icon: <svg className="w-4 h-4 mr-1.5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4" /></svg> },
@@ -399,14 +391,13 @@ export default function Analytics() {
                   key={i} 
                   className="relative overflow-hidden bg-white/60 dark:bg-slate-900/60 backdrop-blur-md border border-white/20 dark:border-slate-800/80 rounded-2xl p-6 shadow-md hover:-translate-y-1 hover:shadow-xl transition-all duration-300 group cursor-default"
                 >
-                  <div className="absolute top-0 right-0 w-24 h-24 bg-gradient-to-br from-indigo-500/10 to-blue-500/5 rounded-bl-full pointer-events-none transition-all duration-300 group-hover:scale-110"></div>
                   <div className="flex items-center justify-between mb-4">
                     <span className="text-sm font-semibold text-gray-500 dark:text-slate-400">{card.title}</span>
                     <div className="p-2 bg-gray-50 dark:bg-slate-800/50 rounded-xl border dark:border-slate-700/50">
                       {card.icon}
                     </div>
                   </div>
-                  <div className="text-2xl font-extrabold text-gray-900 dark:text-slate-50 tracking-tight">
+                  <div className="text-xl sm:text-2xl lg:text-lg xl:text-2xl font-extrabold text-gray-900 dark:text-slate-50 tracking-tight truncate">
                     <AnimatedCounter 
                       value={card.value} 
                       prefix={card.isAmount ? '₹' : ''} 
@@ -522,7 +513,7 @@ export default function Analytics() {
                       {card.icon}
                     </div>
                   </div>
-                  <div className="text-2xl font-extrabold text-gray-900 dark:text-slate-50 tracking-tight">
+                  <div className="text-xl sm:text-2xl lg:text-lg xl:text-2xl font-extrabold text-gray-900 dark:text-slate-50 tracking-tight truncate">
                     <AnimatedCounter 
                       value={card.value} 
                       prefix={card.isAmount ? '₹' : ''} 
@@ -607,7 +598,7 @@ export default function Analytics() {
                       {card.icon}
                     </div>
                   </div>
-                  <div className="text-2xl font-extrabold text-gray-900 dark:text-slate-50 tracking-tight">
+                  <div className="text-xl sm:text-2xl lg:text-lg xl:text-2xl font-extrabold text-gray-900 dark:text-slate-50 tracking-tight truncate">
                     <AnimatedCounter 
                       value={card.value} 
                       prefix={card.isAmount ? '₹' : ''} 

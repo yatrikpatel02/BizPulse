@@ -1,8 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import { Mail, Lock, Eye, EyeOff, ArrowRight } from 'lucide-react';
 import GoogleLoginButton from '../components/GoogleLoginButton';
+import { useTheme } from '../context/ThemeContext';
 
 export default function Login() {
   const [email, setEmail] = useState('');
@@ -12,7 +13,13 @@ export default function Login() {
   const [loading, setLoading] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   const { login } = useAuth();
+  const { setIsDarkMode } = useTheme();
   const navigate = useNavigate();
+
+  // Restore theme to default light on mount
+  useEffect(() => {
+    setIsDarkMode(false);
+  }, [setIsDarkMode]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();

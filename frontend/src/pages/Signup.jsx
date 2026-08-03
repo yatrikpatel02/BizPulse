@@ -1,15 +1,16 @@
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import { Mail, Lock, User, Check, X, ArrowRight } from 'lucide-react';
 import GoogleLoginButton from '../components/GoogleLoginButton';
+import { useTheme } from '../context/ThemeContext';
 
 const checks = [
-  { label: 'At least 8 characters', test: (p) => p.length >= 8 },
-  { label: 'At least one uppercase letter', test: (p) => /[A-Z]/.test(p) },
-  { label: 'At least one lowercase letter', test: (p) => /[a-z]/.test(p) },
-  { label: 'At least one number', test: (p) => /\d/.test(p) },
-  { label: 'At least one special character', test: (p) => /[^A-Za-z0-9]/.test(p) },
+  { label: 'At least 8 chars', test: (p) => p.length >= 8 },
+  { label: 'One uppercase', test: (p) => /[A-Z]/.test(p) },
+  { label: 'One lowercase', test: (p) => /[a-z]/.test(p) },
+  { label: 'One number', test: (p) => /\d/.test(p) },
+  { label: 'One special char', test: (p) => /[^A-Za-z0-9]/.test(p) },
 ];
 
 export default function Signup() {
@@ -32,7 +33,13 @@ export default function Signup() {
   });
   const [loading, setLoading] = useState(false);
   const { register } = useAuth();
+  const { setIsDarkMode } = useTheme();
   const navigate = useNavigate();
+
+  // Restore theme to default light on mount
+  useEffect(() => {
+    setIsDarkMode(false);
+  }, [setIsDarkMode]);
 
   const passwordChecks = useMemo(() => checks.map((c) => ({ ...c, passed: c.test(formData.password) })), [formData.password]);
   const allChecksPassed = passwordChecks.every((c) => c.passed);

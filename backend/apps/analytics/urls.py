@@ -1,6 +1,9 @@
 from django.urls import path, include
 from rest_framework.routers import SimpleRouter
-from .views import (
+from analytics.views import (
+    SalesRecordListView,
+    InventorySnapshotListView,
+    CustomerReviewListView,
     SalesRecordViewSet,
     InventorySnapshotViewSet,
     CustomerReviewViewSet,
@@ -9,9 +12,9 @@ from .views import (
     PredictionViewSet,
     InsightViewSet,
 )
-from .views.sales_analytics import SalesAnalyticsView
-from .views.inventory_analytics import InventoryAnalyticsView
-from .views.customer_intelligence import CustomerIntelligenceView
+from analytics.views.sales_analytics import SalesAnalyticsView
+from analytics.views.inventory_analytics import InventoryAnalyticsView
+from analytics.views.customer_intelligence import CustomerIntelligenceView
 
 router = SimpleRouter()
 router.register(r'sales-records', SalesRecordViewSet, basename='sales-record')
@@ -23,6 +26,12 @@ router.register(r'predictions', PredictionViewSet, basename='prediction')
 router.register(r'insights', InsightViewSet, basename='insight')
 
 urlpatterns = [
+    # Data viewer list endpoints (simple, paginated)
+    path('sales/', SalesRecordListView.as_view(), name='sales-list'),
+    path('inventory/', InventorySnapshotListView.as_view(), name='inventory-list'),
+    path('reviews/', CustomerReviewListView.as_view(), name='reviews-list'),
+
+    # Analytics-Engine endpoints
     path('sales-analysis/', SalesAnalyticsView.as_view(), name='sales-analytics'),
     path('inventory-analysis/', InventoryAnalyticsView.as_view(), name='inventory-analytics'),
     path('customer-analysis/', CustomerIntelligenceView.as_view(), name='customer-analysis'),
