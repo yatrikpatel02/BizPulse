@@ -2,6 +2,7 @@ import React, { useState, useMemo } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import { Mail, Lock, User, Check, X, ArrowRight } from 'lucide-react';
+import GoogleLoginButton from '../components/GoogleLoginButton';
 
 const checks = [
   { label: 'At least 8 characters', test: (p) => p.length >= 8 },
@@ -316,6 +317,16 @@ export default function Signup() {
             )}
           </button>
         </div>
+
+        {/* Divider */}
+        <div className="relative flex py-2 items-center">
+          <div className="flex-grow border-t border-[#232731]"></div>
+          <span className="flex-shrink mx-4 text-gray-500 text-xs font-semibold uppercase tracking-wider">or</span>
+          <div className="flex-grow border-t border-[#232731]"></div>
+        </div>
+
+        {/* Google Sign-in */}
+        <GoogleLoginButton text="signup_with" />
 
         {/* Sign in Link */}
         <div className="text-sm text-center text-gray-400 mt-6">

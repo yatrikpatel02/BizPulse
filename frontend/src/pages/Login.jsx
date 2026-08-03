@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import { Mail, Lock, Eye, EyeOff, ArrowRight } from 'lucide-react';
+import GoogleLoginButton from '../components/GoogleLoginButton';
 
 export default function Login() {
   const [email, setEmail] = useState('');
@@ -167,6 +168,16 @@ export default function Login() {
             )}
           </button>
         </div>
+
+        {/* Divider */}
+        <div className="relative flex py-2 items-center">
+          <div className="flex-grow border-t border-[#232731]"></div>
+          <span className="flex-shrink mx-4 text-gray-500 text-xs font-semibold uppercase tracking-wider">or</span>
+          <div className="flex-grow border-t border-[#232731]"></div>
+        </div>
+
+        {/* Google Sign-in */}
+        <GoogleLoginButton text="signin_with" />
 
         {/* Sign up Link */}
         <div className="mt-6 text-center text-sm text-gray-400">
