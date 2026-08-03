@@ -109,11 +109,6 @@ export default function Login() {
           </button>
         </div>
 
-        <div className="relative flex items-center justify-center my-6">
-          <div className="absolute inset-x-0 h-px bg-gray-200 dark:bg-slate-800"></div>
-          <span className="relative px-3 bg-white dark:bg-slate-900 text-xs font-semibold text-gray-400 dark:text-slate-500 uppercase tracking-wider">or continue with</span>
-        </div>
-
         <SocialButtons onSuccess={() => navigate('/dashboard')} onError={setError} />
       </form>
     </div>
