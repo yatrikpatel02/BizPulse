@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { getSalesRecords, getInventorySnapshots, getCustomerReviews } from '../services/analytics';
+import { useBusiness } from '../context/BusinessContext';
 
 // --- Icons ---
 const SearchIcon = () => (
@@ -187,6 +188,7 @@ const TABS = [
 
 export default function DataViewer() {
   const navigate = useNavigate();
+  const { activeBusiness } = useBusiness();
   const [activeTab, setActiveTab] = useState('sales');
   const [search, setSearch] = useState('');
   const [dateFrom, setDateFrom] = useState('');
@@ -199,6 +201,7 @@ export default function DataViewer() {
   const [error, setError] = useState(null);
 
   const fetchData = useCallback(async () => {
+    if (!activeBusiness) return;
     setLoading(true);
     setError(null);
     try {
@@ -213,11 +216,20 @@ export default function DataViewer() {
     } finally {
       setLoading(false);
     }
-  }, [activeTab, page, search, dateFrom, dateTo, ratingFilter]);
+  }, [activeBusiness, activeTab, page, search, dateFrom, dateTo, ratingFilter]);
 
   useEffect(() => {
     fetchData();
   }, [fetchData]);
+
+  // Reset page and filters when the active business changes
+  useEffect(() => {
+    setSearch('');
+    setDateFrom('');
+    setDateTo('');
+    setRatingFilter('');
+    setPage(1);
+  }, [activeBusiness]);
 
   // Reset page when tab or filters change
   const handleTabChange = (tab) => {
