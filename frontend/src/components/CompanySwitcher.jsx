@@ -100,7 +100,7 @@ export default function CompanySwitcher() {
               </div>
               <h3 className="text-lg font-medium text-center text-gray-900 dark:text-slate-100 mb-2">Delete Company</h3>
               <p className="text-sm text-center text-gray-500 dark:text-slate-400">
-                Are you sure you want to delete <span className="font-semibold text-gray-900 dark:text-slate-200">"{companyToDelete.name}"</span>? This action cannot be undone.
+                 Are you sure you want to delete <span className="font-semibold text-gray-900 dark:text-slate-200">&quot;{companyToDelete.name}&quot;</span>? This action cannot be undone.
               </p>
               <div className="mt-6 flex justify-center space-x-3">
                 <button

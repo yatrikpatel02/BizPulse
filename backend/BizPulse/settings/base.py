@@ -4,7 +4,7 @@ import sys
 from datetime import timedelta
 from dotenv import load_dotenv
 
-sys.path.insert(0, str(Path(__file__).resolve().parent.parent / 'apps'))
+sys.path.insert(0, str(Path(__file__).resolve().parent.parent.parent / 'apps'))
 
 load_dotenv()
 
@@ -110,6 +110,8 @@ MEDIA_ROOT = Path(BASE_DIR) / 'media'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 AUTH_USER_MODEL = 'accounts.User'
+
+TEST_RUNNER = 'BizPulse.test_runner.AppsOnPathTestRunner'
 
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': [

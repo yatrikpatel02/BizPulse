@@ -30,7 +30,7 @@ export default function SuccessStep({ tempFileId, sourceType, mapping, originalF
     };
 
     executeImport();
-  }, []); // eslint-disable-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <div className="max-w-2xl mx-auto bg-white dark:bg-slate-900 rounded-xl shadow-sm border dark:border-slate-800 p-12 text-center">

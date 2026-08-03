@@ -88,9 +88,6 @@ export function AreaChart({ data = [], xKey = 'label', yKey = 'value', height = 
     if (!containerRef.current) return;
     const rect = containerRef.current.getBoundingClientRect();
     const mouseX = e.clientX - rect.left;
-    const mouseY = e.clientY - rect.top;
-
-    // Convert mouseX to SVG space coordinates
     const scaleX = svgWidth / rect.width;
     const svgMouseX = mouseX * scaleX;
 
@@ -111,7 +108,7 @@ export function AreaChart({ data = [], xKey = 'label', yKey = 'value', height = 
     const scaleY = rect.height / svgHeight;
     setTooltipPos({
       x: points[closestIdx].x / scaleX,
-      y: points[closestIdx].y / scaleX - 10
+      y: points[closestIdx].y / scaleY - 10
     });
   };
 
@@ -302,8 +299,6 @@ export function BarChart({ data = [], xKey = 'label', yKey = 'value', height = 2
     if (!containerRef.current) return;
     const rect = containerRef.current.getBoundingClientRect();
     const mouseX = e.clientX - rect.left;
-    const mouseY = e.clientY - rect.top;
-
     const scaleX = svgWidth / rect.width;
     const svgMouseX = mouseX * scaleX;
 
@@ -320,7 +315,7 @@ export function BarChart({ data = [], xKey = 'label', yKey = 'value', height = 2
       const scaleY = rect.height / svgHeight;
       setTooltipPos({
         x: (bars[foundIdx].x + barWidth / 2) / scaleX,
-        y: bars[foundIdx].y / scaleX - 10
+        y: bars[foundIdx].y / scaleY - 10
       });
     } else {
       setHoveredIdx(null);
@@ -448,7 +443,7 @@ export function DonutChart({ data = [], size = 200, innerLabel = 'CSAT', innerVa
 
   // Compute angles and stroke offsets
   let accumulatedPercentage = 0;
-  const segments = data.map((d, index) => {
+  const segments = data.map((d) => {
     const val = d.value || 0;
     const percentage = total > 0 ? val / total : 0;
     const strokeDasharray = `${percentage * circumference} ${circumference}`;
@@ -566,3 +561,4 @@ export function AnimatedCounter({ value, duration = 800, prefix = '', suffix = '
     <span>{prefix}{displayVal}{suffix}</span>
   );
 }
+

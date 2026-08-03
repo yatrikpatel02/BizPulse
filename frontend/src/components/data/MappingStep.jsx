@@ -77,7 +77,7 @@ export default function MappingStep({ headers, suggestedMappings, sourceType, on
     <div className="max-w-4xl mx-auto bg-white dark:bg-slate-900 rounded-xl shadow-sm border dark:border-slate-800 p-8">
       <h2 className="text-2xl font-bold text-gray-900 dark:text-slate-100 mb-2">Map Your Columns</h2>
       <p className="text-gray-600 dark:text-slate-400 mb-6">
-        Match the columns from your uploaded file to the required system fields. We've auto-matched some based on their names.
+         Match the columns from your uploaded file to the required system fields. We&apos;ve auto-matched some based on their names.
       </p>
 
       {error && (

@@ -7,7 +7,7 @@
     "eslint:recommended",
     "plugin:react/recommended"
   ],
-  "plugins": ["react"],
+  "plugins": ["react", "react-hooks"],
   "parserOptions": {
     "ecmaVersion": "latest",
     "sourceType": "module",
