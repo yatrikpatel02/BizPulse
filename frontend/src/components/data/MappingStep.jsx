@@ -23,6 +23,7 @@ const EXPECTED_FIELDS = {
     { key: 'date', label: 'Review Date', required: true },
     { key: 'rating', label: 'Rating / Score / Stars (1–5)', required: true },
     { key: 'text', label: 'Review Text / Comment / Feedback', required: true },
+    { key: 'category', label: 'Category (Optional)', required: false },
     { key: 'product_name', label: 'Product Name (Optional)', required: false },
     { key: 'author_name', label: 'Author / Reviewer Name (Optional)', required: false },
     { key: 'source', label: 'Source Platform (Optional)', required: false },

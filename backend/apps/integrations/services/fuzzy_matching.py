@@ -7,7 +7,7 @@ class ColumnMappingService:
     TARGET_COLUMNS = {
         'sales': ['date', 'product_name', 'category', 'quantity', 'revenue', 'cost'],
         'inventory': ['date', 'product_name', 'category', 'quantity_on_hand', 'reorder_point', 'unit_cost', 'location', 'supplier'],
-        'reviews': ['date', 'product_name', 'rating', 'text', 'author_name', 'source', 'external_id']
+        'reviews': ['date', 'product_name', 'category', 'rating', 'text', 'author_name', 'source', 'external_id']
     }
 
     ALIASES = {
@@ -32,6 +32,7 @@ class ColumnMappingService:
         'reviews': {
             'date': ['date', 'review_date', 'timestamp', 'created_at', 'review date', 'posted_date', 'post_date'],
             'product_name': ['product', 'product_name', 'item', 'item_name', 'sku', 'product_sku', 'item sku', 'item_sku'],
+            'category': ['category', 'product_category', 'type', 'product_type', 'group', 'department'],
             'rating': ['rating', 'score', 'stars', 'review_rating', 'points', 'star_rating', 'review_score'],
             'text': ['text', 'review', 'comment', 'review_text', 'body', 'content', 'message', 'feedback', 'description', 'remarks'],
             'author_name': ['author_name', 'author', 'reviewer', 'reviewer_name', 'customer_name', 'name', 'reviewer name', 'user_name', 'username'],
