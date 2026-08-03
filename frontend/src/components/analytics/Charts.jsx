@@ -566,3 +566,4 @@ export function AnimatedCounter({ value, duration = 800, prefix = '', suffix = '
     <span>{prefix}{displayVal}{suffix}</span>
   );
 }
+
