@@ -6,7 +6,7 @@ from integrations.models import ColumnMapping
 class ColumnMappingService:
     TARGET_COLUMNS = {
         'sales': ['date', 'product_name', 'quantity', 'revenue', 'cost'],
-        'inventory': ['date', 'product_name', 'quantity_on_hand', 'reorder_point', 'unit_cost', 'location', 'supplier'],
+        'inventory': ['date', 'product_name', 'category', 'quantity_on_hand', 'reorder_point', 'unit_cost', 'location', 'supplier'],
         'reviews': ['date', 'product_name', 'rating', 'text', 'author_name', 'source', 'external_id']
     }
 
@@ -21,6 +21,7 @@ class ColumnMappingService:
         'inventory': {
             'date': ['date', 'snapshot_date', 'timestamp', 'recorded_at', 'inventory date'],
             'product_name': ['product', 'product_name', 'item', 'item_name', 'sku', 'product_sku', 'product_id', 'item_code', 'item sku', 'item_sku'],
+            'category': ['category', 'product_category', 'type', 'product_type', 'group', 'department'],
             'quantity_on_hand': ['quantity_on_hand', 'qty_on_hand', 'stock', 'stock_level', 'quantity', 'qty', 'on_hand', 'stock_quantity', 'available_qty', 'closing_stock'],
             'reorder_point': ['reorder_point', 'reorder', 'reorder_level', 'minimum_stock', 'min_stock', 'alert_threshold', 'safety_stock'],
             'unit_cost': ['unit_cost', 'cost', 'purchase_price', 'cost_price', 'buying_price', 'unit_price', 'avg_cost'],

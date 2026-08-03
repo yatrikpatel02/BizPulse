@@ -12,6 +12,7 @@ const EXPECTED_FIELDS = {
     { key: 'product_name', label: 'Product Name / SKU', required: true },
     { key: 'quantity_on_hand', label: 'Quantity on Hand / Stock Level', required: true },
     { key: 'date', label: 'Snapshot Date', required: true },
+    { key: 'category', label: 'Category (Optional)', required: false },
     { key: 'reorder_point', label: 'Reorder Point / Min Stock (Optional)', required: false },
     { key: 'unit_cost', label: 'Unit Cost / Purchase Price (Optional)', required: false },
     { key: 'location', label: 'Warehouse / Location (Optional)', required: false },
