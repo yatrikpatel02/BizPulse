@@ -6,6 +6,7 @@ const EXPECTED_FIELDS = {
     { key: 'quantity', label: 'Quantity Sold', required: true },
     { key: 'revenue', label: 'Total Revenue', required: true },
     { key: 'date', label: 'Transaction Date', required: true },
+    { key: 'category', label: 'Category (Optional)', required: false },
     { key: 'cost', label: 'Cost / Unit Cost (Optional)', required: false },
   ],
   inventory: [

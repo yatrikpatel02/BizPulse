@@ -5,7 +5,7 @@ from integrations.models import ColumnMapping
 
 class ColumnMappingService:
     TARGET_COLUMNS = {
-        'sales': ['date', 'product_name', 'quantity', 'revenue', 'cost'],
+        'sales': ['date', 'product_name', 'category', 'quantity', 'revenue', 'cost'],
         'inventory': ['date', 'product_name', 'category', 'quantity_on_hand', 'reorder_point', 'unit_cost', 'location', 'supplier'],
         'reviews': ['date', 'product_name', 'rating', 'text', 'author_name', 'source', 'external_id']
     }
@@ -14,6 +14,7 @@ class ColumnMappingService:
         'sales': {
             'date': ['date', 'sale date', 'transaction date', 'timestamp', 'sold_at', 'sales date'],
             'product_name': ['product', 'product_name', 'item', 'item_name', 'sku', 'product_sku', 'product_id', 'item_code', 'item sku', 'item_sku'],
+            'category': ['category', 'product_category', 'type', 'product_type', 'group', 'department'],
             'quantity': ['quantity', 'qty', 'count', 'units', 'quantity_sold', 'qty_sold', 'number_of_items', 'volume'],
             'revenue': ['revenue', 'amount', 'total_amount', 'sales', 'price', 'total_price', 'value', 'turnover', 'gross_amount'],
             'cost': ['cost', 'unit_cost', 'cost_price', 'cogs', 'expenses', 'cost of goods sold']
