@@ -202,7 +202,17 @@ export default function Analytics() {
 
   // Normalize Sales Data
   const currentSales = {
-    metrics: rawSales.metrics || {},
+    metrics: {
+      ...rawSales.metrics,
+      total_orders: rawSales.metrics?.total_orders !== undefined 
+        ? rawSales.metrics.total_orders 
+        : rawSales.metrics?.transaction_count,
+      average_order_value: rawSales.metrics?.average_order_value !== undefined 
+        ? rawSales.metrics.average_order_value 
+        : (rawSales.metrics?.transaction_count > 0 
+            ? (rawSales.metrics.total_revenue / rawSales.metrics.transaction_count) 
+            : rawSales.metrics?.average_unit_price || 0)
+    },
     trends: Array.isArray(rawSales.trends) 
       ? rawSales.trends.map(t => ({ 
           label: t.label || t.date || '', 
@@ -397,7 +407,7 @@ export default function Analytics() {
                       {card.icon}
                     </div>
                   </div>
-                  <div className="text-xl sm:text-2xl lg:text-lg xl:text-2xl font-extrabold text-gray-900 dark:text-slate-50 tracking-tight truncate">
+                  <div className="text-lg sm:text-[22px] lg:text-base xl:text-xl font-extrabold text-gray-900 dark:text-slate-50 tracking-tight break-words">
                     <AnimatedCounter 
                       value={card.value} 
                       prefix={card.isAmount ? '₹' : ''} 
@@ -513,7 +523,7 @@ export default function Analytics() {
                       {card.icon}
                     </div>
                   </div>
-                  <div className="text-xl sm:text-2xl lg:text-lg xl:text-2xl font-extrabold text-gray-900 dark:text-slate-50 tracking-tight truncate">
+                  <div className="text-lg sm:text-[22px] lg:text-base xl:text-xl font-extrabold text-gray-900 dark:text-slate-50 tracking-tight break-words">
                     <AnimatedCounter 
                       value={card.value} 
                       prefix={card.isAmount ? '₹' : ''} 
@@ -524,7 +534,7 @@ export default function Analytics() {
                     <span className="text-xs font-semibold text-indigo-500 bg-indigo-500/10 px-2 py-0.5 rounded-full">
                       {card.change}
                     </span>
-                    <span className="text-[10px] text-gray-400">vs last month</span>
+                    <span className="text-[10px] text-gray-400">vs last period</span>
                   </div>
                 </div>
               ))}
@@ -609,7 +619,7 @@ export default function Analytics() {
                     <span className="text-xs font-semibold text-indigo-500 bg-indigo-500/10 px-2 py-0.5 rounded-full">
                       {card.change}
                     </span>
-                    <span className="text-[10px] text-gray-400">vs last month</span>
+                    <span className="text-[10px] text-gray-400">vs last period</span>
                   </div>
                 </div>
               ))}

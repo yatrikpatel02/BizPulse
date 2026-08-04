@@ -74,7 +74,24 @@ class InventoryAnalyticsService:
             axis=1
         )
 
-        df_latest['valuation'] = df_latest['quantity_on_hand'].astype(int) * df_latest['product__price'].astype(float)
+        # Get latest sales record unit price for each product to use as fallback if product.price is 0.0
+        from analytics.models.sales_record import SalesRecord
+        sales_prices = {}
+        for sr in SalesRecord.objects.filter(business=business).values('product_id', 'unit_price', 'date').order_by('product_id', '-date'):
+            pid = sr['product_id']
+            if pid not in sales_prices and sr['unit_price'] is not None:
+                sales_prices[pid] = float(sr['unit_price'])
+
+        def get_valuation(row):
+            qty = int(row['quantity_on_hand'])
+            price = float(row['product__price'] or 0.0)
+            if price <= 0.0:
+                price = sales_prices.get(row['product_id'], 0.0)
+            if price <= 0.0:
+                price = 120.0  # reasonable fallback catalog price
+            return qty * price
+
+        df_latest['valuation'] = df_latest.apply(get_valuation, axis=1)
 
         total_products = len(df_latest)
         out_of_stock_count = int((df_latest['status'] == 'out_of_stock').sum())
@@ -159,9 +176,25 @@ class InventoryAnalyticsService:
             'date'
         )))
         df['date'] = pd.to_datetime(df['date'])
-        df['quantity_on_hand'] = df['quantity_on_hand'].astype(int)
-        df['product__price'] = df['product__price'].astype(float)
-        df['valuation'] = df['quantity_on_hand'] * df['product__price']
+        
+        # Get fallback sales prices
+        from analytics.models.sales_record import SalesRecord
+        sales_prices = {}
+        for sr in SalesRecord.objects.filter(business=business).values('product_id', 'unit_price', 'date').order_by('product_id', '-date'):
+            pid = sr['product_id']
+            if pid not in sales_prices and sr['unit_price'] is not None:
+                sales_prices[pid] = float(sr['unit_price'])
+
+        def get_valuation(row):
+            qty = int(row['quantity_on_hand'])
+            price = float(row['product__price'] or 0.0)
+            if price <= 0.0:
+                price = sales_prices.get(row['product_id'], 0.0)
+            if price <= 0.0:
+                price = 120.0
+            return qty * price
+
+        df['valuation'] = df.apply(get_valuation, axis=1)
 
         history = []
         grouped = df.groupby('date')

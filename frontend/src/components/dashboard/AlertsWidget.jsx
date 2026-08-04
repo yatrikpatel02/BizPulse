@@ -1,6 +1,15 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 export default function AlertsWidget({ alerts }) {
+  const [limit, setLimit] = useState(4);
+
+  const displayedAlerts = alerts.slice(0, limit);
+  const hasMore = alerts.length > limit;
+
+  const handleSeeMore = () => {
+    setLimit(prev => prev + 8);
+  };
+
   return (
     <div className="glass-card rounded-2xl shadow-sm p-6 h-full transition-all duration-300">
       <h3 className="text-lg font-bold text-gray-800 dark:text-slate-100 font-display mb-6 flex items-center">
@@ -10,7 +19,7 @@ export default function AlertsWidget({ alerts }) {
         Important Alerts
       </h3>
       <div className="space-y-3">
-        {alerts.map((alert, index) => (
+        {displayedAlerts.map((alert, index) => (
           <div 
             key={index} 
             className={`p-4 text-xs rounded-xl border font-medium leading-relaxed transition-all duration-300 ${
@@ -27,6 +36,14 @@ export default function AlertsWidget({ alerts }) {
         ))}
         {alerts.length === 0 && (
           <p className="text-sm text-gray-500 dark:text-slate-500 italic">No important alerts.</p>
+        )}
+        {hasMore && (
+          <button
+            onClick={handleSeeMore}
+            className="w-full mt-2 py-2.5 px-4 bg-gray-50 hover:bg-indigo-50 dark:bg-slate-800/40 dark:hover:bg-indigo-950/20 border border-gray-100 dark:border-slate-800/60 rounded-xl text-xs font-bold text-indigo-600 dark:text-indigo-400 shadow-sm transition-all duration-200"
+          >
+            See More
+          </button>
         )}
       </div>
     </div>

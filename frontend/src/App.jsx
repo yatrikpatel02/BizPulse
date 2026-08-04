@@ -13,6 +13,9 @@ import Data from './pages/Data';
 import DataViewer from './pages/DataViewer';
 import Profile from './pages/Profile';
 import Analytics from './pages/Analytics';
+import Products from './pages/Products';
+import Insights from './pages/Insights';
+import Reports from './pages/Reports';
 import ProtectedRoute from './components/ProtectedRoute';
 
 function App() {
@@ -57,6 +60,27 @@ function App() {
               <ProtectedRoute>
                 <DashboardLayout>
                   <Analytics />
+                </DashboardLayout>
+              </ProtectedRoute>
+            } />
+            <Route path="/products" element={
+              <ProtectedRoute>
+                <DashboardLayout>
+                  <Products />
+                </DashboardLayout>
+              </ProtectedRoute>
+            } />
+            <Route path="/insights" element={
+              <ProtectedRoute>
+                <DashboardLayout>
+                  <Insights />
+                </DashboardLayout>
+              </ProtectedRoute>
+            } />
+            <Route path="/reports" element={
+              <ProtectedRoute>
+                <DashboardLayout>
+                  <Reports />
                 </DashboardLayout>
               </ProtectedRoute>
             } />

@@ -187,7 +187,10 @@ class TimeSeriesPreparationServiceTest(TestCase):
         """Ensure no ARIMA/SARIMA is used."""
         service = TimeSeriesPreparationService()
         # Verify the service doesn't import ARIMA
-        source = open('apps/analytics/services/ml_service.py').read()
+        import os
+        current_dir = os.path.dirname(os.path.abspath(__file__))
+        ml_service_path = os.path.join(current_dir, '..', 'services', 'ml_service.py')
+        source = open(ml_service_path).read()
         self.assertNotIn('ARIMA', source)
         self.assertNotIn('SARIMA', source)
 

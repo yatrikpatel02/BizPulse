@@ -13,7 +13,7 @@ export default function KPICard({ title, value, subtitle, change, isPositive, tr
       </div>
       
       <div className="space-y-1.5 flex-1">
-        <div className="text-2xl sm:text-[28px] lg:text-2xl xl:text-3xl font-bold text-gray-900 dark:text-white font-display tracking-tight truncate">
+        <div className="text-lg sm:text-[24px] lg:text-lg xl:text-2xl font-bold text-gray-900 dark:text-white font-display tracking-tight break-words">
           {value}
         </div>
         {subtitle && (

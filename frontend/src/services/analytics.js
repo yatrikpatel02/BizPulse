@@ -33,3 +33,13 @@ export const getInsights = async (params = {}) => {
   const response = await api.get('/analytics/insights/', { params });
   return response.data;
 };
+
+export const updateInsight = async (id, data) => {
+  const response = await api.patch(`/analytics/insights/${id}/`, data);
+  return response.data;
+};
+
+export const deleteInsight = async (id) => {
+  const response = await api.delete(`/analytics/insights/${id}/`);
+  return response.data;
+};

@@ -35,7 +35,7 @@ urlpatterns = [
 
     # Analytics-Engine endpoints
     path('sales-analysis/', SalesAnalyticsView.as_view(), name='sales-analytics'),
-    path('inventory-analysis/', InventoryAnalyticsView.as_view(), name='inventory-analysis'),
+    path('inventory-analysis/', InventoryAnalyticsView.as_view(), name='inventory-analytics'),
     path('customer-analysis/', CustomerIntelligenceView.as_view(), name='customer-analysis'),
     path('market-insights/', MarketInsightsView.as_view(), name='market-insights'),
 

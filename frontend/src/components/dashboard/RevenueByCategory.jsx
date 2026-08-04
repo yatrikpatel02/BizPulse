@@ -1,12 +1,46 @@
 import React, { useState } from 'react';
 
-export default function RevenueByCategory() {
-  const segments = [
-    { label: 'Electronics', value: 42, color: '#4f46e5' },
-    { label: 'Fashion', value: 25, color: '#818cf8' },
-    { label: 'Home & Living', value: 18, color: '#c7d2fe' },
-    { label: 'Beauty', value: 15, color: '#e0e7ff' },
-  ];
+export default function RevenueByCategory({ productPerformance = [] }) {
+  const segments = (productPerformance && productPerformance.length > 0)
+    ? (() => {
+        const categoryMap = {
+          'Electronics': { value: 0, color: '#4f46e5' },
+          'Office & Computing': { value: 0, color: '#818cf8' },
+          'Fashion & Apparel': { value: 0, color: '#c7d2fe' },
+          'General & Others': { value: 0, color: '#e0e7ff' }
+        };
+
+        productPerformance.forEach(p => {
+          const name = (p.label || p.product_name || '').toLowerCase();
+          const rev = p.value !== undefined ? p.value : (p.total_revenue || 0);
+
+          if (name.includes('phone') || name.includes('headphone') || name.includes('earbud') || name.includes('audio') || name.includes('speaker') || name.includes('sound') || name.includes('sonic') || name.includes('wifi') || name.includes('router') || name.includes('wireless') || name.includes('power')) {
+            categoryMap['Electronics'].value += rev;
+          } else if (name.includes('keyboard') || name.includes('mouse') || name.includes('monitor') || name.includes('laptop') || name.includes('stand') || name.includes('desktop') || name.includes('desk') || name.includes('office') || name.includes('mechanix') || name.includes('view')) {
+            categoryMap['Office & Computing'].value += rev;
+          } else if (name.includes('shoes') || name.includes('shoe') || name.includes('socks') || name.includes('clothing') || name.includes('shirt') || name.includes('jeans') || name.includes('apparel') || name.includes('sports') || name.includes('aero') || name.includes('stream')) {
+            categoryMap['Fashion & Apparel'].value += rev;
+          } else {
+            categoryMap['General & Others'].value += rev;
+          }
+        });
+
+        const total = Object.values(categoryMap).reduce((sum, c) => sum + c.value, 0);
+        
+        return Object.entries(categoryMap)
+          .map(([label, c]) => ({
+            label,
+            value: total > 0 ? Math.round((c.value / total) * 100) : 0,
+            color: c.color
+          }))
+          .filter(seg => seg.value > 0);
+      })()
+    : [
+        { label: 'Electronics', value: 42, color: '#4f46e5' },
+        { label: 'Fashion', value: 25, color: '#818cf8' },
+        { label: 'Home & Living', value: 18, color: '#c7d2fe' },
+        { label: 'Beauty', value: 15, color: '#e0e7ff' },
+      ];
 
   const [hoveredIdx, setHoveredIdx] = useState(null);
 

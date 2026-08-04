@@ -170,6 +170,9 @@ class SalesImportCommitView(BaseImportCommitView):
                 records_dict = {}
                 for _, row in df_cleaned.iterrows():
                     prod_name = row['product_name']
+                    qty = int(row['quantity'])
+                    rev = float(row['revenue'])
+                    unit_price = rev / qty if qty > 0 else 0.0
 
                     product = existing_products.get(prod_name) or existing_products_by_sku.get(prod_name)
                     
@@ -184,15 +187,12 @@ class SalesImportCommitView(BaseImportCommitView):
                             business=business,
                             name=prod_name,
                             sku=sku,
-                            price=0.0
+                            price=unit_price
                         )
                         existing_products[prod_name] = product
                         existing_products_by_sku[sku] = product
 
                     date_val = row['date']
-                    qty = int(row['quantity'])
-                    rev = float(row['revenue'])
-                    unit_price = rev / qty if qty > 0 else 0.0
 
                     # Deduplicate in memory in case CSV has multiple rows for same product/date
                     records_dict[(product.id, date_val)] = SalesRecord(
