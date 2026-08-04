@@ -1,9 +1,16 @@
-from __future__ import annotations
-
 import datetime
+import logging
+import time
 from typing import Dict, List
 
+import pandas as pd
 from django.utils import timezone
+from pytrends.exceptions import ResponseError, TooManyRequestsError
+
+logger = logging.getLogger(__name__)
+
+MAX_RETRIES = 3
+RETRY_DELAY_BASE = 2
 
 
 class GoogleTrendsService:
@@ -15,7 +22,7 @@ class GoogleTrendsService:
     """
 
     DEFAULT_REGION = 'worldwide'
-    DEFAULT_DAYS = 90
+    DEFAULT_DAYS = 7
 
     def __init__(self, hl: str = 'en-US', tz: int = 0):
         self.hl = hl
@@ -56,6 +63,7 @@ class GoogleTrendsService:
             data = self._fetch_payload(chunk, timeframe, geo)
             for keyword in chunk:
                 series[keyword] = self._parse_series(data, keyword)
+            time.sleep(1)
 
         self._persist(business, region, series)
         return series
@@ -95,9 +103,36 @@ class GoogleTrendsService:
         return grouped
 
     def _fetch_payload(self, keywords: List[str], timeframe: str, geo: str):
-        """Builds the PyTrends payload and returns the interest-over-time frame."""
+        """Builds the PyTrends payload and returns the interest-over-time frame.
+
+        Retries on rate limiting with exponential backoff.
+        Returns an empty DataFrame on persistent failures.
+        """
         self.pytrends.build_payload(keywords, timeframe=timeframe, geo=geo, cat=0, gprop='')
-        return self.pytrends.interest_over_time()
+        for attempt in range(1, MAX_RETRIES + 1):
+            try:
+                return self.pytrends.interest_over_time()
+            except TooManyRequestsError:
+                if attempt >= MAX_RETRIES:
+                    logger.warning(
+                        "Google Trends rate limited after %d retries for keywords: %s",
+                        attempt,
+                        keywords,
+                    )
+                    return pd.DataFrame()
+                delay = RETRY_DELAY_BASE ** attempt
+                logger.warning(
+                    "Google Trends rate limited for keywords %s, retrying in %ds (attempt %d/%d)",
+                    keywords,
+                    delay,
+                    attempt,
+                    MAX_RETRIES,
+                )
+                time.sleep(delay)
+            except ResponseError as exc:
+                logger.warning("Google Trends request failed for keywords %s: %s", keywords, exc)
+                return pd.DataFrame()
+        return pd.DataFrame()
 
     def _persist(self, business, region: str, series: Dict[str, List[dict]]) -> None:
         from integrations.models import GoogleTrendsData

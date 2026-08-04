@@ -75,10 +75,10 @@ All APIs follow the project's DRF architecture standards: ViewSets for standard 
 - [ ] Add API documentation with DRF Spectacular or Swagger (all APIs must be included in the generated OpenAPI schema)
 
 ### 3.2 Integration APIs
-- [ ] Create Google Trends data collection service
+- [x] Create Google Trends data collection service
 - [ ] Build CompetitorPrice scraping service
 - [ ] Implement competitor data endpoints
-- [ ] Add manual trigger for data collection
+- [ ] Add manual trigger for both data collection
 
 ## Phase 4: Analytics Engine
 
