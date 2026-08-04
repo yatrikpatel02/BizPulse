@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useBusiness } from '../context/BusinessContext';
 import { ChartGradients, AreaChart, BarChart, DonutChart, AnimatedCounter } from '../components/analytics/Charts';
 import { getSalesAnalytics, getInventoryAnalytics, getCustomerAnalytics, getPredictions, getInsights, getBusinessHealth } from '../services/analytics';
+import { getCompetitorPrices, collectCompetitorPrices } from '../services/competitor';
 
 // Static High-Fidelity Demo Data
 const DEMO_DATA = {
@@ -126,6 +127,8 @@ export default function Analytics() {
   const [customerData, setCustomerData] = useState(null);
   const [predictiveData, setPredictiveData] = useState(null);
   const [actualHealthData, setActualHealthData] = useState(null);
+  const [competitorPrices, setCompetitorPrices] = useState([]);
+  const [collectingProductId, setCollectingProductId] = useState(null);
 
   // Fetch real data from Backend APIs
   const fetchAnalyticsData = async () => {
@@ -160,6 +163,9 @@ export default function Analytics() {
           insights: ins.results || ins
         });
         setActualHealthData(health);
+      } else if (activeTab === 'competitor') {
+        const res = await getCompetitorPrices({ business_id: activeBusiness.id });
+        setCompetitorPrices(res.results || res || []);
       }
     } catch (err) {
       console.error('Failed to load real backend analytics data, falling back to Demo Mode:', err);
@@ -294,6 +300,306 @@ export default function Analytics() {
     trends: Array.isArray(rawCustomers.trends) ? rawCustomers.trends : []
   };
 
+  // Competitor Analysis Helpers
+  const handleSyncPrice = async (productId) => {
+    if (useDemoData) {
+      alert("Mock Price Synced successfully in Demo Mode!");
+      return;
+    }
+    setCollectingProductId(productId);
+    try {
+      const res = await collectCompetitorPrices({ product_id: productId });
+      const updated = await getCompetitorPrices({ business_id: activeBusiness.id });
+      setCompetitorPrices(updated.results || updated || []);
+      alert(`Success! Fetched prices from providers. Records added: ${res.records_collected}`);
+    } catch (err) {
+      console.error(err);
+      alert(err.response?.data?.detail || "An error occurred while scraping competitor channels.");
+    } finally {
+      setCollectingProductId(null);
+    }
+  };
+
+  const getProductCompetitorMap = () => {
+    const map = {};
+    const pricesList = (useDemoData || competitorPrices.length === 0) 
+      ? [
+          { product: 1, product_name: "Premium Cotton T-Shirt", product_price: 499, competitor_name: "Amazon", price: 479, url: "https://amazon.in" },
+          { product: 1, product_name: "Premium Cotton T-Shirt", product_price: 499, competitor_name: "Flipkart", price: 519, url: "https://flipkart.com" },
+          { product: 1, product_name: "Premium Cotton T-Shirt", product_price: 499, competitor_name: "Google Shopping", price: 489, url: "https://google.com" },
+          { product: 2, product_name: "Slim Fit Jeans", product_price: 1299, competitor_name: "Amazon", price: 1399, url: "https://amazon.in" },
+          { product: 2, product_name: "Slim Fit Jeans", product_price: 1299, competitor_name: "Flipkart", price: 1249, url: "https://flipkart.com" },
+          { product: 2, product_name: "Slim Fit Jeans", product_price: 1299, competitor_name: "Google Shopping", price: 1299, url: "https://google.com" },
+          { product: 3, product_name: "Leather Wallet", product_price: 899, competitor_name: "Amazon", price: 999, url: "https://amazon.in" },
+          { product: 3, product_name: "Leather Wallet", product_price: 899, competitor_name: "Flipkart", price: 949, url: "https://flipkart.com" },
+          { product: 3, product_name: "Leather Wallet", product_price: 899, competitor_name: "Google Shopping", price: 919, url: "https://google.com" }
+        ]
+      : competitorPrices;
+
+    pricesList.forEach(item => {
+      const pid = item.product;
+      if (!map[pid]) {
+        map[pid] = {
+          productId: pid,
+          productName: item.product_name || 'Unknown Product',
+          ourPrice: Number(item.product_price || 0),
+          competitorPrices: [],
+          sources: []
+        };
+      }
+      map[pid].competitorPrices.push(Number(item.price));
+      map[pid].sources.push({
+        name: item.competitor_name,
+        price: Number(item.price),
+        url: item.url
+      });
+    });
+    
+    return Object.values(map).map(p => {
+      const prices = p.competitorPrices;
+      const minPrice = Math.min(...prices);
+      const maxPrice = Math.max(...prices);
+      const avgPrice = prices.reduce((a, b) => a + b, 0) / prices.length;
+      
+      let position = 'competitive';
+      if (p.ourPrice < minPrice) {
+        position = 'cheaper';
+      } else if (p.ourPrice > maxPrice) {
+        position = 'expensive';
+      }
+      
+      return {
+        ...p,
+        minPrice,
+        maxPrice,
+        avgPrice,
+        position,
+        differencePct: ((p.ourPrice - avgPrice) / (avgPrice || 1)) * 100
+      };
+    });
+  };
+
+  const renderCompetitorSection = () => {
+    const productsData = getProductCompetitorMap();
+    
+    const totalTracked = productsData.length;
+    const cheaperCount = productsData.filter(p => p.position === 'cheaper').length;
+    const competitiveCount = productsData.filter(p => p.position === 'competitive').length;
+    const higherCount = productsData.filter(p => p.position === 'expensive').length;
+
+    const chartData = productsData.map(p => ({
+      label: p.productName.length > 15 ? p.productName.slice(0, 15) + '...' : p.productName,
+      value: Number(p.differencePct.toFixed(1))
+    }));
+
+    return (
+      <div className="space-y-6">
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+          <div className="bg-white/60 dark:bg-slate-900/60 backdrop-blur-md border border-white/20 dark:border-slate-800/80 rounded-2xl p-5 shadow-sm">
+            <span className="text-[10px] font-bold text-gray-400 dark:text-slate-500 uppercase block">Total Tracked Products</span>
+            <span className="text-2xl font-extrabold text-indigo-600 dark:text-indigo-400 mt-1 block">{totalTracked}</span>
+          </div>
+          <div className="bg-white/60 dark:bg-slate-900/60 backdrop-blur-md border border-white/20 dark:border-slate-800/80 rounded-2xl p-5 shadow-sm">
+            <span className="text-[10px] font-bold text-gray-400 dark:text-slate-500 uppercase block">Cheaper than Competitor</span>
+            <span className="text-2xl font-extrabold text-emerald-500 mt-1 block">{cheaperCount}</span>
+          </div>
+          <div className="bg-white/60 dark:bg-slate-900/60 backdrop-blur-md border border-white/20 dark:border-slate-800/80 rounded-2xl p-5 shadow-sm">
+            <span className="text-[10px] font-bold text-gray-400 dark:text-slate-500 uppercase block">Priced Competitively</span>
+            <span className="text-2xl font-extrabold text-indigo-500 mt-1 block">{competitiveCount}</span>
+          </div>
+          <div className="bg-white/60 dark:bg-slate-900/60 backdrop-blur-md border border-white/20 dark:border-slate-800/80 rounded-2xl p-5 shadow-sm">
+            <span className="text-[10px] font-bold text-gray-400 dark:text-slate-500 uppercase block">Priced Higher</span>
+            <span className="text-2xl font-extrabold text-rose-500 mt-1 block">{higherCount}</span>
+          </div>
+        </div>
+
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+          <div className="lg:col-span-2 bg-white/60 dark:bg-slate-900/60 backdrop-blur-md border border-white/20 dark:border-slate-800/80 rounded-3xl p-6 shadow-md">
+            <div className="flex items-center justify-between mb-2">
+              <h3 className="text-base font-bold text-gray-800 dark:text-slate-100">Price Deviation Index</h3>
+              <div className="flex gap-4 text-[10px] font-bold text-gray-400 uppercase">
+                <span className="flex items-center gap-1.5"><span className="w-2.5 h-2.5 bg-emerald-500 rounded-sm"></span> Cheaper</span>
+                <span className="flex items-center gap-1.5"><span className="w-2.5 h-2.5 bg-rose-500 rounded-sm"></span> Pricier</span>
+              </div>
+            </div>
+            <p className="text-xs text-gray-400 dark:text-slate-500 mb-6">Percentage difference between your price and competitor averages (capped at ±30% for visual contrast)</p>
+            
+            <div className="space-y-3.5 max-h-[320px] overflow-y-auto pr-2 custom-scrollbar">
+              {productsData.map((prod) => {
+                const gap = prod.differencePct;
+                const cappedGap = Math.max(-30, Math.min(30, gap));
+                const barWidth = `${(Math.abs(cappedGap) / 30) * 50}%`;
+                const isCheaper = gap < 0;
+                
+                return (
+                  <div key={prod.productId} className="flex items-center gap-4 text-xs hover:bg-gray-50/50 dark:hover:bg-slate-800/20 p-1 rounded-lg transition-colors">
+                    <div className="w-1/3 font-semibold text-gray-700 dark:text-slate-300 truncate" title={prod.productName}>
+                      {prod.productName}
+                    </div>
+                    <div className="flex-1 relative h-6 bg-gray-100 dark:bg-slate-800/50 rounded-lg flex items-center px-1">
+                      <div className="absolute left-1/2 top-0 bottom-0 w-0.5 bg-gray-300 dark:bg-slate-600/70 z-10"></div>
+                      {isCheaper ? (
+                        <div 
+                          className="absolute right-1/2 h-3.5 bg-gradient-to-l from-emerald-400 to-emerald-500 rounded-l" 
+                          style={{ width: barWidth }}
+                        ></div>
+                      ) : (
+                        <div 
+                          className="absolute left-1/2 h-3.5 bg-gradient-to-r from-rose-400 to-rose-500 rounded-r" 
+                          style={{ width: barWidth }}
+                        ></div>
+                      )}
+                    </div>
+                    <div className={`w-20 text-right font-extrabold text-xs ${isCheaper ? 'text-emerald-500' : gap > 5 ? 'text-rose-500' : 'text-gray-500 dark:text-slate-400'}`}>
+                      {gap >= 0 ? `+${gap.toFixed(1)}%` : `${gap.toFixed(1)}%`}
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+          <div className="bg-white/60 dark:bg-slate-900/60 backdrop-blur-md border border-white/20 dark:border-slate-800/80 rounded-3xl p-6 shadow-md flex flex-col justify-between">
+            <div>
+              <h3 className="text-base font-bold text-gray-800 dark:text-slate-100 mb-3">Pricing Strategy Guide</h3>
+              <ul className="space-y-3 text-xs text-gray-600 dark:text-slate-400">
+                <li className="flex items-start gap-2">
+                  <span className="w-1.5 h-1.5 bg-emerald-500 rounded-full mt-1.5 flex-shrink-0"></span>
+                  <span><strong>Underpriced Items:</strong> Products priced below all competitors. Good for high volume, but consider raising prices to improve margins.</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <span className="w-1.5 h-1.5 bg-indigo-500 rounded-full mt-1.5 flex-shrink-0"></span>
+                  <span><strong>Competitive Items:</strong> Prices within ±5% of competitors. Maintain this range to sustain steady market share.</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <span className="w-1.5 h-1.5 bg-rose-500 rounded-full mt-1.5 flex-shrink-0"></span>
+                  <span><strong>Overpriced Items:</strong> Prices above competitor maximums. Add value descriptions or reduce prices to boost conversion rates.</span>
+                </li>
+              </ul>
+            </div>
+            {useDemoData && (
+              <div className="mt-4 p-3 bg-amber-500/10 rounded-xl border border-amber-500/20 text-amber-600 dark:text-amber-400 text-xs font-semibold flex items-center gap-2">
+                <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" /></svg>
+                Showing High-Fidelity Demo Data. Toggle demo mode to connect to live crawler databases.
+              </div>
+            )}
+          </div>
+        </div>
+
+        <div className="bg-white/60 dark:bg-slate-900/60 backdrop-blur-md border border-white/20 dark:border-slate-800/80 rounded-3xl p-6 shadow-md">
+          <h3 className="text-base font-bold text-gray-800 dark:text-slate-100 mb-4">Competitor Price Comparison Table</h3>
+          <div className="overflow-x-auto">
+            <table className="w-full text-left text-sm">
+              <thead>
+                <tr className="border-b border-gray-200/50 dark:border-slate-800/50 text-[11px] font-bold text-gray-400 uppercase tracking-wider">
+                  <th className="pb-3">Product Name</th>
+                  <th className="pb-3 text-right">Our Price</th>
+                  <th className="pb-3 text-right">Comp. Min</th>
+                  <th className="pb-3 text-right">Comp. Avg</th>
+                  <th className="pb-3 text-right">Comp. Max</th>
+                  <th className="pb-3 text-right">Price Gap (%)</th>
+                  <th className="pb-3 text-center">Status</th>
+                  <th className="pb-3">Sources</th>
+                  <th className="pb-3 text-center">Actions</th>
+                </tr>
+              </thead>
+              <tbody className="divide-y divide-gray-100 dark:divide-slate-800/40">
+                {productsData.map((prod) => {
+                  let statusBadge = (
+                    <span className="text-indigo-600 dark:text-indigo-400 bg-indigo-500/10 px-2 py-0.5 rounded-full text-xs font-semibold">
+                      Competitive
+                    </span>
+                  );
+                  if (prod.position === 'cheaper') {
+                    statusBadge = (
+                      <span className="text-emerald-500 bg-emerald-500/10 px-2 py-0.5 rounded-full text-xs font-semibold">
+                        Cheaper
+                      </span>
+                    );
+                  } else if (prod.position === 'expensive') {
+                    statusBadge = (
+                      <span className="text-rose-500 bg-rose-500/10 px-2 py-0.5 rounded-full text-xs font-semibold">
+                        Pricier
+                      </span>
+                    );
+                  }
+
+                  const gap = prod.differencePct;
+                  const gapText = gap >= 0 ? `+${gap.toFixed(1)}%` : `${gap.toFixed(1)}%`;
+                  const gapColor = gap > 5 ? 'text-rose-500 font-semibold' : gap < -5 ? 'text-emerald-500 font-semibold' : 'text-gray-600 dark:text-slate-400';
+
+                  const isSyncing = collectingProductId === prod.productId;
+
+                  return (
+                    <tr key={prod.productId} className="hover:bg-gray-50/50 dark:hover:bg-slate-800/30 transition-colors">
+                      <td className="py-4 font-semibold text-gray-800 dark:text-slate-200">
+                        {prod.productName}
+                      </td>
+                      <td className="py-4 text-right font-bold text-gray-900 dark:text-slate-100">
+                        ₹{prod.ourPrice.toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+                      </td>
+                      <td className="py-4 text-right text-gray-600 dark:text-slate-400">
+                        ₹{prod.minPrice.toLocaleString('en-IN', { minimumFractionDigits: 2 })}
+                      </td>
+                      <td className="py-4 text-right text-gray-600 dark:text-slate-400">
+                        ₹{prod.avgPrice.toLocaleString('en-IN', { minimumFractionDigits: 2 })}
+                      </td>
+                      <td className="py-4 text-right text-gray-600 dark:text-slate-400">
+                        ₹{prod.maxPrice.toLocaleString('en-IN', { minimumFractionDigits: 2 })}
+                      </td>
+                      <td className={`py-4 text-right font-bold ${gapColor}`}>
+                        {gapText}
+                      </td>
+                      <td className="py-4 text-center">
+                        {statusBadge}
+                      </td>
+                      <td className="py-4">
+                        <div className="flex flex-wrap gap-1.5">
+                          {prod.sources.map((src, idx) => (
+                            <a
+                              key={idx}
+                              href={src.url}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="text-[10px] bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400 hover:text-indigo-600 border dark:border-slate-700 px-2 py-0.5 rounded transition-all duration-200"
+                            >
+                              {src.name}: ₹{src.price}
+                            </a>
+                          ))}
+                        </div>
+                      </td>
+                      <td className="py-4 text-center">
+                        <button
+                          onClick={() => handleSyncPrice(prod.productId)}
+                          disabled={isSyncing}
+                          className="text-xs text-indigo-600 hover:text-indigo-800 disabled:opacity-50 inline-flex items-center gap-1 font-semibold transition-all duration-150"
+                        >
+                          {isSyncing ? (
+                            <>
+                              <svg className="animate-spin h-3 w-3 text-indigo-600" fill="none" viewBox="0 0 24 24">
+                                <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
+                                <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z" />
+                              </svg>
+                              Syncing...
+                            </>
+                          ) : (
+                            <>
+                              <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 4v5h.582m15.356 2A8.001 8.001 0 1121.21 7.89H18" /></svg>
+                              Sync
+                            </>
+                          )}
+                        </button>
+                      </td>
+                    </tr>
+                  );
+                })}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    );
+  };
+
   // Normalize Predictions Data
   const rawList = Array.isArray(rawPredictions.list) ? rawPredictions.list : (Array.isArray(rawPredictions) ? rawPredictions : []);
   const filteredList = predictionFilter === 'all' 
@@ -337,7 +643,8 @@ export default function Analytics() {
             { id: 'sales', label: 'Sales & Revenue', icon: <svg className="w-4 h-4 mr-1.5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg> },
             { id: 'inventory', label: 'Inventory', icon: <svg className="w-4 h-4 mr-1.5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4" /></svg> },
             { id: 'customers', label: 'Customers', icon: <svg className="w-4 h-4 mr-1.5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" /></svg> },
-            { id: 'predictions', label: 'Forecasts & AI', icon: <svg className="w-4 h-4 mr-1.5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" /></svg> }
+            { id: 'predictions', label: 'Forecasts & AI', icon: <svg className="w-4 h-4 mr-1.5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" /></svg> },
+            { id: 'competitor', label: 'Competitor Analysis', icon: <svg className="w-4 h-4 mr-1.5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" /></svg> }
           ].map((tab) => (
             <button
               key={tab.id}
@@ -974,6 +1281,9 @@ export default function Analytics() {
             </div>
           </div>
         )}
+
+        {/* COMPETITOR ANALYSIS TAB */}
+        {activeTab === 'competitor' && renderCompetitorSection()}
       </div>
     </div>
   );

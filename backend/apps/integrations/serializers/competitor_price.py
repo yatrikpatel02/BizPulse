@@ -7,11 +7,12 @@ from products.models import Product
 class CompetitorPriceSerializer(serializers.ModelSerializer):
     business = serializers.ReadOnlyField(source='business.name')
     product_name = serializers.ReadOnlyField(source='product.name')
+    product_price = serializers.ReadOnlyField(source='product.price')
 
     class Meta:
         model = CompetitorPrice
         fields = [
-            'id', 'business', 'product', 'product_name', 'competitor_name',
+            'id', 'business', 'product', 'product_name', 'product_price', 'competitor_name',
             'price', 'recorded_at', 'url'
         ]
         read_only_fields = ['id', 'recorded_at']

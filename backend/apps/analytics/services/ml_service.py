@@ -521,7 +521,12 @@ class ModelVersioningService:
 
     def __init__(self, model_dir: str = None):
         if model_dir is None:
-            self.model_dir = os.path.join(settings.BASE_DIR, 'ml_models')
+            import sys
+            is_testing = 'test' in sys.argv or getattr(settings, 'TESTING', False)
+            if is_testing:
+                self.model_dir = os.path.join(settings.BASE_DIR, 'test_ml_models')
+            else:
+                self.model_dir = os.path.join(settings.BASE_DIR, 'ml_models')
         else:
             self.model_dir = model_dir
         os.makedirs(self.model_dir, exist_ok=True)
