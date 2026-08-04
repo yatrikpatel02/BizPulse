@@ -121,6 +121,7 @@ class ComplaintCategoryViewSet(viewsets.ModelViewSet):
 
 class PredictionViewSet(BusinessScopedViewSet):
     serializer_class = PredictionSerializer
+    pagination_class = None
     filterset_fields = ['business', 'prediction_type', 'period_start', 'period_end']
     search_fields = ['model_version']
     ordering_fields = ['period_start', 'period_end', 'predicted_at']
@@ -129,7 +130,7 @@ class PredictionViewSet(BusinessScopedViewSet):
     def get_queryset(self):
         if getattr(self, 'swagger_fake_view', False):
             return Prediction.objects.none()
-        return Prediction.objects.filter(business__owner=self.request.user)
+        return Prediction.objects.filter(business=self.get_user_business())
 
 
 class InsightViewSet(BusinessScopedViewSet):
@@ -206,4 +207,41 @@ class InsightViewSet(BusinessScopedViewSet):
                     "Reason: Unexpected spikes in weekly sales checkouts outpaced the current supplier procurement lead time.\n\n"
                     "Recommendation: Immediately reorder out-of-stock items, adjust baseline reorder points upwards, and establish alternative distributor agreements."
                 )
+            )
+
+
+from rest_framework.views import APIView
+from rest_framework.response import Response
+from analytics.services.business_health_service import BusinessHealthService
+
+class BusinessHealthView(APIView):
+    permission_classes = [permissions.IsAuthenticated]
+
+    def get(self, request, *args, **kwargs):
+        # Resolve active business
+        business_id = request.query_params.get('business_id')
+        if business_id:
+            try:
+                business = Business.objects.get(id=business_id, owner=request.user)
+            except (Business.DoesNotExist, ValueError):
+                return Response(
+                    {"detail": "Business not found or access denied."},
+                    status=404
+                )
+        else:
+            business = Business.objects.filter(owner=request.user).first()
+            if not business:
+                return Response(
+                    {"detail": "You must create a business first."},
+                    status=400
+                )
+
+        health_service = BusinessHealthService()
+        try:
+            health_data = health_service.calculate_health_for_business(business.id)
+            return Response(health_data)
+        except Exception as e:
+            return Response(
+                {"detail": f"Error calculating business health: {str(e)}"},
+                status=500
             )

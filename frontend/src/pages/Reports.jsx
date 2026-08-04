@@ -208,7 +208,13 @@ export default function Reports() {
   // ─── Render Section-Specific Report Body ───
   const renderSalesSection = (sales) => {
     if (!sales) return <p className="text-xs text-gray-400 italic">Sales data unavailable for this period.</p>;
-    const metrics = sales.aggregated_metrics || sales.metrics || sales;
+    const metrics = sales.metrics || sales;
+    const products = sales.product_performance || [];
+    
+    // Calculate AOV
+    const totalOrders = metrics.transaction_count || 0;
+    const avgOrderValue = totalOrders > 0 ? (metrics.total_revenue / totalOrders) : 0;
+
     return (
       <div className="space-y-3">
         <h5 className="font-bold text-gray-800 dark:text-slate-200">📊 Sales Performance</h5>
@@ -219,11 +225,11 @@ export default function Reports() {
           </div>
           <div className="p-3 bg-white dark:bg-slate-900 border border-gray-100 dark:border-slate-800 rounded-xl">
             <span className="text-[10px] font-bold text-gray-400 uppercase block">Total Orders</span>
-            <span className="text-sm font-extrabold text-gray-900 dark:text-white">{Number(metrics.total_orders || metrics.total_transactions || 0).toLocaleString()}</span>
+            <span className="text-sm font-extrabold text-gray-900 dark:text-white">{Number(totalOrders).toLocaleString()}</span>
           </div>
           <div className="p-3 bg-white dark:bg-slate-900 border border-gray-100 dark:border-slate-800 rounded-xl">
             <span className="text-[10px] font-bold text-gray-400 uppercase block">Avg. Order Value</span>
-            <span className="text-sm font-extrabold text-gray-900 dark:text-white">{formatCurrency(metrics.average_order_value || metrics.avg_order_value)}</span>
+            <span className="text-sm font-extrabold text-gray-900 dark:text-white">{formatCurrency(avgOrderValue)}</span>
           </div>
           <div className="p-3 bg-white dark:bg-slate-900 border border-gray-100 dark:border-slate-800 rounded-xl">
             <span className="text-[10px] font-bold text-gray-400 uppercase block">Total Quantity Sold</span>
@@ -231,7 +237,7 @@ export default function Reports() {
           </div>
         </div>
         {/* Top Products */}
-        {(sales.top_products || sales.top_selling_products) && (
+        {products.length > 0 && (
           <div>
             <h6 className="text-xs font-bold text-gray-500 dark:text-slate-400 uppercase mt-3 mb-2">Top Selling Products</h6>
             <table className="w-full text-xs">
@@ -243,11 +249,11 @@ export default function Reports() {
                 </tr>
               </thead>
               <tbody>
-                {(sales.top_products || sales.top_selling_products || []).slice(0, 5).map((p, i) => (
+                {products.slice(0, 5).map((p, i) => (
                   <tr key={i} className="border-b dark:border-slate-800/40">
-                    <td className="py-1.5 font-semibold text-gray-700 dark:text-slate-300">{p.product__name || p.product_name || p.name || `Product ${i+1}`}</td>
-                    <td className="py-1.5 text-right text-gray-600 dark:text-slate-400">{formatCurrency(p.total_revenue || p.revenue)}</td>
-                    <td className="py-1.5 text-right text-gray-600 dark:text-slate-400">{p.total_quantity || p.quantity || '-'}</td>
+                    <td className="py-1.5 font-semibold text-gray-700 dark:text-slate-300">{p.product_name || `Product ${i+1}`}</td>
+                    <td className="py-1.5 text-right text-gray-600 dark:text-slate-400">{formatCurrency(p.total_revenue)}</td>
+                    <td className="py-1.5 text-right text-gray-600 dark:text-slate-400">{p.total_quantity || '-'}</td>
                   </tr>
                 ))}
               </tbody>
@@ -260,27 +266,27 @@ export default function Reports() {
 
   const renderInventorySection = (inv) => {
     if (!inv) return <p className="text-xs text-gray-400 italic">Inventory data unavailable for this period.</p>;
-    const summary = inv.summary || inv;
-    const anomalies = inv.anomalies || inv.stock_anomalies || [];
+    const summary = inv.health || {};
+    const anomalies = inv.anomalies || [];
     return (
       <div className="space-y-3">
         <h5 className="font-bold text-gray-800 dark:text-slate-200">📦 Inventory Health</h5>
         <div className="grid grid-cols-2 gap-3">
           <div className="p-3 bg-white dark:bg-slate-900 border border-gray-100 dark:border-slate-800 rounded-xl">
             <span className="text-[10px] font-bold text-gray-400 uppercase block">Total Products Tracked</span>
-            <span className="text-sm font-extrabold text-gray-900 dark:text-white">{summary.total_products || summary.total_items || '-'}</span>
+            <span className="text-sm font-extrabold text-gray-900 dark:text-white">{summary.total_products != null ? summary.total_products : '-'}</span>
           </div>
           <div className="p-3 bg-white dark:bg-slate-900 border border-gray-100 dark:border-slate-800 rounded-xl">
             <span className="text-[10px] font-bold text-gray-400 uppercase block">Total Stock Value</span>
-            <span className="text-sm font-extrabold text-gray-900 dark:text-white">{formatCurrency(summary.total_stock_value || summary.total_value)}</span>
+            <span className="text-sm font-extrabold text-gray-900 dark:text-white">{formatCurrency(summary.total_value)}</span>
           </div>
           <div className="p-3 bg-white dark:bg-slate-900 border border-gray-100 dark:border-slate-800 rounded-xl">
             <span className="text-[10px] font-bold text-gray-400 uppercase block">Out of Stock Items</span>
-            <span className="text-sm font-extrabold text-red-600 dark:text-red-400">{summary.out_of_stock_count || summary.out_of_stock || 0}</span>
+            <span className="text-sm font-extrabold text-red-600 dark:text-red-400">{summary.out_of_stock_count || 0}</span>
           </div>
           <div className="p-3 bg-white dark:bg-slate-900 border border-gray-100 dark:border-slate-800 rounded-xl">
             <span className="text-[10px] font-bold text-gray-400 uppercase block">Low Stock Alerts</span>
-            <span className="text-sm font-extrabold text-amber-600 dark:text-amber-400">{summary.low_stock_count || anomalies.length || 0}</span>
+            <span className="text-sm font-extrabold text-amber-600 dark:text-amber-400">{summary.understock_count || 0}</span>
           </div>
         </div>
         {/* Anomalies */}
@@ -304,19 +310,20 @@ export default function Reports() {
 
   const renderCustomerSection = (cust) => {
     if (!cust) return <p className="text-xs text-gray-400 italic">Customer data unavailable for this period.</p>;
-    const summary = cust.summary || cust;
-    const sentiments = cust.sentiment_distribution || cust.sentiments || {};
+    const summary = cust;
+    const sentiments = cust.sentiment_distribution || {};
+    const complaints = cust.complaints_by_category || [];
     return (
       <div className="space-y-3">
         <h5 className="font-bold text-gray-800 dark:text-slate-200">💬 Customer Feedback Intelligence</h5>
         <div className="grid grid-cols-2 gap-3">
           <div className="p-3 bg-white dark:bg-slate-900 border border-gray-100 dark:border-slate-800 rounded-xl">
             <span className="text-[10px] font-bold text-gray-400 uppercase block">Total Reviews</span>
-            <span className="text-sm font-extrabold text-gray-900 dark:text-white">{summary.total_reviews || summary.total_count || '-'}</span>
+            <span className="text-sm font-extrabold text-gray-900 dark:text-white">{summary.total_reviews != null ? summary.total_reviews : '-'}</span>
           </div>
           <div className="p-3 bg-white dark:bg-slate-900 border border-gray-100 dark:border-slate-800 rounded-xl">
             <span className="text-[10px] font-bold text-gray-400 uppercase block">Average Rating</span>
-            <span className="text-sm font-extrabold text-gray-900 dark:text-white">{Number(summary.average_rating || summary.avg_rating || 0).toFixed(1)} ⭐</span>
+            <span className="text-sm font-extrabold text-gray-900 dark:text-white">{Number(summary.average_rating || 0).toFixed(1)} ⭐</span>
           </div>
         </div>
         {/* Sentiment Breakdown */}
@@ -324,26 +331,29 @@ export default function Reports() {
           <div>
             <h6 className="text-xs font-bold text-gray-500 dark:text-slate-400 uppercase mt-3 mb-2">Sentiment Distribution</h6>
             <div className="flex flex-wrap gap-2">
-              {Object.entries(sentiments).map(([key, val]) => (
-                <span key={key} className={`px-2.5 py-1 rounded-lg text-xs font-bold border ${
-                  key.toLowerCase().includes('positive') ? 'bg-emerald-50 dark:bg-emerald-950/30 text-emerald-700 dark:text-emerald-400 border-emerald-200/40' :
-                  key.toLowerCase().includes('negative') ? 'bg-red-50 dark:bg-red-950/30 text-red-700 dark:text-red-400 border-red-200/40' :
-                  'bg-gray-50 dark:bg-slate-800 text-gray-600 dark:text-slate-400 border-gray-200/40'
-                }`}>
-                  {key}: {val}
-                </span>
-              ))}
+              {Object.entries(sentiments).map(([key, val]) => {
+                if (key.endsWith('_pct')) return null;
+                return (
+                  <span key={key} className={`px-2.5 py-1 rounded-lg text-xs font-bold border ${
+                    key.toLowerCase().includes('positive') ? 'bg-emerald-50 dark:bg-emerald-950/30 text-emerald-700 dark:text-emerald-400 border-emerald-200/40' :
+                    key.toLowerCase().includes('negative') ? 'bg-red-50 dark:bg-red-950/30 text-red-700 dark:text-red-400 border-red-200/40' :
+                    'bg-gray-50 dark:bg-slate-800 text-gray-600 dark:text-slate-400 border-gray-200/40'
+                  }`}>
+                    {key}: {val} ({sentiments[`${key}_pct`]}%)
+                  </span>
+                );
+              })}
             </div>
           </div>
         )}
         {/* Complaints */}
-        {(cust.top_complaints || cust.complaint_categories) && (
+        {complaints.length > 0 && (
           <div>
             <h6 className="text-xs font-bold text-gray-500 dark:text-slate-400 uppercase mt-3 mb-2">Top Complaint Categories</h6>
             <ul className="space-y-1 text-xs">
-              {(cust.top_complaints || cust.complaint_categories || []).slice(0, 5).map((c, i) => (
+              {complaints.slice(0, 5).map((c, i) => (
                 <li key={i} className="text-gray-700 dark:text-slate-300 font-medium">
-                  • {c.category || c.name || c} — {c.count || c.total || ''} reports
+                  • {c.category} — {c.count} reports
                 </li>
               ))}
             </ul>

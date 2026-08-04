@@ -8,5 +8,6 @@ from .analytics_views import (
     ComplaintCategoryViewSet,
     PredictionViewSet,
     InsightViewSet,
+    BusinessHealthView,
 )
 from .ml_views import MLTrainView, MLPredictView, MLPredictionsListView, MLModelsListView

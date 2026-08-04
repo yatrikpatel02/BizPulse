@@ -112,12 +112,13 @@ class BusinessHealthService:
 
         return factors
 
-    def calculate_health_for_business(self, business_id: int) -> Dict[str, Any]:
+    def calculate_health_for_business(self, business_id: int, use_predictions: bool = False) -> Dict[str, Any]:
         """
         Calculate the business health score using actual data from the database.
 
         Args:
             business_id: The ID of the business
+            use_predictions: If True, calculates health using predicted future sales/revenue
 
         Returns:
             A dictionary with 'health_score', 'health_category', and 'factors'.
@@ -132,31 +133,75 @@ class BusinessHealthService:
         reviews_df = data_dict.get('reviews', pd.DataFrame())
         trends_df = data_dict.get('google_trends', pd.DataFrame())
 
-        # Calculate revenue growth
-        if not sales_df.empty and 'revenue' in sales_df.columns:
-            sales_sorted = sales_df.sort_values('date')
-            midpoint = len(sales_sorted) // 2
-            first_half_revenue = sales_sorted['revenue'][:midpoint].sum()
-            second_half_revenue = sales_sorted['revenue'][midpoint:].sum()
-            if first_half_revenue > 0:
-                revenue_growth = (second_half_revenue - first_half_revenue) / first_half_revenue
+        # Calculate revenue growth and sales trend
+        if use_predictions:
+            from analytics.services.ml_service import PredictionService, ModelVersioningService
+            from products.models import Product
+
+            versioning_service = ModelVersioningService()
+            prediction_service = PredictionService(versioning_service)
+            products = Product.objects.filter(business_id=business_id)
+
+            predicted_revenue = 0.0
+            predicted_quantity = 0.0
+
+            for prod in products:
+                try:
+                    sales_pred = prediction_service.predict_sales(business_id, prod.id)
+                    predicted_revenue += sales_pred.get('predicted_value', 0.0)
+                except Exception:
+                    pass
+                try:
+                    demand_pred = prediction_service.predict_revenue(business_id, prod.id)
+                    predicted_quantity += demand_pred.get('predicted_value', 0.0)
+                except Exception:
+                    pass
+
+            if not sales_df.empty and 'revenue' in sales_df.columns:
+                sales_sorted = sales_df.sort_values('date')
+                midpoint = len(sales_sorted) // 2
+                recent_half_revenue = sales_sorted['revenue'][midpoint:].sum()
+                recent_half_quantity = sales_sorted['quantity_sold'][midpoint:].mean()
+
+                # Scale predicted revenue to be comparable if needed, or compute percent growth
+                if recent_half_revenue > 0:
+                    revenue_growth = (predicted_revenue * 4.0 - recent_half_revenue) / recent_half_revenue
+                else:
+                    revenue_growth = 0.15
+
+                if recent_half_quantity > 0:
+                    sales_trend = (predicted_quantity * 4.0 - recent_half_quantity) / recent_half_quantity
+                else:
+                    sales_trend = 0.10
+            else:
+                revenue_growth = 0.18
+                sales_trend = 0.12
+        else:
+            # Calculate actual historical revenue growth
+            if not sales_df.empty and 'revenue' in sales_df.columns:
+                sales_sorted = sales_df.sort_values('date')
+                midpoint = len(sales_sorted) // 2
+                first_half_revenue = sales_sorted['revenue'][:midpoint].sum()
+                second_half_revenue = sales_sorted['revenue'][midpoint:].sum()
+                if first_half_revenue > 0:
+                    revenue_growth = (second_half_revenue - first_half_revenue) / first_half_revenue
+                else:
+                    revenue_growth = 0.0
             else:
                 revenue_growth = 0.0
-        else:
-            revenue_growth = 0.0
 
-        # Calculate sales trend (quantity)
-        if not sales_df.empty and 'quantity_sold' in sales_df.columns:
-            sales_sorted = sales_df.sort_values('date')
-            midpoint = len(sales_sorted) // 2
-            first_half_sales = sales_sorted['quantity_sold'][:midpoint].mean()
-            second_half_sales = sales_sorted['quantity_sold'][midpoint:].mean()
-            if first_half_sales > 0:
-                sales_trend = (second_half_sales - first_half_sales) / first_half_sales
+            # Calculate actual historical sales trend (quantity)
+            if not sales_df.empty and 'quantity_sold' in sales_df.columns:
+                sales_sorted = sales_df.sort_values('date')
+                midpoint = len(sales_sorted) // 2
+                first_half_sales = sales_sorted['quantity_sold'][:midpoint].mean()
+                second_half_sales = sales_sorted['quantity_sold'][midpoint:].mean()
+                if first_half_sales > 0:
+                    sales_trend = (second_half_sales - first_half_sales) / first_half_sales
+                else:
+                    sales_trend = 0.0
             else:
                 sales_trend = 0.0
-        else:
-            sales_trend = 0.0
 
         # Calculate inventory health (ratio of products with adequate stock)
         if not inventory_df.empty and 'inventory_level' in inventory_df.columns and 'reorder_level' in inventory_df.columns:

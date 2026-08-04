@@ -11,6 +11,7 @@ from analytics.views import (
     ComplaintCategoryViewSet,
     PredictionViewSet,
     InsightViewSet,
+    BusinessHealthView,
 )
 from analytics.views.sales_analytics import SalesAnalyticsView
 from analytics.views.inventory_analytics import InventoryAnalyticsView
@@ -38,6 +39,7 @@ urlpatterns = [
     path('inventory-analysis/', InventoryAnalyticsView.as_view(), name='inventory-analytics'),
     path('customer-analysis/', CustomerIntelligenceView.as_view(), name='customer-analysis'),
     path('market-insights/', MarketInsightsView.as_view(), name='market-insights'),
+    path('business-health/', BusinessHealthView.as_view(), name='business-health'),
 
     # Machine Learning endpoints
     path('ml/train/', MLTrainView.as_view(), name='ml-train'),

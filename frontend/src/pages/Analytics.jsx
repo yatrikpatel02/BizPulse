@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useBusiness } from '../context/BusinessContext';
 import { ChartGradients, AreaChart, BarChart, DonutChart, AnimatedCounter } from '../components/analytics/Charts';
-import { getSalesAnalytics, getInventoryAnalytics, getCustomerAnalytics, getPredictions, getInsights } from '../services/analytics';
+import { getSalesAnalytics, getInventoryAnalytics, getCustomerAnalytics, getPredictions, getInsights, getBusinessHealth } from '../services/analytics';
 
 // Static High-Fidelity Demo Data
 const DEMO_DATA = {
@@ -118,12 +118,14 @@ export default function Analytics() {
   const [endDate, setEndDate] = useState('2023-12-31');
   const [interval, setIntervalVal] = useState('monthly');
   const [loading, setLoading] = useState(false);
+  const [predictionFilter, setPredictionFilter] = useState('all');
 
   // Loaded API Data states
   const [salesData, setSalesData] = useState(null);
   const [inventoryData, setInventoryData] = useState(null);
   const [customerData, setCustomerData] = useState(null);
   const [predictiveData, setPredictiveData] = useState(null);
+  const [actualHealthData, setActualHealthData] = useState(null);
 
   // Fetch real data from Backend APIs
   const fetchAnalyticsData = async () => {
@@ -148,14 +150,16 @@ export default function Analytics() {
         const res = await getCustomerAnalytics({ business_id: activeBusiness.id });
         setCustomerData(res);
       } else if (activeTab === 'predictions') {
-        const [preds, ins] = await Promise.all([
+        const [preds, ins, health] = await Promise.all([
           getPredictions({ business_id: activeBusiness.id }),
-          getInsights({ business_id: activeBusiness.id })
+          getInsights({ business_id: activeBusiness.id }),
+          getBusinessHealth({ business_id: activeBusiness.id })
         ]);
         setPredictiveData({
           list: preds.results || preds,
           insights: ins.results || ins
         });
+        setActualHealthData(health);
       }
     } catch (err) {
       console.error('Failed to load real backend analytics data, falling back to Demo Mode:', err);
@@ -291,10 +295,36 @@ export default function Analytics() {
   };
 
   // Normalize Predictions Data
+  const rawList = Array.isArray(rawPredictions.list) ? rawPredictions.list : (Array.isArray(rawPredictions) ? rawPredictions : []);
+  const filteredList = predictionFilter === 'all' 
+    ? rawList 
+    : rawList.filter(p => p.prediction_type === predictionFilter);
+
   const currentPredictions = {
-    list: Array.isArray(rawPredictions.list) ? rawPredictions.list : (Array.isArray(rawPredictions) ? rawPredictions : []),
+    list: filteredList,
     insights: Array.isArray(rawPredictions.insights) ? rawPredictions.insights : []
   };
+
+  const latestHealthPrediction = rawList.find(p => p.prediction_type === 'business_health');
+
+  const actualScore = actualHealthData ? Number(actualHealthData.health_score).toFixed(1) : (useDemoData ? "88.5" : null);
+  const actualCategory = actualHealthData ? actualHealthData.health_category : (useDemoData ? "Very Healthy" : "N/A");
+
+  let actualDesc = "No operational data found. Please import transactions and reviews to view business health.";
+  if (actualHealthData) {
+    const scoreVal = Number(actualHealthData.health_score);
+    if (scoreVal >= 80) {
+      actualDesc = "Your business is currently operating at optimal efficiency with strong sales patterns and solid inventory levels.";
+    } else if (scoreVal >= 60) {
+      actualDesc = "Your business is sustaining healthy operations with a good balance of inventory and active customer ratings.";
+    } else if (scoreVal >= 40) {
+      actualDesc = "Your business is operating at an average level. Consider boosting revenue growth or implementing targeted promotions.";
+    } else {
+      actualDesc = "Operational efficiency is currently low due to declining margins or understocking. Prompt management action is advised.";
+    }
+  } else if (useDemoData) {
+    actualDesc = "Your business is operating at optimal efficiency. Revenue forecasts show moderate growth while inventory turnover is strong.";
+  }
 
   return (
     <div className="space-y-6 pb-12 transition-all duration-300">
@@ -716,76 +746,228 @@ export default function Analytics() {
         {activeTab === 'predictions' && (
           <div className="space-y-6">
             {/* Upper grid containing business health details */}
-            <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
               
-              {/* Business Health Gauge Card */}
+              {/* Business Health Gauge Card (Actual/Baseline calculated on raw data) */}
               <div className="bg-white/60 dark:bg-slate-900/60 backdrop-blur-md border border-white/20 dark:border-slate-800/80 rounded-3xl p-6 shadow-md flex flex-col items-center justify-center text-center">
-                <h3 className="text-lg font-bold text-gray-800 dark:text-slate-100 mb-2">Business Health Index</h3>
-                <p className="text-xs text-gray-400 dark:text-slate-500 mb-6">Aggregated ML health score across metrics</p>
+                <h3 className="text-lg font-bold text-gray-800 dark:text-slate-100 mb-2">Actual Business Health</h3>
+                <p className="text-xs text-gray-400 dark:text-slate-500 mb-6">Current operational health score calculated from active data</p>
                 
-                <div className="relative w-40 h-40 flex items-center justify-center">
-                  {/* Gauge Arc Background */}
-                  <svg className="w-full h-full transform -rotate-90">
-                    <circle cx="80" cy="80" r="64" stroke="currentColor" strokeWidth="12" fill="transparent" className="text-gray-100 dark:text-slate-800/50" />
-                    <circle 
-                      cx="80" 
-                      cy="80" 
-                      r="64" 
-                      stroke="#4f46e5" 
-                      strokeWidth="12" 
-                      fill="transparent" 
-                      strokeDasharray={`${2 * Math.PI * 64}`}
-                      strokeDashoffset={`${2 * Math.PI * 64 * (1 - 0.885)}`}
-                      strokeLinecap="round"
-                    />
-                  </svg>
-                  <div className="absolute inset-0 flex flex-col items-center justify-center select-none">
-                    <span className="text-4xl font-extrabold text-indigo-600 dark:text-indigo-400">88.5</span>
-                    <span className="text-[10px] uppercase font-bold text-gray-400 dark:text-slate-500">Very Healthy</span>
+                {actualScore !== null ? (
+                  <>
+                    <div className="relative w-40 h-40 flex items-center justify-center">
+                      {/* Gauge Arc Background */}
+                      <svg className="w-full h-full transform -rotate-90">
+                        <circle cx="80" cy="80" r="64" stroke="currentColor" strokeWidth="12" fill="transparent" className="text-gray-100 dark:text-slate-800/50" />
+                        <circle 
+                          cx="80" 
+                          cy="80" 
+                          r="64" 
+                          stroke={
+                            Number(actualScore) >= 80 ? '#10b981' :
+                            Number(actualScore) >= 60 ? '#4f46e5' :
+                            Number(actualScore) >= 40 ? '#f59e0b' : '#ef4444'
+                          } 
+                          strokeWidth="12" 
+                          fill="transparent" 
+                          strokeDasharray={`${2 * Math.PI * 64}`}
+                          strokeDashoffset={`${2 * Math.PI * 64 * (1 - Number(actualScore) / 100)}`}
+                          strokeLinecap="round"
+                        />
+                      </svg>
+                      <div className="absolute inset-0 flex flex-col items-center justify-center select-none">
+                        <span className="text-4xl font-extrabold text-gray-900 dark:text-white">{actualScore}</span>
+                        <span className="text-[10px] uppercase font-bold text-gray-400 dark:text-slate-500 mt-1">{actualCategory}</span>
+                      </div>
+                    </div>
+                    
+                    <p className="text-xs text-gray-500 dark:text-slate-400 mt-6 max-w-xs">
+                      {actualDesc}
+                    </p>
+                  </>
+                ) : (
+                  <div className="flex flex-col items-center justify-center py-8">
+                    <svg className="w-12 h-12 text-gray-300 dark:text-slate-700 mb-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+                    </svg>
+                    <p className="text-xs font-semibold text-gray-400 dark:text-slate-500 max-w-xs">
+                      No operational data is currently available. Please import transactional data to view actual health score.
+                    </p>
                   </div>
-                </div>
-                
-                <p className="text-xs text-gray-500 dark:text-slate-400 mt-6 max-w-xs">
-                  Your business is operating at optimal efficiency. Revenue forecasts show moderate growth while inventory turnover is strong.
+                )}
+              </div>
+
+              {/* Predicted Business Health Score Card (Actual/Real DB data) */}
+              <div className="bg-white/60 dark:bg-slate-900/60 backdrop-blur-md border border-white/20 dark:border-slate-800/80 rounded-3xl p-6 shadow-md flex flex-col items-center justify-center text-center">
+                <h3 className="text-lg font-bold text-gray-800 dark:text-slate-100 mb-2">Predicted Business Health (Actual)</h3>
+                <p className="text-xs text-gray-400 dark:text-slate-500 mb-6">
+                  {latestHealthPrediction 
+                    ? `ML Health Score for period ending ${latestHealthPrediction.period_end}` 
+                    : 'Real-time forecasting score generated by model'}
                 </p>
+                
+                {latestHealthPrediction ? (
+                  <>
+                    <div className="relative w-40 h-40 flex items-center justify-center">
+                      {/* Gauge Arc Background */}
+                      <svg className="w-full h-full transform -rotate-90">
+                        <circle cx="80" cy="80" r="64" stroke="currentColor" strokeWidth="12" fill="transparent" className="text-gray-100 dark:text-slate-800/50" />
+                        <circle 
+                          cx="80" 
+                          cy="80" 
+                          r="64" 
+                          stroke={
+                            Number(latestHealthPrediction.value) >= 80 ? '#10b981' :
+                            Number(latestHealthPrediction.value) >= 60 ? '#4f46e5' :
+                            Number(latestHealthPrediction.value) >= 40 ? '#f59e0b' : '#ef4444'
+                          } 
+                          strokeWidth="12" 
+                          fill="transparent" 
+                          strokeDasharray={`${2 * Math.PI * 64}`}
+                          strokeDashoffset={`${2 * Math.PI * 64 * (1 - latestHealthPrediction.value / 100)}`}
+                          strokeLinecap="round"
+                        />
+                      </svg>
+                      <div className="absolute inset-0 flex flex-col items-center justify-center select-none">
+                        <span className="text-4xl font-extrabold text-gray-900 dark:text-white">
+                          {Number(latestHealthPrediction.value).toFixed(1)}
+                        </span>
+                        <span className="text-[10px] uppercase font-bold text-gray-400 dark:text-slate-500 mt-1">
+                          {
+                            Number(latestHealthPrediction.value) >= 80 ? 'Very Healthy' :
+                            Number(latestHealthPrediction.value) >= 60 ? 'Healthy' :
+                            Number(latestHealthPrediction.value) >= 40 ? 'Average' : 'Critical'
+                          }
+                        </span>
+                      </div>
+                    </div>
+                    
+                    <p className="text-xs text-gray-500 dark:text-slate-400 mt-6 max-w-xs">
+                      {
+                        Number(latestHealthPrediction.value) >= 80 
+                          ? 'Your business is predicted to perform at optimal efficiency. Revenue forecasts indicate strong stability and high margins.' 
+                          : Number(latestHealthPrediction.value) >= 60
+                          ? 'Your business is predicted to sustain a healthy growth trajectory with stable sales volume and inventory balance.'
+                          : Number(latestHealthPrediction.value) >= 40
+                          ? 'Your business is predicted to run at an average performance level. Tactical pricing or margin action is recommended.'
+                          : 'Your business is predicted to face significant inventory risks. Reorder actions or stock replenishments are highly advised.'
+                      }
+                    </p>
+                  </>
+                ) : (
+                  <div className="flex flex-col items-center justify-center py-8">
+                    <svg className="w-12 h-12 text-gray-300 dark:text-slate-700 mb-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M13 10V3L4 14h7v7l9-11h-7z" />
+                    </svg>
+                    <p className="text-xs font-semibold text-gray-400 dark:text-slate-500 max-w-xs">
+                      No ML prediction data has been generated yet for this business. Run the forecasting pipeline in backend.
+                    </p>
+                  </div>
+                )}
               </div>
 
             </div>
 
             {/* List of generated forecasts */}
             <div className="bg-white/60 dark:bg-slate-900/60 backdrop-blur-md border border-white/20 dark:border-slate-800/80 rounded-3xl p-6 shadow-md">
-              <h3 className="text-lg font-bold text-gray-800 dark:text-slate-100 mb-4">Predictive Models Output</h3>
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-4">
+                <div>
+                  <h3 className="text-lg font-bold text-gray-800 dark:text-slate-100 mb-1">Predictive Models Output</h3>
+                  <p className="text-xs text-gray-400 dark:text-slate-500">All ML-generated predictions from the analytics_prediction table ({currentPredictions.list.length} records)</p>
+                </div>
+                <div className="flex flex-wrap gap-1.5 p-1 bg-gray-50 dark:bg-slate-950/40 rounded-xl border dark:border-slate-800">
+                  {[
+                    { id: 'all', label: 'All' },
+                    { id: 'sales_forecast', label: 'Sales' },
+                    { id: 'demand_forecast', label: 'Demand' },
+                    { id: 'product_risk', label: 'Risks' },
+                    { id: 'business_health', label: 'Health' }
+                  ].map(tab => (
+                    <button
+                      key={tab.id}
+                      onClick={() => setPredictionFilter(tab.id)}
+                      className={`px-3 py-1 text-xs font-bold rounded-lg transition-colors ${
+                        predictionFilter === tab.id
+                          ? 'bg-white dark:bg-slate-900 text-indigo-600 dark:text-indigo-400 shadow-sm border border-gray-100 dark:border-slate-800/50'
+                          : 'text-gray-500 hover:text-gray-800 dark:text-slate-400 dark:hover:text-slate-200'
+                      }`}
+                    >
+                      {tab.label}
+                    </button>
+                  ))}
+                </div>
+              </div>
               <div className="overflow-x-auto">
                 <table className="w-full text-left text-sm">
                   <thead>
                     <tr className="border-b dark:border-slate-800 text-gray-400 text-xs uppercase tracking-wider">
-                      <th className="pb-3 font-semibold">Model Class</th>
+                      <th className="pb-3 font-semibold">Model Name</th>
                       <th className="pb-3 font-semibold">Forecast Type</th>
+                      <th className="pb-3 font-semibold">Product</th>
                       <th className="pb-3 font-semibold">Target Period</th>
                       <th className="pb-3 font-semibold text-right">Predicted Value</th>
-                      <th className="pb-3 font-semibold text-right">Confidence Level</th>
+                      <th className="pb-3 font-semibold text-right">Confidence</th>
                     </tr>
                   </thead>
                   <tbody className="divide-y divide-gray-100 dark:divide-slate-800/60">
-                    {currentPredictions.list.map((pred) => (
-                      <tr key={pred.id} className="hover:bg-gray-50/50 dark:hover:bg-slate-800/30 transition-colors">
-                        <td className="py-4 font-semibold text-indigo-600 dark:text-indigo-400">{pred.model_version}</td>
-                        <td className="py-4 font-medium text-gray-700 dark:text-slate-300">
-                          {pred.prediction_type === 'sales_forecast' ? 'Sales Forecast (Revenue)' : pred.prediction_type === 'demand_forecast' ? 'Demand Forecast (Units)' : 'Business Health Score'}
-                        </td>
-                        <td className="py-4 text-xs text-gray-500 dark:text-slate-400">
-                          {pred.period_start} to {pred.period_end}
-                        </td>
-                        <td className="py-4 text-right font-extrabold text-gray-900 dark:text-slate-100">
-                          {pred.prediction_type === 'sales_forecast' ? `₹${pred.value.toLocaleString()}` : pred.value.toLocaleString()}
-                        </td>
-                        <td className="py-4 text-right">
-                          <span className="text-xs font-bold text-emerald-500 bg-emerald-500/10 px-2 py-0.5 rounded-full">
-                            {(pred.confidence * 100).toFixed(0)}%
-                          </span>
-                        </td>
-                      </tr>
-                    ))}
+                    {currentPredictions.list.map((pred) => {
+                      const typeLabels = {
+                        'sales_forecast': 'Sales Forecast (Revenue)',
+                        'demand_forecast': 'Demand Forecast (Units)',
+                        'business_health': 'Business Health Score',
+                        'product_risk': 'Product Risk Score'
+                      };
+                      const typeLabel = typeLabels[pred.prediction_type] || pred.prediction_type;
+
+                      const typeColors = {
+                        'sales_forecast': 'text-emerald-600 dark:text-emerald-400 bg-emerald-500/10',
+                        'demand_forecast': 'text-blue-600 dark:text-blue-400 bg-blue-500/10',
+                        'business_health': 'text-indigo-600 dark:text-indigo-400 bg-indigo-500/10',
+                        'product_risk': 'text-rose-600 dark:text-rose-400 bg-rose-500/10'
+                      };
+                      const typeColor = typeColors[pred.prediction_type] || 'text-gray-600 bg-gray-100';
+
+                      const displayValue = pred.prediction_type === 'sales_forecast'
+                        ? `₹${Number(pred.value || 0).toLocaleString('en-IN', { maximumFractionDigits: 2 })}`
+                        : Number(pred.value || 0).toLocaleString('en-IN', { maximumFractionDigits: 2 });
+
+                      const conf = pred.confidence != null ? pred.confidence : 0;
+                      const confPct = conf <= 1 ? (conf * 100).toFixed(1) : Number(conf).toFixed(1);
+
+                      return (
+                        <tr key={pred.id} className="hover:bg-gray-50/50 dark:hover:bg-slate-800/30 transition-colors">
+                          <td className="py-3.5">
+                            <span className="font-semibold text-indigo-600 dark:text-indigo-400">{pred.model_name || pred.model_version || 'N/A'}</span>
+                            {pred.model_version && pred.model_name && (
+                              <span className="text-[10px] text-gray-400 dark:text-slate-500 ml-1.5">v{pred.model_version}</span>
+                            )}
+                          </td>
+                          <td className="py-3.5">
+                            <span className={`text-xs font-bold px-2 py-0.5 rounded-full ${typeColor}`}>
+                              {typeLabel}
+                            </span>
+                          </td>
+                          <td className="py-3.5 text-xs font-medium text-gray-700 dark:text-slate-300">
+                            {pred.product || '—'}
+                          </td>
+                          <td className="py-3.5 text-xs text-gray-500 dark:text-slate-400">
+                            {pred.period_start} to {pred.period_end}
+                          </td>
+                          <td className="py-3.5 text-right font-extrabold text-gray-900 dark:text-slate-100">
+                            {displayValue}
+                          </td>
+                          <td className="py-3.5 text-right">
+                            <span className={`text-xs font-bold px-2 py-0.5 rounded-full ${
+                              Number(confPct) >= 90 ? 'text-emerald-500 bg-emerald-500/10' :
+                              Number(confPct) >= 70 ? 'text-amber-500 bg-amber-500/10' :
+                              'text-rose-500 bg-rose-500/10'
+                            }`}>
+                              {confPct}%
+                            </span>
+                          </td>
+                        </tr>
+                      );
+                    })}
                   </tbody>
                 </table>
               </div>

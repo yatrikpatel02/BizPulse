@@ -16,7 +16,7 @@ import logging
 from typing import Dict, Any, List, Tuple
 import pandas as pd
 import numpy as np
-from datetime import datetime
+from datetime import datetime, timedelta
 
 from analytics.services.ml_service import (
     DataPreprocessingService,
@@ -308,7 +308,7 @@ class RunPredictionsPipeline:
                     prediction_type='sales_forecast',
                     predicted_at=datetime.now(),
                     period_start=datetime.now().date(),
-                    period_end=(datetime.now().date()),
+                    period_end=datetime.now().date() + timedelta(days=7),
                     value=sales_result['predicted_value'],
                     confidence=sales_result['confidence_score'],
                     model_name=sales_result['model_used'],
@@ -331,7 +331,7 @@ class RunPredictionsPipeline:
                     prediction_type='demand_forecast',
                     predicted_at=datetime.now(),
                     period_start=datetime.now().date(),
-                    period_end=datetime.now().date(),
+                    period_end=datetime.now().date() + timedelta(days=7),
                     value=revenue_result['predicted_value'],
                     confidence=revenue_result['confidence_score'],
                     model_name=revenue_result['model_used'],
@@ -371,7 +371,7 @@ class RunPredictionsPipeline:
         results['product_risk_scores'] = risk_scores
 
         # 3. Business health score
-        health_score = self.health_service.calculate_health_for_business(self.business_id)
+        health_score = self.health_service.calculate_health_for_business(self.business_id, use_predictions=True)
 
         # Save business health prediction for the first product (or a placeholder)
         if products.exists():
@@ -381,7 +381,7 @@ class RunPredictionsPipeline:
                 prediction_type='business_health',
                 predicted_at=datetime.now(),
                 period_start=datetime.now().date(),
-                period_end=datetime.now().date(),
+                period_end=datetime.now().date() + timedelta(days=7),
                 value=health_score['health_score'],
                 confidence=1.0,
                 model_name='BusinessHealthService',

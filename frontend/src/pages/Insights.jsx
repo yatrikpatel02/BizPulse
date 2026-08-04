@@ -27,11 +27,7 @@ export default function Insights() {
         ? res 
         : (res.results || res.data || []);
       
-      // Filter list by activeBusiness.id to be 100% safe
-      const businessInsights = dataArray.filter(
-        i => i.business === activeBusiness.id
-      );
-      setInsights(businessInsights);
+      setInsights(dataArray);
     } catch (err) {
       console.error("Failed to load insights", err);
       setError("Failed to load insights. Please try again.");

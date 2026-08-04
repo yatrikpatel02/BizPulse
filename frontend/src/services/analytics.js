@@ -43,3 +43,8 @@ export const deleteInsight = async (id) => {
   const response = await api.delete(`/analytics/insights/${id}/`);
   return response.data;
 };
+
+export const getBusinessHealth = async (params = {}) => {
+  const response = await api.get('/analytics/business-health/', { params });
+  return response.data;
+};
