@@ -15,6 +15,7 @@ from analytics.views import (
 from analytics.views.sales_analytics import SalesAnalyticsView
 from analytics.views.inventory_analytics import InventoryAnalyticsView
 from analytics.views.customer_intelligence import CustomerIntelligenceView
+from analytics.views.market_insights import MarketInsightsView
 
 router = SimpleRouter()
 router.register(r'sales-records', SalesRecordViewSet, basename='sales-record')
@@ -33,7 +34,8 @@ urlpatterns = [
 
     # Analytics-Engine endpoints
     path('sales-analysis/', SalesAnalyticsView.as_view(), name='sales-analytics'),
-    path('inventory-analysis/', InventoryAnalyticsView.as_view(), name='inventory-analytics'),
+    path('inventory-analysis/', InventoryAnalyticsView.as_view(), name='inventory-analysis'),
     path('customer-analysis/', CustomerIntelligenceView.as_view(), name='customer-analysis'),
+    path('market-insights/', MarketInsightsView.as_view(), name='market-insights'),
     path('', include(router.urls)),
 ]

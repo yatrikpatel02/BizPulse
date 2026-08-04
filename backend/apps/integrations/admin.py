@@ -11,7 +11,7 @@ class CompetitorPriceAdmin(admin.ModelAdmin):
 
 @admin.register(GoogleTrendsData)
 class GoogleTrendsDataAdmin(admin.ModelAdmin):
-    list_display = ('business', 'keyword', 'region', 'date', 'interest_score')
+    list_display = ('business', 'keyword', 'region', 'date', 'interest_score', 'fetched_at')
     search_fields = ('business__name', 'keyword', 'region')
     list_filter = ('date', 'region')
 

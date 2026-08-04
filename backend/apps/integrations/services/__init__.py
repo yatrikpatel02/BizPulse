@@ -1,3 +1,4 @@
 from .temporary_storage import TemporaryStorageService
 from .column_detection import ColumnDetectionService
 from .fuzzy_matching import ColumnMappingService
+from .google_trends_service import GoogleTrendsService

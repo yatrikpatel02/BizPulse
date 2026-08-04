@@ -7,5 +7,5 @@ class GoogleTrendsDataSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = GoogleTrendsData
-        fields = ['id', 'business', 'keyword', 'region', 'date', 'interest_score']
-        read_only_fields = ['id']
+        fields = ['id', 'business', 'keyword', 'region', 'date', 'interest_score', 'fetched_at']
+        read_only_fields = ['id', 'fetched_at']
