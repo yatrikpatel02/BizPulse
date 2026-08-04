@@ -750,47 +750,6 @@ export default function Analytics() {
                 </p>
               </div>
 
-              {/* Automated ML recommendations & insights list */}
-              <div className="lg:col-span-2 bg-white/60 dark:bg-slate-900/60 backdrop-blur-md border border-white/20 dark:border-slate-800/80 rounded-3xl p-6 shadow-md">
-                <h3 className="text-lg font-bold text-gray-800 dark:text-slate-100 mb-1">Automated AI Recommendations</h3>
-                <p className="text-xs text-gray-400 dark:text-slate-500 mb-6">Real-time decisions identified from sales and market intelligence data</p>
-
-                <div className="space-y-4">
-                  {currentPredictions.insights.map((insight, idx) => (
-                    <div 
-                      key={idx}
-                      className={`flex gap-4 p-4 rounded-2xl border transition-all duration-300 hover:shadow-md ${
-                        insight.severity === 'high'
-                          ? 'bg-rose-500/5 border-rose-500/20 dark:bg-rose-500/10'
-                          : 'bg-indigo-500/5 border-indigo-500/20 dark:bg-indigo-500/10'
-                      }`}
-                    >
-                      <div className="flex-shrink-0">
-                        {insight.severity === 'high' ? (
-                          <div className="p-2 bg-rose-500/10 rounded-xl text-rose-500">
-                            <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" /></svg>
-                          </div>
-                        ) : (
-                          <div className="p-2 bg-indigo-500/10 rounded-xl text-indigo-500">
-                            <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
-                          </div>
-                        )}
-                      </div>
-                      <div className="space-y-1">
-                        <div className="flex items-center gap-2">
-                          <h4 className="text-sm font-bold text-gray-800 dark:text-slate-200">{insight.title}</h4>
-                          <span className={`text-[9px] uppercase font-bold px-2 py-0.5 rounded-full ${
-                            insight.severity === 'high' ? 'bg-rose-500/10 text-rose-600 dark:text-rose-400' : 'bg-indigo-500/10 text-indigo-600 dark:text-indigo-400'
-                          }`}>
-                            {insight.severity} Priority
-                          </span>
-                        </div>
-                        <p className="text-xs text-gray-500 dark:text-slate-400 leading-relaxed">{insight.description}</p>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              </div>
             </div>
 
             {/* List of generated forecasts */}
