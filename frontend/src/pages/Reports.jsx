@@ -15,7 +15,7 @@ export default function Reports() {
   const [generationModal, setGenerationModal] = useState(null);
   const [formData, setFormData] = useState({
     startDate: '2023-01-01',
-    endDate: '2023-12-31',
+    endDate: '2025-12-31',
     format: 'PDF'
   });
   const [generating, setGenerating] = useState(false);
@@ -169,7 +169,7 @@ export default function Reports() {
 
     const params = {
       start_date: report.parameters?.start_date || '2023-01-01',
-      end_date: report.parameters?.end_date || '2023-12-31',
+      end_date: report.parameters?.end_date || '2025-12-31',
     };
 
     try {
@@ -647,7 +647,7 @@ export default function Reports() {
                 <div>
                   <h4 className="text-lg font-bold text-gray-900 dark:text-white font-display capitalize">{reportViewer.report_type} Report</h4>
                   <p className="text-xs text-gray-400">
-                    Period: <strong>{reportViewer.parameters?.start_date || '2023-01-01'}</strong> to <strong>{reportViewer.parameters?.end_date || '2023-12-31'}</strong>
+                    Period: <strong>{reportViewer.parameters?.start_date || '2023-01-01'}</strong> to <strong>{reportViewer.parameters?.end_date || '2025-12-31'}</strong>
                   </p>
                   <p className="text-xs text-gray-400">Generated on {formatDate(reportViewer.generated_at)}</p>
                 </div>

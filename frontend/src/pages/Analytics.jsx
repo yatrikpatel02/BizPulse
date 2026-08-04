@@ -116,7 +116,7 @@ export default function Analytics() {
   const [activeTab, setActiveTab] = useState('sales');
   const [useDemoData, setUseDemoData] = useState(false);
   const [startDate, setStartDate] = useState('2023-01-01');
-  const [endDate, setEndDate] = useState('2023-12-31');
+  const [endDate, setEndDate] = useState('2025-12-31');
   const [interval, setIntervalVal] = useState('monthly');
   const [loading, setLoading] = useState(false);
   const [predictionFilter, setPredictionFilter] = useState('all');
@@ -886,38 +886,42 @@ export default function Analytics() {
                   <AreaChart data={currentInventory.history} color="blue" />
                 </div>
               </div>
-
               {/* Stock Alerts & Anomalies */}
               <div className="bg-white/60 dark:bg-slate-900/60 backdrop-blur-md border border-white/20 dark:border-slate-800/80 rounded-3xl p-6 shadow-md">
                 <h3 className="text-lg font-bold text-gray-800 dark:text-slate-100 mb-1">Stock Level Alerts</h3>
                 <p className="text-xs text-gray-400 dark:text-slate-500 mb-4">Detected slow-moving or critical inventory items</p>
-                
                 <div className="space-y-4 max-h-64 overflow-y-auto pr-1">
-                  {currentInventory.anomalies.map((item, idx) => (
-                    <div 
-                      key={idx} 
-                      className={`flex flex-col p-4 rounded-2xl border transition-all duration-300 hover:shadow-md cursor-default ${
-                        item.type === 'depleted' 
-                          ? 'bg-rose-500/5 border-rose-500/20 dark:bg-rose-500/10' 
-                          : 'bg-indigo-500/5 border-indigo-500/20 dark:bg-indigo-500/10'
-                      }`}
-                    >
-                      <div className="flex items-center justify-between mb-1.5">
-                        <span className={`text-xs font-bold ${
-                          item.type === 'depleted' ? 'text-rose-600 dark:text-rose-400' : 'text-indigo-600 dark:text-indigo-400'
-                        }`}>
-                          {item.status}
-                        </span>
-                        <span className="text-[10px] text-gray-400 font-semibold uppercase">Qty: {item.qty}</span>
+                  {[...currentInventory.anomalies]
+                    .sort((a, b) => {
+                      if (a.type === 'depleted' && b.type !== 'depleted') return -1;
+                      if (a.type !== 'depleted' && b.type === 'depleted') return 1;
+                      return 0;
+                    })
+                    .map((item, idx) => (
+                      <div 
+                        key={idx} 
+                        className={`flex flex-col p-4 rounded-2xl border transition-all duration-300 hover:shadow-md cursor-default ${
+                          item.type === 'depleted' 
+                            ? 'bg-rose-500/5 border-rose-500/20 dark:bg-rose-500/10' 
+                            : 'bg-indigo-500/5 border-indigo-500/20 dark:bg-indigo-500/10'
+                        }`}
+                      >
+                        <div className="flex items-center justify-between mb-1.5">
+                          <span className={`text-xs font-bold ${
+                            item.type === 'depleted' ? 'text-rose-600 dark:text-rose-400' : 'text-indigo-600 dark:text-indigo-400'
+                          }`}>
+                            {item.status}
+                          </span>
+                          <span className="text-[10px] text-gray-400 font-semibold uppercase">Qty: {item.qty}</span>
+                        </div>
+                        <h4 className="text-sm font-bold text-gray-800 dark:text-slate-200">{item.product}</h4>
+                        <p className="text-xs text-gray-500 dark:text-slate-400 mt-1">
+                          {item.type === 'depleted' 
+                            ? 'This product is below the reorder point. Customers may encounter order delays.' 
+                            : 'High level of inventory detected with extremely low sales velocities this period.'}
+                        </p>
                       </div>
-                      <h4 className="text-sm font-bold text-gray-800 dark:text-slate-200">{item.product}</h4>
-                      <p className="text-xs text-gray-500 dark:text-slate-400 mt-1">
-                        {item.type === 'depleted' 
-                          ? 'This product is below the reorder point. Customers may encounter order delays.' 
-                          : 'High level of inventory detected with extremely low sales velocities this period.'}
-                      </p>
-                    </div>
-                  ))}
+                    ))}
                 </div>
               </div>
             </div>

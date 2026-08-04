@@ -39,7 +39,7 @@ export function ChartGradients() {
 /**
  * Premium SVG Area / Line Chart
  */
-export function AreaChart({ data = [], xKey = 'label', yKey = 'value', height = 240, color = 'indigo', valuePrefix = '₹' }) {
+export function AreaChart({ data = [], xKey = 'label', yKey = 'value', height = 280, color = 'indigo', valuePrefix = '₹' }) {
   const [hoveredIndex, setHoveredIndex] = useState(null);
   const [tooltipPos, setTooltipPos] = useState({ x: 0, y: 0 });
   const containerRef = useRef(null);
@@ -58,10 +58,10 @@ export function AreaChart({ data = [], xKey = 'label', yKey = 'value', height = 
 
   const svgWidth = 600;
   const svgHeight = height;
-  const paddingLeft = 60;
+  const paddingLeft = 65; // increased padding slightly for larger y labels
   const paddingRight = 30;
-  const paddingTop = 20;
-  const paddingBottom = 40;
+  const paddingTop = 25;
+  const paddingBottom = 45;
 
   const chartWidth = svgWidth - paddingLeft - paddingRight;
   const chartHeight = svgHeight - paddingTop - paddingBottom;
@@ -74,28 +74,29 @@ export function AreaChart({ data = [], xKey = 'label', yKey = 'value', height = 
     return { x, y, item: d, val };
   });
 
-  // SVG paths
-  const linePath = points.map((p, i) => `${i === 0 ? 'M' : 'L'} ${p.x} ${p.y}`).join(' ');
+  const yTicks = 4;
+  const yLabelValues = Array.from({ length: yTicks + 1 }, (_, i) => minVal + (i / yTicks) * (maxVal - minVal));
+
   const areaPath = points.length > 0 
-    ? `${linePath} L ${points[points.length - 1].x} ${svgHeight - paddingBottom} L ${points[0].x} ${svgHeight - paddingBottom} Z`
+    ? `${points.map((p, i) => `${i === 0 ? 'M' : 'L'} ${p.x} ${p.y}`).join(' ')} L ${points[points.length - 1].x} ${svgHeight - paddingBottom} L ${points[0].x} ${svgHeight - paddingBottom} Z`
     : '';
 
-  // Y-axis grid labels
-  const yTicks = 4;
-  const yLabelValues = Array.from({ length: yTicks + 1 }, (_, i) => minVal + (maxVal - minVal) * (i / yTicks));
+  const linePath = points.length > 0
+    ? points.map((p, i) => `${i === 0 ? 'M' : 'L'} ${p.x} ${p.y}`).join(' ')
+    : '';
 
   const handleMouseMove = (e) => {
-    if (!containerRef.current) return;
+    if (!containerRef.current || points.length === 0) return;
     const rect = containerRef.current.getBoundingClientRect();
-    const mouseX = e.clientX - rect.left;
-    const scaleX = svgWidth / rect.width;
-    const svgMouseX = mouseX * scaleX;
-
-    // Find closest point index
-    let closestIdx = 0;
+    const scaleX = rect.width / svgWidth;
+    const mouseX = (e.clientX - rect.left) / scaleX;
+    
+    // Find closest point
     let minDiff = Infinity;
+    let closestIdx = 0;
+    
     points.forEach((p, idx) => {
-      const diff = Math.abs(p.x - svgMouseX);
+      const diff = Math.abs(p.x - mouseX);
       if (diff < minDiff) {
         minDiff = diff;
         closestIdx = idx;
@@ -107,8 +108,8 @@ export function AreaChart({ data = [], xKey = 'label', yKey = 'value', height = 
     // Scale tooltip screen position back
     const scaleY = rect.height / svgHeight;
     setTooltipPos({
-      x: points[closestIdx].x / scaleX,
-      y: points[closestIdx].y / scaleY - 10
+      x: points[closestIdx].x * scaleX,
+      y: points[closestIdx].y * scaleY - 10
     });
   };
 
@@ -131,7 +132,7 @@ export function AreaChart({ data = [], xKey = 'label', yKey = 'value', height = 
         {yLabelValues.map((v, i) => {
           const y = svgHeight - paddingBottom - (i / yTicks) * chartHeight;
           return (
-            <g key={i} className="opacity-40">
+            <g key={i} className="opacity-70">
               <line 
                 x1={paddingLeft} 
                 y1={y} 
@@ -145,33 +146,45 @@ export function AreaChart({ data = [], xKey = 'label', yKey = 'value', height = 
                 x={paddingLeft - 10} 
                 y={y + 4} 
                 textAnchor="end" 
-                className="text-[10px] font-medium fill-gray-400 dark:fill-slate-500"
+                className="text-xs font-bold fill-gray-700 dark:fill-slate-300"
               >
-                {valuePrefix}{v >= 1000 ? `${(v / 1000).toFixed(1)}k` : v.toFixed(0)}
+                {valuePrefix}{v >= 1000000 ? `${(v / 1000000).toFixed(1)}m` : v >= 1000 ? `${(v / 1000).toFixed(0)}k` : v.toFixed(0)}
               </text>
             </g>
           );
         })}
 
-        {/* X-axis labels */}
-        {data.map((d, i) => {
-          // Label frequency (show every 2nd or 3rd label to avoid crowding)
-          const freq = Math.max(Math.ceil(data.length / 8), 1);
-          if (i % freq !== 0 && i !== data.length - 1) return null;
-
-          const x = paddingLeft + (i / (data.length - 1 || 1)) * chartWidth;
-          return (
-            <text
-              key={i}
-              x={x}
-              y={svgHeight - 15}
-              textAnchor="middle"
-              className="text-[10px] font-medium fill-gray-400 dark:fill-slate-500"
-            >
-              {d[xKey]}
-            </text>
-          );
-        })}
+        {/* X-axis labels with smart collision prevention */}
+        {(() => {
+          let lastRenderedIdx = -999;
+          const freq = Math.max(Math.ceil(data.length / 5), 1); // show fewer labels by default to avoid crowding
+          
+          return data.map((d, i) => {
+            const isLast = i === data.length - 1;
+            const isFreqMatch = i % freq === 0;
+            const distance = i - lastRenderedIdx;
+            
+            if (isLast) {
+              if (distance < Math.max(2, freq * 0.7)) return null;
+            } else if (!isFreqMatch) {
+              return null;
+            }
+            
+            lastRenderedIdx = i;
+            const x = paddingLeft + (i / (data.length - 1 || 1)) * chartWidth;
+            return (
+              <text
+                key={i}
+                x={x}
+                y={svgHeight - 15}
+                textAnchor="middle"
+                className="text-xs font-bold fill-gray-700 dark:fill-slate-300"
+              >
+                {d[xKey]}
+              </text>
+            );
+          });
+        })()}
 
         {/* Area fill */}
         {areaPath && (
