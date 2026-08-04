@@ -9,3 +9,4 @@ from .analytics_views import (
     PredictionViewSet,
     InsightViewSet,
 )
+from .ml_views import MLTrainView, MLPredictView, MLPredictionsListView, MLModelsListView

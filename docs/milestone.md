@@ -76,8 +76,8 @@ All APIs follow the project's DRF architecture standards: ViewSets for standard 
 
 ### 3.2 Integration APIs
 - [x] Create Google Trends data collection service
-- [ ] Build CompetitorPrice scraping service
-- [ ] Implement competitor data endpoints
+- [x] Build CompetitorPrice scraping service
+- [x] Implement competitor data endpoints
 - [ ] Add manual trigger for both data collection
 
 ## Phase 4: Analytics Engine
@@ -100,27 +100,33 @@ All APIs follow the project's DRF architecture standards: ViewSets for standard 
 
 ## Phase 5: Machine Learning Integration
 
+## Phase 5: Machine Learning Integration
+
 ### 5.1 Data Preparation
-- [ ] Create ML data preprocessing service
-- [ ] Build feature engineering pipeline
-- [ ] Implement data aggregation for model training
-- [ ] Add time-series data preparation
-- [ ] Create training/testing data split logic
+- [ ] Create ML data preprocessing service *(Pandas, NumPy)*
+- [ ] Build feature engineering pipeline *(Pandas, NumPy)*
+- [ ] Implement data aggregation for model training *(Pandas)*
+- [ ] Add time-series data preparation *(Pandas - DateTime features, Rolling Window, Moving Average)
+- [ ] Create training/testing data split logic *(Scikit-learn: train_test_split)*
+
+---
 
 ### 5.2 Model Training
-- [ ] Implement sales forecasting model (ARIMA/SARIMA)
-- [ ] Build demand forecasting model
-- [ ] Create product risk scoring model
-- [ ] Develop business health score algorithm
-- [ ] Add model evaluation metrics
-- [ ] Implement model versioning
+- [ ] Implement sales forecasting model *(Multiple Linear Regression, Polynomial Regression, Decision Tree Regressor, Random Forest Regressor - Scikit-learn)*
+- [ ] Build demand forecasting model *(Random Forest Regressor / Decision Tree Regressor - Scikit-learn)*
+- [ ] Create product risk scoring model *(Decision Tree Classifier or Rule-Based Scoring)*
+- [ ] Develop business health score algorithm *(Rule-Based Weighted Scoring using Business KPIs)*
+- [ ] Add model evaluation metrics *(Scikit-learn: MSE, RMSE, MAE, R² Score)*
+- [ ] Implement model versioning 
+
+---
 
 ### 5.3 Prediction Implementation
-- [ ] Create prediction scheduling service
-- [ ] Build prediction endpoints
-- [ ] Add confidence score calculation
-- [ ] Implement prediction storage
-- [ ] Create prediction result serializers
+- [ ] Create prediction scheduling service 
+- [ ] Build prediction endpoints 
+- [ ] Add confidence score calculation *(Based on R² Score / Model Performance Metrics)*
+- [ ] Implement prediction storage 
+- [ ] Create prediction result serializers 
 
 ## Phase 6: Frontend Development
 
