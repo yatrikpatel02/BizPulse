@@ -1,4 +1,5 @@
 import time
+import datetime
 import pandas as pd
 from django.db import transaction
 from django.core.exceptions import ValidationError
@@ -11,7 +12,7 @@ from integrations.models import ImportBatch
 from integrations.services import TemporaryStorageService
 from analytics.services import DataValidationService, DataCleaningService
 from products.models import Product
-from analytics.models import SalesRecord, InventorySnapshot, CustomerReview
+from analytics.models import SalesRecord, InventorySnapshot, CustomerReview, ReviewSentiment, ComplaintCategory
 
 
 class ImportPreviewView(APIView):
@@ -107,7 +108,7 @@ class BaseImportCommitView(APIView):
         df = df[~(df[existing_required].astype(str).apply(lambda col: col.str.strip()) == '').any(axis=1)]
 
         # Normalize date
-        df['date'] = pd.to_datetime(df['date'], errors='coerce').dt.strftime('%Y-%m-%d')
+        df['date'] = pd.to_datetime(df['date'], errors='coerce', format='mixed').dt.strftime('%Y-%m-%d')
         df = df.dropna(subset=['date'])
 
         # Deduplicate
@@ -350,6 +351,12 @@ class ReviewsImportCommitView(BaseImportCommitView):
 
         try:
             df_cleaned = self.get_df_cleaned(business, temp_file_id, 'reviews', mapping)
+            if df_cleaned.empty:
+                return Response({
+                    "message": "No valid customer reviews found in the uploaded file.",
+                    "import_batch_id": None,
+                    "records_imported": 0
+                }, status=status.HTTP_200_OK)
 
             with transaction.atomic():
                 batch = ImportBatch.objects.create(
@@ -363,7 +370,25 @@ class ReviewsImportCommitView(BaseImportCommitView):
                 existing_products = {p.name: p for p in all_products}
                 existing_products_by_sku = {p.sku: p for p in all_products}
 
+                # Optimised existing reviews fetch for the date range
+                min_date = df_cleaned['date'].min()
+                max_date = df_cleaned['date'].max()
+
+                existing_reviews = CustomerReview.objects.filter(
+                    business=business,
+                    review_date__gte=min_date,
+                    review_date__lte=max_date
+                )
+
+                existing_reviews_map = {}
+                for r in existing_reviews:
+                    r_date_str = r.review_date.strftime('%Y-%m-%d') if isinstance(r.review_date, datetime.date) else str(r.review_date)
+                    existing_reviews_map[(r_date_str, r.author_name, r.text)] = r
+
                 reviews_to_create = []
+                reviews_to_update = []
+                reviews_updated_ids = []
+
                 for _, row in df_cleaned.iterrows():
                     prod_name = row.get('product_name')
 
@@ -392,21 +417,48 @@ class ReviewsImportCommitView(BaseImportCommitView):
                     author = row.get('author_name', '')
                     if pd.isna(author): author = ''
 
-                    reviews_to_create.append(CustomerReview(
-                        business=business,
-                        product=product,
-                        import_batch=batch,
-                        source=row.get('source', 'CSV Import') if not pd.isna(row.get('source')) else 'CSV Import',
-                        external_id=row.get('external_id', '') if not pd.isna(row.get('external_id')) else '',
-                        review_date=date_val,
-                        rating=rating,
-                        text=text,
-                        author_name=author
-                    ))
+                    source = row.get('source', 'CSV Import') if not pd.isna(row.get('source')) else 'CSV Import'
+                    external_id = row.get('external_id', '') if not pd.isna(row.get('external_id')) else ''
+
+                    key = (date_val, author, text)
+                    if key in existing_reviews_map:
+                        existing_review = existing_reviews_map[key]
+                        existing_review.product = product
+                        existing_review.rating = rating
+                        existing_review.source = source
+                        existing_review.external_id = external_id
+                        existing_review.import_batch = batch
+                        reviews_to_update.append(existing_review)
+                        reviews_updated_ids.append(existing_review.id)
+                    else:
+                        reviews_to_create.append(CustomerReview(
+                            business=business,
+                            product=product,
+                            import_batch=batch,
+                            source=source,
+                            external_id=external_id,
+                            review_date=date_val,
+                            rating=rating,
+                            text=text,
+                            author_name=author
+                        ))
+
+                # If reviews are being updated, clear their old sentiment/complaint categories
+                # so the NLP engine will recalculate them
+                if reviews_updated_ids:
+                    ReviewSentiment.objects.filter(review_id__in=reviews_updated_ids).delete()
+                    ComplaintCategory.objects.filter(review_id__in=reviews_updated_ids).delete()
+
+                if reviews_to_update:
+                    CustomerReview.objects.bulk_update(
+                        reviews_to_update,
+                        fields=['product', 'rating', 'source', 'external_id', 'import_batch']
+                    )
 
                 if reviews_to_create:
                     CustomerReview.objects.bulk_create(reviews_to_create)
-                records_created = len(reviews_to_create)
+
+                records_created = len(reviews_to_create) + len(reviews_to_update)
 
             # Delete temporary file
             TemporaryStorageService.delete_temp_file(temp_file_id)

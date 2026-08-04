@@ -64,7 +64,7 @@ class DataValidationService:
 
         # Date parsing
         if 'date' in df.columns:
-            date_col = pd.to_datetime(df['date'], errors='coerce')
+            date_col = pd.to_datetime(df['date'], errors='coerce', format='mixed')
             invalid_dates = df.index[date_col.isna() & df['date'].notna() & (df['date'].astype(str).str.strip() != '')]
             for idx in invalid_dates:
                 report['errors'].append({
@@ -165,6 +165,42 @@ class DataValidationService:
             dups = valid_df[valid_df.duplicated(subset=subset, keep='first')]
             for idx in dups.index:
                 report['warnings'].append({'row_index': int(idx) + 1, 'column': 'N/A', 'message': "Row duplicates another entry in the same file."})
+
+        # Outlier detection using IQR (Interquartile Range)
+        cols_to_check = []
+        if source_type == 'sales':
+            cols_to_check = ['quantity', 'revenue', 'cost']
+        elif source_type == 'inventory':
+            cols_to_check = ['quantity_on_hand', 'reorder_point']
+
+        for col in cols_to_check:
+            if col in df.columns:
+                series = pd.to_numeric(df[col], errors='coerce')
+                valid_series = series.dropna()
+                if len(valid_series) >= 5:
+                    q1 = valid_series.quantile(0.25)
+                    q3 = valid_series.quantile(0.75)
+                    iqr = q3 - q1
+                    lower_bound = q1 - 1.5 * iqr
+                    upper_bound = q3 + 1.5 * iqr
+                    
+                    outlier_mask = (series < lower_bound) | (series > upper_bound)
+                    outlier_indices = df.index[outlier_mask]
+                    
+                    for idx in outlier_indices:
+                        val = df.at[idx, col]
+                        report['outliers'].append({
+                            'row_index': int(idx) + 1,
+                            'column': col,
+                            'message': f"Value '{val}' in '{col}' is an outlier."
+                        })
+                        report['outliers_count'] += 1
+
+        # Sort errors, missing, outliers, and warnings by row_index for chronological alignment
+        report['errors'] = sorted(report['errors'], key=lambda x: x['row_index'])
+        report['missing'] = sorted(report['missing'], key=lambda x: x['row_index'])
+        report['outliers'] = sorted(report['outliers'], key=lambda x: x['row_index'])
+        report['warnings'] = sorted(report['warnings'], key=lambda x: x['row_index'])
 
         report['invalid_rows_count'] = len(invalid_row_indices)
         report['valid_rows_count'] = len(df) - len(invalid_row_indices)

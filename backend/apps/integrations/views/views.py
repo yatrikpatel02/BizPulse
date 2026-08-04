@@ -33,7 +33,7 @@ class FileUploadView(APIView):
         uploaded_file = request.FILES.get('file')
         if not uploaded_file:
             return Response(
-                {"file": "No file was uploaded."},
+                {"detail": "CSV file not provided."},
                 status=status.HTTP_400_BAD_REQUEST
             )
 

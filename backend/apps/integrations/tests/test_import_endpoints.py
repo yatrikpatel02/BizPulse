@@ -170,8 +170,8 @@ class DataImportEndpointsTests(APITestCase):
             "original_filename": "monthly_sales.csv"
         }
 
-        with patch('analytics.models.SalesRecord.objects.update_or_create') as mock_update:
-            mock_update.side_effect = Exception("Mocked database write error")
+        with patch('django.db.models.query.QuerySet.bulk_create') as mock_bulk:
+            mock_bulk.side_effect = Exception("Mocked database write error")
 
             response = self.client.post(url, data, format='json')
             self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)

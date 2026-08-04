@@ -35,7 +35,7 @@ class DataCleaningService:
 
         # 3. Clean and standardize Date
         df_clean['date'] = df_clean['date'].astype(str).str.strip()
-        df_clean['date'] = pd.to_datetime(df_clean['date']).dt.strftime('%Y-%m-%d')
+        df_clean['date'] = pd.to_datetime(df_clean['date'], errors='coerce', format='mixed').dt.strftime('%Y-%m-%d')
 
         # 4. Standardize and cast fields by source type
         if source_type == 'sales':
