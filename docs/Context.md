@@ -556,7 +556,7 @@ Display a friendly empty state asking users to upload a review dataset.
 Market
 
 * Google Trends
-* Competitor Prices
+* Comparison of Competitor Prices and Our prices 
 * Competitor Ratings
 * Market Demand
 

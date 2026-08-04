@@ -1,2 +1,4 @@
 from .validation_service import DataValidationService
 from .cleaning_service import DataCleaningService
+from .trend_business_rules import TrendBusinessRulesService
+from .trend_insight_engine import TrendInsightEngine

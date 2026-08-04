@@ -5,6 +5,13 @@ from .review_sentiment import ReviewSentimentSerializer
 from .complaint_category import ComplaintCategorySerializer
 from .prediction import PredictionSerializer
 from .insight import InsightSerializer
+from .ml_serializers import (
+    MLTrainRequestSerializer,
+    MLTrainResponseSerializer,
+    MPPredictRequestSerializer,
+    MPPredictResponseSerializer,
+    MLModelSerializer,
+)
 
 __all__ = [
     'SalesRecordSerializer',
@@ -14,4 +21,9 @@ __all__ = [
     'ComplaintCategorySerializer',
     'PredictionSerializer',
     'InsightSerializer',
+    'MLTrainRequestSerializer',
+    'MLTrainResponseSerializer',
+    'MPPredictRequestSerializer',
+    'MPPredictResponseSerializer',
+    'MLModelSerializer',
 ]

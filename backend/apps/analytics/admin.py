@@ -37,9 +37,9 @@ class ComplaintCategoryAdmin(admin.ModelAdmin):
 
 @admin.register(Prediction)
 class PredictionAdmin(admin.ModelAdmin):
-    list_display = ('business', 'prediction_type', 'predicted_at', 'period_start', 'period_end')
-    search_fields = ('business__name', 'prediction_type')
-    list_filter = ('prediction_type', 'predicted_at')
+    list_display = ('business', 'product', 'prediction_type', 'predicted_at', 'period_start', 'period_end', 'model_name', 'model_version', 'confidence')
+    search_fields = ('business__name', 'product__name', 'prediction_type', 'model_name')
+    list_filter = ('prediction_type', 'model_name', 'predicted_at')
 
 
 @admin.register(Insight)
