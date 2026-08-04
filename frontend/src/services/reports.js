@@ -1,13 +1,16 @@
 import api from './api';
 
-export const getReports = (params = {}) => {
-  return api.get('/reports/', { params });
+export const getReports = async (params = {}) => {
+  const response = await api.get('/reports/', { params });
+  return response.data;
 };
 
-export const createReport = (data) => {
-  return api.post('/reports/', data);
+export const createReport = async (data) => {
+  const response = await api.post('/reports/', data);
+  return response.data;
 };
 
-export const deleteReport = (id) => {
-  return api.delete(`/reports/${id}/`);
+export const deleteReport = async (id) => {
+  const response = await api.delete(`/reports/${id}/`);
+  return response.data;
 };

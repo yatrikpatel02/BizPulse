@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { useBusiness } from '../context/BusinessContext';
 import { getReports, createReport, deleteReport } from '../services/reports';
+import { getSalesAnalytics, getInventoryAnalytics, getCustomerAnalytics } from '../services/analytics';
+import api from '../services/api';
 
 export default function Reports() {
   const { activeBusiness } = useBusiness();
@@ -10,14 +12,18 @@ export default function Reports() {
   const [error, setError] = useState(null);
 
   // Generate form state
-  const [generationModal, setGenerationModal] = useState(null); // stores reportType when open
+  const [generationModal, setGenerationModal] = useState(null);
   const [formData, setFormData] = useState({
     startDate: '2023-01-01',
     endDate: '2023-12-31',
     format: 'PDF'
   });
   const [generating, setGenerating] = useState(false);
-  const [reportViewer, setReportViewer] = useState(null); // stores report summary to display
+
+  // Report Viewer state
+  const [reportViewer, setReportViewer] = useState(null);
+  const [viewerData, setViewerData] = useState(null);
+  const [viewerLoading, setViewerLoading] = useState(false);
 
   // List of report templates
   const reportTemplates = [
@@ -80,14 +86,9 @@ export default function Reports() {
     setError(null);
     try {
       const res = await getReports({ business_id: activeBusiness.id });
-      const dataArray = Array.isArray(res) 
-        ? res 
-        : (res.results || res.data || []);
-      
-      const businessReports = dataArray.filter(
-        r => r.business === activeBusiness.id
-      );
-      setReports(businessReports);
+      const raw = res.data || res;
+      const dataArray = Array.isArray(raw) ? raw : (raw.results || []);
+      setReports(dataArray);
     } catch (err) {
       console.error("Failed to load reports history", err);
       setError("Failed to load reports history. Please try again.");
@@ -146,15 +147,242 @@ export default function Reports() {
   const formatDate = (dateStr) => {
     try {
       return new Date(dateStr).toLocaleString('en-IN', {
-        year: 'numeric',
-        month: 'short',
-        day: 'numeric',
-        hour: '2-digit',
-        minute: '2-digit'
+        year: 'numeric', month: 'short', day: 'numeric',
+        hour: '2-digit', minute: '2-digit'
       });
     } catch {
       return dateStr;
     }
+  };
+
+  // Format currency
+  const formatCurrency = (val) => {
+    const num = Number(val) || 0;
+    return '₹' + num.toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+  };
+
+  // Fetch REAL data when user clicks "View" on a report
+  const handleViewReport = async (report) => {
+    setReportViewer(report);
+    setViewerLoading(true);
+    setViewerData(null);
+
+    const params = {
+      start_date: report.parameters?.start_date || '2023-01-01',
+      end_date: report.parameters?.end_date || '2023-12-31',
+    };
+
+    try {
+      const data = {};
+
+      if (report.report_type === 'sales' || report.report_type === 'executive') {
+        try {
+          data.sales = await getSalesAnalytics(params);
+        } catch (e) { data.sales = null; }
+      }
+      if (report.report_type === 'inventory' || report.report_type === 'executive') {
+        try {
+          data.inventory = await getInventoryAnalytics(params);
+        } catch (e) { data.inventory = null; }
+      }
+      if (report.report_type === 'customer' || report.report_type === 'executive') {
+        try {
+          data.customer = await getCustomerAnalytics(params);
+        } catch (e) { data.customer = null; }
+      }
+      if (report.report_type === 'market') {
+        try {
+          const res = await api.get('/analytics/market-insights/', { params: { keywords: 'electronics,apparel,headphones' } });
+          data.market = res.data;
+        } catch (e) { data.market = null; }
+      }
+
+      setViewerData(data);
+    } catch (err) {
+      console.error("Failed to load report data", err);
+    } finally {
+      setViewerLoading(false);
+    }
+  };
+
+  // ─── Render Section-Specific Report Body ───
+  const renderSalesSection = (sales) => {
+    if (!sales) return <p className="text-xs text-gray-400 italic">Sales data unavailable for this period.</p>;
+    const metrics = sales.aggregated_metrics || sales.metrics || sales;
+    return (
+      <div className="space-y-3">
+        <h5 className="font-bold text-gray-800 dark:text-slate-200">📊 Sales Performance</h5>
+        <div className="grid grid-cols-2 gap-3">
+          <div className="p-3 bg-white dark:bg-slate-900 border border-gray-100 dark:border-slate-800 rounded-xl">
+            <span className="text-[10px] font-bold text-gray-400 uppercase block">Total Revenue</span>
+            <span className="text-sm font-extrabold text-gray-900 dark:text-white">{formatCurrency(metrics.total_revenue)}</span>
+          </div>
+          <div className="p-3 bg-white dark:bg-slate-900 border border-gray-100 dark:border-slate-800 rounded-xl">
+            <span className="text-[10px] font-bold text-gray-400 uppercase block">Total Orders</span>
+            <span className="text-sm font-extrabold text-gray-900 dark:text-white">{Number(metrics.total_orders || metrics.total_transactions || 0).toLocaleString()}</span>
+          </div>
+          <div className="p-3 bg-white dark:bg-slate-900 border border-gray-100 dark:border-slate-800 rounded-xl">
+            <span className="text-[10px] font-bold text-gray-400 uppercase block">Avg. Order Value</span>
+            <span className="text-sm font-extrabold text-gray-900 dark:text-white">{formatCurrency(metrics.average_order_value || metrics.avg_order_value)}</span>
+          </div>
+          <div className="p-3 bg-white dark:bg-slate-900 border border-gray-100 dark:border-slate-800 rounded-xl">
+            <span className="text-[10px] font-bold text-gray-400 uppercase block">Total Quantity Sold</span>
+            <span className="text-sm font-extrabold text-gray-900 dark:text-white">{Number(metrics.total_quantity || 0).toLocaleString()}</span>
+          </div>
+        </div>
+        {/* Top Products */}
+        {(sales.top_products || sales.top_selling_products) && (
+          <div>
+            <h6 className="text-xs font-bold text-gray-500 dark:text-slate-400 uppercase mt-3 mb-2">Top Selling Products</h6>
+            <table className="w-full text-xs">
+              <thead>
+                <tr className="border-b dark:border-slate-800">
+                  <th className="text-left py-1.5 font-bold text-gray-400">Product</th>
+                  <th className="text-right py-1.5 font-bold text-gray-400">Revenue</th>
+                  <th className="text-right py-1.5 font-bold text-gray-400">Qty</th>
+                </tr>
+              </thead>
+              <tbody>
+                {(sales.top_products || sales.top_selling_products || []).slice(0, 5).map((p, i) => (
+                  <tr key={i} className="border-b dark:border-slate-800/40">
+                    <td className="py-1.5 font-semibold text-gray-700 dark:text-slate-300">{p.product__name || p.product_name || p.name || `Product ${i+1}`}</td>
+                    <td className="py-1.5 text-right text-gray-600 dark:text-slate-400">{formatCurrency(p.total_revenue || p.revenue)}</td>
+                    <td className="py-1.5 text-right text-gray-600 dark:text-slate-400">{p.total_quantity || p.quantity || '-'}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        )}
+      </div>
+    );
+  };
+
+  const renderInventorySection = (inv) => {
+    if (!inv) return <p className="text-xs text-gray-400 italic">Inventory data unavailable for this period.</p>;
+    const summary = inv.summary || inv;
+    const anomalies = inv.anomalies || inv.stock_anomalies || [];
+    return (
+      <div className="space-y-3">
+        <h5 className="font-bold text-gray-800 dark:text-slate-200">📦 Inventory Health</h5>
+        <div className="grid grid-cols-2 gap-3">
+          <div className="p-3 bg-white dark:bg-slate-900 border border-gray-100 dark:border-slate-800 rounded-xl">
+            <span className="text-[10px] font-bold text-gray-400 uppercase block">Total Products Tracked</span>
+            <span className="text-sm font-extrabold text-gray-900 dark:text-white">{summary.total_products || summary.total_items || '-'}</span>
+          </div>
+          <div className="p-3 bg-white dark:bg-slate-900 border border-gray-100 dark:border-slate-800 rounded-xl">
+            <span className="text-[10px] font-bold text-gray-400 uppercase block">Total Stock Value</span>
+            <span className="text-sm font-extrabold text-gray-900 dark:text-white">{formatCurrency(summary.total_stock_value || summary.total_value)}</span>
+          </div>
+          <div className="p-3 bg-white dark:bg-slate-900 border border-gray-100 dark:border-slate-800 rounded-xl">
+            <span className="text-[10px] font-bold text-gray-400 uppercase block">Out of Stock Items</span>
+            <span className="text-sm font-extrabold text-red-600 dark:text-red-400">{summary.out_of_stock_count || summary.out_of_stock || 0}</span>
+          </div>
+          <div className="p-3 bg-white dark:bg-slate-900 border border-gray-100 dark:border-slate-800 rounded-xl">
+            <span className="text-[10px] font-bold text-gray-400 uppercase block">Low Stock Alerts</span>
+            <span className="text-sm font-extrabold text-amber-600 dark:text-amber-400">{summary.low_stock_count || anomalies.length || 0}</span>
+          </div>
+        </div>
+        {/* Anomalies */}
+        {anomalies.length > 0 && (
+          <div>
+            <h6 className="text-xs font-bold text-gray-500 dark:text-slate-400 uppercase mt-3 mb-2">Stock Anomalies</h6>
+            <ul className="space-y-1.5 text-xs">
+              {anomalies.slice(0, 5).map((a, i) => (
+                <li key={i} className="flex items-center gap-2 text-gray-700 dark:text-slate-300">
+                  <span className={`w-2 h-2 rounded-full flex-shrink-0 ${a.quantity_on_hand === 0 ? 'bg-red-500' : 'bg-amber-400'}`}></span>
+                  <span className="font-semibold">{a.product__name || a.product_name || `Item ${i+1}`}</span>
+                  <span className="text-gray-400">— Qty: {a.quantity_on_hand ?? a.quantity}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+        )}
+      </div>
+    );
+  };
+
+  const renderCustomerSection = (cust) => {
+    if (!cust) return <p className="text-xs text-gray-400 italic">Customer data unavailable for this period.</p>;
+    const summary = cust.summary || cust;
+    const sentiments = cust.sentiment_distribution || cust.sentiments || {};
+    return (
+      <div className="space-y-3">
+        <h5 className="font-bold text-gray-800 dark:text-slate-200">💬 Customer Feedback Intelligence</h5>
+        <div className="grid grid-cols-2 gap-3">
+          <div className="p-3 bg-white dark:bg-slate-900 border border-gray-100 dark:border-slate-800 rounded-xl">
+            <span className="text-[10px] font-bold text-gray-400 uppercase block">Total Reviews</span>
+            <span className="text-sm font-extrabold text-gray-900 dark:text-white">{summary.total_reviews || summary.total_count || '-'}</span>
+          </div>
+          <div className="p-3 bg-white dark:bg-slate-900 border border-gray-100 dark:border-slate-800 rounded-xl">
+            <span className="text-[10px] font-bold text-gray-400 uppercase block">Average Rating</span>
+            <span className="text-sm font-extrabold text-gray-900 dark:text-white">{Number(summary.average_rating || summary.avg_rating || 0).toFixed(1)} ⭐</span>
+          </div>
+        </div>
+        {/* Sentiment Breakdown */}
+        {Object.keys(sentiments).length > 0 && (
+          <div>
+            <h6 className="text-xs font-bold text-gray-500 dark:text-slate-400 uppercase mt-3 mb-2">Sentiment Distribution</h6>
+            <div className="flex flex-wrap gap-2">
+              {Object.entries(sentiments).map(([key, val]) => (
+                <span key={key} className={`px-2.5 py-1 rounded-lg text-xs font-bold border ${
+                  key.toLowerCase().includes('positive') ? 'bg-emerald-50 dark:bg-emerald-950/30 text-emerald-700 dark:text-emerald-400 border-emerald-200/40' :
+                  key.toLowerCase().includes('negative') ? 'bg-red-50 dark:bg-red-950/30 text-red-700 dark:text-red-400 border-red-200/40' :
+                  'bg-gray-50 dark:bg-slate-800 text-gray-600 dark:text-slate-400 border-gray-200/40'
+                }`}>
+                  {key}: {val}
+                </span>
+              ))}
+            </div>
+          </div>
+        )}
+        {/* Complaints */}
+        {(cust.top_complaints || cust.complaint_categories) && (
+          <div>
+            <h6 className="text-xs font-bold text-gray-500 dark:text-slate-400 uppercase mt-3 mb-2">Top Complaint Categories</h6>
+            <ul className="space-y-1 text-xs">
+              {(cust.top_complaints || cust.complaint_categories || []).slice(0, 5).map((c, i) => (
+                <li key={i} className="text-gray-700 dark:text-slate-300 font-medium">
+                  • {c.category || c.name || c} — {c.count || c.total || ''} reports
+                </li>
+              ))}
+            </ul>
+          </div>
+        )}
+      </div>
+    );
+  };
+
+  const renderMarketSection = (market) => {
+    if (!market) return <p className="text-xs text-gray-400 italic">Market data unavailable.</p>;
+    const insights = market.insights || market.results || [];
+    return (
+      <div className="space-y-3">
+        <h5 className="font-bold text-gray-800 dark:text-slate-200">📈 Market Trend Insights</h5>
+        {insights.length === 0 ? (
+          <p className="text-xs text-gray-400 italic">No market trend data available for the analyzed keywords.</p>
+        ) : (
+          <div className="space-y-3">
+            {insights.map((ins, i) => (
+              <div key={i} className="p-3 bg-white dark:bg-slate-900 border border-gray-100 dark:border-slate-800 rounded-xl">
+                <div className="flex items-center justify-between">
+                  <span className="font-bold text-sm text-gray-800 dark:text-white capitalize">{ins.keyword || ins.term}</span>
+                  <span className={`text-xs font-bold px-2 py-0.5 rounded-full ${
+                    ins.insight_type === 'Opportunity' || ins.insight_type === 'Positive Trend' ? 'bg-emerald-100 text-emerald-700' :
+                    ins.insight_type === 'Risk' || ins.insight_type === 'Warning' ? 'bg-red-100 text-red-700' :
+                    'bg-gray-100 text-gray-600'
+                  }`}>{ins.insight_type}</span>
+                </div>
+                <p className="text-xs text-gray-500 dark:text-slate-400 mt-1">{ins.recommendation || ins.description || ''}</p>
+                {ins.pct_change != null && (
+                  <span className="text-[10px] font-bold text-gray-400 mt-1 block">Trend Change: {Number(ins.pct_change).toFixed(1)}%</span>
+                )}
+              </div>
+            ))}
+          </div>
+        )}
+      </div>
+    );
   };
 
   return (
@@ -166,7 +394,7 @@ export default function Reports() {
             Business Reports
           </h2>
           <p className="text-sm text-gray-500 dark:text-slate-400 mt-1">
-            Export structured company details and audits as downloadable document metadata files.
+            Generate structured reports with real analytics data from your business.
           </p>
         </div>
 
@@ -199,7 +427,7 @@ export default function Reports() {
       {activeTab === 'generate' && (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {reportTemplates.map((template) => (
-            <div 
+            <div
               key={template.id}
               className="bg-white/60 dark:bg-slate-900/60 backdrop-blur-md border border-white/20 dark:border-slate-800/80 hover:-translate-y-1 hover:shadow-xl rounded-2xl p-6 shadow-sm flex flex-col justify-between transition-all duration-300 group"
             >
@@ -266,7 +494,7 @@ export default function Reports() {
                 </thead>
                 <tbody className="divide-y divide-gray-100 dark:divide-slate-800/40">
                   {reports.map((report) => (
-                    <tr 
+                    <tr
                       key={report.id}
                       className="hover:bg-indigo-50/10 dark:hover:bg-slate-800/20 transition-colors cursor-default"
                     >
@@ -275,7 +503,7 @@ export default function Reports() {
                           {report.report_type} Report
                         </div>
                         <div className="text-xs text-gray-400 font-medium">
-                          Range: {report.parameters?.start_date || '01-01-2023'} to {report.parameters?.end_date || '31-12-2023'}
+                          Range: {report.parameters?.start_date || '-'} to {report.parameters?.end_date || '-'}
                         </div>
                       </td>
                       <td className="px-6 py-4 text-xs font-semibold text-gray-600 dark:text-slate-300">
@@ -283,8 +511,8 @@ export default function Reports() {
                       </td>
                       <td className="px-6 py-4">
                         <span className={`inline-flex items-center px-2 py-0.5 rounded-full text-xs font-bold ${
-                          report.status === 'completed' 
-                            ? 'bg-emerald-100/70 dark:bg-emerald-950/30 text-emerald-700 dark:text-emerald-400 border border-emerald-200/40' 
+                          report.status === 'completed'
+                            ? 'bg-emerald-100/70 dark:bg-emerald-950/30 text-emerald-700 dark:text-emerald-400 border border-emerald-200/40'
                             : 'bg-amber-100 text-amber-700'
                         }`}>
                           {report.status}
@@ -293,9 +521,9 @@ export default function Reports() {
                       <td className="px-6 py-4 text-right">
                         <div className="flex items-center justify-end gap-2.5">
                           <button
-                            onClick={() => setReportViewer(report)}
+                            onClick={() => handleViewReport(report)}
                             className="inline-flex items-center gap-1 px-3 py-1.5 text-xs font-bold text-indigo-600 dark:text-indigo-400 hover:bg-indigo-50 dark:hover:bg-indigo-950/20 rounded-xl transition-all duration-200"
-                            title="View/Print Summary"
+                            title="View Report with Real Data"
                           >
                             <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
@@ -343,58 +571,40 @@ export default function Reports() {
 
             <form onSubmit={handleGenerate} className="space-y-4">
               <div className="space-y-1">
-                <label className="text-xs font-bold text-gray-500 dark:text-slate-400 uppercase tracking-wide">
-                  Start Date
-                </label>
+                <label className="text-xs font-bold text-gray-500 dark:text-slate-400 uppercase tracking-wide">Start Date</label>
                 <input
-                  type="date"
-                  value={formData.startDate}
+                  type="date" value={formData.startDate}
                   onChange={(e) => setFormData(prev => ({ ...prev, startDate: e.target.value }))}
-                  className="w-full px-4 py-2.5 bg-gray-50/50 dark:bg-slate-950/40 border border-gray-200 dark:border-slate-800 focus:border-indigo-500 dark:focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 focus:bg-white dark:focus:bg-slate-950 rounded-xl text-sm transition-all duration-200 outline-none text-gray-900 dark:text-white"
+                  className="w-full px-4 py-2.5 bg-gray-50/50 dark:bg-slate-950/40 border border-gray-200 dark:border-slate-800 focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 rounded-xl text-sm outline-none text-gray-900 dark:text-white transition-all duration-200"
                   required
                 />
               </div>
-
               <div className="space-y-1">
-                <label className="text-xs font-bold text-gray-500 dark:text-slate-400 uppercase tracking-wide">
-                  End Date
-                </label>
+                <label className="text-xs font-bold text-gray-500 dark:text-slate-400 uppercase tracking-wide">End Date</label>
                 <input
-                  type="date"
-                  value={formData.endDate}
+                  type="date" value={formData.endDate}
                   onChange={(e) => setFormData(prev => ({ ...prev, endDate: e.target.value }))}
-                  className="w-full px-4 py-2.5 bg-gray-50/50 dark:bg-slate-950/40 border border-gray-200 dark:border-slate-800 focus:border-indigo-500 dark:focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 focus:bg-white dark:focus:bg-slate-950 rounded-xl text-sm transition-all duration-200 outline-none text-gray-900 dark:text-white"
+                  className="w-full px-4 py-2.5 bg-gray-50/50 dark:bg-slate-950/40 border border-gray-200 dark:border-slate-800 focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 rounded-xl text-sm outline-none text-gray-900 dark:text-white transition-all duration-200"
                   required
                 />
               </div>
-
               <div className="space-y-1">
-                <label className="text-xs font-bold text-gray-500 dark:text-slate-400 uppercase tracking-wide">
-                  Export Format
-                </label>
+                <label className="text-xs font-bold text-gray-500 dark:text-slate-400 uppercase tracking-wide">Export Format</label>
                 <select
                   value={formData.format}
                   onChange={(e) => setFormData(prev => ({ ...prev, format: e.target.value }))}
-                  className="w-full px-4 py-2.5 bg-gray-50/50 dark:bg-slate-950/40 border border-gray-200 dark:border-slate-800 focus:border-indigo-500 dark:focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 focus:bg-white dark:focus:bg-slate-950 rounded-xl text-sm transition-all duration-200 outline-none text-gray-800 dark:text-slate-300 font-semibold"
+                  className="w-full px-4 py-2.5 bg-gray-50/50 dark:bg-slate-950/40 border border-gray-200 dark:border-slate-800 focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 rounded-xl text-sm outline-none text-gray-800 dark:text-slate-300 font-semibold transition-all duration-200"
                 >
                   <option value="PDF">Adobe PDF (.pdf)</option>
                 </select>
               </div>
-
-              {/* Action Buttons */}
               <div className="flex items-center justify-end gap-3 pt-4 border-t dark:border-slate-800/80">
-                <button
-                  type="button"
-                  onClick={() => setGenerationModal(null)}
-                  className="px-5 py-2.5 bg-gray-100 hover:bg-gray-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-gray-700 dark:text-slate-300 font-semibold text-sm rounded-xl transition-all duration-200"
-                >
+                <button type="button" onClick={() => setGenerationModal(null)}
+                  className="px-5 py-2.5 bg-gray-100 hover:bg-gray-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-gray-700 dark:text-slate-300 font-semibold text-sm rounded-xl transition-all duration-200">
                   Cancel
                 </button>
-                <button
-                  type="submit"
-                  disabled={generating}
-                  className="px-5 py-2.5 bg-gradient-to-r from-indigo-600 to-indigo-700 hover:from-indigo-500 hover:to-indigo-600 text-white font-semibold text-sm rounded-xl hover:shadow-lg hover:shadow-indigo-500/20 disabled:opacity-50 transition-all duration-300"
-                >
+                <button type="submit" disabled={generating}
+                  className="px-5 py-2.5 bg-gradient-to-r from-indigo-600 to-indigo-700 hover:from-indigo-500 hover:to-indigo-600 text-white font-semibold text-sm rounded-xl hover:shadow-lg hover:shadow-indigo-500/20 disabled:opacity-50 transition-all duration-300">
                   {generating ? 'Exporting...' : 'Export Report'}
                 </button>
               </div>
@@ -403,71 +613,83 @@ export default function Reports() {
         </div>
       )}
 
-      {/* Modal Dialog for viewing/printing report summaries */}
+      {/* Report Viewer Modal — shows REAL data */}
       {reportViewer && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-sm animate-fade-in">
-          <div className="w-full max-w-2xl bg-white dark:bg-slate-900 border border-gray-200 dark:border-slate-800 rounded-3xl p-6 shadow-2xl space-y-4 animate-scale-up max-h-[85vh] overflow-y-auto">
+          <div className="w-full max-w-3xl bg-white dark:bg-slate-900 border border-gray-200 dark:border-slate-800 rounded-3xl p-6 shadow-2xl space-y-4 animate-scale-up max-h-[90vh] overflow-y-auto">
+            {/* Modal Header */}
             <div className="flex items-center justify-between border-b dark:border-slate-800/80 pb-3">
               <h3 className="text-xl font-bold text-gray-900 dark:text-white font-display capitalize flex items-center gap-2">
-                <span>📄</span> {reportViewer.report_type} Report Summary
+                <span>📄</span> {reportViewer.report_type} Report
               </h3>
-              <button
-                onClick={() => setReportViewer(null)}
-                className="p-1 text-gray-400 hover:text-gray-600 dark:hover:text-slate-200 hover:bg-gray-100 dark:hover:bg-slate-800 rounded-lg transition-colors"
-              >
+              <button onClick={() => { setReportViewer(null); setViewerData(null); }}
+                className="p-1 text-gray-400 hover:text-gray-600 dark:hover:text-slate-200 hover:bg-gray-100 dark:hover:bg-slate-800 rounded-lg transition-colors">
                 <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
                 </svg>
               </button>
             </div>
 
-            {/* Document Content to print */}
-            <div className="space-y-6 text-sm text-gray-700 dark:text-slate-300 p-6 bg-gray-50/50 dark:bg-slate-950/40 rounded-2xl border border-gray-100 dark:border-slate-800/80">
+            {/* Document Content */}
+            <div id="report-print-area" className="space-y-6 text-sm text-gray-700 dark:text-slate-300 p-6 bg-gray-50/50 dark:bg-slate-950/40 rounded-2xl border border-gray-100 dark:border-slate-800/80">
+              {/* Report Header */}
               <div className="flex justify-between items-start border-b dark:border-slate-800 pb-4">
                 <div>
-                  <h4 className="text-lg font-bold text-gray-900 dark:text-white font-display capitalize">{reportViewer.report_type} Audit</h4>
+                  <h4 className="text-lg font-bold text-gray-900 dark:text-white font-display capitalize">{reportViewer.report_type} Report</h4>
+                  <p className="text-xs text-gray-400">
+                    Period: <strong>{reportViewer.parameters?.start_date || '2023-01-01'}</strong> to <strong>{reportViewer.parameters?.end_date || '2023-12-31'}</strong>
+                  </p>
                   <p className="text-xs text-gray-400">Generated on {formatDate(reportViewer.generated_at)}</p>
                 </div>
-                <div className="text-right">
-                  <span className="text-xs font-bold text-indigo-600 dark:text-indigo-400 bg-indigo-500/10 px-2.5 py-1 rounded-lg">BIZPULSE CORE</span>
+                <span className="text-xs font-bold text-indigo-600 dark:text-indigo-400 bg-indigo-500/10 px-2.5 py-1 rounded-lg">BIZPULSE</span>
+              </div>
+
+              {/* Data Loading State */}
+              {viewerLoading ? (
+                <div className="flex flex-col items-center py-12 gap-3">
+                  <svg className="w-7 h-7 animate-spin text-indigo-500" fill="none" viewBox="0 0 24 24">
+                    <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="3" />
+                    <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" />
+                  </svg>
+                  <span className="text-xs font-semibold text-gray-400">Fetching real analytics data...</span>
                 </div>
-              </div>
+              ) : viewerData ? (
+                <div className="space-y-6">
+                  {/* Executive = all sections */}
+                  {reportViewer.report_type === 'executive' && (
+                    <>
+                      {renderSalesSection(viewerData.sales)}
+                      <hr className="dark:border-slate-800" />
+                      {renderInventorySection(viewerData.inventory)}
+                      <hr className="dark:border-slate-800" />
+                      {renderCustomerSection(viewerData.customer)}
+                    </>
+                  )}
 
-              {/* Summary Paragraph */}
-              <div className="space-y-3 leading-relaxed">
-                <h5 className="font-bold text-gray-800 dark:text-slate-200">1. Executive Overview</h5>
-                <p className="text-xs">
-                  This report summarizes the operational audit for the period of <strong>{reportViewer.parameters?.start_date || '2023-01-01'}</strong> to <strong>{reportViewer.parameters?.end_date || '2023-12-31'}</strong>. Data metrics have been aggregated dynamically from transactional records, customer review channels, and catalog inventories.
-                </p>
-
-                <h5 className="font-bold text-gray-800 dark:text-slate-200 pt-2">2. Key Findings & Audited Records</h5>
-                <ul className="list-disc pl-5 space-y-1.5 text-xs">
-                  <li><strong>Status:</strong> Successfully finalized (status: {reportViewer.status}).</li>
-                  <li><strong>Audit Target:</strong> Scoped database records for active owner businesses.</li>
-                  <li><strong>Export Document Signature:</strong> Dynamic PDF reference key {reportViewer.file_path}.</li>
-                  <li><strong>Scope Duration:</strong> Calendar range audit complete.</li>
-                </ul>
-              </div>
+                  {reportViewer.report_type === 'sales' && renderSalesSection(viewerData.sales)}
+                  {reportViewer.report_type === 'inventory' && renderInventorySection(viewerData.inventory)}
+                  {reportViewer.report_type === 'customer' && renderCustomerSection(viewerData.customer)}
+                  {reportViewer.report_type === 'market' && renderMarketSection(viewerData.market)}
+                </div>
+              ) : (
+                <p className="text-xs text-gray-400 italic text-center py-8">No data could be loaded for this report.</p>
+              )}
 
               {/* Sign-off */}
               <div className="pt-6 border-t dark:border-slate-800 flex justify-between items-center text-[10px] text-gray-400">
-                <span>© 2026 BizPulse Analytics Inc.</span>
-                <span>Document Signature: SHA-256 Validated</span>
+                <span>© 2026 BizPulse Analytics</span>
+                <span>Auto-generated from live database</span>
               </div>
             </div>
 
             {/* Actions */}
             <div className="pt-4 border-t dark:border-slate-800/80 flex items-center justify-end gap-3">
-              <button
-                onClick={() => setReportViewer(null)}
-                className="px-5 py-2.5 bg-gray-100 hover:bg-gray-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-gray-700 dark:text-slate-300 font-semibold text-xs rounded-xl transition-all duration-200"
-              >
+              <button onClick={() => { setReportViewer(null); setViewerData(null); }}
+                className="px-5 py-2.5 bg-gray-100 hover:bg-gray-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-gray-700 dark:text-slate-300 font-semibold text-xs rounded-xl transition-all duration-200">
                 Close
               </button>
-              <button
-                onClick={() => window.print()}
-                className="px-5 py-2.5 bg-indigo-600 hover:bg-indigo-700 text-white font-semibold text-xs rounded-xl hover:shadow-lg hover:shadow-indigo-500/20 hover:-translate-y-0.5 transition-all duration-300"
-              >
+              <button onClick={() => window.print()}
+                className="px-5 py-2.5 bg-indigo-600 hover:bg-indigo-700 text-white font-semibold text-xs rounded-xl hover:shadow-lg hover:shadow-indigo-500/20 hover:-translate-y-0.5 transition-all duration-300">
                 🖨️ Print / Save PDF
               </button>
             </div>
