@@ -91,10 +91,10 @@ export default function MappingStep({ headers, suggestedMappings, sourceType, on
         <table className="min-w-full divide-y divide-gray-200 dark:divide-slate-700">
           <thead className="bg-gray-50 dark:bg-slate-800">
             <tr>
-              <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-slate-400 uppercase tracking-wider">
+              <th scope="col" className="px-6 py-3 text-left text-xs font-bold text-gray-700 dark:text-slate-200 uppercase tracking-wider">
                 Your File Column
               </th>
-              <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-slate-400 uppercase tracking-wider">
+              <th scope="col" className="px-6 py-3 text-left text-xs font-bold text-gray-700 dark:text-slate-200 uppercase tracking-wider">
                 System Field
               </th>
             </tr>

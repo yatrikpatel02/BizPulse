@@ -236,15 +236,15 @@ export default function Products() {
         ) : (
           <div className="overflow-x-auto">
             <table className="w-full text-left border-collapse">
-              <thead>
-                <tr className="border-b border-gray-150 dark:border-slate-800/80 bg-gray-50/50 dark:bg-slate-900/50">
-                  <th className="px-6 py-4 text-xs font-bold text-gray-400 uppercase tracking-wider">Product Name</th>
-                  <th className="px-6 py-4 text-xs font-bold text-gray-400 uppercase tracking-wider">SKU</th>
-                  <th className="px-6 py-4 text-xs font-bold text-gray-400 uppercase tracking-wider">Price</th>
-                  <th className="px-6 py-4 text-xs font-bold text-gray-400 uppercase tracking-wider">Status</th>
-                  <th className="px-6 py-4 text-xs font-bold text-gray-400 uppercase tracking-wider text-right">Actions</th>
-                </tr>
-              </thead>
+               <thead>
+                 <tr className="border-b border-gray-200 dark:border-slate-700 bg-gray-50/50 dark:bg-slate-900/50">
+                   <th className="px-6 py-4 text-xs font-bold text-gray-700 dark:text-slate-200 uppercase tracking-wider">Product Name</th>
+                   <th className="px-6 py-4 text-xs font-bold text-gray-700 dark:text-slate-200 uppercase tracking-wider">SKU</th>
+                   <th className="px-6 py-4 text-xs font-bold text-gray-700 dark:text-slate-200 uppercase tracking-wider">Price</th>
+                   <th className="px-6 py-4 text-xs font-bold text-gray-700 dark:text-slate-200 uppercase tracking-wider">Status</th>
+                   <th className="px-6 py-4 text-xs font-bold text-gray-700 dark:text-slate-200 uppercase tracking-wider text-right">Actions</th>
+                 </tr>
+               </thead>
               <tbody className="divide-y divide-gray-100 dark:divide-slate-800/40">
                 {filteredProducts.map((product) => (
                   <tr 

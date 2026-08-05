@@ -174,11 +174,16 @@ export default function Dashboard() {
       ];
 
   const alerts = (inventoryMetrics?.anomalies && inventoryMetrics.anomalies.length > 0)
-    ? inventoryMetrics.anomalies.map(a => ({
-        type: a.status === 'out_of_stock' || a.status === 'understock' ? 'critical' : 'warning',
-        title: a.status === 'out_of_stock' ? 'Out of Stock' : a.status === 'understock' ? 'Low Stock Alert' : 'Overstocked Alert',
-        message: `${a.product_name || a.product_sku} is currently ${a.status.replace('_', ' ')} (${a.quantity_on_hand} on hand).`
-      }))
+    ? [...inventoryMetrics.anomalies]
+        .sort((a, b) => {
+          const priorities = { understock: 1, out_of_stock: 2, overstock: 3 };
+          return (priorities[a.status] || 4) - (priorities[b.status] || 4);
+        })
+        .map(a => ({
+          type: a.status === 'out_of_stock' || a.status === 'understock' ? 'critical' : 'warning',
+          title: a.status === 'out_of_stock' ? 'Out of Stock' : a.status === 'understock' ? 'Low Stock Alert' : 'Overstocked Alert',
+          message: `${a.product_name || a.product_sku} is currently ${a.status.replace('_', ' ')} (${a.quantity_on_hand} on hand).`
+        }))
     : [
         { type: 'critical', title: 'Low Inventory', message: 'SKU-892 (Smart Watch) is below reorder threshold.' },
         { type: 'warning', title: 'Revenue Drop', message: 'Unusual drop in weekend sales detected.' },

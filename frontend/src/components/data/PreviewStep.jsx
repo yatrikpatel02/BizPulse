@@ -86,7 +86,7 @@ export default function PreviewStep({ tempFileId, sourceType, mapping, onPreview
               <thead className="bg-gray-50 dark:bg-slate-800">
                 <tr>
                   {previewData.length > 0 && Object.keys(previewData[0]).map((key) => (
-                    <th key={key} scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-slate-400 uppercase tracking-wider">
+                    <th key={key} scope="col" className="px-6 py-3 text-left text-xs font-bold text-gray-700 dark:text-slate-200 uppercase tracking-wider">
                       {key}
                     </th>
                   ))}

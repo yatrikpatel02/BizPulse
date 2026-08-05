@@ -490,7 +490,7 @@ export default function Analytics() {
           <div className="overflow-x-auto">
             <table className="w-full text-left text-sm">
               <thead>
-                <tr className="border-b border-gray-200/50 dark:border-slate-800/50 text-[11px] font-bold text-gray-400 uppercase tracking-wider">
+                <tr className="border-b border-gray-200 dark:border-slate-700 text-xs font-extrabold text-gray-700 dark:text-slate-200 uppercase tracking-wider">
                   <th className="pb-3">Product Name</th>
                   <th className="pb-3 text-right">Our Price</th>
                   <th className="pb-3 text-right">Comp. Min</th>
@@ -665,24 +665,28 @@ export default function Analytics() {
       {/* 2. STICKY FILTER BAR */}
       <div className="sticky top-0 z-10 backdrop-blur-md bg-white/70 dark:bg-slate-900/75 py-3 px-4 border border-gray-200/80 dark:border-slate-800/80 rounded-2xl shadow-sm flex flex-wrap items-center justify-between gap-4 transition-colors">
         <div className="flex flex-wrap items-center gap-3">
-          <div className="flex items-center gap-1.5 bg-gray-50 dark:bg-slate-800 px-3 py-1.5 rounded-xl border dark:border-slate-700">
-            <span className="text-xs font-medium text-gray-500 dark:text-slate-400">From</span>
-            <input 
-              type="date" 
-              value={startDate} 
-              onChange={(e) => setStartDate(e.target.value)}
-              className="bg-transparent text-xs font-semibold text-gray-700 dark:text-slate-200 focus:outline-none"
-            />
-          </div>
-          <div className="flex items-center gap-1.5 bg-gray-50 dark:bg-slate-800 px-3 py-1.5 rounded-xl border dark:border-slate-700">
-            <span className="text-xs font-medium text-gray-500 dark:text-slate-400">To</span>
-            <input 
-              type="date" 
-              value={endDate} 
-              onChange={(e) => setEndDate(e.target.value)}
-              className="bg-transparent text-xs font-semibold text-gray-700 dark:text-slate-200 focus:outline-none"
-            />
-          </div>
+          {(activeTab === 'sales' || activeTab === 'inventory') && (
+            <>
+              <div className="flex items-center gap-1.5 bg-gray-50 dark:bg-slate-800 px-3 py-1.5 rounded-xl border dark:border-slate-700">
+                <span className="text-xs font-medium text-gray-500 dark:text-slate-400">From</span>
+                <input 
+                  type="date" 
+                  value={startDate} 
+                  onChange={(e) => setStartDate(e.target.value)}
+                  className="bg-transparent text-xs font-semibold text-gray-700 dark:text-slate-200 focus:outline-none"
+                />
+              </div>
+              <div className="flex items-center gap-1.5 bg-gray-50 dark:bg-slate-800 px-3 py-1.5 rounded-xl border dark:border-slate-700">
+                <span className="text-xs font-medium text-gray-500 dark:text-slate-400">To</span>
+                <input 
+                  type="date" 
+                  value={endDate} 
+                  onChange={(e) => setEndDate(e.target.value)}
+                  className="bg-transparent text-xs font-semibold text-gray-700 dark:text-slate-200 focus:outline-none"
+                />
+              </div>
+            </>
+          )}
           {activeTab === 'sales' && (
             <select
               value={interval}
@@ -793,7 +797,7 @@ export default function Analytics() {
                 <div className="overflow-x-auto">
                   <table className="w-full text-left text-sm">
                     <thead>
-                      <tr className="border-b dark:border-slate-800 text-gray-400 text-xs uppercase tracking-wider">
+                      <tr className="border-b border-gray-200 dark:border-slate-700 text-gray-700 dark:text-slate-200 text-xs font-bold uppercase tracking-wider">
                         <th className="pb-3 font-semibold">Product Name</th>
                         <th className="pb-3 font-semibold text-right">Revenue Generated</th>
                       </tr>
@@ -1020,7 +1024,7 @@ export default function Analytics() {
               <div className="overflow-x-auto">
                 <table className="w-full text-left text-sm">
                   <thead>
-                    <tr className="border-b dark:border-slate-800 text-gray-400 text-xs uppercase tracking-wider">
+                    <tr className="border-b border-gray-200 dark:border-slate-700 text-gray-700 dark:text-slate-200 text-xs font-bold uppercase tracking-wider">
                       <th className="pb-3 font-semibold">Customer</th>
                       <th className="pb-3 font-semibold">Product</th>
                       <th className="pb-3 font-semibold">Rating</th>
@@ -1211,7 +1215,7 @@ export default function Analytics() {
               <div className="overflow-x-auto">
                 <table className="w-full text-left text-sm">
                   <thead>
-                    <tr className="border-b dark:border-slate-800 text-gray-400 text-xs uppercase tracking-wider">
+                    <tr className="border-b border-gray-200 dark:border-slate-700 text-gray-700 dark:text-slate-200 text-xs font-bold uppercase tracking-wider">
                       <th className="pb-3 font-semibold">Model Name</th>
                       <th className="pb-3 font-semibold">Forecast Type</th>
                       <th className="pb-3 font-semibold">Product</th>

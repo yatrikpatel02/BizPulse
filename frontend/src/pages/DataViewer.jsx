@@ -91,7 +91,7 @@ function SalesTable({ data }) {
         <thead>
           <tr className="bg-gray-50 dark:bg-slate-800/60 border-b dark:border-slate-700">
             {['Product', 'Date', 'Quantity', 'Unit Price', 'Revenue'].map(h => (
-              <th key={h} className="px-4 py-3 text-left text-xs font-semibold text-gray-500 dark:text-slate-400 uppercase tracking-wide">{h}</th>
+              <th key={h} className="px-4 py-3 text-left text-xs font-bold text-gray-700 dark:text-slate-200 uppercase tracking-wide">{h}</th>
             ))}
           </tr>
         </thead>
@@ -123,7 +123,7 @@ function InventoryTable({ data }) {
         <thead>
           <tr className="bg-gray-50 dark:bg-slate-800/60 border-b dark:border-slate-700">
             {['Product', 'Date', 'Qty on Hand', 'Reorder Point', 'Status'].map(h => (
-              <th key={h} className="px-4 py-3 text-left text-xs font-semibold text-gray-500 dark:text-slate-400 uppercase tracking-wide">{h}</th>
+              <th key={h} className="px-4 py-3 text-left text-xs font-bold text-gray-700 dark:text-slate-200 uppercase tracking-wide">{h}</th>
             ))}
           </tr>
         </thead>
@@ -159,7 +159,7 @@ function ReviewsTable({ data }) {
         <thead>
           <tr className="bg-gray-50 dark:bg-slate-800/60 border-b dark:border-slate-700">
             {['Rating', 'Product', 'Author', 'Date', 'Review'].map(h => (
-              <th key={h} className="px-4 py-3 text-left text-xs font-semibold text-gray-500 dark:text-slate-400 uppercase tracking-wide">{h}</th>
+              <th key={h} className="px-4 py-3 text-left text-xs font-bold text-gray-700 dark:text-slate-200 uppercase tracking-wide">{h}</th>
             ))}
           </tr>
         </thead>

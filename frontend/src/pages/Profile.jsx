@@ -476,9 +476,9 @@ export default function Profile() {
             <div className="border border-gray-100 dark:border-slate-800 rounded-xl overflow-hidden">
               <table className="w-full text-sm">
                 <thead>
-                  <tr className="bg-gray-50 dark:bg-slate-850 border-b border-gray-100 dark:border-slate-800">
-                    <th className="px-5 py-3 text-left text-xs font-semibold text-gray-400 dark:text-slate-500 uppercase tracking-wider">Company Name</th>
-                    <th className="px-5 py-3 text-right text-xs font-semibold text-gray-400 dark:text-slate-500 uppercase tracking-wider">Actions</th>
+                  <tr className="bg-gray-50 dark:bg-slate-800/80 border-b border-gray-200 dark:border-slate-700">
+                    <th className="px-5 py-3 text-left text-xs font-bold text-gray-700 dark:text-slate-200 uppercase tracking-wider">Company Name</th>
+                    <th className="px-5 py-3 text-right text-xs font-bold text-gray-700 dark:text-slate-200 uppercase tracking-wider">Actions</th>
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-gray-150 dark:divide-slate-800/60">
