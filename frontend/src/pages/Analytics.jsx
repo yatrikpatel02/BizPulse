@@ -634,11 +634,11 @@ export default function Analytics() {
 
   return (
     <div className="space-y-6 pb-12 transition-all duration-300">
-      <ChartGradients />
       
-      {/* 1. Tab Selector Bar */}
-      <div className="flex justify-end">
-        <div className="flex p-1.5 bg-gray-100/80 dark:bg-slate-800/80 border dark:border-slate-700/60 rounded-xl backdrop-blur-md w-full md:w-auto overflow-x-auto">
+      {/* Sticky Header Group: Tabs + Filters */}
+      <div className="sticky top-0 z-20 bg-gray-50/95 dark:bg-[#090d16]/95 backdrop-blur-md pb-2 pt-1 flex flex-col gap-2.5 transition-all duration-200">
+        {/* 1. Tab Selector Bar */}
+        <div className="flex p-1.5 bg-gray-100/80 dark:bg-slate-800/80 border dark:border-slate-700/60 rounded-xl w-full overflow-x-auto gap-1">
           {[
             { id: 'sales', label: 'Sales & Revenue', icon: <svg className="w-4 h-4 mr-1.5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg> },
             { id: 'inventory', label: 'Inventory', icon: <svg className="w-4 h-4 mr-1.5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4" /></svg> },
@@ -649,7 +649,7 @@ export default function Analytics() {
             <button
               key={tab.id}
               onClick={() => setActiveTab(tab.id)}
-              className={`flex items-center px-4 py-2 text-xs font-semibold rounded-lg transition-all duration-200 ${
+              className={`flex-1 flex items-center justify-center px-4 py-2 text-xs font-semibold rounded-lg transition-all duration-200 whitespace-nowrap min-w-max ${
                 activeTab === tab.id
                   ? 'bg-white dark:bg-slate-900 text-indigo-600 dark:text-indigo-400 shadow-sm'
                   : 'text-gray-500 dark:text-slate-400 hover:text-gray-900 dark:hover:text-slate-200'
@@ -660,61 +660,61 @@ export default function Analytics() {
             </button>
           ))}
         </div>
-      </div>
 
-      {/* 2. STICKY FILTER BAR */}
-      <div className="sticky top-0 z-10 backdrop-blur-md bg-white/70 dark:bg-slate-900/75 py-3 px-4 border border-gray-200/80 dark:border-slate-800/80 rounded-2xl shadow-sm flex flex-wrap items-center justify-between gap-4 transition-colors">
-        <div className="flex flex-wrap items-center gap-3">
-          {(activeTab === 'sales' || activeTab === 'inventory') && (
-            <>
-              <div className="flex items-center gap-1.5 bg-gray-50 dark:bg-slate-800 px-3 py-1.5 rounded-xl border dark:border-slate-700">
-                <span className="text-xs font-medium text-gray-500 dark:text-slate-400">From</span>
-                <input 
-                  type="date" 
-                  value={startDate} 
-                  onChange={(e) => setStartDate(e.target.value)}
-                  className="bg-transparent text-xs font-semibold text-gray-700 dark:text-slate-200 focus:outline-none"
-                />
-              </div>
-              <div className="flex items-center gap-1.5 bg-gray-50 dark:bg-slate-800 px-3 py-1.5 rounded-xl border dark:border-slate-700">
-                <span className="text-xs font-medium text-gray-500 dark:text-slate-400">To</span>
-                <input 
-                  type="date" 
-                  value={endDate} 
-                  onChange={(e) => setEndDate(e.target.value)}
-                  className="bg-transparent text-xs font-semibold text-gray-700 dark:text-slate-200 focus:outline-none"
-                />
-              </div>
-            </>
-          )}
-          {activeTab === 'sales' && (
-            <select
-              value={interval}
-              onChange={(e) => setIntervalVal(e.target.value)}
-              className="bg-gray-50 dark:bg-slate-800 text-xs font-semibold text-gray-700 dark:text-slate-200 px-3 py-1.5 rounded-xl border dark:border-slate-700 focus:outline-none cursor-pointer"
-            >
-              <option value="daily">Daily</option>
-              <option value="weekly">Weekly</option>
-              <option value="monthly">Monthly</option>
-            </select>
-          )}
-        </div>
+        {/* 2. FILTER BAR */}
+        <div className="backdrop-blur-md bg-white/70 dark:bg-slate-900/75 py-2.5 px-4 border border-gray-200/80 dark:border-slate-800/80 rounded-2xl shadow-sm flex flex-wrap items-center justify-between gap-4 transition-colors">
+          <div className="flex flex-wrap items-center gap-3">
+            {(activeTab === 'sales' || activeTab === 'inventory') && (
+              <>
+                <div className="flex items-center gap-1.5 bg-gray-50 dark:bg-slate-800 px-3 py-1.5 rounded-xl border dark:border-slate-700">
+                  <span className="text-xs font-medium text-gray-500 dark:text-slate-400">From</span>
+                  <input 
+                    type="date" 
+                    value={startDate} 
+                    onChange={(e) => setStartDate(e.target.value)}
+                    className="bg-transparent text-xs font-semibold text-gray-700 dark:text-slate-200 focus:outline-none"
+                  />
+                </div>
+                <div className="flex items-center gap-1.5 bg-gray-50 dark:bg-slate-800 px-3 py-1.5 rounded-xl border dark:border-slate-700">
+                  <span className="text-xs font-medium text-gray-500 dark:text-slate-400">To</span>
+                  <input 
+                    type="date" 
+                    value={endDate} 
+                    onChange={(e) => setEndDate(e.target.value)}
+                    className="bg-transparent text-xs font-semibold text-gray-700 dark:text-slate-200 focus:outline-none"
+                  />
+                </div>
+              </>
+            )}
+            {activeTab === 'sales' && (
+              <select
+                value={interval}
+                onChange={(e) => setIntervalVal(e.target.value)}
+                className="bg-gray-50 dark:bg-slate-800 text-xs font-semibold text-gray-700 dark:text-slate-200 px-3 py-1.5 rounded-xl border dark:border-slate-700 focus:outline-none cursor-pointer"
+              >
+                <option value="daily">Daily</option>
+                <option value="weekly">Weekly</option>
+                <option value="monthly">Monthly</option>
+              </select>
+            )}
+          </div>
 
-        {/* Demo Data Switcher Option */}
-        <div className="flex items-center gap-2">
-          <span className="text-xs font-medium text-gray-500 dark:text-slate-400">Demo Mode</span>
-          <button
-            onClick={() => setUseDemoData(!useDemoData)}
-            className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors focus:outline-none ${
-              useDemoData ? 'bg-indigo-600' : 'bg-gray-200 dark:bg-slate-800'
-            }`}
-          >
-            <span
-              className={`inline-block h-4 w-4 transform rounded-full bg-white transition-transform ${
-                useDemoData ? 'translate-x-6' : 'translate-x-1'
+          {/* Demo Data Switcher Option */}
+          <div className="flex items-center gap-2">
+            <span className="text-xs font-medium text-gray-500 dark:text-slate-400">Demo Mode</span>
+            <button
+              onClick={() => setUseDemoData(!useDemoData)}
+              className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors focus:outline-none ${
+                useDemoData ? 'bg-indigo-600' : 'bg-gray-200 dark:bg-slate-800'
               }`}
-            />
-          </button>
+            >
+              <span
+                className={`inline-block h-4 w-4 transform rounded-full bg-white transition-transform ${
+                  useDemoData ? 'translate-x-6' : 'translate-x-1'
+                }`}
+              />
+            </button>
+          </div>
         </div>
       </div>
 
@@ -733,33 +733,40 @@ export default function Analytics() {
             {/* KPI Cards Grid */}
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
               {[
-                { title: 'Gross Revenue', value: currentSales.metrics.total_revenue, isAmount: true, change: '+14.2%', color: 'indigo', icon: <svg className="w-6 h-6 text-indigo-500" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg> },
-                { title: 'Total Sales Count', value: currentSales.metrics.total_orders, isAmount: false, change: '+9.8%', color: 'blue', icon: <svg className="w-6 h-6 text-blue-500" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" /></svg> },
-                { title: 'Average Order Value', value: currentSales.metrics.average_order_value, isAmount: true, change: '+4.5%', color: 'emerald', icon: <svg className="w-6 h-6 text-emerald-500" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z" /></svg> },
-                { title: 'Gross Profit Margin', value: currentSales.metrics.gross_margin_pct || 53.4, isAmount: false, suffix: '%', change: '+2.1%', color: 'indigo', icon: <svg className="w-6 h-6 text-indigo-500" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" /></svg> }
+                { title: 'Gross Revenue', value: currentSales.metrics.total_revenue, subtitle: 'Gross business earnings', isAmount: true, change: '+14.2%', color: 'indigo', icon: <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg> },
+                { title: 'Total Sales Count', value: currentSales.metrics.total_orders, subtitle: 'Volume of order checkouts', isAmount: false, change: '+9.8%', color: 'blue', icon: <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" /></svg> },
+                { title: 'Average Order Value', value: currentSales.metrics.average_order_value, subtitle: 'Average value per transaction', isAmount: true, change: '+4.5%', color: 'emerald', icon: <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z" /></svg> },
+                { title: 'Gross Profit Margin', value: currentSales.metrics.gross_margin_pct || 53.4, subtitle: 'Net margin performance', isAmount: false, suffix: '%', change: '+2.1%', color: 'indigo', icon: <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" /></svg> }
               ].map((card, i) => (
                 <div 
                   key={i} 
-                  className="relative overflow-hidden bg-white/60 dark:bg-slate-900/60 backdrop-blur-md border border-white/20 dark:border-slate-800/80 rounded-2xl p-6 shadow-md hover:-translate-y-1 hover:shadow-xl transition-all duration-300 group cursor-default"
+                  className="bg-white dark:bg-slate-900 border border-gray-200 dark:border-slate-800 hover:border-indigo-500/40 dark:hover:border-indigo-500/40 hover:-translate-y-1 hover:shadow-lg hover:shadow-indigo-500/5 rounded-2xl p-6 shadow-sm flex flex-col transition-all duration-300 cursor-default"
                 >
                   <div className="flex items-center justify-between mb-4">
-                    <span className="text-sm font-semibold text-gray-500 dark:text-slate-400">{card.title}</span>
-                    <div className="p-2 bg-gray-50 dark:bg-slate-800/50 rounded-xl border dark:border-slate-700/50">
+                    <h3 className="text-sm font-semibold text-gray-500 dark:text-slate-400 font-display">{card.title}</h3>
+                    <div className="w-8 h-8 rounded-lg bg-indigo-50 dark:bg-indigo-950/40 flex items-center justify-center text-indigo-600 dark:text-indigo-400">
                       {card.icon}
                     </div>
                   </div>
-                  <div className="text-lg sm:text-[22px] lg:text-base xl:text-xl font-extrabold text-gray-900 dark:text-slate-50 tracking-tight break-words">
-                    <AnimatedCounter 
-                      value={card.value} 
-                      prefix={card.isAmount ? '₹' : ''} 
-                      suffix={card.suffix || ''} 
-                    />
+                  <div className="space-y-1.5 flex-1">
+                    <div className="text-lg sm:text-[24px] lg:text-lg xl:text-2xl font-bold text-gray-900 dark:text-white font-display tracking-tight break-words">
+                      <AnimatedCounter 
+                        value={card.value} 
+                        prefix={card.isAmount ? '₹' : ''} 
+                        suffix={card.suffix || ''} 
+                      />
+                    </div>
+                    {card.subtitle && (
+                      <div className="text-xs text-gray-500 dark:text-slate-400 font-medium">
+                        {card.subtitle}
+                      </div>
+                    )}
                   </div>
-                  <div className="flex items-center gap-1.5 mt-2">
-                    <span className="text-xs font-semibold text-emerald-500 bg-emerald-500/10 px-2 py-0.5 rounded-full">
-                      {card.change}
+                  <div className="mt-4 flex flex-wrap items-center gap-x-1.5 gap-y-0.5 text-xs font-semibold leading-none">
+                    <span className="inline-flex items-center text-emerald-600 dark:text-emerald-400">
+                      ↗ {card.change}
                     </span>
-                    <span className="text-[10px] text-gray-400">vs last period</span>
+                    <span className="text-gray-400 dark:text-slate-500 font-medium whitespace-nowrap">vs last period</span>
                   </div>
                 </div>
               ))}
@@ -793,7 +800,7 @@ export default function Analytics() {
             {/* Product Performance Table */}
             <div className="bg-white/60 dark:bg-slate-900/60 backdrop-blur-md border border-white/20 dark:border-slate-800/80 rounded-3xl p-6 shadow-md">
               <h3 className="text-lg font-bold text-gray-800 dark:text-slate-100 mb-4">Product Revenue Breakdown</h3>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-start">
                 <div className="overflow-x-auto">
                   <table className="w-full text-left text-sm">
                     <thead>
@@ -815,10 +822,10 @@ export default function Analytics() {
                   </table>
                 </div>
                 {/* Horizontal Bar Chart showing performance */}
-                <div>
+                <div className="pt-0.5">
                   <h4 className="text-xs font-semibold text-gray-400 dark:text-slate-500 uppercase tracking-wider mb-4">Visual Comparison</h4>
                   <div className="space-y-4">
-                    {currentSales.product_performance.slice(0, 4).map((item, idx) => {
+                    {currentSales.product_performance.map((item, idx) => {
                       const maxVal = Math.max(...currentSales.product_performance.map(p => p.value));
                       const pct = (item.value / maxVal) * 100;
                       return (
@@ -849,33 +856,40 @@ export default function Analytics() {
             {/* KPI Cards Grid */}
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
               {[
-                { title: 'Turnover Ratio', value: currentInventory.health.turnover_ratio, isAmount: false, suffix: 'x', change: '+0.4x', color: 'indigo', icon: <svg className="w-6 h-6 text-indigo-500" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 4v5h.582m15.356 2A8.001 8.001 0 1121.21 8H18.79M7.05 20.05a7.003 7.003 0 0013.9 0" /></svg> },
-                { title: 'Out of Stock Items', value: currentInventory.health.out_of_stock_items, isAmount: false, change: '-1 item', color: 'rose', icon: <svg className="w-6 h-6 text-rose-500" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" /></svg> },
-                { title: 'Total Sourced Value', value: currentInventory.health.total_value, isAmount: true, change: '+12.4%', color: 'blue', icon: <svg className="w-6 h-6 text-blue-500" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" /></svg> },
-                { title: 'Total SKUs Tracked', value: currentInventory.health.total_items, isAmount: false, change: 'Stable', color: 'emerald', icon: <svg className="w-6 h-6 text-emerald-500" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01" /></svg> }
+                { title: 'Turnover Ratio', value: currentInventory.health.turnover_ratio, subtitle: 'Rate of inventory replacement', isAmount: false, suffix: 'x', change: '+0.4x', color: 'indigo', icon: <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 4v5h.582m15.356 2A8.001 8.001 0 1121.21 8H18.79M7.05 20.05a7.003 7.003 0 0013.9 0" /></svg> },
+                { title: 'Out of Stock Items', value: currentInventory.health.out_of_stock_items, subtitle: 'Immediate restocking required', isAmount: false, change: '-1 item', color: 'rose', icon: <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" /></svg> },
+                { title: 'Total Sourced Value', value: currentInventory.health.total_value, subtitle: 'Warehouse asset valuation', isAmount: true, change: '+12.4%', color: 'blue', icon: <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" /></svg> },
+                { title: 'Total SKUs Tracked', value: currentInventory.health.total_items, subtitle: 'Active catalog items', isAmount: false, change: 'Stable', color: 'emerald', icon: <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01" /></svg> }
               ].map((card, i) => (
                 <div 
                   key={i} 
-                  className="bg-white/60 dark:bg-slate-900/60 backdrop-blur-md border border-white/20 dark:border-slate-800/80 rounded-2xl p-6 shadow-md hover:-translate-y-1 hover:shadow-xl transition-all duration-300"
+                  className="bg-white dark:bg-slate-900 border border-gray-200 dark:border-slate-800 hover:border-indigo-500/40 dark:hover:border-indigo-500/40 hover:-translate-y-1 hover:shadow-lg hover:shadow-indigo-500/5 rounded-2xl p-6 shadow-sm flex flex-col transition-all duration-300 cursor-default"
                 >
                   <div className="flex items-center justify-between mb-4">
-                    <span className="text-sm font-semibold text-gray-500 dark:text-slate-400">{card.title}</span>
-                    <div className="p-2 bg-gray-50 dark:bg-slate-800/50 rounded-xl border dark:border-slate-700/50">
+                    <h3 className="text-sm font-semibold text-gray-500 dark:text-slate-400 font-display">{card.title}</h3>
+                    <div className="w-8 h-8 rounded-lg bg-indigo-50 dark:bg-indigo-950/40 flex items-center justify-center text-indigo-600 dark:text-indigo-400">
                       {card.icon}
                     </div>
                   </div>
-                  <div className="text-lg sm:text-[22px] lg:text-base xl:text-xl font-extrabold text-gray-900 dark:text-slate-50 tracking-tight break-words">
-                    <AnimatedCounter 
-                      value={card.value} 
-                      prefix={card.isAmount ? '₹' : ''} 
-                      suffix={card.suffix || ''} 
-                    />
+                  <div className="space-y-1.5 flex-1">
+                    <div className="text-lg sm:text-[24px] lg:text-lg xl:text-2xl font-bold text-gray-900 dark:text-white font-display tracking-tight break-words">
+                      <AnimatedCounter 
+                        value={card.value} 
+                        prefix={card.isAmount ? '₹' : ''} 
+                        suffix={card.suffix || ''} 
+                      />
+                    </div>
+                    {card.subtitle && (
+                      <div className="text-xs text-gray-500 dark:text-slate-400 font-medium">
+                        {card.subtitle}
+                      </div>
+                    )}
                   </div>
-                  <div className="flex items-center gap-1.5 mt-2">
-                    <span className="text-xs font-semibold text-indigo-500 bg-indigo-500/10 px-2 py-0.5 rounded-full">
-                      {card.change}
+                  <div className="mt-4 flex flex-wrap items-center gap-x-1.5 gap-y-0.5 text-xs font-semibold leading-none">
+                    <span className="inline-flex items-center text-emerald-600 dark:text-emerald-400">
+                      ↗ {card.change}
                     </span>
-                    <span className="text-[10px] text-gray-400">vs last period</span>
+                    <span className="text-gray-400 dark:text-slate-500 font-medium whitespace-nowrap">vs last period</span>
                   </div>
                 </div>
               ))}
@@ -938,33 +952,40 @@ export default function Analytics() {
             {/* KPI Cards Grid */}
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
               {[
-                { title: 'CSAT Percentage', value: currentCustomers.csat_score_pct, isAmount: false, suffix: '%', change: '+0.5%', color: 'emerald', icon: <svg className="w-6 h-6 text-emerald-500" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14.828 14.828a4 4 0 01-5.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg> },
-                { title: 'Average Star Rating', value: currentCustomers.average_rating, isAmount: false, suffix: ' / 5', change: '+0.1', color: 'indigo', icon: <svg className="w-6 h-6 text-indigo-500" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.907c.961 0 1.36 1.254.588 1.81l-3.97 2.883a1 1 0 00-.364 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.971-2.883a1 1 0 00-1.17 0l-3.971 2.883c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.364-1.118L2.98 9.3c-.773-.556-.375-1.81.587-1.81h4.907a1 1 0 00.95-.69l1.519-4.674z" /></svg> },
-                { title: 'Total Reviews Analyzed', value: currentCustomers.total_reviews, isAmount: false, change: '+45 this week', color: 'blue', icon: <svg className="w-6 h-6 text-blue-500" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z" /></svg> },
-                { title: 'Total Negative Cases', value: currentCustomers.sentiment_distribution.find(s => s.label === 'Negative')?.value || 0, isAmount: false, change: 'Down 4%', color: 'rose', icon: <svg className="w-6 h-6 text-rose-500" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg> }
+                { title: 'CSAT Percentage', value: currentCustomers.csat_score_pct, subtitle: 'Customer satisfaction score', isAmount: false, suffix: '%', change: '+0.5%', color: 'emerald', icon: <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14.828 14.828a4 4 0 01-5.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg> },
+                { title: 'Average Star Rating', value: currentCustomers.average_rating, subtitle: 'Overall feedback rating', isAmount: false, suffix: ' / 5', change: '+0.1', color: 'indigo', icon: <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.907c.961 0 1.36 1.254.588 1.81l-3.97 2.883a1 1 0 00-.364 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.971-2.883a1 1 0 00-1.17 0l-3.971 2.883c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.364-1.118L2.98 9.3c-.773-.556-.375-1.81.587-1.81h4.907a1 1 0 00.95-.69l1.519-4.674z" /></svg> },
+                { title: 'Total Reviews Analyzed', value: currentCustomers.total_reviews, subtitle: 'Processed review count', isAmount: false, change: '+45 this week', color: 'blue', icon: <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z" /></svg> },
+                { title: 'Total Negative Cases', value: currentCustomers.sentiment_distribution.find(s => s.label === 'Negative')?.value || 0, subtitle: 'Alerted complaints/negative issues', isAmount: false, change: 'Down 4%', color: 'rose', icon: <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg> }
               ].map((card, i) => (
                 <div 
                   key={i} 
-                  className="bg-white/60 dark:bg-slate-900/60 backdrop-blur-md border border-white/20 dark:border-slate-800/80 rounded-2xl p-6 shadow-md hover:-translate-y-1 hover:shadow-xl transition-all duration-300"
+                  className="bg-white dark:bg-slate-900 border border-gray-200 dark:border-slate-800 hover:border-indigo-500/40 dark:hover:border-indigo-500/40 hover:-translate-y-1 hover:shadow-lg hover:shadow-indigo-500/5 rounded-2xl p-6 shadow-sm flex flex-col transition-all duration-300 cursor-default"
                 >
                   <div className="flex items-center justify-between mb-4">
-                    <span className="text-sm font-semibold text-gray-500 dark:text-slate-400">{card.title}</span>
-                    <div className="p-2 bg-gray-50 dark:bg-slate-800/50 rounded-xl border dark:border-slate-700/50">
+                    <h3 className="text-sm font-semibold text-gray-500 dark:text-slate-400 font-display">{card.title}</h3>
+                    <div className="w-8 h-8 rounded-lg bg-indigo-50 dark:bg-indigo-950/40 flex items-center justify-center text-indigo-600 dark:text-indigo-400">
                       {card.icon}
                     </div>
                   </div>
-                  <div className="text-xl sm:text-2xl lg:text-lg xl:text-2xl font-extrabold text-gray-900 dark:text-slate-50 tracking-tight truncate">
-                    <AnimatedCounter 
-                      value={card.value} 
-                      prefix={card.isAmount ? '₹' : ''} 
-                      suffix={card.suffix || ''} 
-                    />
+                  <div className="space-y-1.5 flex-1">
+                    <div className="text-lg sm:text-[24px] lg:text-lg xl:text-2xl font-bold text-gray-900 dark:text-white font-display tracking-tight break-words">
+                      <AnimatedCounter 
+                        value={card.value} 
+                        prefix={card.isAmount ? '₹' : ''} 
+                        suffix={card.suffix || ''} 
+                      />
+                    </div>
+                    {card.subtitle && (
+                      <div className="text-xs text-gray-500 dark:text-slate-400 font-medium">
+                        {card.subtitle}
+                      </div>
+                    )}
                   </div>
-                  <div className="flex items-center gap-1.5 mt-2">
-                    <span className="text-xs font-semibold text-indigo-500 bg-indigo-500/10 px-2 py-0.5 rounded-full">
-                      {card.change}
+                  <div className="mt-4 flex flex-wrap items-center gap-x-1.5 gap-y-0.5 text-xs font-semibold leading-none">
+                    <span className="inline-flex items-center text-emerald-600 dark:text-emerald-400">
+                      ↗ {card.change}
                     </span>
-                    <span className="text-[10px] text-gray-400">vs last period</span>
+                    <span className="text-gray-400 dark:text-slate-500 font-medium whitespace-nowrap">vs last period</span>
                   </div>
                 </div>
               ))}
@@ -1293,6 +1314,7 @@ export default function Analytics() {
         {/* COMPETITOR ANALYSIS TAB */}
         {activeTab === 'competitor' && renderCompetitorSection()}
       </div>
+      <ChartGradients />
     </div>
   );
 }
