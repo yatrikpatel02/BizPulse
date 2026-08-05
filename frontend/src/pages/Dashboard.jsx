@@ -148,17 +148,17 @@ export default function Dashboard() {
 
   // Helper to format timestamps nicely
   const formatTimeAgo = (dateStr) => {
-    try {
-      const diff = new Date() - new Date(dateStr);
-      const mins = Math.round(diff / 60000);
-      const hours = Math.round(mins / 60);
-      const days = Math.round(hours / 24);
-      if (mins < 60) return `${Math.max(1, mins)} minutes ago`;
-      if (hours < 24) return `${hours} hours ago`;
-      return `${days} days ago`;
-    } catch {
-      return 'Recently';
-    }
+    if (!dateStr) return 'Recently';
+    const parsedDate = new Date(dateStr);
+    if (isNaN(parsedDate.getTime())) return 'Recently';
+    
+    const diff = new Date() - parsedDate;
+    const mins = Math.round(diff / 60000);
+    const hours = Math.round(mins / 60);
+    const days = Math.round(hours / 24);
+    if (mins < 60) return `${Math.max(1, mins)} minutes ago`;
+    if (hours < 24) return `${hours} hours ago`;
+    return `${days} days ago`;
   };
 
   const recentActivities = (activities && activities.length > 0)
