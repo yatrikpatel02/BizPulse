@@ -32,3 +32,14 @@ export const updateProfile = async (data) => {
   });
   return response.data;
 };
+
+export const getUserSettings = async () => {
+  const response = await api.get('/accounts/settings/');
+  return response.data;
+};
+
+export const updateUserSettings = async (settingsData) => {
+  const response = await api.patch('/accounts/settings/', settingsData);
+  return response.data;
+};
+

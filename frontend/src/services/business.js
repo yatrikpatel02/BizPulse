@@ -24,3 +24,9 @@ export const deleteBusiness = async (id) => {
   const response = await api.delete(`/businesses/${id}/`);
   return response.data;
 };
+
+export const clearBusinessData = async (id) => {
+  const response = await api.post(`/businesses/${id}/clear-data/`);
+  return response.data;
+};
+

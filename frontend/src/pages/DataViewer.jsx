@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { getSalesRecords, getInventorySnapshots, getCustomerReviews } from '../services/analytics';
 import { useBusiness } from '../context/BusinessContext';
 
@@ -188,8 +188,14 @@ const TABS = [
 
 export default function DataViewer() {
   const navigate = useNavigate();
+  const location = useLocation();
   const { activeBusiness } = useBusiness();
   const [activeTab, setActiveTab] = useState('sales');
+
+  useEffect(() => {
+    setActiveTab('sales');
+  }, [location.key]);
+
   const [search, setSearch] = useState('');
   const [dateFrom, setDateFrom] = useState('');
   const [dateTo, setDateTo] = useState('');

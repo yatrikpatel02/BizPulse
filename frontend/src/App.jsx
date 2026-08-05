@@ -12,6 +12,7 @@ import Dashboard from './pages/Dashboard';
 import Data from './pages/Data';
 import DataViewer from './pages/DataViewer';
 import Profile from './pages/Profile';
+import Settings from './pages/Settings';
 import Analytics from './pages/Analytics';
 import Products from './pages/Products';
 import Insights from './pages/Insights';
@@ -53,6 +54,13 @@ function App() {
               <ProtectedRoute>
                 <DashboardLayout>
                   <Profile />
+                </DashboardLayout>
+              </ProtectedRoute>
+            } />
+            <Route path="/settings" element={
+              <ProtectedRoute>
+                <DashboardLayout>
+                  <Settings />
                 </DashboardLayout>
               </ProtectedRoute>
             } />

@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
 import { useBusiness } from '../context/BusinessContext';
 import { ChartGradients, AreaChart, BarChart, DonutChart, AnimatedCounter } from '../components/analytics/Charts';
 import { getSalesAnalytics, getInventoryAnalytics, getCustomerAnalytics, getPredictions, getInsights, getBusinessHealth } from '../services/analytics';
@@ -111,9 +112,15 @@ const DEMO_DATA = {
 
 export default function Analytics() {
   const { activeBusiness, loading: businessLoading } = useBusiness();
+  const location = useLocation();
   
   // States
   const [activeTab, setActiveTab] = useState('sales');
+
+  useEffect(() => {
+    setActiveTab('sales');
+  }, [location.key]);
+
   const [useDemoData, setUseDemoData] = useState(false);
   const [startDate, setStartDate] = useState('2023-01-01');
   const [endDate, setEndDate] = useState('2025-12-31');

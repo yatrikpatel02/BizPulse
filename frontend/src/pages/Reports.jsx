@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
 import { useBusiness } from '../context/BusinessContext';
 import { getReports, createReport, deleteReport } from '../services/reports';
 import { getSalesAnalytics, getInventoryAnalytics, getCustomerAnalytics } from '../services/analytics';
@@ -6,7 +7,13 @@ import api from '../services/api';
 
 export default function Reports() {
   const { activeBusiness } = useBusiness();
+  const location = useLocation();
   const [activeTab, setActiveTab] = useState('generate'); // 'generate', 'history'
+
+  useEffect(() => {
+    setActiveTab('generate');
+  }, [location.key]);
+
   const [reports, setReports] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);

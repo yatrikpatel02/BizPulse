@@ -1,5 +1,5 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
-import { getBusinesses, createBusiness as apiCreateBusiness, deleteBusiness as apiDeleteBusiness, updateBusiness as apiUpdateBusiness } from '../services/business';
+import { getBusinesses, createBusiness as apiCreateBusiness, deleteBusiness as apiDeleteBusiness, updateBusiness as apiUpdateBusiness, clearBusinessData as apiClearBusinessData } from '../services/business';
 import { useAuth } from './AuthContext';
 
 const BusinessContext = createContext(null);
@@ -108,6 +108,15 @@ export const BusinessProvider = ({ children }) => {
     }
   };
 
+  const clearBusinessData = async (businessId) => {
+    try {
+      await apiClearBusinessData(businessId);
+    } catch (err) {
+      console.error('Failed to clear business data:', err);
+      throw err;
+    }
+  };
+
   return (
     <BusinessContext.Provider value={{ 
       businesses, 
@@ -117,7 +126,8 @@ export const BusinessProvider = ({ children }) => {
       addBusiness, 
       changeActiveBusiness,
       removeBusiness,
-      editBusiness
+      editBusiness,
+      clearBusinessData
     }}>
       {children}
     </BusinessContext.Provider>
