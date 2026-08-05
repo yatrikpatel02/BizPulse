@@ -6,6 +6,7 @@ class Insight(models.Model):
         ('revenue_declining', 'Revenue Declining'),
         ('competitor_price_lower', 'Competitor Price Lower'),
         ('growing_demand', 'Growing Market Demand'),
+        ('declining_demand', 'Declining Market Demand'),
         ('inventory_risk', 'Inventory Risk'),
     ]
     business = models.ForeignKey('businesses.Business', on_delete=models.CASCADE, related_name='insights')

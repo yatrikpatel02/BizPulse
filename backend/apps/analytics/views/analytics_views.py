@@ -1,5 +1,9 @@
 from rest_framework import viewsets, permissions
+from rest_framework.decorators import action
+from rest_framework.response import Response
 from rest_framework.exceptions import ValidationError
+import traceback
+
 
 from businesses.models.business import Business
 from analytics.models import (
@@ -155,59 +159,43 @@ class InsightViewSet(BusinessScopedViewSet):
         return queryset
 
     def generate_default_insights(self, business):
-        from analytics.models import SalesRecord, InventorySnapshot
+        """Populate the Insight table with findings derived from real data.
+
+        Uses ``InsightGenerationService`` so every insight reflects actual
+        sales, competitor, trends and inventory data for the business. If the
+        data does not support a given insight type, that insight is skipped
+        (no fabricated/place-holder rows are created).
+        """
+        from analytics.services.insight_generation_service import InsightGenerationService
+
+        service = InsightGenerationService()
+        for payload in service.generate_insights(business):
+            Insight.objects.create(**payload)
+    @action(detail=False, methods=["post"])
+    def refresh_insights(self, request):
+        """Force regeneration of insights using real data."""
+        business = self.get_user_business()
         
-        sales = SalesRecord.objects.filter(business=business)
-        if sales.exists():
-            Insight.objects.create(
-                business=business,
-                insight_type='revenue_declining',
-                severity='high',
-                title='Revenue Declining Trend detected',
-                description=(
-                    "Problem: Total business revenue has decreased by 14.2% compared to the previous period.\n\n"
-                    "Reason: Decreased sales volume on premium inventory items and a lower average unit transaction value.\n\n"
-                    "Recommendation: Consider launching targeted promotional bundles and run a re-engagement email campaign for top customers."
-                )
-            )
+        try:
+            # Delete old insights for this business
+            Insight.objects.filter(business=business).delete()
             
-        Insight.objects.create(
-            business=business,
-            insight_type='competitor_price_lower',
-            severity='medium',
-            title='Competitor Selling At Lower Price Point',
-            description=(
-                "Problem: Competitors are offering identical electronic and office accessories at a price difference of 10-15% lower.\n\n"
-                "Reason: Competitor scraping data detected lower listing rates for equivalent high-demand SKUs.\n\n"
-                "Recommendation: Benchmark catalog pricing and offer value-added packages (e.g. extended warranty or free shipping) to preserve margin."
-            )
-        )
-        
-        Insight.objects.create(
-            business=business,
-            insight_type='growing_demand',
-            severity='low',
-            title='Growing Market Demand for Apparel & Audio',
-            description=(
-                "Problem: External search trends and Google Trends data indicate a 22% surge in consumer search volume for seasonal apparel and noise cancelling headphones.\n\n"
-                "Reason: Transitioning seasonal fashion patterns and global shifts towards hybrid workspace equipment.\n\n"
-                "Recommendation: Increase stock allocation for running shoes and headphones, and raise social media ad budgets in these active categories."
-            )
-        )
-        
-        snapshots = InventorySnapshot.objects.filter(business=business)
-        if snapshots.exists():
-            Insight.objects.create(
-                business=business,
-                insight_type='inventory_risk',
-                severity='high',
-                title='Critical Inventory Stockout Risk',
-                description=(
-                    "Problem: Several high-demand SKUs are currently out of stock (quantity on hand is 0) or falling below reorder threshold.\n\n"
-                    "Reason: Unexpected spikes in weekly sales checkouts outpaced the current supplier procurement lead time.\n\n"
-                    "Recommendation: Immediately reorder out-of-stock items, adjust baseline reorder points upwards, and establish alternative distributor agreements."
-                )
-            )
+            # Regenerate insights from real data
+            self.generate_default_insights(business)
+            
+            return Response({
+                "status": "success",
+                "message": "Insights refreshed successfully",
+                "business_id": business.id
+            })
+        except Exception as exc:
+             return Response({
+        "status": "error",
+        "message": str(exc),
+        "traceback": traceback.format_exc()
+    }, status=500)
+
+           
 
 
 from rest_framework.views import APIView
