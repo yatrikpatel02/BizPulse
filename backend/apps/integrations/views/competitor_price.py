@@ -21,8 +21,16 @@ class CompetitorPriceViewSet(viewsets.ModelViewSet):
     def get_queryset(self):
         if getattr(self, 'swagger_fake_view', False):
             return CompetitorPrice.objects.none()
+        print(f"[DEBUG-GET-QUERYSET] Query Params: {self.request.query_params}")
+        print(f"[DEBUG-GET-QUERYSET] Request Headers: {self.request.headers}")
         queryset = CompetitorPrice.objects.select_related('product', 'business').filter(business__owner=self.request.user)
-        business_id = self.request.query_params.get('business_id') or self.request.query_params.get('business')
+        business_id = (
+            self.request.query_params.get('business_id') or 
+            self.request.query_params.get('business') or
+            self.request.headers.get('X-Business-Id') or
+            self.request.META.get('HTTP_X_BUSINESS_ID')
+        )
+        print(f"[DEBUG-GET-QUERYSET] Filtered Business ID: {business_id}")
         if business_id:
             queryset = queryset.filter(business_id=business_id)
         return queryset
