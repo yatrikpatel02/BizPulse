@@ -1,0 +1,78 @@
+================================================================================
+BIZPULSE - BUSINESS HEALTH VS. ANALYTICS HEALTH INDEX
+================================================================================
+
+If a faculty member or reviewer asks: 
+"What is the difference between the Dashboard's Business Health score and the 
+Analytics page's Business Health Index?"
+
+Here is the exact distinction, including the algorithms and purposes of each:
+
+--------------------------------------------------------------------------------
+1. DASHBOARD PAGE - "BUSINESS HEALTH" (Descriptive / Historical / Real-Time)
+--------------------------------------------------------------------------------
+* What it represents:
+  A real-time diagnostic health check of the business based on historical data 
+  (what has happened up to today).
+
+* Calculation Method:
+  It is a frontend-centric, rule-based heuristic that calculates a score from 
+  0 to 100 based on:
+    - Base Score: Starts at 70 and scales with average customer review ratings.
+      Formula: Base = 70 + (Average Rating - 3) * 10
+    - Growth Bonus: Adds a bonus proportional to the business's current 
+      historical revenue growth.
+      Formula: Bonus = min(15, Revenue Growth % * 0.5)
+    - Limits: Clamped strictly between 30 and 100.
+
+* Purpose & UX:
+  Acts as a rapid monitoring KPI card. It answer the owner's immediate question: 
+  "How is my business holding up today based on current customer satisfaction 
+  and revenue performance?"
+
+--------------------------------------------------------------------------------
+2. ANALYTICS PAGE - "ACTUAL VS. PREDICTED HEALTH" (Diagnostic vs. Predictive)
+--------------------------------------------------------------------------------
+On the "Forecasts & AI" tab of the Analytics page, the business health score is 
+split into a side-by-side comparison:
+
+A. Actual Business Health (Left Gauge):
+   - What it represents: A deeper, backend-calculated baseline score of the 
+     company's actual current performance.
+   - Calculation Method: Powered by the backend `BusinessHealthService`, which 
+     normalizes and computes a weighted index across 5 operational dimensions:
+       1. Revenue Growth (25% Weight)
+       2. Inventory Health / In-Stock Ratio (20% Weight)
+       3. Customer Sentiment Rating (20% Weight)
+       4. Sales Quantity Trend (20% Weight)
+       5. Google Trends Market Demand (15% Weight)
+   - Category Range:
+       - Excellent (80 - 100)
+       - Good (60 - 79)
+       - Average (40 - 59)
+       - Poor (0 - 39)
+
+B. Predicted Business Health (Right Gauge):
+   - What it represents: A forward-looking, machine-learning-projected health 
+     score for the upcoming month.
+   - Calculation Method: Powered by the backend ML pipeline (Prophet and SARIMA). 
+     Instead of utilizing historical metrics, it feeds forecasted sales 
+     revenues, forecasted product demands, and forecasted stockout probabilities 
+     for the upcoming 30 days into the `BusinessHealthService` formula.
+   - Purpose & UX:
+     Acts as a proactive planning tool. It allows business owners to preview 
+     the future impact of their inventory burn rates or demand shifts before 
+     they manifest, warning them if health will decline into a critical zone.
+
+--------------------------------------------------------------------------------
+SUMMARY COMPARISON MATRIX
+--------------------------------------------------------------------------------
+Feature           Dashboard Health           Analytics Actual Health    Analytics Predicted Health
+--------------------------------------------------------------------------------
+Data Source       Historical/Current         Historical/Current         Forward-Looking Forecasts
+Logic Type        Frontend Heuristic         Weighted Backend Service   ML Pipeline (Prophet/SARIMA)
+Dimensions        2 (Reviews, Growth)        5 (Rev, Inv, Reviews,      5 (Forecasted Rev, Inv, 
+                                             Sales, Google Trends)      Reviews, Sales, Google Trends)
+Purpose           Daily Monitoring           Deep Performance Audit     Preemptive Planning & Risk
+                                                                        Mitigation
+================================================================================
