@@ -191,6 +191,9 @@ class SalesImportCommitView(BaseImportCommitView):
                         )
                         existing_products[prod_name] = product
                         existing_products_by_sku[sku] = product
+                    elif (product.price == 0.0 or product.price is None) and unit_price > 0.0:
+                        product.price = unit_price
+                        product.save()
 
                     date_val = row['date']
 
