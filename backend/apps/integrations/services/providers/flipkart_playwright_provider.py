@@ -93,7 +93,7 @@ class FlipkartPlaywrightProvider(BaseProvider):
 
         # Try multiple selectors for product containers
         containers = page.locator(
-            "div._1AtVbE, div._13oc-S, div._1x1g9, div._2kHMtA"
+            "div[data-id], div._1AtVbE, div._13oc-S, div._1x1g9, div._2kHMtA"
         )
 
         container_count = containers.count()
@@ -105,7 +105,7 @@ class FlipkartPlaywrightProvider(BaseProvider):
             container = containers.nth(i)
 
             # Extract title and URL
-            link = container.locator("a[href*='/product/'], a.s1Q9rs").first
+            link = container.locator("a[href*='/p/'], a[href*='/product/'], a.k7wcnx, a.s1Q9rs").first
             if not link.is_visible():
                 print(f"[FLIPKART-PLAYWRIGHT] Container {i}: link not visible, skipping")
                 continue
@@ -124,11 +124,15 @@ class FlipkartPlaywrightProvider(BaseProvider):
 
             title = link.text_content() or ""
             if not title.strip():
-                print(f"[FLIPKART-PLAYWRIGHT] Container {i}: empty title, skipping")
-                continue
+                title_elem = container.locator("div.RG5Slk, img.UCc1lI").first
+                if title_elem.count() > 0:
+                    title = title_elem.first.text_content() or ""
+            
+            if not title or not title.strip():
+                title = "Flipkart Product"
 
             # Extract price
-            price_elem = container.locator("div._30jeq3, div._1_WHN1").first
+            price_elem = container.locator("div.hZ3P6w, div.DeU9vF, div._30jeq3, div._1_WHN1, div.Nx94n").first
             price_text = price_elem.text_content() or ""
             price = self._parse_price(price_text)
             if price is None:
