@@ -121,9 +121,18 @@ export default function Analytics() {
     setActiveTab('sales');
   }, [location.key]);
 
+  const getTodayString = () => {
+    const d = new Date();
+    const year = d.getFullYear();
+    const month = String(d.getMonth() + 1).padStart(2, '0');
+    const day = String(d.getDate()).padStart(2, '0');
+    return `${year}-${month}-${day}`;
+  };
+  const todayStr = getTodayString();
+
   const [useDemoData, setUseDemoData] = useState(false);
   const [startDate, setStartDate] = useState('2023-01-01');
-  const [endDate, setEndDate] = useState('2025-12-31');
+  const [endDate, setEndDate] = useState(todayStr);
   const [interval, setIntervalVal] = useState('monthly');
   const [loading, setLoading] = useState(false);
   const [predictionFilter, setPredictionFilter] = useState('all');
@@ -368,10 +377,11 @@ export default function Analytics() {
       const maxPrice = Math.max(...prices);
       const avgPrice = prices.reduce((a, b) => a + b, 0) / prices.length;
       
+      const differencePct = ((p.ourPrice - avgPrice) / (avgPrice || 1)) * 100;
       let position = 'competitive';
-      if (p.ourPrice < minPrice) {
+      if (differencePct < -5) {
         position = 'cheaper';
-      } else if (p.ourPrice > maxPrice) {
+      } else if (differencePct > 5) {
         position = 'expensive';
       }
       
@@ -381,7 +391,7 @@ export default function Analytics() {
         maxPrice,
         avgPrice,
         position,
-        differencePct: ((p.ourPrice - avgPrice) / (avgPrice || 1)) * 100
+        differencePct
       };
     });
   };
@@ -679,6 +689,7 @@ export default function Analytics() {
                     type="date" 
                     value={startDate} 
                     onChange={(e) => setStartDate(e.target.value)}
+                    max={endDate || todayStr}
                     className="bg-transparent text-xs font-semibold text-gray-700 dark:text-slate-200 focus:outline-none"
                   />
                 </div>
@@ -688,6 +699,8 @@ export default function Analytics() {
                     type="date" 
                     value={endDate} 
                     onChange={(e) => setEndDate(e.target.value)}
+                    min={startDate}
+                    max={todayStr}
                     className="bg-transparent text-xs font-semibold text-gray-700 dark:text-slate-200 focus:outline-none"
                   />
                 </div>

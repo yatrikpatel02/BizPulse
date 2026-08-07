@@ -7,6 +7,7 @@ from businesses.models.business import Business
 class ProductViewSet(viewsets.ModelViewSet):
     serializer_class = ProductSerializer
     permission_classes = [permissions.IsAuthenticated]
+    pagination_class = None
 
     def get_queryset(self):
         # Users can only see products for their own business
@@ -16,9 +17,20 @@ class ProductViewSet(viewsets.ModelViewSet):
 
     def perform_create(self, serializer):
         # Automatically assign the business based on the authenticated user
-        try:
-            business = Business.objects.get(owner=self.request.user)
-        except Business.DoesNotExist:
-            raise ValidationError({"detail": "You must create a business before adding products."})
+        business_id = (
+            self.request.headers.get('X-Business-Id') or
+            self.request.META.get('HTTP_X_BUSINESS_ID') or
+            self.request.query_params.get('business_id') or
+            self.request.query_params.get('business')
+        )
+        if business_id:
+            try:
+                business = Business.objects.get(id=business_id, owner=self.request.user)
+            except Business.DoesNotExist:
+                raise ValidationError({"detail": "The specified business does not exist or you do not own it."})
+        else:
+            business = Business.objects.filter(owner=self.request.user).first()
+            if not business:
+                raise ValidationError({"detail": "You must create a business before adding products."})
         
         serializer.save(business=business)

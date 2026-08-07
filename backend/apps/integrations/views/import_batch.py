@@ -24,9 +24,23 @@ class ImportBatchViewSet(viewsets.ModelViewSet):
         serializer.save(business=business)
 
     def get_user_business(self):
-        try:
-            return Business.objects.get(owner=self.request.user)
-        except Business.DoesNotExist:
+        business_id = (
+            self.request.headers.get('X-Business-Id') or
+            self.request.META.get('HTTP_X_BUSINESS_ID') or
+            self.request.query_params.get('business_id') or
+            self.request.query_params.get('business')
+        )
+        if business_id:
+            try:
+                return Business.objects.get(id=business_id, owner=self.request.user)
+            except Business.DoesNotExist:
+                raise ValidationError(
+                    {"detail": "The specified business does not exist or you do not own it."}
+                )
+        
+        business = Business.objects.filter(owner=self.request.user).first()
+        if not business:
             raise ValidationError(
                 {"detail": "You must create a business before adding records."}
             )
+        return business

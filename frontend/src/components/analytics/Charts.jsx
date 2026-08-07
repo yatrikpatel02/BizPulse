@@ -440,6 +440,8 @@ export function BarChart({ data = [], xKey = 'label', yKey = 'value', height = 2
  * Premium SVG Donut Chart
  */
 export function DonutChart({ data = [], size = 200, innerLabel = 'CSAT', innerValue = '90%' }) {
+  const [hoveredIdx, setHoveredIdx] = useState(null);
+
   if (!Array.isArray(data) || data.length === 0) {
     return (
       <div className="flex items-center justify-center bg-white/40 dark:bg-slate-900/40 rounded-2xl border border-white/20 dark:border-slate-800/50 backdrop-blur-md" style={{ height: size }}>
@@ -482,7 +484,7 @@ export function DonutChart({ data = [], size = 200, innerLabel = 'CSAT', innerVa
     <div className="flex flex-col md:flex-row items-center justify-center gap-8 w-full">
       {/* SVG Donut */}
       <div className="relative" style={{ width: size, height: size }}>
-        <svg width={size} height={size} className="transform -rotate-90">
+        <svg width={size} height={size} className="transform -rotate-90 overflow-visible">
           {/* Base Background Circle */}
           <circle
             cx={center}
@@ -502,11 +504,13 @@ export function DonutChart({ data = [], size = 200, innerLabel = 'CSAT', innerVa
               r={radius}
               fill="transparent"
               stroke={seg.color}
-              strokeWidth={strokeWidth}
+              strokeWidth={hoveredIdx === idx ? strokeWidth * 1.3 : strokeWidth}
               strokeDasharray={seg.strokeDasharray}
               strokeDashoffset={seg.strokeDashoffset}
               strokeLinecap="round"
-              className="transition-all duration-500 ease-out hover:opacity-90"
+              onMouseEnter={() => setHoveredIdx(idx)}
+              onMouseLeave={() => setHoveredIdx(null)}
+              className="transition-all duration-300 ease-out cursor-pointer hover:opacity-90"
               style={{
                 transformOrigin: 'center',
               }}
@@ -516,15 +520,26 @@ export function DonutChart({ data = [], size = 200, innerLabel = 'CSAT', innerVa
 
         {/* Center Text Card */}
         <div className="absolute inset-0 flex flex-col items-center justify-center text-center select-none pointer-events-none">
-          <span className="text-[10px] uppercase tracking-wider font-semibold text-gray-400 dark:text-slate-500">{innerLabel}</span>
-          <span className="text-2xl font-extrabold text-gray-800 dark:text-slate-100 tracking-tight mt-0.5">{innerValue}</span>
+          <span className="text-[10px] uppercase tracking-wider font-semibold text-gray-400 dark:text-slate-500">
+            {hoveredIdx !== null ? segments[hoveredIdx].label : innerLabel}
+          </span>
+          <span className="text-2xl font-extrabold text-gray-800 dark:text-slate-100 tracking-tight mt-0.5">
+            {hoveredIdx !== null ? `${segments[hoveredIdx].pct}%` : innerValue}
+          </span>
         </div>
       </div>
 
       {/* Legend Grid */}
       <div className="flex flex-col gap-3 justify-center min-w-[140px]">
         {segments.map((seg, idx) => (
-          <div key={idx} className="flex items-center justify-between text-sm py-1 px-2.5 rounded-lg hover:bg-gray-50 dark:hover:bg-slate-800/40 transition-colors">
+          <div 
+            key={idx} 
+            onMouseEnter={() => setHoveredIdx(idx)}
+            onMouseLeave={() => setHoveredIdx(null)}
+            className={`flex items-center justify-between text-sm py-1 px-2.5 rounded-lg transition-colors cursor-pointer ${
+              hoveredIdx === idx ? 'bg-gray-100 dark:bg-slate-800/80 font-semibold' : 'hover:bg-gray-50 dark:hover:bg-slate-800/40'
+            }`}
+          >
             <div className="flex items-center gap-2">
               <span className="w-3 h-3 rounded-full flex-shrink-0" style={{ backgroundColor: seg.color }}></span>
               <span className="font-medium text-gray-600 dark:text-slate-300">{seg.label}</span>
