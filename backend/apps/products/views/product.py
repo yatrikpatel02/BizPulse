@@ -7,6 +7,7 @@ from businesses.models.business import Business
 class ProductViewSet(viewsets.ModelViewSet):
     serializer_class = ProductSerializer
     permission_classes = [permissions.IsAuthenticated]
+    pagination_class = None
 
     def get_queryset(self):
         # Users can only see products for their own business
