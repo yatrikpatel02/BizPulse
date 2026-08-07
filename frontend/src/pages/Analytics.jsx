@@ -377,10 +377,11 @@ export default function Analytics() {
       const maxPrice = Math.max(...prices);
       const avgPrice = prices.reduce((a, b) => a + b, 0) / prices.length;
       
+      const differencePct = ((p.ourPrice - avgPrice) / (avgPrice || 1)) * 100;
       let position = 'competitive';
-      if (p.ourPrice < minPrice) {
+      if (differencePct < -5) {
         position = 'cheaper';
-      } else if (p.ourPrice > maxPrice) {
+      } else if (differencePct > 5) {
         position = 'expensive';
       }
       
@@ -390,7 +391,7 @@ export default function Analytics() {
         maxPrice,
         avgPrice,
         position,
-        differencePct: ((p.ourPrice - avgPrice) / (avgPrice || 1)) * 100
+        differencePct
       };
     });
   };
