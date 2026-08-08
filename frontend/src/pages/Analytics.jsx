@@ -1155,7 +1155,7 @@ export default function Analytics() {
 
               {/* Predicted Business Health Score Card (Actual/Real DB data) */}
               <div className="bg-white/60 dark:bg-slate-900/60 backdrop-blur-md border border-white/20 dark:border-slate-800/80 rounded-3xl p-6 shadow-md flex flex-col items-center justify-center text-center">
-                <h3 className="text-lg font-bold text-gray-800 dark:text-slate-100 mb-2">Predicted Business Health (Actual)</h3>
+                <h3 className="text-lg font-bold text-gray-800 dark:text-slate-100 mb-2">Predicted Business Health</h3>
                 <p className="text-xs text-gray-400 dark:text-slate-500 mb-6">
                   {latestHealthPrediction 
                     ? `ML Health Score for period ending ${latestHealthPrediction.period_end}` 

@@ -14,12 +14,13 @@ def get_tokens_for_user(user):
 
 
 def set_refresh_cookie(response, refresh_token):
+    is_secure = getattr(settings, 'JWT_COOKIE_SECURE', False)
     response.set_cookie(
         key=COOKIE_NAME,
         value=refresh_token,
         httponly=True,
-        secure=getattr(settings, 'JWT_COOKIE_SECURE', False),
-        samesite='Lax',
+        secure=is_secure,
+        samesite='None' if is_secure else 'Lax',
         max_age=COOKIE_MAX_AGE,
     )
 

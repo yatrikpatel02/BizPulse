@@ -1,5 +1,7 @@
 from django.contrib.auth import get_user_model
 from django.utils import timezone
+from django.utils.decorators import method_decorator
+from django.views.decorators.csrf import csrf_exempt
 from rest_framework import generics, permissions, status, views
 from rest_framework.throttling import AnonRateThrottle
 from rest_framework.response import Response
@@ -119,6 +121,7 @@ class ProfileView(generics.GenericAPIView):
         return Response(UserSerializer(user).data)
 
 
+@method_decorator(csrf_exempt, name='dispatch')
 class CookieTokenRefreshView(views.APIView):
     permission_classes = [permissions.AllowAny]
 
