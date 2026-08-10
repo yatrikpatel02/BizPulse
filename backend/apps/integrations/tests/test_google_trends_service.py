@@ -97,3 +97,14 @@ class GoogleTrendsServiceCollectionTest(TestCase):
         self.assertEqual(GoogleTrendsData.objects.filter(business=self.business, keyword='Smartphones').count(), 1)
         refreshed = GoogleTrendsData.objects.get(business=self.business, keyword='Smartphones', date=idx)
         self.assertEqual(refreshed.interest_score, 99)
+
+    def test_persist_keeps_each_daily_observation_for_a_90_day_series(self):
+        today = timezone.now().date()
+        series = {'Adidas Samba': [
+            {'date': today - datetime.timedelta(days=89 - index), 'interest': index % 100}
+            for index in range(90)
+        ]}
+        GoogleTrendsService()._persist(self.business, 'worldwide', series)
+        rows = GoogleTrendsData.objects.filter(business=self.business, keyword='Adidas Samba')
+        self.assertEqual(rows.count(), 90)
+        self.assertEqual(rows.values_list('date', flat=True).distinct().count(), 90)

@@ -111,53 +111,39 @@ class InsightGenerationService:
         if not competitor_prices.exists():
             return None
 
-        # For each product, compare our listed price (max stored price) with the
-        # lowest competitor price to detect a meaningful price gap.
-        from django.db.models import Min, Max as MaxAgg
-
         rows = (
             competitor_prices
-            .values('product__name')
-            .annotate(min_price=Min('price'), max_price=MaxAgg('price'))
+            .values('product_id', 'product__name', 'product__price')
+            .annotate(avg_competitor_price=Avg('price'))
         )
 
-        flagged = []
+        pricier_products = []
         for row in rows:
-            min_price = float(row['min_price'] or 0)
-            max_price = float(row['max_price'] or 0)
-            if min_price > 0 and max_price > min_price:
-                spread = ((max_price - min_price) / min_price) * 100.0
-                if spread >= self.COMPETITOR_SPREAD_THRESHOLD:
-                    flagged.append({
-                        'name': row['product__name'] or 'Unknown product',
-                        'spread': spread,
-                    })
+            our_price = float(row['product__price'] or 0)
+            avg_competitor_price = float(row['avg_competitor_price'] or 0)
+            if our_price > 0 and avg_competitor_price > 0:
+                difference_pct = ((our_price - avg_competitor_price) / avg_competitor_price) * 100
+                if difference_pct > 5:
+                    pricier_products.append(row['product__name'] or 'Unknown product')
 
-        if not flagged:
+        if not pricier_products:
             return None
 
-        avg_spread = sum(f['spread'] for f in flagged) / len(flagged)
-        names = ', '.join(f['name'] for f in flagged[:3])
-        extra = ' (and others)' if len(flagged) > 3 else ''
-
-        # Determine severity based on average spread
-        if avg_spread > 25:
-            severity = 'high'
-        else:
-            severity = 'medium'
+        names = '\n'.join(pricier_products)
 
         return {
             'business': business,
             'insight_type': 'competitor_price_lower',
-            'severity': severity,
-            'title': 'Competitor Selling At Lower Price Point',
+            'severity': 'medium',
+            'title': 'Products With Higher Prices',
             'description': (
-                f"Problem: Competitors are offering {names}{extra} at prices "
-                f"up to {avg_spread:.1f}% lower than your current listing.\n\n"
-                f"Reason: Live competitor price tracking detected a gap of "
-                f"{avg_spread:.1f}% across {len(flagged)} SKU(s).\n\n"
-                "Recommendation: Benchmark catalog pricing and offer value-added "
-                "packages (e.g. extended warranty or free shipping) to preserve margin."
+                'Problem: The following products are currently priced '
+                'higher than the average observed competitor price:\n'
+                f'{names}\n\n'
+                'Recommendation: Review pricing for these products and '
+                'determine whether the higher price is justified by product '
+                'quality, brand positioning, pack size, shipping, or other '
+                'value-added benefits.'
             ),
         }
 
@@ -176,18 +162,21 @@ class InsightGenerationService:
 
         growing = []
         declining = []
+        from analytics.services.trend_insight_engine import TrendInsightEngine
+        trend_engine = TrendInsightEngine()
         for keyword in trends.values_list('keyword', flat=True).distinct():
             series = list(
                 trends.filter(keyword=keyword).order_by('date')
-                .values_list('interest_score', flat=True)
+                .values('date', 'interest_score')
             )
-            if len(series) < 2:
+            if len(series) < 28:
                 continue
-            first, last = series[0], series[-1]
-            if first > 0:
-                change = ((last - first) / first) * 100.0
-            else:
-                change = 0.0 if last == 0 else 100.0
+            metrics = trend_engine.calculate_metrics([
+                {'date': row['date'], 'interest': row['interest_score']} for row in series
+            ])
+            if metrics['data_points_last_14_days'] < 14 or metrics['data_points_previous_14_days'] < 14:
+                continue
+            change = metrics['percentage_change']
             if change >= self.DEMAND_GROWTH_THRESHOLD:
                 growing.append({'keyword': keyword, 'change': change})
             elif change <= self.DEMAND_DECLINE_THRESHOLD:
@@ -197,7 +186,7 @@ class InsightGenerationService:
 
         if growing:
             avg_change = sum(g['change'] for g in growing) / len(growing)
-            names = ', '.join(g['keyword'] for g in growing[:3])
+            names = ', '.join(dict.fromkeys(g['keyword'] for g in growing[:3]))
             extra = ' (and others)' if len(growing) > 3 else ''
             if avg_change > 40:
                 severity = 'medium'
@@ -208,20 +197,19 @@ class InsightGenerationService:
                 'business': business,
                 'insight_type': 'growing_demand',
                 'severity': severity,
-                'title': f'Growing Market Demand for {names}{extra}',
+                'title': f'Rising Market Interest for {names}{extra}',
                 'description': (
-                    f"Problem: Google Trends data indicates a {avg_change:.1f}% surge "
-                    f"in consumer search volume for {names}{extra}.\n\n"
-                    f"Reason: Search interest rose across {len(growing)} tracked "
+                    f"Problem: Google Trends indicates a {avg_change:.1f}% increase "
+                    f"in relative search interest for {names}{extra}.\n\n"
+                    f"Reason: Relative search interest rose across {len(growing)} tracked "
                     f"keyword(s) over the last 90 days.\n\n"
-                    "Recommendation: Increase stock allocation for these products and "
-                    "raise social media ad budgets in these active categories."
+                    "Recommendation: Monitor these keywords as potential market opportunities."
                 ),
             })
 
         if declining:
             avg_change = sum(d['change'] for d in declining) / len(declining)
-            names = ', '.join(d['keyword'] for d in declining[:3])
+            names = ', '.join(dict.fromkeys(d['keyword'] for d in declining[:3]))
             extra = ' (and others)' if len(declining) > 3 else ''
             severity = 'medium' if avg_change < -20 else 'low'
 
@@ -229,14 +217,13 @@ class InsightGenerationService:
                 'business': business,
                 'insight_type': 'declining_demand',
                 'severity': severity,
-                'title': f'Declining Market Demand for {names}{extra}',
+                'title': f'Declining Market Interest for {names}{extra}',
                 'description': (
-                    f"Problem: Google Trends data indicates a {abs(avg_change):.1f}% drop "
-                    f"in consumer search volume for {names}{extra}.\n\n"
-                    f"Reason: Search interest fell across {len(declining)} tracked "
+                    f"Problem: Google Trends indicates a {abs(avg_change):.1f}% decrease "
+                    f"in relative search interest for {names}{extra}.\n\n"
+                    f"Reason: Relative search interest fell across {len(declining)} tracked "
                     f"keyword(s) over the last 90 days.\n\n"
-                    "Recommendation: Reduce stock levels for these products, "
-                    "run clearance promotions, and shift marketing spend to stronger categories."
+                    "Recommendation: Continue monitoring market interest alongside business-specific signals."
                 ),
             })
 
@@ -257,17 +244,21 @@ class InsightGenerationService:
         for entry in latest:
             snap = snapshots.filter(
                 product_id=entry['product'], date=entry['latest_date']
-            ).first()
+            ).select_related('product').first()
             if not snap:
                 continue
             reorder = snap.reorder_point or 0
             if snap.quantity_on_hand == 0 or snap.quantity_on_hand < reorder:
-                at_risk.append(snap.quantity_on_hand)
+                at_risk.append({
+                    'name': snap.product.name,
+                    'quantity': snap.quantity_on_hand,
+                    'reorder_point': reorder,
+                })
 
         if not at_risk:
             return None
 
-        out_of_stock = sum(1 for q in at_risk if q == 0)
+        out_of_stock = sum(1 for item in at_risk if item['quantity'] == 0)
         below = len(at_risk) - out_of_stock
 
         parts = []
@@ -276,6 +267,10 @@ class InsightGenerationService:
         if below:
             parts.append(f"{below} product(s) below reorder threshold")
         problem = ' and '.join(parts)
+        products = '; '.join(
+            f"{item['name']} ({item['quantity']} on hand, reorder point {item['reorder_point']})"
+            for item in at_risk
+        )
 
         if out_of_stock >= 3 or len(at_risk) > 5:
             severity = 'high'
@@ -291,6 +286,7 @@ class InsightGenerationService:
                 f"Problem: {problem}.\n\n"
                 f"Reason: {len(at_risk)} SKU(s) are at stockout risk based on the "
                 f"latest inventory snapshots.\n\n"
+                f"Affected products: {products}.\n\n"
                 "Recommendation: Immediately reorder at-risk items, adjust baseline "
                 "reorder points upwards, and establish alternative distributor agreements."
             ),

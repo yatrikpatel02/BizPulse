@@ -1,0 +1,79 @@
+import React, { createContext, useContext, useState, useEffect } from 'react';
+import { login as loginService, register as registerService, socialLogin as socialLoginService, logout as logoutService, getProfile, updateProfile as updateProfileService } from '../services/auth';
+import { setCurrentAccessToken, onTokenRefreshed, onAuthError } from '../services/api';
+import { getCookie } from '../services/cookies';
+
+const AuthContext = createContext(null);
+
+export const AuthProvider = ({ children }) => {
+  const [user, setUser] = useState(null);
+  const [accessToken, setAccessToken] = useState(getCookie('access_token') || null);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    onTokenRefreshed(setAccessToken);
+    onAuthError(() => {
+      setAccessToken(null);
+      setUser(null);
+    });
+
+    const initAuth = async () => {
+      try {
+        const profile = await getProfile();
+        setUser(profile);
+      } catch {
+        // 401 or other auth errors leave user as null; interceptor calls onAuthError
+      }
+      setLoading(false);
+    };
+    initAuth();
+  }, []);
+
+  const login = async (credentials) => {
+    const data = await loginService(credentials);
+    const token = data.token.access;
+    setCurrentAccessToken(token);
+    setAccessToken(token);
+    setUser(data.user);
+    return data;
+  };
+
+  const register = async (userData) => {
+    const data = await registerService(userData);
+    const token = data.token.access;
+    setCurrentAccessToken(token);
+    setAccessToken(token);
+    setUser(data.user);
+    return data;
+  };
+
+  const logout = async () => {
+    await logoutService();
+    setCurrentAccessToken(null);
+    setAccessToken(null);
+    setUser(null);
+  };
+
+  const socialLogin = async (token) => {
+    const data = await socialLoginService(token);
+    const access = data.token.access;
+    setCurrentAccessToken(access);
+    setAccessToken(access);
+    setUser(data.user);
+    return data;
+  };
+
+  const updateProfile = async (data) => {
+    const updated = await updateProfileService(data);
+    setUser(updated);
+    return updated;
+  };
+
+  return (
+    <AuthContext.Provider value={{ user, accessToken, loading, login, register, socialLogin, logout, updateProfile }}>
+      {children}
+    </AuthContext.Provider>
+  );
+};
+
+export const useAuth = () => useContext(AuthContext);
