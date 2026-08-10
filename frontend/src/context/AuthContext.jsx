@@ -1,12 +1,13 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
 import { login as loginService, register as registerService, socialLogin as socialLoginService, logout as logoutService, getProfile, updateProfile as updateProfileService } from '../services/auth';
 import { setCurrentAccessToken, onTokenRefreshed, onAuthError } from '../services/api';
+import { getCookie } from '../services/cookies';
 
 const AuthContext = createContext(null);
 
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
-  const [accessToken, setAccessToken] = useState(localStorage.getItem('access_token') || null);
+  const [accessToken, setAccessToken] = useState(getCookie('access_token') || null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {

@@ -1,18 +1,14 @@
 import axios from 'axios';
+import { getCookie } from './cookies';
 
 const API_BASE_URL = import.meta.env.VITE_API_URL || '';
 
-let currentAccessToken = localStorage.getItem('access_token') || null;
+let currentAccessToken = getCookie('access_token') || null;
 let tokenRefreshCallback = null;
 let authErrorCallback = null;
 
 export const setCurrentAccessToken = (token) => {
   currentAccessToken = token;
-  if (token) {
-    localStorage.setItem('access_token', token);
-  } else {
-    localStorage.removeItem('access_token');
-  }
 };
 
 export const onTokenRefreshed = (cb) => {

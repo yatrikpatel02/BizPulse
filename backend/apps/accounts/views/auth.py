@@ -13,7 +13,9 @@ from ..serializers.user import RegisterSerializer, LoginSerializer, UserSerializ
 from ..services.token_utils import (
     get_tokens_for_user,
     set_refresh_cookie,
+    set_access_cookie,
     clear_refresh_cookie,
+    clear_access_cookie,
     COOKIE_NAME,
 )
 
@@ -43,6 +45,7 @@ class RegisterView(generics.CreateAPIView):
             },
         }, status=status.HTTP_201_CREATED)
         set_refresh_cookie(response, token_data['refresh'])
+        set_access_cookie(response, token_data['access'])
         return response
 
 
@@ -67,6 +70,7 @@ class LoginView(generics.GenericAPIView):
             },
         }, status=status.HTTP_200_OK)
         set_refresh_cookie(response, token_data['refresh'])
+        set_access_cookie(response, token_data['access'])
         return response
 
 
@@ -83,6 +87,7 @@ class LogoutView(views.APIView):
                 pass
         response = Response({'detail': 'Logout successful.'})
         clear_refresh_cookie(response)
+        clear_access_cookie(response)
         return response
 
 
@@ -146,6 +151,7 @@ class CookieTokenRefreshView(views.APIView):
         response = Response(response_data)
         if new_refresh:
             set_refresh_cookie(response, new_refresh)
+            set_access_cookie(response, access)
         return response
 
 
@@ -175,4 +181,5 @@ class DeleteAccountView(views.APIView):
         user.delete()
         response = Response({'detail': 'Account deleted successfully.'}, status=status.HTTP_204_NO_CONTENT)
         clear_refresh_cookie(response)
+        clear_access_cookie(response)
         return response

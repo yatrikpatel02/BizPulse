@@ -5,7 +5,7 @@ from rest_framework.throttling import AnonRateThrottle
 
 from ..serializers.user import UserSerializer
 from ..serializers.social import GoogleAuthSerializer
-from ..services.token_utils import get_tokens_for_user, set_refresh_cookie
+from ..services.token_utils import get_tokens_for_user, set_refresh_cookie, set_access_cookie
 from ..services.social_auth import get_or_create_social_user
 from ..services.google import verify_google_id_token
 from django.conf import settings
@@ -27,6 +27,7 @@ class _BaseSocialAuthView(generics.GenericAPIView):
             status=status.HTTP_200_OK,
         )
         set_refresh_cookie(response, token_data['refresh'])
+        set_access_cookie(response, token_data['access'])
         return response
 
 
