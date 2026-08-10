@@ -1,12 +1,10 @@
-import os
-
 from django.conf import settings
 from rest_framework_simplejwt.tokens import RefreshToken
 
 COOKIE_NAME = 'refresh_token'
 ACCESS_COOKIE_NAME = 'access_token'
 COOKIE_MAX_AGE = 7 * 24 * 60 * 60
-ACCESS_COOKIE_MAX_AGE = int(os.getenv('JWT_ACCESS_MINUTES', '30')) * 60
+ACCESS_COOKIE_MAX_AGE = int(settings.SIMPLE_JWT['ACCESS_TOKEN_LIFETIME'].total_seconds())
 
 
 def get_tokens_for_user(user):

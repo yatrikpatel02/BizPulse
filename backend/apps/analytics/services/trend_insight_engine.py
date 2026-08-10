@@ -84,22 +84,28 @@ class TrendInsightEngine:
         )
         confidence = self._confidence_score(metrics, has_baseline=bool(metrics['data_points_previous_30_days']))
 
-        return {
+        payload: Dict[str, Any] = {
             'keyword': keyword,
             'trend_score': metrics['trend_score'],
             'percentage_change': metrics['percentage_change'],
             'trend_direction': metrics['trend_direction'],
             'volatility_score': metrics['volatility_score'],
-            'insight_type': classification['insight_type'],
-            'title': classification['title'],
-            'description': classification['description'],
-            'recommended_actions': classification['recommended_actions'],
             'confidence_score': confidence,
             'current_period_avg': metrics['current_period_avg'],
             'previous_period_avg': metrics['previous_period_avg'],
             'latest_date': metrics['latest_date'],
             'data_points_last_30_days': metrics['data_points_last_30_days'],
         }
+
+        if classification:
+            payload.update({
+                'insight_type': classification['insight_type'],
+                'title': classification['title'],
+                'description': classification['description'],
+                'recommended_actions': classification['recommended_actions'],
+            })
+
+        return payload
 
     def analyze(
         self,

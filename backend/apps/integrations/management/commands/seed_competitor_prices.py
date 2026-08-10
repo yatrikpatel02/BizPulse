@@ -1,14 +1,13 @@
-import random
-from decimal import Decimal
+import logging
 from django.core.management.base import BaseCommand
 from products.models import Product
-from integrations.models import CompetitorPrice
 from businesses.models import Business
+from integrations.models import CompetitorPrice
 
 from integrations.services.competitor_price_service import CompetitorPriceService
 
 class Command(BaseCommand):
-    help = "Seed competitor prices for all products in the database"
+    help = "Fetch live competitor prices for all products in the database"
 
     def add_arguments(self, parser):
         parser.add_argument(
@@ -22,7 +21,7 @@ class Command(BaseCommand):
         if is_live:
             self.stdout.write("Starting live competitor price scraping (this might take a few minutes)...")
         else:
-            self.stdout.write("Starting mock competitor price seeding...")
+            self.stdout.write(self.style.WARNING("No --live flag provided. Could not find competitor prices. Use --live to fetch real prices."))
 
         # Delete existing competitor prices
         CompetitorPrice.objects.all().delete()
@@ -45,30 +44,7 @@ class Command(BaseCommand):
                 except Exception as e:
                     self.stdout.write(self.style.WARNING(f"Failed to scrape live prices for {product.name}: {e}"))
         else:
-            competitors = [
-                {"name": "Amazon", "domain": "amazon.in", "range": (0.90, 1.10)},
-                {"name": "Flipkart", "domain": "flipkart.com", "range": (0.88, 1.08)},
-                {"name": "Google Shopping", "domain": "google.com/shopping", "range": (0.92, 1.12)}
-            ]
-            for product in products:
-                price = float(product.price or 100.0)
-                if price <= 0:
-                    price = 100.0
-
-                for comp in competitors:
-                    factor = random.uniform(comp["range"][0], comp["range"][1])
-                    comp_price = round(price * factor, 2)
-                    clean_name = product.name.lower().replace(" ", "-")
-                    url = f"https://www.{comp['domain']}/search?q={clean_name}"
-
-                    CompetitorPrice.objects.create(
-                        business=product.business,
-                        product=product,
-                        competitor_name=comp["name"],
-                        price=Decimal(str(comp_price)),
-                        url=url
-                    )
-                    created_count += 1
+            self.stdout.write(self.style.WARNING("No --live flag provided. Could not find competitor prices. Use --live to fetch real prices."))
 
         self.stdout.write(
             self.style.SUCCESS(

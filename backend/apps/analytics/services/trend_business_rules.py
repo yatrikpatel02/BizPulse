@@ -134,7 +134,7 @@ class TrendBusinessRulesService:
                     'description': rule['description'],
                     'recommended_actions': list(rule['recommended_actions']),
                 }
-        return self._default_insight()
+        return None
 
     @staticmethod
     def _matches(pct: float, rule: Dict[str, Any]) -> bool:
@@ -156,12 +156,3 @@ class TrendBusinessRulesService:
                 upper_ok = pct <= max_change
 
         return lower_ok and upper_ok
-
-    @classmethod
-    def _default_insight(cls) -> Dict[str, Any]:
-        return {
-            'insight_type': 'Stable',
-            'title': 'Market Demand Stable',
-            'description': 'Demand is stable. Maintain current inventory levels.',
-            'recommended_actions': ['Monitor search demand for emerging changes'],
-        }

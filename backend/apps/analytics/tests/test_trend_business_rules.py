@@ -68,6 +68,7 @@ class TrendBusinessRulesServiceTest(unittest.TestCase):
         # Every real percentage should map to a known insight type.
         for pct in [-100, -25, -20, -19.9, -10, -5, -4.9, 0, 5, 5.01, 10, 20, 20.01, 50, 100]:
             result = self.rules.classify(pct)
+            self.assertIsNotNone(result)
             self.assertIn(result['insight_type'], TrendBusinessRulesService.INSIGHT_TYPES)
 
 
