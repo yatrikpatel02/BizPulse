@@ -43,11 +43,11 @@ function EmptyState({ type, onUpload }) {
   return (
     <div className="flex flex-col items-center justify-center py-24 text-center">
       <div className="text-indigo-300 dark:text-indigo-800 mb-4"><UploadIcon /></div>
-      <h3 className="text-lg font-semibold text-gray-700 dark:text-slate-300 mb-1">No {type} data yet</h3>
-      <p className="text-sm text-gray-400 dark:text-slate-500 mb-6">Upload a {type.toLowerCase()} CSV file to get started.</p>
+      <h3 className="text-lg font-semibold text-slate-300 mb-1">No {type} data yet</h3>
+      <p className="text-sm text-slate-500 mb-6">Upload a {type.toLowerCase()} CSV file to get started.</p>
       <button
         onClick={onUpload}
-        className="px-5 py-2.5 bg-indigo-600 hover:bg-indigo-700 text-white text-sm font-medium rounded-lg shadow-sm transition-colors"
+        className="px-5 py-2.5 bg-violet-600 hover:bg-violet-500 text-white text-sm font-medium rounded-lg shadow-sm transition-colors"
       >
         Upload Data
       </button>
@@ -59,22 +59,22 @@ function EmptyState({ type, onUpload }) {
 function Pagination({ page, numPages, onPageChange }) {
   if (numPages <= 1) return null;
   return (
-    <div className="flex items-center justify-between px-4 py-3 border-t dark:border-slate-800">
-      <p className="text-sm text-gray-500 dark:text-slate-400">
+    <div className="flex items-center justify-between px-4 py-3 border-t border-white/[0.06]">
+      <p className="text-sm text-slate-400">
         Page <span className="font-medium">{page}</span> of <span className="font-medium">{numPages}</span>
       </p>
       <div className="flex gap-2">
         <button
           onClick={() => onPageChange(page - 1)}
           disabled={page <= 1}
-          className="p-1.5 rounded-md border dark:border-slate-700 text-gray-500 dark:text-slate-400 hover:bg-gray-50 dark:hover:bg-slate-800 disabled:opacity-40 disabled:cursor-not-allowed transition-colors"
+          className="p-1.5 rounded-md border border-white/[0.06] text-slate-400 hover:bg-navy-900/40 dark:hover:bg-slate-800 disabled:opacity-40 disabled:cursor-not-allowed transition-colors"
         >
           <ChevronLeft />
         </button>
         <button
           onClick={() => onPageChange(page + 1)}
           disabled={page >= numPages}
-          className="p-1.5 rounded-md border dark:border-slate-700 text-gray-500 dark:text-slate-400 hover:bg-gray-50 dark:hover:bg-slate-800 disabled:opacity-40 disabled:cursor-not-allowed transition-colors"
+          className="p-1.5 rounded-md border border-white/[0.06] text-slate-400 hover:bg-navy-900/40 dark:hover:bg-slate-800 disabled:opacity-40 disabled:cursor-not-allowed transition-colors"
         >
           <ChevronRight />
         </button>
@@ -89,22 +89,22 @@ function SalesTable({ data }) {
     <div className="overflow-x-auto">
       <table className="w-full text-sm">
         <thead>
-          <tr className="bg-gray-50 dark:bg-slate-800/60 border-b dark:border-slate-700">
+          <tr className="bg-navy-900/40/60 border-b border-white/[0.06]">
             {['Product', 'Date', 'Quantity', 'Unit Price', 'Revenue'].map(h => (
-              <th key={h} className="px-4 py-3 text-left text-xs font-bold text-gray-700 dark:text-slate-200 uppercase tracking-wide">{h}</th>
+              <th key={h} className="px-4 py-3 text-left text-xs font-bold text-slate-200 uppercase tracking-wide">{h}</th>
             ))}
           </tr>
         </thead>
         <tbody className="divide-y divide-gray-100 dark:divide-slate-800">
           {data.map(row => (
-            <tr key={row.id} className="hover:bg-gray-50 dark:hover:bg-slate-800/40 transition-colors">
-              <td className="px-4 py-3 font-medium text-gray-900 dark:text-slate-100">{row.product_name}</td>
-              <td className="px-4 py-3 text-gray-500 dark:text-slate-400">{row.date}</td>
-              <td className="px-4 py-3 text-gray-700 dark:text-slate-300">{row.quantity}</td>
-              <td className="px-4 py-3 text-gray-700 dark:text-slate-300">
+            <tr key={row.id} className="hover:bg-navy-900/40 dark:hover:bg-slate-800/40 transition-colors">
+              <td className="px-4 py-3 font-medium text-white">{row.product_name}</td>
+              <td className="px-4 py-3 text-slate-400">{row.date}</td>
+              <td className="px-4 py-3 text-slate-300">{row.quantity}</td>
+              <td className="px-4 py-3 text-slate-300">
                 {row.unit_price != null ? `₹${parseFloat(row.unit_price).toFixed(2)}` : '—'}
               </td>
-              <td className="px-4 py-3 font-semibold text-emerald-600 dark:text-emerald-400">
+              <td className="px-4 py-3 font-semibold text-emerald-600 text-emerald-600 dark:text-emerald-400">
                 ₹{parseFloat(row.revenue).toLocaleString('en-IN', { minimumFractionDigits: 2 })}
               </td>
             </tr>
@@ -121,9 +121,9 @@ function InventoryTable({ data }) {
     <div className="overflow-x-auto">
       <table className="w-full text-sm">
         <thead>
-          <tr className="bg-gray-50 dark:bg-slate-800/60 border-b dark:border-slate-700">
+          <tr className="bg-navy-900/40/60 border-b border-white/[0.06]">
             {['Product', 'Date', 'Qty on Hand', 'Reorder Point', 'Status'].map(h => (
-              <th key={h} className="px-4 py-3 text-left text-xs font-bold text-gray-700 dark:text-slate-200 uppercase tracking-wide">{h}</th>
+              <th key={h} className="px-4 py-3 text-left text-xs font-bold text-slate-200 uppercase tracking-wide">{h}</th>
             ))}
           </tr>
         </thead>
@@ -131,15 +131,15 @@ function InventoryTable({ data }) {
           {data.map(row => {
             const low = row.reorder_point != null && row.quantity_on_hand <= row.reorder_point;
             return (
-              <tr key={row.id} className="hover:bg-gray-50 dark:hover:bg-slate-800/40 transition-colors">
-                <td className="px-4 py-3 font-medium text-gray-900 dark:text-slate-100">{row.product_name}</td>
-                <td className="px-4 py-3 text-gray-500 dark:text-slate-400">{row.date}</td>
-                <td className="px-4 py-3 text-gray-700 dark:text-slate-300 font-semibold">{row.quantity_on_hand}</td>
-                <td className="px-4 py-3 text-gray-500 dark:text-slate-400">{row.reorder_point ?? '—'}</td>
+              <tr key={row.id} className="hover:bg-navy-900/40 dark:hover:bg-slate-800/40 transition-colors">
+                <td className="px-4 py-3 font-medium text-white">{row.product_name}</td>
+                <td className="px-4 py-3 text-slate-400">{row.date}</td>
+                <td className="px-4 py-3 text-slate-300 font-semibold">{row.quantity_on_hand}</td>
+                <td className="px-4 py-3 text-slate-400">{row.reorder_point ?? '—'}</td>
                 <td className="px-4 py-3">
                   {low
-                    ? <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-xs font-medium bg-red-100 dark:bg-red-900/30 text-red-700 dark:text-red-400">⚠ Low Stock</span>
-                    : <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-xs font-medium bg-emerald-100 dark:bg-emerald-900/30 text-emerald-700 dark:text-emerald-400">✓ OK</span>
+                    ? <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-xs font-medium bg-red-100 bg-red-500/10 text-red-700 text-red-400">⚠ Low Stock</span>
+                    : <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-xs font-medium bg-emerald-100 dark:bg-emerald-900/30 text-emerald-600 dark:text-emerald-400 text-emerald-600 dark:text-emerald-400">✓ OK</span>
                   }
                 </td>
               </tr>
@@ -157,20 +157,20 @@ function ReviewsTable({ data }) {
     <div className="overflow-x-auto">
       <table className="w-full text-sm">
         <thead>
-          <tr className="bg-gray-50 dark:bg-slate-800/60 border-b dark:border-slate-700">
+          <tr className="bg-navy-900/40/60 border-b border-white/[0.06]">
             {['Rating', 'Product', 'Author', 'Date', 'Review'].map(h => (
-              <th key={h} className="px-4 py-3 text-left text-xs font-bold text-gray-700 dark:text-slate-200 uppercase tracking-wide">{h}</th>
+              <th key={h} className="px-4 py-3 text-left text-xs font-bold text-slate-200 uppercase tracking-wide">{h}</th>
             ))}
           </tr>
         </thead>
         <tbody className="divide-y divide-gray-100 dark:divide-slate-800">
           {data.map(row => (
-            <tr key={row.id} className="hover:bg-gray-50 dark:hover:bg-slate-800/40 transition-colors">
+            <tr key={row.id} className="hover:bg-navy-900/40 dark:hover:bg-slate-800/40 transition-colors">
               <td className="px-4 py-3"><StarRating rating={row.rating} /></td>
-              <td className="px-4 py-3 font-medium text-gray-900 dark:text-slate-100">{row.product_name ?? '—'}</td>
-              <td className="px-4 py-3 text-gray-500 dark:text-slate-400">{row.author_name || '—'}</td>
-              <td className="px-4 py-3 text-gray-500 dark:text-slate-400">{row.review_date}</td>
-              <td className="px-4 py-3 text-gray-600 dark:text-slate-300 max-w-xs truncate" title={row.text}>{row.text}</td>
+              <td className="px-4 py-3 font-medium text-white">{row.product_name ?? '—'}</td>
+              <td className="px-4 py-3 text-slate-400">{row.author_name || '—'}</td>
+              <td className="px-4 py-3 text-slate-400">{row.review_date}</td>
+              <td className="px-4 py-3 text-slate-300 max-w-xs truncate" title={row.text}>{row.text}</td>
             </tr>
           ))}
         </tbody>
@@ -259,9 +259,9 @@ export default function DataViewer() {
   }[activeTab];
 
   const activeStyle = {
-    emerald: 'border-emerald-500 text-emerald-600 dark:text-emerald-400',
+    emerald: 'border-emerald-500 text-emerald-600 text-emerald-600 dark:text-emerald-400',
     blue: 'border-blue-500 text-blue-600 dark:text-blue-400',
-    amber: 'border-amber-500 text-amber-600 dark:text-amber-400',
+    amber: 'border-amber-500 text-amber-600 text-amber-400',
   }[tabColor];
 
   return (
@@ -269,7 +269,7 @@ export default function DataViewer() {
       <div className="flex justify-end mb-4">
         <button
           onClick={() => navigate('/data')}
-          className="flex items-center gap-2 px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white text-sm font-medium rounded-lg shadow-sm transition-colors"
+          className="flex items-center gap-2 px-4 py-2 bg-violet-600 hover:bg-violet-500 text-white text-sm font-medium rounded-lg shadow-sm transition-colors"
         >
           <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12" />
@@ -279,9 +279,9 @@ export default function DataViewer() {
       </div>
 
       {/* Card */}
-      <div className="bg-white dark:bg-slate-900 rounded-xl border dark:border-slate-800 shadow-sm overflow-hidden">
+      <div className="bg-navy-800/60 rounded-xl border border-white/[0.06] shadow-sm overflow-hidden">
         {/* Tabs */}
-        <div className="border-b dark:border-slate-800 px-4">
+        <div className="border-b border-white/[0.06] px-4">
           <div className="flex gap-0">
             {TABS.map(tab => {
               const isActive = activeTab === tab.key;
@@ -292,12 +292,12 @@ export default function DataViewer() {
                   className={`px-5 py-4 text-sm font-medium border-b-2 transition-colors ${
                     isActive
                       ? activeStyle + ' border-current'
-                      : 'border-transparent text-gray-500 dark:text-slate-400 hover:text-gray-700 dark:hover:text-slate-200'
+                      : 'border-transparent text-slate-400 hover:text-slate-300 dark:hover:text-slate-200'
                   }`}
                 >
                   {tab.label}
                   {data && isActive && (
-                    <span className="ml-2 px-1.5 py-0.5 text-xs rounded-full bg-gray-100 dark:bg-slate-800 text-gray-600 dark:text-slate-300">
+                    <span className="ml-2 px-1.5 py-0.5 text-xs rounded-full bg-navy-700/60 text-slate-300">
                       {data.count}
                     </span>
                   )}
@@ -308,16 +308,16 @@ export default function DataViewer() {
         </div>
 
         {/* Filters */}
-        <div className="flex flex-wrap items-center gap-3 px-4 py-3 border-b dark:border-slate-800 bg-gray-50/50 dark:bg-slate-800/30">
+        <div className="flex flex-wrap items-center gap-3 px-4 py-3 border-b border-white/[0.06] bg-navy-900/40 bg-navy-700/60/30">
           {/* Search */}
           <div className="relative flex-1 min-w-[200px]">
-            <span className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400"><SearchIcon /></span>
+            <span className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-500"><SearchIcon /></span>
             <input
               type="text"
               placeholder={activeTab === 'reviews' ? 'Search text or product...' : 'Search product...'}
               value={search}
               onChange={handleSearch}
-              className="w-full pl-9 pr-3 py-2 text-sm bg-white dark:bg-slate-800 border border-gray-200 dark:border-slate-700 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent outline-none text-gray-700 dark:text-slate-200 placeholder-gray-400 dark:placeholder-slate-500"
+              className="w-full pl-9 pr-3 py-2 text-sm bg-navy-800/60 bg-navy-700/60 border border-white/[0.06] rounded-lg focus:ring-2 focus:ring-violet-500 focus:border-transparent outline-none text-slate-200 placeholder-gray-400 dark:placeholder-slate-500"
             />
           </div>
 
@@ -326,15 +326,15 @@ export default function DataViewer() {
             type="date"
             value={dateFrom}
             onChange={e => { setDateFrom(e.target.value); setPage(1); }}
-            className="px-3 py-2 text-sm bg-white dark:bg-slate-800 border border-gray-200 dark:border-slate-700 rounded-lg focus:ring-2 focus:ring-indigo-500 outline-none text-gray-700 dark:text-slate-200"
+            className="px-3 py-2 text-sm bg-navy-800/60 bg-navy-700/60 border border-white/[0.06] rounded-lg focus:ring-2 focus:ring-violet-500 outline-none text-slate-200"
             title="From date"
           />
-          <span className="text-gray-400 text-sm">to</span>
+          <span className="text-slate-500 text-sm">to</span>
           <input
             type="date"
             value={dateTo}
             onChange={e => { setDateTo(e.target.value); setPage(1); }}
-            className="px-3 py-2 text-sm bg-white dark:bg-slate-800 border border-gray-200 dark:border-slate-700 rounded-lg focus:ring-2 focus:ring-indigo-500 outline-none text-gray-700 dark:text-slate-200"
+            className="px-3 py-2 text-sm bg-navy-800/60 bg-navy-700/60 border border-white/[0.06] rounded-lg focus:ring-2 focus:ring-violet-500 outline-none text-slate-200"
             title="To date"
           />
 
@@ -343,7 +343,7 @@ export default function DataViewer() {
             <select
               value={ratingFilter}
               onChange={e => { setRatingFilter(e.target.value); setPage(1); }}
-              className="px-3 py-2 text-sm bg-white dark:bg-slate-800 border border-gray-200 dark:border-slate-700 rounded-lg focus:ring-2 focus:ring-indigo-500 outline-none text-gray-700 dark:text-slate-200"
+              className="px-3 py-2 text-sm bg-navy-800/60 bg-navy-700/60 border border-white/[0.06] rounded-lg focus:ring-2 focus:ring-violet-500 outline-none text-slate-200"
             >
               <option value="">All Ratings</option>
               {[5, 4, 3, 2, 1].map(r => <option key={r} value={r}>{'★'.repeat(r)} ({r} star)</option>)}
@@ -354,7 +354,7 @@ export default function DataViewer() {
           {(search || dateFrom || dateTo || ratingFilter) && (
             <button
               onClick={() => { setSearch(''); setDateFrom(''); setDateTo(''); setRatingFilter(''); setPage(1); }}
-              className="px-3 py-2 text-sm text-gray-500 dark:text-slate-400 hover:text-gray-700 dark:hover:text-slate-200 transition-colors"
+              className="px-3 py-2 text-sm text-slate-400 hover:text-slate-300 dark:hover:text-slate-200 transition-colors"
             >
               Clear
             </button>
@@ -364,13 +364,13 @@ export default function DataViewer() {
         {/* Content */}
         {loading ? (
           <div className="flex items-center justify-center py-24">
-            <svg className="animate-spin h-8 w-8 text-indigo-500" fill="none" viewBox="0 0 24 24">
+            <svg className="animate-spin h-8 w-8 text-violet-400" fill="none" viewBox="0 0 24 24">
               <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
               <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z" />
             </svg>
           </div>
         ) : error ? (
-          <div className="text-center py-16 text-red-500 dark:text-red-400 text-sm">{error}</div>
+          <div className="text-center py-16 text-red-500 text-red-400 text-sm">{error}</div>
         ) : !data || data.count === 0 ? (
           <EmptyState type={activeTab.charAt(0).toUpperCase() + activeTab.slice(1)} onUpload={() => navigate('/data')} />
         ) : (

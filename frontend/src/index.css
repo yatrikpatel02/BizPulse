@@ -4,54 +4,136 @@
 
 /* Override browser auto-fill styling to prevent white background on inputs */
 input:-webkit-autofill,
-input:-webkit-autofill:hover, 
+input:-webkit-autofill:hover,
 input:-webkit-autofill:focus,
 input:-webkit-autofill:active {
-  -webkit-box-shadow: 0 0 0 100px #13151b inset !important;
-  -webkit-text-fill-color: #ffffff !important;
-  caret-color: #ffffff !important;
+  -webkit-box-shadow: 0 0 0 100px #0a0e1a inset !important;
+  -webkit-text-fill-color: #e2e8f0 !important;
+  caret-color: #e2e8f0 !important;
   transition: background-color 5000s ease-in-out 0s;
 }
 
 /* Fallback autofill style overrides */
 input:-internal-autofill-selected {
-  background-color: #13151b !important;
-  color: #ffffff !important;
+  background-color: #0a0e1a !important;
+  color: #e2e8f0 !important;
 }
 
 @layer base {
   body {
-    @apply font-sans text-gray-900 bg-gray-50 dark:bg-[#090d16] dark:text-gray-100 transition-colors duration-200;
+    @apply font-sans bg-navy-950 text-slate-100 transition-colors duration-200;
   }
-  
-  h1, h2, h3, h4, h5, h6 {
-    @apply font-sans tracking-tight;
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    @apply font-display tracking-tight;
+  }
+
+  /* Custom scrollbar for dark theme */
+  ::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: #0a0e1a;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: #1e293b;
+    border-radius: 3px;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: #334155;
   }
 }
 
 /* Premium Background Grid Pattern */
 .grid-bg {
-  background-image: radial-gradient(rgba(99, 102, 241, 0.09) 1px, transparent 1px);
-  background-size: 24px 24px;
+  background-image: radial-gradient(rgba(139, 92, 246, 0.03) 1px, transparent 1px);
+  background-size: 28px 28px;
 }
 
 .dark .grid-bg {
-  background-image: radial-gradient(rgba(99, 102, 241, 0.04) 1px, transparent 1px);
+  background-image: radial-gradient(rgba(139, 92, 246, 0.03) 1px, transparent 1px);
 }
 
 /* Ambient Glow Orbs for Glassmorphism */
 .glow-orb {
   filter: blur(120px);
-  opacity: 0.45;
+  opacity: 0.2;
   pointer-events: none;
   border-radius: 9999px;
 }
 
 .dark .glow-orb {
-  opacity: 0.18;
+  opacity: 0.15;
 }
 
 /* Glassmorphism Card Style */
 .glass-card {
-  @apply bg-white/85 dark:bg-slate-900/50 backdrop-blur-md border border-gray-200/50 dark:border-slate-800/50;
+  @apply bg-navy-800/60 backdrop-blur-xl border border-white/[0.06] shadow-glass;
+}
+
+/* Glass Surface — secondary translucent surface */
+.glass-surface {
+  @apply bg-navy-800/40 backdrop-blur-md border border-white/[0.04];
+}
+
+/* Neon Glow Shadow */
+.neon-glow {
+  box-shadow: 0 0 20px rgba(139, 92, 246, 0.12), 0 0 60px rgba(139, 92, 246, 0.04);
+}
+
+/* Neon Border */
+.neon-border {
+  border: 1px solid rgba(139, 92, 246, 0.15);
+}
+
+/* Gradient Text Utility */
+.gradient-text {
+  @apply bg-clip-text text-transparent bg-gradient-to-r from-violet-400 via-purple-400 to-blue-400;
+}
+
+/* Purple glow focus ring for inputs */
+.focus-glow:focus {
+  box-shadow: 0 0 0 2px rgba(139, 92, 246, 0.2), 0 0 16px rgba(139, 92, 246, 0.08);
+  border-color: rgba(139, 92, 246, 0.4);
+}
+
+/* Sidebar active glow indicator */
+.nav-active-glow {
+  box-shadow: 0 0 12px rgba(139, 92, 246, 0.2), inset 0 1px 0 rgba(255, 255, 255, 0.05);
+}
+
+/* Chart glow line effect */
+.chart-glow {
+  filter: drop-shadow(0 0 6px rgba(139, 92, 246, 0.3));
+}
+
+/* Subtle card hover lift */
+.hover-lift {
+  @apply transition-all duration-300;
+}
+
+.hover-lift:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3), 0 0 20px rgba(139, 92, 246, 0.06);
+}
+
+/* Select dropdown dark styling */
+select {
+  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%236b7280' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M6 8l4 4 4-4'/%3e%3c/svg%3e");
+  background-position: right 0.5rem center;
+  background-repeat: no-repeat;
+  background-size: 1.5em 1.5em;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  padding-right: 2.5rem;
 }

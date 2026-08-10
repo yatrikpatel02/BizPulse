@@ -61,7 +61,7 @@ export default function Login() {
   return (
     <div>
       {/* Page Title */}
-      <h2 className="text-xl font-semibold text-center text-white mb-6 tracking-tight">
+      <h2 className="text-xl font-semibold text-center text-white mb-6 tracking-tight font-display">
         Welcome back
       </h2>
 
@@ -76,11 +76,11 @@ export default function Login() {
         <div className="space-y-4.5">
           {/* Email field */}
           <div>
-            <label htmlFor="email" className="text-xs font-semibold text-gray-400 mb-1.5 block">
+            <label htmlFor="email" className="text-xs font-semibold text-slate-400 mb-1.5 block">
               Email address
             </label>
             <div className="relative">
-              <span className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-500">
+              <span className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-500">
                 <Mail size={16} />
               </span>
               <input
@@ -88,8 +88,8 @@ export default function Login() {
                 name="email"
                 type="email"
                 autoComplete="email"
-                className={`w-full pl-11 pr-4 py-2.5 bg-[#13151b] border rounded-xl text-white placeholder-[#3e424e] focus:outline-none focus:border-[#c09e75] focus:ring-2 focus:ring-[#c09e75]/20 transition-all duration-200 text-sm ${
-                  fieldErrors.email ? 'border-red-500/50 focus:border-red-500 focus:ring-red-500/10' : 'border-[#232731]'
+                className={`w-full pl-11 pr-4 py-2.5 bg-navy-900/80 border rounded-xl text-white placeholder-slate-600 focus:outline-none focus-glow transition-all duration-200 text-sm ${
+                  fieldErrors.email ? 'border-red-500/50 focus:border-red-500 focus:ring-red-500/10' : 'border-white/[0.08]'
                 }`}
                 placeholder="you@example.com"
                 value={email}
@@ -107,12 +107,12 @@ export default function Login() {
           {/* Password field */}
           <div>
             <div className="flex justify-between items-center mb-1.5">
-              <label htmlFor="password" className="text-xs font-semibold text-gray-400">
+              <label htmlFor="password" className="text-xs font-semibold text-slate-400">
                 Password
               </label>
             </div>
             <div className="relative">
-              <span className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-500">
+              <span className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-500">
                 <Lock size={16} />
               </span>
               <input
@@ -120,8 +120,8 @@ export default function Login() {
                 name="password"
                 type={showPassword ? 'text' : 'password'}
                 autoComplete="current-password"
-                className={`w-full pl-11 pr-12 py-2.5 bg-[#13151b] border rounded-xl text-white placeholder-[#3e424e] focus:outline-none focus:border-[#c09e75] focus:ring-2 focus:ring-[#c09e75]/20 transition-all duration-200 text-sm ${
-                  fieldErrors.password ? 'border-red-500/50 focus:border-red-500 focus:ring-red-500/10' : 'border-[#232731]'
+                className={`w-full pl-11 pr-12 py-2.5 bg-navy-900/80 border rounded-xl text-white placeholder-slate-600 focus:outline-none focus-glow transition-all duration-200 text-sm ${
+                  fieldErrors.password ? 'border-red-500/50 focus:border-red-500 focus:ring-red-500/10' : 'border-white/[0.08]'
                 }`}
                 placeholder="Enter your password"
                 value={password}
@@ -133,7 +133,7 @@ export default function Login() {
               <button
                 type="button"
                 onClick={() => setShowPassword(!showPassword)}
-                className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-500 hover:text-gray-300 transition-colors"
+                className="absolute right-4 top-1/2 -translate-y-1/2 text-slate-500 hover:text-slate-300 transition-colors"
                 tabIndex="-1"
               >
                 {showPassword ? <EyeOff size={16} /> : <Eye size={16} />}
@@ -147,7 +147,7 @@ export default function Login() {
 
         {/* Forgot Password Link */}
         <div className="flex justify-end pt-1">
-          <Link to="/forgot-password" className="text-xs font-semibold text-[#c09e75] hover:text-[#d4b58e] transition-colors">
+          <Link to="/forgot-password" className="text-xs font-semibold text-violet-400 hover:text-violet-300 transition-colors">
             Forgot password?
           </Link>
         </div>
@@ -157,7 +157,7 @@ export default function Login() {
           <button
             type="submit"
             disabled={loading}
-            className="w-full py-2.5 px-4 bg-[#b08e65] hover:bg-[#c09e75] active:scale-[0.98] text-white font-semibold rounded-xl shadow-lg shadow-[#c09e75]/5 hover:shadow-[#c09e75]/15 focus:outline-none transition-all duration-200 text-sm flex items-center justify-center gap-2"
+            className="w-full py-2.5 px-4 bg-gradient-to-r from-violet-600 to-indigo-600 hover:from-violet-500 hover:to-indigo-500 active:scale-[0.98] text-white font-semibold rounded-xl shadow-lg shadow-violet-500/10 hover:shadow-violet-500/20 focus:outline-none transition-all duration-200 text-sm flex items-center justify-center gap-2"
           >
             {loading ? (
               <div className="flex items-center gap-2">
@@ -178,18 +178,18 @@ export default function Login() {
 
         {/* Divider */}
         <div className="relative flex py-2 items-center">
-          <div className="flex-grow border-t border-[#232731]"></div>
-          <span className="flex-shrink mx-4 text-gray-500 text-xs font-semibold uppercase tracking-wider">or</span>
-          <div className="flex-grow border-t border-[#232731]"></div>
+          <div className="flex-grow border-t border-white/[0.06]"></div>
+          <span className="flex-shrink mx-4 text-slate-500 text-xs font-semibold uppercase tracking-wider">or</span>
+          <div className="flex-grow border-t border-white/[0.06]"></div>
         </div>
 
         {/* Google Sign-in */}
         <GoogleLoginButton text="signin_with" />
 
         {/* Sign up Link */}
-        <div className="mt-6 text-center text-sm text-gray-400">
+        <div className="mt-6 text-center text-sm text-slate-400">
           Don&apos;t have an account?{' '}
-          <Link to="/signup" className="font-semibold text-[#c09e75] hover:text-[#d4b58e] transition-colors">
+          <Link to="/signup" className="font-semibold text-violet-400 hover:text-violet-300 transition-colors">
             Sign up
           </Link>
         </div>

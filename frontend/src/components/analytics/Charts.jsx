@@ -8,33 +8,34 @@ export function ChartGradients() {
     <svg className="absolute w-0 h-0" width="0" height="0">
       <defs>
         <linearGradient id="area-indigo" x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0%" stopColor="#4f46e5" stopOpacity="0.4" />
-          <stop offset="100%" stopColor="#4f46e5" stopOpacity="0.0" />
+          <stop offset="0%" stopColor="#8b5cf6" stopOpacity="0.25" />
+          <stop offset="100%" stopColor="#8b5cf6" stopOpacity="0.0" />
         </linearGradient>
         <linearGradient id="area-emerald" x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0%" stopColor="#10b981" stopOpacity="0.4" />
-          <stop offset="100%" stopColor="#10b981" stopOpacity="0.0" />
+          <stop offset="0%" stopColor="#06b6d4" stopOpacity="0.25" />
+          <stop offset="100%" stopColor="#06b6d4" stopOpacity="0.0" />
         </linearGradient>
         <linearGradient id="grad-indigo" x1="0" y1="0" x2="1" y2="0">
-          <stop offset="0%" stopColor="#6366f1" />
-          <stop offset="100%" stopColor="#4f46e5" />
+          <stop offset="0%" stopColor="#a855f7" />
+          <stop offset="100%" stopColor="#6366f1" />
         </linearGradient>
         <linearGradient id="grad-emerald" x1="0" y1="0" x2="1" y2="0">
-          <stop offset="0%" stopColor="#34d399" />
-          <stop offset="100%" stopColor="#059669" />
+          <stop offset="0%" stopColor="#22d3ee" />
+          <stop offset="100%" stopColor="#06b6d4" />
         </linearGradient>
         <linearGradient id="grad-blue" x1="0" y1="0" x2="1" y2="0">
-          <stop offset="0%" stopColor="#60a5fa" />
-          <stop offset="100%" stopColor="#2563eb" />
+          <stop offset="0%" stopColor="#38bdf8" />
+          <stop offset="100%" stopColor="#3b82f6" />
         </linearGradient>
         <linearGradient id="grad-rose" x1="0" y1="0" x2="1" y2="0">
-          <stop offset="0%" stopColor="#f87171" />
-          <stop offset="100%" stopColor="#e11d48" />
+          <stop offset="0%" stopColor="#fb7185" />
+          <stop offset="100%" stopColor="#f43f5e" />
         </linearGradient>
       </defs>
     </svg>
   );
 }
+
 
 /**
  * Premium SVG Area / Line Chart
@@ -46,8 +47,8 @@ export function AreaChart({ data = [], xKey = 'label', yKey = 'value', height = 
 
   if (!Array.isArray(data) || data.length === 0) {
     return (
-      <div className="flex items-center justify-center bg-white/40 dark:bg-slate-900/40 rounded-2xl border border-white/20 dark:border-slate-800/50 backdrop-blur-md" style={{ height }}>
-        <p className="text-gray-400 dark:text-slate-500 text-sm">No trend data available</p>
+      <div className="flex items-center justify-center bg-navy-800/60 bg-navy-800/60 rounded-2xl border border-white/[0.06] backdrop-blur-md" style={{ height }}>
+        <p className="text-slate-500 text-sm">No trend data available</p>
       </div>
     );
   }
@@ -132,23 +133,22 @@ export function AreaChart({ data = [], xKey = 'label', yKey = 'value', height = 
         {yLabelValues.map((v, i) => {
           const y = svgHeight - paddingBottom - (i / yTicks) * chartHeight;
           return (
-            <g key={i} className="opacity-70">
+            <g key={i}>
               <line 
                 x1={paddingLeft} 
                 y1={y} 
                 x2={svgWidth - paddingRight} 
                 y2={y} 
-                stroke="currentColor" 
-                className="text-gray-200 dark:text-slate-800" 
+                stroke="rgba(255, 255, 255, 0.04)" 
                 strokeDasharray="4 4"
               />
               <text 
                 x={paddingLeft - 10} 
                 y={y + 4} 
                 textAnchor="end" 
-                className="text-xs font-bold fill-gray-700 dark:fill-slate-300"
+                className="text-[10px] font-semibold fill-slate-500 font-sans"
               >
-                {valuePrefix}{v >= 1000000 ? `${(v / 1000000).toFixed(1)}m` : v >= 1000 ? `${(v / 1000).toFixed(0)}k` : v.toFixed(0)}
+                {valuePrefix}{v >= 1000000 ? `${(v / 1000000).toFixed(1)}M` : v >= 1000 ? `${(v / 1000).toFixed(0)}K` : v.toFixed(0)}
               </text>
             </g>
           );
@@ -178,7 +178,7 @@ export function AreaChart({ data = [], xKey = 'label', yKey = 'value', height = 
                 x={x}
                 y={svgHeight - 15}
                 textAnchor="middle"
-                className="text-xs font-bold fill-gray-700 dark:fill-slate-300"
+                className="text-[10px] font-semibold fill-slate-500 font-sans"
               >
                 {d[xKey]}
               </text>
@@ -204,7 +204,7 @@ export function AreaChart({ data = [], xKey = 'label', yKey = 'value', height = 
             strokeWidth="2.5" 
             strokeLinecap="round" 
             strokeLinejoin="round"
-            className="transition-all duration-300"
+            className="transition-all duration-300 chart-glow"
           />
         )}
 
@@ -246,16 +246,16 @@ export function AreaChart({ data = [], xKey = 'label', yKey = 'value', height = 
       {/* Glassmorphism Tooltip absolute overlay */}
       {hoveredIndex !== null && points[hoveredIndex] && (
         <div 
-          className="absolute z-20 pointer-events-none transition-all duration-75 transform -translate-x-1/2 -translate-y-full p-3 bg-white/80 dark:bg-slate-900/80 backdrop-blur-md border border-white/20 dark:border-slate-800/80 rounded-xl shadow-xl min-w-[120px] text-center"
+          className="absolute z-20 pointer-events-none transition-all duration-75 transform -translate-x-1/2 -translate-y-full p-3 bg-navy-800/60 bg-navy-800/60 backdrop-blur-md border border-white/[0.06] rounded-xl shadow-xl min-w-[120px] text-center"
           style={{ 
             left: `${tooltipPos.x}px`, 
             top: `${tooltipPos.y}px` 
           }}
         >
-          <div className="text-[10px] text-gray-400 dark:text-slate-500 uppercase tracking-wider font-semibold">
+          <div className="text-[10px] text-slate-500 uppercase tracking-wider font-semibold">
             {points[hoveredIndex].item[xKey]}
           </div>
-          <div className="text-sm font-bold text-gray-800 dark:text-slate-100 mt-0.5">
+          <div className="text-sm font-bold text-slate-800 dark:text-white mt-0.5">
             {valuePrefix}{points[hoveredIndex].val.toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 2 })}
           </div>
         </div>
@@ -274,8 +274,8 @@ export function BarChart({ data = [], xKey = 'label', yKey = 'value', height = 2
 
   if (!Array.isArray(data) || data.length === 0) {
     return (
-      <div className="flex items-center justify-center bg-white/40 dark:bg-slate-900/40 rounded-2xl border border-white/20 dark:border-slate-800/50 backdrop-blur-md" style={{ height }}>
-        <p className="text-gray-400 dark:text-slate-500 text-sm">No visualization data available</p>
+      <div className="flex items-center justify-center bg-navy-800/60 bg-navy-800/60 rounded-2xl border border-white/[0.06] backdrop-blur-md" style={{ height }}>
+        <p className="text-slate-500 text-sm">No visualization data available</p>
       </div>
     );
   }
@@ -354,23 +354,22 @@ export function BarChart({ data = [], xKey = 'label', yKey = 'value', height = 2
           const y = svgHeight - paddingBottom - (i / 4) * chartHeight;
           const v = minVal + (maxVal - minVal) * (i / 4);
           return (
-            <g key={i} className="opacity-40">
+            <g key={i}>
               <line 
                 x1={paddingLeft} 
                 y1={y} 
                 x2={svgWidth - paddingRight} 
                 y2={y} 
-                stroke="currentColor" 
-                className="text-gray-200 dark:text-slate-800" 
+                stroke="rgba(255, 255, 255, 0.04)" 
                 strokeDasharray="4 4"
               />
               <text 
                 x={paddingLeft - 10} 
                 y={y + 4} 
                 textAnchor="end" 
-                className="text-[10px] font-medium fill-gray-400 dark:fill-slate-500"
+                className="text-[10px] font-semibold fill-slate-500 font-sans"
               >
-                {valuePrefix}{v >= 1000 ? `${(v / 1000).toFixed(1)}k` : v.toFixed(0)}
+                {valuePrefix}{v >= 1000000 ? `${(v / 1000000).toFixed(1)}M` : v >= 1000 ? `${(v / 1000).toFixed(0)}K` : v.toFixed(0)}
               </text>
             </g>
           );
@@ -388,7 +387,7 @@ export function BarChart({ data = [], xKey = 'label', yKey = 'value', height = 2
               x={x}
               y={svgHeight - 15}
               textAnchor="middle"
-              className="text-[10px] font-medium fill-gray-400 dark:fill-slate-500"
+              className="text-[10px] font-semibold fill-slate-500 font-sans"
             >
               {d[xKey]}
             </text>
@@ -418,16 +417,16 @@ export function BarChart({ data = [], xKey = 'label', yKey = 'value', height = 2
       {/* Tooltip Overlay */}
       {hoveredIdx !== null && bars[hoveredIdx] && (
         <div 
-          className="absolute z-20 pointer-events-none transition-all duration-75 transform -translate-x-1/2 -translate-y-full p-3 bg-white/85 dark:bg-slate-900/85 backdrop-blur-md border border-white/20 dark:border-slate-800/80 rounded-xl shadow-xl min-w-[120px] text-center"
+          className="absolute z-20 pointer-events-none transition-all duration-75 transform -translate-x-1/2 -translate-y-full p-3 bg-navy-800/60 backdrop-blur-md border border-white/[0.06] rounded-xl shadow-xl min-w-[120px] text-center"
           style={{ 
             left: `${tooltipPos.x}px`, 
             top: `${tooltipPos.y}px` 
           }}
         >
-          <div className="text-[10px] text-gray-400 dark:text-slate-500 uppercase tracking-wider font-semibold">
+          <div className="text-[10px] text-slate-500 uppercase tracking-wider font-semibold">
             {bars[hoveredIdx].item[xKey]}
           </div>
-          <div className="text-sm font-bold text-gray-800 dark:text-slate-100 mt-0.5">
+          <div className="text-sm font-bold text-slate-800 dark:text-white mt-0.5">
             {valuePrefix}{bars[hoveredIdx].val.toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 2 })}
           </div>
         </div>
@@ -444,8 +443,8 @@ export function DonutChart({ data = [], size = 200, innerLabel = 'CSAT', innerVa
 
   if (!Array.isArray(data) || data.length === 0) {
     return (
-      <div className="flex items-center justify-center bg-white/40 dark:bg-slate-900/40 rounded-2xl border border-white/20 dark:border-slate-800/50 backdrop-blur-md" style={{ height: size }}>
-        <p className="text-gray-400 dark:text-slate-500 text-sm">No sentiment data</p>
+      <div className="flex items-center justify-center bg-navy-800/60 bg-navy-800/60 rounded-2xl border border-white/[0.06] backdrop-blur-md" style={{ height: size }}>
+        <p className="text-slate-500 text-sm">No sentiment data</p>
       </div>
     );
   }
@@ -491,8 +490,7 @@ export function DonutChart({ data = [], size = 200, innerLabel = 'CSAT', innerVa
             cy={center}
             r={radius}
             fill="transparent"
-            stroke="currentColor"
-            className="text-gray-100 dark:text-slate-800/60"
+            stroke="rgba(255, 255, 255, 0.04)"
             strokeWidth={strokeWidth}
           />
           {/* Segment Circles */}
@@ -518,33 +516,31 @@ export function DonutChart({ data = [], size = 200, innerLabel = 'CSAT', innerVa
           ))}
         </svg>
 
-        {/* Center Text Card */}
-        <div className="absolute inset-0 flex flex-col items-center justify-center text-center select-none pointer-events-none">
-          <span className="text-[10px] uppercase tracking-wider font-semibold text-gray-400 dark:text-slate-500">
-            {hoveredIdx !== null ? segments[hoveredIdx].label : innerLabel}
-          </span>
-          <span className="text-2xl font-extrabold text-gray-800 dark:text-slate-100 tracking-tight mt-0.5">
-            {hoveredIdx !== null ? `${segments[hoveredIdx].pct}%` : innerValue}
-          </span>
+        {/* Inner Centered Label */}
+        <div className="absolute inset-0 flex flex-col items-center justify-center pointer-events-none select-none">
+          <span className="text-[9px] font-bold text-slate-500 uppercase tracking-wider">{innerLabel}</span>
+          <span className="text-2xl font-extrabold text-white mt-0.5">{innerValue}</span>
         </div>
       </div>
 
-      {/* Legend Grid */}
-      <div className="flex flex-col gap-3 justify-center min-w-[140px]">
+      {/* Legend list */}
+      <div className="flex flex-col gap-2 min-w-[160px]">
         {segments.map((seg, idx) => (
           <div 
             key={idx} 
             onMouseEnter={() => setHoveredIdx(idx)}
             onMouseLeave={() => setHoveredIdx(null)}
-            className={`flex items-center justify-between text-sm py-1 px-2.5 rounded-lg transition-colors cursor-pointer ${
-              hoveredIdx === idx ? 'bg-gray-100 dark:bg-slate-800/80 font-semibold' : 'hover:bg-gray-50 dark:hover:bg-slate-800/40'
+            className={`flex items-center justify-between text-xs px-3 py-1.5 rounded-lg border transition-all duration-200 cursor-pointer ${
+              hoveredIdx === idx 
+                ? 'bg-white/[0.04] border-white/[0.08] scale-[1.03] shadow-glow-purple-sm' 
+                : 'border-transparent hover:bg-white/[0.02]'
             }`}
           >
             <div className="flex items-center gap-2">
               <span className="w-3 h-3 rounded-full flex-shrink-0" style={{ backgroundColor: seg.color }}></span>
-              <span className="font-medium text-gray-600 dark:text-slate-300">{seg.label}</span>
+              <span className="font-medium text-slate-300">{seg.label}</span>
             </div>
-            <span className="font-semibold text-gray-900 dark:text-slate-100 pl-4">{seg.pct}%</span>
+            <span className="font-semibold text-white pl-4">{seg.pct}%</span>
           </div>
         ))}
       </div>

@@ -29,13 +29,13 @@ export default function AddCompanyModal({ isOpen, onClose }) {
   };
 
   return (
-    <div className="fixed inset-0 z-[100] flex items-center justify-center bg-gray-900 bg-opacity-50 dark:bg-opacity-80 px-4 transition-opacity">
-      <div className="bg-white dark:bg-slate-900 rounded-xl shadow-xl w-full max-w-md overflow-hidden animate-fade-in border dark:border-slate-800">
-        <div className="px-6 py-4 border-b dark:border-slate-800 flex justify-between items-center">
-          <h3 className="text-lg font-semibold text-gray-900 dark:text-slate-100">Add New Company</h3>
+    <div className="fixed inset-0 z-[100] flex items-center justify-center bg-black/60 backdrop-blur-sm px-4 transition-opacity">
+      <div className="bg-navy-800/95 backdrop-blur-xl rounded-2xl shadow-glass-lg w-full max-w-md overflow-hidden animate-scale-up border border-white/[0.08]">
+        <div className="px-6 py-4 border-b border-white/[0.06] flex justify-between items-center">
+          <h3 className="text-lg font-bold text-slate-800 dark:text-white font-display">Add New Company</h3>
           <button 
             onClick={onClose}
-            className="text-gray-400 hover:text-gray-600 dark:hover:text-slate-300 focus:outline-none transition-colors"
+            className="text-slate-400 hover:text-slate-200 focus:outline-none transition-colors"
           >
             <span className="sr-only">Close</span>
             <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -46,15 +46,15 @@ export default function AddCompanyModal({ isOpen, onClose }) {
         
         <form onSubmit={handleSubmit} className="p-6">
           {error && (
-            <div className="mb-4 bg-red-50 dark:bg-red-900/30 text-red-600 dark:text-red-400 p-3 rounded-lg text-sm border border-red-100 dark:border-red-800/50">
+            <div className="mb-4 bg-red-500/10 text-red-400 p-3 rounded-xl text-sm border border-red-500/20">
               {error}
             </div>
           )}
           
           <div className="space-y-4">
             <div>
-              <label htmlFor="companyName" className="block text-sm font-medium text-gray-700 dark:text-slate-300 mb-1">
-                Company Name <span className="text-red-500">*</span>
+              <label htmlFor="companyName" className="block text-sm font-medium text-slate-300 mb-1.5">
+                Company Name <span className="text-red-400">*</span>
               </label>
               <input
                 id="companyName"
@@ -62,13 +62,13 @@ export default function AddCompanyModal({ isOpen, onClose }) {
                 required
                 value={name}
                 onChange={(e) => setName(e.target.value)}
-                className="w-full px-3 py-2 bg-white dark:bg-slate-950 border border-gray-300 dark:border-slate-700 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 text-gray-900 dark:text-slate-100 sm:text-sm transition-colors"
+                className="w-full px-3 py-2.5 bg-navy-900/80 border border-white/[0.08] rounded-xl text-white placeholder-slate-600 focus:outline-none focus-glow sm:text-sm transition-all"
                 placeholder="e.g. Acme Corp"
               />
             </div>
             
             <div>
-              <label htmlFor="industry" className="block text-sm font-medium text-gray-700 dark:text-slate-300 mb-1">
+              <label htmlFor="industry" className="block text-sm font-medium text-slate-300 mb-1.5">
                 Industry
               </label>
               <input
@@ -76,7 +76,7 @@ export default function AddCompanyModal({ isOpen, onClose }) {
                 type="text"
                 value={industry}
                 onChange={(e) => setIndustry(e.target.value)}
-                className="w-full px-3 py-2 bg-white dark:bg-slate-950 border border-gray-300 dark:border-slate-700 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 text-gray-900 dark:text-slate-100 sm:text-sm transition-colors"
+                className="w-full px-3 py-2.5 bg-navy-900/80 border border-white/[0.08] rounded-xl text-white placeholder-slate-600 focus:outline-none focus-glow sm:text-sm transition-all"
                 placeholder="e.g. Retail, Tech, Manufacturing"
               />
             </div>
@@ -86,14 +86,14 @@ export default function AddCompanyModal({ isOpen, onClose }) {
             <button
               type="button"
               onClick={onClose}
-              className="px-4 py-2 border border-gray-300 dark:border-slate-700 rounded-md text-sm font-medium text-gray-700 dark:text-slate-300 bg-white dark:bg-slate-800 hover:bg-gray-50 dark:hover:bg-slate-700 focus:outline-none transition-colors"
+              className="px-4 py-2 border border-white/[0.08] rounded-xl text-sm font-medium text-slate-300 bg-navy-700/60 hover:bg-navy-700 focus:outline-none transition-colors"
               disabled={loading}
             >
               Cancel
             </button>
             <button
               type="submit"
-              className="px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 dark:bg-indigo-500 dark:hover:bg-indigo-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 disabled:opacity-50 transition-colors"
+              className="px-4 py-2 rounded-xl text-sm font-medium text-white bg-gradient-to-r from-violet-600 to-indigo-600 hover:from-violet-500 hover:to-indigo-500 shadow-glow-purple-sm focus:outline-none disabled:opacity-50 transition-all"
               disabled={loading || !name.trim()}
             >
               {loading ? 'Creating...' : 'Create Company'}

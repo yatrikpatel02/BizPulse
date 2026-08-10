@@ -156,16 +156,16 @@ export default function Profile() {
       {/* User Info Card (Wider, horizontal design with decreased height) */}
       <div className="glass-card rounded-2xl p-6 shadow-sm flex flex-col md:flex-row items-center md:items-start gap-8">
         {/* Left: Interactive Avatar Upload */}
-        <div className="flex flex-col items-center text-center md:border-r border-gray-100 dark:border-slate-800 md:pr-8 md:min-w-[200px]">
+        <div className="flex flex-col items-center text-center md:border-r border-white/[0.04] border-white/[0.06] md:pr-8 md:min-w-[200px]">
           <div 
             onClick={() => document.getElementById('avatar-input').click()}
-            className="group relative w-20 h-20 rounded-full cursor-pointer overflow-hidden ring-4 ring-indigo-500/10 shadow-md mb-4"
+            className="group relative w-20 h-20 rounded-full cursor-pointer overflow-hidden ring-4 ring-violet-500/10 shadow-md mb-4"
             title="Click to change profile picture"
           >
             {avatarPreview ? (
               <img src={avatarPreview} alt="Avatar" className="w-full h-full object-cover" />
             ) : (
-              <div className="w-full h-full bg-indigo-50/70 dark:bg-indigo-950/40 flex items-center justify-center text-indigo-600 dark:text-indigo-400 font-bold text-2.5xl uppercase font-display">
+              <div className="w-full h-full bg-indigo-50/70 dark:bg-violet-500/10 flex items-center justify-center text-violet-400 font-bold text-2.5xl uppercase font-display">
                 {userInitials}
               </div>
             )}
@@ -187,24 +187,24 @@ export default function Profile() {
           <button
             type="button"
             onClick={() => document.getElementById('avatar-input').click()}
-            className="mt-1 mb-3 px-3.5 py-1.5 border border-gray-250 dark:border-slate-800 hover:bg-gray-50 dark:hover:bg-slate-800 text-gray-700 dark:text-slate-350 text-[11px] font-semibold rounded-xl transition-all shadow-sm flex items-center gap-1"
+            className="mt-1 mb-3 px-3.5 py-1.5 border border-gray-250 border-white/[0.06] hover:bg-navy-900/40 dark:hover:bg-slate-800 text-slate-300 dark:text-slate-400 text-[11px] font-semibold rounded-xl transition-all shadow-sm flex items-center gap-1"
           >
-            <svg className="w-3.5 h-3.5 text-gray-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <svg className="w-3.5 h-3.5 text-slate-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15.232 5.232l3.536 3.536m-2.036-2.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />
             </svg>
             Edit Photo
           </button>
-          <h2 className="text-xl font-bold text-gray-800 dark:text-slate-100 font-display">
+          <h2 className="text-xl font-bold text-slate-800 dark:text-white font-display">
             {user?.first_name || user?.last_name ? `${user.first_name} ${user.last_name}` : user?.username}
           </h2>
-          <p className="text-xs text-gray-500 dark:text-slate-400 mt-1">{user?.email}</p>
+          <p className="text-xs text-slate-400 mt-1">{user?.email}</p>
         </div>
 
         {/* Right: Personal details fields side-by-side */}
         <div className="flex-1 w-full">
           <form onSubmit={handleProfileUpdate} className="space-y-5">
             <div className="flex items-center justify-between">
-              <h3 className="text-xs font-bold text-gray-400 dark:text-slate-500 uppercase tracking-wider">Personal Profile Details</h3>
+              <h3 className="text-xs font-bold text-slate-500 uppercase tracking-wider">Personal Profile Details</h3>
               {profileError && (
                 <p className="text-xs font-semibold text-red-500">{profileError}</p>
               )}
@@ -212,22 +212,22 @@ export default function Profile() {
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div>
-                <label className="block text-[10px] font-semibold text-gray-400 dark:text-slate-500 uppercase tracking-wider mb-1.5">First Name</label>
+                <label className="block text-[10px] font-semibold text-slate-500 uppercase tracking-wider mb-1.5">First Name</label>
                 <input
                   type="text"
                   value={firstName}
                   onChange={(e) => setFirstName(e.target.value)}
-                  className="block w-full px-3.5 py-2 bg-gray-50/50 dark:bg-slate-950/40 border border-gray-200 dark:border-slate-800 focus:border-indigo-500 rounded-xl text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-slate-500 focus:outline-none text-xs transition-all"
+                  className="block w-full px-3.5 py-2 bg-navy-900/40 bg-navy-900/40 border border-white/[0.06] focus:border-indigo-500 rounded-xl text-white placeholder-gray-400 dark:placeholder-slate-500 focus:outline-none text-xs transition-all"
                   placeholder="First Name"
                 />
               </div>
               <div>
-                <label className="block text-[10px] font-semibold text-gray-400 dark:text-slate-500 uppercase tracking-wider mb-1.5">Last Name</label>
+                <label className="block text-[10px] font-semibold text-slate-500 uppercase tracking-wider mb-1.5">Last Name</label>
                 <input
                   type="text"
                   value={lastName}
                   onChange={(e) => setLastName(e.target.value)}
-                  className="block w-full px-3.5 py-2 bg-gray-50/50 dark:bg-slate-950/40 border border-gray-200 dark:border-slate-800 focus:border-indigo-500 rounded-xl text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-slate-500 focus:outline-none text-xs transition-all"
+                  className="block w-full px-3.5 py-2 bg-navy-900/40 bg-navy-900/40 border border-white/[0.06] focus:border-indigo-500 rounded-xl text-white placeholder-gray-400 dark:placeholder-slate-500 focus:outline-none text-xs transition-all"
                   placeholder="Last Name"
                 />
               </div>
@@ -235,19 +235,19 @@ export default function Profile() {
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div>
-                <label className="block text-[10px] font-semibold text-gray-400 dark:text-slate-500 uppercase tracking-wider mb-1.5">Username</label>
+                <label className="block text-[10px] font-semibold text-slate-500 uppercase tracking-wider mb-1.5">Username</label>
                 <input
                   type="text"
                   value={usernameField}
                   onChange={(e) => setUsernameField(e.target.value)}
                   required
-                  className="block w-full px-3.5 py-2 bg-gray-50/50 dark:bg-slate-950/40 border border-gray-200 dark:border-slate-800 focus:border-indigo-500 rounded-xl text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-slate-500 focus:outline-none text-xs transition-all"
+                  className="block w-full px-3.5 py-2 bg-navy-900/40 bg-navy-900/40 border border-white/[0.06] focus:border-indigo-500 rounded-xl text-white placeholder-gray-400 dark:placeholder-slate-500 focus:outline-none text-xs transition-all"
                   placeholder="Username"
                 />
               </div>
               <div>
-                <span className="block text-[10px] font-semibold text-gray-400 dark:text-slate-500 uppercase tracking-wider mb-1.5">Email Address</span>
-                <div className="px-3.5 py-2 bg-gray-100/70 dark:bg-slate-900 border border-gray-200 dark:border-slate-850 rounded-xl text-gray-500 dark:text-slate-400 text-xs font-semibold">
+                <span className="block text-[10px] font-semibold text-slate-500 uppercase tracking-wider mb-1.5">Email Address</span>
+                <div className="px-3.5 py-2 bg-gray-100/70 bg-navy-800/60 border border-white/[0.06] dark:border-slate-850 rounded-xl text-slate-400 text-xs font-semibold">
                   {user?.email}
                 </div>
               </div>
@@ -257,7 +257,7 @@ export default function Profile() {
               <button
                 type="submit"
                 disabled={profileLoading}
-                className="px-6 py-2.5 bg-indigo-600 hover:bg-indigo-700 dark:bg-indigo-500 dark:hover:bg-indigo-600 text-white text-xs font-semibold rounded-xl transition-all shadow-sm shadow-indigo-500/10"
+                className="px-6 py-2.5 bg-violet-600 hover:bg-violet-500 bg-violet-600 hover:bg-violet-500 text-white text-xs font-semibold rounded-xl transition-all shadow-sm shadow-indigo-500/10"
               >
                 {profileLoading ? 'Saving...' : 'Save Profile Details'}
               </button>
@@ -274,21 +274,21 @@ export default function Profile() {
           <div className="glass-card rounded-2xl p-6 shadow-sm">
             {!showPasswordForm ? (
               <div className="py-4 text-center space-y-4">
-                <div className="w-12 h-12 bg-indigo-500/10 rounded-full flex items-center justify-center text-indigo-600 dark:text-indigo-400 mx-auto">
+                <div className="w-12 h-12 bg-violet-500/10 rounded-full flex items-center justify-center text-violet-400 mx-auto">
                   <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
                   </svg>
                 </div>
                 <div>
-                  <h3 className="text-lg font-bold text-gray-800 dark:text-slate-100 font-display">Account Security</h3>
-                  <p className="text-xs text-gray-500 dark:text-slate-400 mt-1 max-w-[220px] mx-auto leading-relaxed">
+                  <h3 className="text-lg font-bold text-slate-800 dark:text-white font-display">Account Security</h3>
+                  <p className="text-xs text-slate-400 mt-1 max-w-[220px] mx-auto leading-relaxed">
                     Update your account password to secure your metrics and uploads.
                   </p>
                 </div>
                 <button
                   type="button"
                   onClick={() => setShowPasswordForm(true)}
-                  className="w-full py-2.5 bg-indigo-600 hover:bg-indigo-700 dark:bg-indigo-500 dark:hover:bg-indigo-600 text-white text-xs font-semibold rounded-xl transition-all shadow-sm shadow-indigo-500/10"
+                  className="w-full py-2.5 bg-violet-600 hover:bg-violet-500 bg-violet-600 hover:bg-violet-500 text-white text-xs font-semibold rounded-xl transition-all shadow-sm shadow-indigo-500/10"
                 >
                   Change Password
                 </button>
@@ -296,7 +296,7 @@ export default function Profile() {
             ) : (
               <div className="space-y-4 animate-fade-in">
                 <div className="flex items-center justify-between">
-                  <h3 className="text-lg font-bold text-gray-800 dark:text-slate-100 font-display">Change Password</h3>
+                  <h3 className="text-lg font-bold text-slate-800 dark:text-white font-display">Change Password</h3>
                   <button
                     type="button"
                     onClick={() => {
@@ -307,7 +307,7 @@ export default function Profile() {
                       setNewPassword('');
                       setNewPasswordConfirm('');
                     }}
-                    className="text-xs text-indigo-500 hover:text-indigo-600 dark:text-indigo-400 dark:hover:text-indigo-300 font-semibold"
+                    className="text-xs text-violet-400 hover:text-violet-400 dark:hover:text-indigo-300 font-semibold"
                   >
                     Cancel
                   </button>
@@ -320,38 +320,38 @@ export default function Profile() {
                 )}
                 
                 {passwordSuccess && (
-                  <div className="bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 p-3 rounded-xl text-xs font-semibold">
+                  <div className="bg-emerald-500/10 border border-emerald-500/20 text-emerald-600 dark:text-emerald-400 p-3 rounded-xl text-xs font-semibold">
                     {passwordSuccess}
                   </div>
                 )}
 
                 <form onSubmit={handlePasswordChange} className="space-y-4">
                   <div>
-                    <label className="block text-[11px] font-semibold text-gray-400 dark:text-slate-500 uppercase tracking-wider mb-1.5">Current Password</label>
+                    <label className="block text-[11px] font-semibold text-slate-500 uppercase tracking-wider mb-1.5">Current Password</label>
                     <input
                       type="password"
                       required
                       value={oldPassword}
                       onChange={(e) => setOldPassword(e.target.value)}
-                      className="block w-full px-3.5 py-2 bg-gray-50/50 dark:bg-slate-950/40 border border-gray-200 dark:border-slate-800 focus:border-indigo-500 rounded-xl text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-slate-500 focus:outline-none text-sm transition-all"
+                      className="block w-full px-3.5 py-2 bg-navy-900/40 bg-navy-900/40 border border-white/[0.06] focus:border-indigo-500 rounded-xl text-white placeholder-gray-400 dark:placeholder-slate-500 focus:outline-none text-sm transition-all"
                       placeholder="••••••••"
                     />
                   </div>
 
                   <div>
-                    <label className="block text-[11px] font-semibold text-gray-400 dark:text-slate-500 uppercase tracking-wider mb-1.5">New Password</label>
+                    <label className="block text-[11px] font-semibold text-slate-500 uppercase tracking-wider mb-1.5">New Password</label>
                     <input
                       type="password"
                       required
                       value={newPassword}
                       onChange={(e) => setNewPassword(e.target.value)}
-                      className="block w-full px-3.5 py-2 bg-gray-50/50 dark:bg-slate-950/40 border border-gray-200 dark:border-slate-800 focus:border-indigo-500 rounded-xl text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-slate-500 focus:outline-none text-sm transition-all"
+                      className="block w-full px-3.5 py-2 bg-navy-900/40 bg-navy-900/40 border border-white/[0.06] focus:border-indigo-500 rounded-xl text-white placeholder-gray-400 dark:placeholder-slate-500 focus:outline-none text-sm transition-all"
                       placeholder="••••••••"
                     />
                     {newPassword && (
                       <ul className="mt-3 grid grid-cols-1 gap-1 text-[10px] font-semibold text-slate-400 bg-slate-950/20 border border-slate-900 rounded-xl p-2.5">
                         {passwordChecks.map((c, i) => (
-                          <li key={i} className={`flex items-center gap-1.5 ${c.passed ? 'text-emerald-400' : 'text-slate-500'}`}>
+                          <li key={i} className={`flex items-center gap-1.5 ${c.passed ? 'text-emerald-600 dark:text-emerald-400' : 'text-slate-500'}`}>
                             <span>{c.passed ? '✓' : '•'}</span> {c.label}
                           </li>
                         ))}
@@ -360,13 +360,13 @@ export default function Profile() {
                   </div>
 
                   <div>
-                    <label className="block text-[11px] font-semibold text-gray-400 dark:text-slate-500 uppercase tracking-wider mb-1.5">Confirm New Password</label>
+                    <label className="block text-[11px] font-semibold text-slate-500 uppercase tracking-wider mb-1.5">Confirm New Password</label>
                     <input
                       type="password"
                       required
                       value={newPasswordConfirm}
                       onChange={(e) => setNewPasswordConfirm(e.target.value)}
-                      className="block w-full px-3.5 py-2 bg-gray-50/50 dark:bg-slate-950/40 border border-gray-200 dark:border-slate-800 focus:border-indigo-500 rounded-xl text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-slate-500 focus:outline-none text-sm transition-all"
+                      className="block w-full px-3.5 py-2 bg-navy-900/40 bg-navy-900/40 border border-white/[0.06] focus:border-indigo-500 rounded-xl text-white placeholder-gray-400 dark:placeholder-slate-500 focus:outline-none text-sm transition-all"
                       placeholder="••••••••"
                     />
                     {newPasswordConfirm && !passwordsMatch && (
@@ -377,7 +377,7 @@ export default function Profile() {
                   <button
                     type="submit"
                     disabled={passwordLoading || !allChecksPassed || !passwordsMatch}
-                    className="w-full py-2.5 bg-indigo-600 hover:bg-indigo-700 dark:bg-indigo-500 dark:hover:bg-indigo-600 text-white text-xs font-semibold rounded-xl disabled:opacity-40 transition-colors"
+                    className="w-full py-2.5 bg-violet-600 hover:bg-violet-500 bg-violet-600 hover:bg-violet-500 text-white text-xs font-semibold rounded-xl disabled:opacity-40 transition-colors"
                   >
                     {passwordLoading ? 'Updating...' : 'Update Password'}
                   </button>
@@ -388,8 +388,8 @@ export default function Profile() {
 
           {/* Danger Zone Card */}
           <div className="glass-card rounded-2xl p-6 border border-red-200/10 dark:border-red-500/10 shadow-sm bg-red-500/[0.01] space-y-4">
-            <h3 className="text-lg font-bold text-red-600 dark:text-red-400 font-display">Delete Account</h3>
-            <p className="text-xs text-gray-500 dark:text-slate-400 leading-relaxed">
+            <h3 className="text-lg font-bold text-red-600 text-red-400 font-display">Delete Account</h3>
+            <p className="text-xs text-slate-400 leading-relaxed">
               Once you delete your account, all your uploaded datasets and analytics will be permanently removed.
             </p>
             
@@ -412,18 +412,18 @@ export default function Profile() {
               </button>
             ) : (
               <div className="space-y-4 animate-fade-in">
-                <div className="bg-red-500/10 border border-red-500/20 text-red-600 dark:text-red-400 p-3 rounded-xl text-xs font-medium">
+                <div className="bg-red-500/10 border border-red-500/20 text-red-600 text-red-400 p-3 rounded-xl text-xs font-medium">
                   Are you absolutely sure? This action is irreversible.
                 </div>
                 
                 <div className="space-y-1.5">
-                  <label className="block text-[10px] font-semibold text-gray-400 dark:text-slate-500 uppercase tracking-wider">Confirm with Password</label>
+                  <label className="block text-[10px] font-semibold text-slate-500 uppercase tracking-wider">Confirm with Password</label>
                   <input
                     type="password"
                     value={confirmPassword}
                     onChange={(e) => setConfirmPassword(e.target.value)}
                     required
-                    className="block w-full px-3.5 py-2.5 bg-gray-50/50 dark:bg-slate-950/40 border border-gray-250 dark:border-slate-800 focus:border-indigo-500 rounded-xl text-gray-900 dark:text-white placeholder-gray-400 focus:outline-none text-xs transition-all"
+                    className="block w-full px-3.5 py-2.5 bg-navy-900/40 bg-navy-900/40 border border-gray-250 border-white/[0.06] focus:border-indigo-500 rounded-xl text-white placeholder-gray-400 focus:outline-none text-xs transition-all"
                     placeholder="••••••••"
                   />
                 </div>
@@ -444,7 +444,7 @@ export default function Profile() {
                       setConfirmPassword('');
                       setDeleteError('');
                     }}
-                    className="flex-1 py-2 border border-gray-200 dark:border-slate-800 hover:bg-gray-50 dark:hover:bg-slate-800 text-gray-700 dark:text-slate-300 text-xs font-semibold rounded-xl transition-all"
+                    className="flex-1 py-2 border border-white/[0.06] hover:bg-navy-900/40 dark:hover:bg-slate-800 text-slate-300 text-xs font-semibold rounded-xl transition-all"
                   >
                     Cancel
                   </button>
@@ -458,10 +458,10 @@ export default function Profile() {
         <div className="lg:col-span-2 space-y-6">
           <div className="glass-card rounded-2xl p-6 shadow-sm space-y-6">
             <div className="flex items-center justify-between">
-              <h3 className="text-xl font-bold text-gray-800 dark:text-slate-100 font-display">Manage Companies</h3>
+              <h3 className="text-xl font-bold text-slate-800 dark:text-white font-display">Manage Companies</h3>
               <button
                 onClick={() => setIsAddModalOpen(true)}
-                className="px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-semibold rounded-xl shadow-sm transition-colors flex items-center gap-1"
+                className="px-4 py-2 bg-violet-600 hover:bg-violet-500 text-white text-xs font-semibold rounded-xl shadow-sm transition-colors flex items-center gap-1"
               >
                 <span>+</span> Add Company
               </button>
@@ -473,17 +473,17 @@ export default function Profile() {
               </div>
             )}
 
-            <div className="border border-gray-100 dark:border-slate-800 rounded-xl overflow-hidden">
+            <div className="border border-white/[0.04] border-white/[0.06] rounded-xl overflow-hidden">
               <table className="w-full text-sm">
                 <thead>
-                  <tr className="bg-gray-50 dark:bg-slate-800/80 border-b border-gray-200 dark:border-slate-700">
-                    <th className="px-5 py-3 text-left text-xs font-bold text-gray-700 dark:text-slate-200 uppercase tracking-wider">Company Name</th>
-                    <th className="px-5 py-3 text-right text-xs font-bold text-gray-700 dark:text-slate-200 uppercase tracking-wider">Actions</th>
+                  <tr className="bg-navy-900/40 border-b border-white/[0.06]">
+                    <th className="px-5 py-3 text-left text-xs font-bold text-slate-200 uppercase tracking-wider">Company Name</th>
+                    <th className="px-5 py-3 text-right text-xs font-bold text-slate-200 uppercase tracking-wider">Actions</th>
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-gray-150 dark:divide-slate-800/60">
                   {businesses.map((business) => (
-                    <tr key={business.id} className="hover:bg-gray-50/50 dark:hover:bg-slate-800/20 transition-colors">
+                    <tr key={business.id} className="hover:bg-navy-900/40 dark:hover:bg-slate-800/20 transition-colors">
                       <td className="px-5 py-4">
                         {editingId === business.id ? (
                           <input
@@ -494,7 +494,7 @@ export default function Profile() {
                             autoFocus
                           />
                         ) : (
-                          <span className="font-semibold text-gray-800 dark:text-slate-200">{business.name}</span>
+                          <span className="font-semibold text-slate-200">{business.name}</span>
                         )}
                       </td>
                       <td className="px-5 py-4 text-right">
@@ -503,13 +503,13 @@ export default function Profile() {
                             <>
                               <button
                                 onClick={() => handleSaveEdit(business.id)}
-                                className="px-3 py-1 bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-semibold rounded-lg transition-colors"
+                                className="px-3 py-1 bg-violet-600 hover:bg-violet-500 text-white text-xs font-semibold rounded-lg transition-colors"
                               >
                                 Save
                               </button>
                               <button
                                 onClick={() => setEditingId(null)}
-                                className="px-3 py-1 border dark:border-slate-700 hover:bg-slate-800 text-gray-400 dark:text-slate-300 text-xs font-semibold rounded-lg transition-colors"
+                                className="px-3 py-1 border border-white/[0.06] hover:bg-slate-800 text-slate-500 text-slate-300 text-xs font-semibold rounded-lg transition-colors"
                               >
                                 Cancel
                               </button>
@@ -521,7 +521,7 @@ export default function Profile() {
                                   setEditingId(business.id);
                                   setEditName(business.name);
                                 }}
-                                className="p-1.5 text-gray-400 hover:text-indigo-600 dark:hover:text-indigo-400 rounded-lg hover:bg-indigo-50 dark:hover:bg-indigo-950/30 transition-colors"
+                                className="p-1.5 text-slate-500 hover:text-indigo-600 dark:hover:text-violet-400 rounded-lg hover:bg-indigo-50 dark:hover:bg-indigo-950/30 transition-colors"
                                 title="Rename Company"
                               >
                                 <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -530,7 +530,7 @@ export default function Profile() {
                               </button>
                               <button
                                 onClick={() => removeBusiness(business.id)}
-                                className="p-1.5 text-gray-400 hover:text-red-600 dark:hover:text-red-400 rounded-lg hover:bg-red-50 dark:hover:bg-red-950/30 transition-colors"
+                                className="p-1.5 text-slate-500 hover:text-red-600 dark:hover:text-red-400 rounded-lg hover:bg-red-50 dark:hover:bg-red-950/30 transition-colors"
                                 title="Delete Company"
                               >
                                 <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -545,7 +545,7 @@ export default function Profile() {
                   ))}
                   {businesses.length === 0 && (
                     <tr>
-                      <td colSpan="2" className="px-5 py-8 text-center text-gray-500 italic">No companies registered yet.</td>
+                      <td colSpan="2" className="px-5 py-8 text-center text-slate-500 italic">No companies registered yet.</td>
                     </tr>
                   )}
                 </tbody>
@@ -559,23 +559,23 @@ export default function Profile() {
 
       {/* Success Modal */}
       {showSuccessModal && (
-        <div className="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 flex items-center justify-center p-4 animate-fade-in">
-          <div className="bg-white dark:bg-slate-900 border border-gray-150 dark:border-slate-800 rounded-2xl p-6 shadow-xl max-w-sm w-full text-center space-y-4 transform scale-100 transition-all duration-300">
-            <div className="w-12 h-12 bg-emerald-500/10 rounded-full flex items-center justify-center text-emerald-600 dark:text-emerald-400 mx-auto">
+        <div className="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex items-center justify-center p-4 animate-fade-in">
+          <div className="bg-navy-800/60 border border-gray-150 border-white/[0.06] rounded-2xl p-6 shadow-xl max-w-sm w-full text-center space-y-4 transform scale-100 transition-all duration-300">
+            <div className="w-12 h-12 bg-emerald-500/10 rounded-full flex items-center justify-center text-emerald-600 text-emerald-600 dark:text-emerald-400 mx-auto">
               <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
               </svg>
             </div>
             <div>
-              <h3 className="text-lg font-bold text-gray-800 dark:text-slate-100 font-display">Profile Saved</h3>
-              <p className="text-xs text-gray-500 dark:text-slate-400 mt-1.5 leading-relaxed">
+              <h3 className="text-lg font-bold text-slate-800 dark:text-white font-display">Profile Saved</h3>
+              <p className="text-xs text-slate-400 mt-1.5 leading-relaxed">
                 Your profile details and custom photo have been updated and synced successfully.
               </p>
             </div>
             <button
               type="button"
               onClick={() => setShowSuccessModal(false)}
-              className="w-full py-2 bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-semibold rounded-xl transition-all shadow-sm shadow-indigo-500/10"
+              className="w-full py-2 bg-violet-600 hover:bg-violet-500 text-white text-xs font-semibold rounded-xl transition-all shadow-sm shadow-indigo-500/10"
             >
               Got it
             </button>

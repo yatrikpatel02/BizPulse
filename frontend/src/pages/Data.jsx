@@ -65,9 +65,9 @@ export default function Data() {
                 <div key={stepNumber} className="flex flex-col items-center relative flex-1">
                   <div 
                     className={`w-10 h-10 rounded-full flex items-center justify-center font-bold text-sm z-10 transition-colors ${
-                      isActive ? 'bg-indigo-600 text-white shadow-md' : 
-                      isPast ? 'bg-indigo-100 text-indigo-700 dark:bg-indigo-900/50 dark:text-indigo-300' : 
-                      'bg-gray-100 text-gray-400 dark:bg-slate-800 dark:text-slate-500'
+                      isActive ? 'bg-violet-600 text-white shadow-md' : 
+                      isPast ? 'bg-violet-500/20 text-violet-300' : 
+                      'bg-navy-700/60 text-slate-500'
                     }`}
                   >
                     {isPast ? (
@@ -79,7 +79,7 @@ export default function Data() {
                     )}
                   </div>
                   <span className={`mt-2 text-xs font-medium ${
-                    isActive ? 'text-indigo-600 dark:text-indigo-400' : 'text-gray-500 dark:text-slate-400'
+                    isActive ? 'text-violet-400' : 'text-slate-500'
                   }`}>
                     {label}
                   </span>
@@ -87,7 +87,7 @@ export default function Data() {
                   {/* Connector Line */}
                   {stepNumber < 3 && (
                     <div className={`absolute top-5 left-1/2 w-full h-[2px] -z-10 ${
-                      isPast ? 'bg-indigo-200 dark:bg-indigo-900/50' : 'bg-gray-200 dark:bg-slate-800'
+                      isPast ? 'bg-violet-500/30' : 'bg-navy-700/60'
                     }`} />
                   )}
                 </div>

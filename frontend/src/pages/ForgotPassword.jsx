@@ -43,10 +43,10 @@ export default function ForgotPassword() {
   return (
     <div>
       {/* Page Title & Subtitle */}
-      <h2 className="text-xl font-semibold text-center text-white tracking-tight">
+      <h2 className="text-xl font-semibold text-center text-white tracking-tight font-display">
         Reset your password
       </h2>
-      <p className="mt-2 text-center text-sm text-gray-400 mb-6 leading-relaxed">
+      <p className="mt-2 text-center text-sm text-slate-400 mb-6 leading-relaxed">
         Enter your email and we will send you a reset link.
       </p>
 
@@ -58,26 +58,26 @@ export default function ForgotPassword() {
           </div>
         )}
         {success && (
-          <div className="bg-green-500/10 border border-green-500/20 text-green-400 px-4 py-3 rounded-xl text-sm flex items-center gap-2">
-            <span className="h-1.5 w-1.5 rounded-full bg-green-500 animate-pulse shrink-0" />
+          <div className="bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 px-4 py-3 rounded-xl text-sm flex items-center gap-2">
+            <span className="h-1.5 w-1.5 rounded-full bg-emerald-500 animate-pulse shrink-0" />
             <span>Check your email for reset instructions.</span>
           </div>
         )}
 
         <div>
-          <label htmlFor="email" className="text-xs font-semibold text-gray-400 mb-1.5 block">
+          <label htmlFor="email" className="text-xs font-semibold text-slate-400 mb-1.5 block">
             Email address
           </label>
           <div className="relative">
-            <span className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-500">
+            <span className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-500">
               <Mail size={16} />
             </span>
             <input
               id="email"
               name="email"
               type="email"
-              className={`w-full pl-11 pr-4 py-2.5 bg-[#13151b] border rounded-xl text-white placeholder-[#3e424e] focus:outline-none focus:border-[#c09e75] focus:ring-2 focus:ring-[#c09e75]/20 transition-all duration-200 text-sm ${
-                fieldErrors.email ? 'border-red-500/50 focus:border-red-500 focus:ring-red-500/10' : 'border-[#232731]'
+              className={`w-full pl-11 pr-4 py-2.5 bg-navy-900/80 border rounded-xl text-white placeholder-slate-600 focus:outline-none focus-glow transition-all duration-200 text-sm ${
+                fieldErrors.email ? 'border-red-500/50 focus:border-red-500 focus:ring-red-500/10' : 'border-white/[0.08]'
               }`}
               placeholder="name@company.com"
               value={email}
@@ -96,11 +96,11 @@ export default function ForgotPassword() {
           <button
             type="submit"
             disabled={loading}
-            className="w-full py-2.5 px-4 bg-gradient-to-r from-[#DFBA8A] via-[#C49B6D] to-[#8E673E] hover:brightness-105 active:scale-[0.98] text-gray-950 font-semibold rounded-xl shadow-lg shadow-[#c09e75]/5 hover:shadow-[#c09e75]/15 focus:outline-none transition-all duration-200 text-sm flex items-center justify-center gap-2"
+            className="w-full py-2.5 px-4 bg-gradient-to-r from-violet-600 to-indigo-600 hover:from-violet-500 hover:to-indigo-500 active:scale-[0.98] text-white font-semibold rounded-xl shadow-lg shadow-violet-500/10 hover:shadow-violet-500/20 focus:outline-none transition-all duration-200 text-sm flex items-center justify-center gap-2"
           >
             {loading ? (
               <div className="flex items-center gap-2">
-                <svg className="animate-spin h-4 w-4 text-gray-950" fill="none" viewBox="0 0 24 24">
+                <svg className="animate-spin h-4 w-4 text-white" fill="none" viewBox="0 0 24 24">
                   <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
                   <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z" />
                 </svg>
@@ -115,8 +115,8 @@ export default function ForgotPassword() {
           </button>
         </div>
 
-        <div className="text-sm text-center text-gray-400 mt-6">
-          <Link to="/login" className="font-semibold text-[#c09e75] hover:text-[#d4b58e] transition-colors">
+        <div className="text-sm text-center text-slate-400 mt-6">
+          <Link to="/login" className="font-semibold text-violet-400 hover:text-violet-300 transition-colors">
             Back to login
           </Link>
         </div>

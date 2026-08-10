@@ -83,23 +83,27 @@ export default function MonthlyRevenueTrend({ trends = [] }) {
   `;
 
   return (
-    <div className="bg-white dark:bg-slate-900 border border-gray-200 dark:border-slate-800 rounded-2xl p-6 shadow-sm flex flex-col w-full">
+    <div className="glass-card rounded-2xl p-6 flex flex-col w-full">
       <div className="flex items-center justify-between mb-2">
         <div>
-          <h3 className="text-lg font-bold text-gray-800 dark:text-slate-100 font-display">Monthly Revenue Trend</h3>
-          <p className="text-xs text-gray-500 dark:text-slate-400 font-medium">{dateRangeSubtitle}</p>
+          <h3 className="text-lg font-bold text-white font-display">Monthly Revenue Trend</h3>
+          <p className="text-xs text-slate-500 font-medium">{dateRangeSubtitle}</p>
         </div>
-        <span className="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-bold bg-emerald-100/70 dark:bg-emerald-950/40 text-emerald-700 dark:text-emerald-400 border border-emerald-200/50 dark:border-emerald-800/40">
+        <span className="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-bold bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
           +14.2% YoY
         </span>
       </div>
 
       <div className="w-full mt-4">
-        <svg viewBox={`0 0 ${width} ${height}`} className="w-full h-auto overflow-visible">
+        <svg viewBox={`0 0 ${width} ${height}`} className="w-full h-auto overflow-visible chart-glow">
           <defs>
             <linearGradient id="revenueAreaGradient" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="0%" stopColor="#4f46e5" stopOpacity="0.12" />
-              <stop offset="100%" stopColor="#4f46e5" stopOpacity="0.0" />
+              <stop offset="0%" stopColor="#8b5cf6" stopOpacity="0.15" />
+              <stop offset="100%" stopColor="#8b5cf6" stopOpacity="0.0" />
+            </linearGradient>
+            <linearGradient id="lineGradient" x1="0" y1="0" x2="1" y2="0">
+              <stop offset="0%" stopColor="#8b5cf6" />
+              <stop offset="100%" stopColor="#6366f1" />
             </linearGradient>
           </defs>
 
@@ -111,14 +115,15 @@ export default function MonthlyRevenueTrend({ trends = [] }) {
                 y1={getY(tick)}
                 x2={width - paddingRight}
                 y2={getY(tick)}
-                className="stroke-gray-100 dark:stroke-slate-800/80"
+                stroke="rgba(255,255,255,0.04)"
                 strokeWidth={1}
                 strokeDasharray="4 4"
               />
               <text
                 x={paddingLeft - 12}
                 y={getY(tick) + 4}
-                className="text-[11px] font-semibold fill-gray-400 dark:fill-slate-500 text-right"
+                className="text-[11px] font-semibold"
+                fill="rgba(148,163,184,0.6)"
                 textAnchor="end"
               >
                 {formatValue(tick)}
@@ -139,7 +144,7 @@ export default function MonthlyRevenueTrend({ trends = [] }) {
               y1={paddingTop}
               x2={getX(hoveredIndex)}
               y2={paddingTop + chartHeight}
-              className="stroke-indigo-500/30 dark:stroke-indigo-400/25"
+              stroke="rgba(139,92,246,0.25)"
               strokeWidth={1.5}
               strokeDasharray="3 3"
             />
@@ -148,7 +153,7 @@ export default function MonthlyRevenueTrend({ trends = [] }) {
           {/* Main Line */}
           <polyline
             fill="none"
-            stroke="#4f46e5"
+            stroke="url(#lineGradient)"
             strokeWidth={3}
             points={points}
             strokeLinecap="round"
@@ -162,8 +167,10 @@ export default function MonthlyRevenueTrend({ trends = [] }) {
               cx={getX(i)}
               cy={getY(d.value)}
               r={hoveredIndex === i ? 6 : 4.5}
-              className="fill-indigo-600 dark:fill-indigo-400 stroke-white dark:stroke-slate-900 transition-all duration-150"
+              fill={hoveredIndex === i ? '#a855f7' : '#8b5cf6'}
+              stroke="#0a0e1a"
               strokeWidth={hoveredIndex === i ? 2.5 : 2}
+              className="transition-all duration-150"
             />
           ))}
 
@@ -177,11 +184,12 @@ export default function MonthlyRevenueTrend({ trends = [] }) {
                 width={70}
                 height={26}
                 rx={6}
-                className="fill-slate-900/90 dark:fill-slate-100/95"
+                fill="rgba(139,92,246,0.9)"
               />
               {/* Tooltip Text */}
               <text
-                className="text-[10px] font-bold fill-white dark:fill-slate-900 font-sans"
+                className="text-[10px] font-bold font-sans"
+                fill="#ffffff"
                 textAnchor="middle"
                 y={-1}
                 dy=".3em"
@@ -214,7 +222,8 @@ export default function MonthlyRevenueTrend({ trends = [] }) {
                   key={i}
                   x={getX(i)}
                   y={paddingTop + chartHeight + 22}
-                  className="text-[11px] font-semibold fill-gray-400 dark:fill-slate-500"
+                  className="text-[11px] font-semibold"
+                  fill="rgba(148,163,184,0.5)"
                   textAnchor="middle"
                 >
                   {formatDateLabel(d.month)}
