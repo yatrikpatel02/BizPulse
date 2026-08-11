@@ -104,10 +104,10 @@ export default function DashboardLayout({ children }) {
                 id: `review-${review.id}`,
                 title: `Low Review Alert (${rating}★)`,
                 desc: `"${review.comment_text || 'No comment'}" on ${review.product_name || 'Product'}`,
-                time: formatTimeAgo(review.review_date || review.created_at),
+                time: 'Just now', // Triggered now by current threshold scan
                 unread: true,
                 type: 'info',
-                date: new Date(review.review_date || review.created_at || Date.now()) // for sorting
+                date: new Date() // Triggered now
               });
             }
           });
