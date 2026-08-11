@@ -132,9 +132,9 @@ export default function Sidebar({ isOpen, setIsOpen }) {
 
                     isActive
 
-                      ? 'bg-violet-500/10 text-violet-600 border border-violet-500/10 dark:bg-gradient-to-r dark:from-violet-600/20 dark:to-indigo-600/10 dark:text-white dark:border-violet-500/20 dark:nav-active-glow'
+                      ? 'bg-gradient-to-r from-violet-600/20 to-indigo-600/10 text-white border border-violet-500/20 nav-active-glow'
 
-                      : 'border border-transparent text-slate-500 hover:bg-slate-100 hover:text-slate-800 dark:text-slate-400 dark:hover:bg-white/[0.04] dark:hover:text-slate-200'
+                      : 'border border-transparent text-slate-400 hover:bg-white/[0.04] hover:text-slate-200'
 
                   }`
 
