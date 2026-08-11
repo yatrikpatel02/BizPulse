@@ -35,7 +35,10 @@ export default function DashboardLayout({ children }) {
       if (hours < 24) return `${hours}h ago`;
       const days = Math.floor(hours / 24);
       if (days === 1) return 'Yesterday';
-      return `${days}d ago`;
+      if (days < 7) return `${days}d ago`;
+      
+      // Return absolute formatted date for older items
+      return date.toLocaleDateString(undefined, { month: 'short', day: 'numeric', year: 'numeric' });
     } catch (e) {
       return 'Just now';
     }
