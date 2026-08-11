@@ -289,17 +289,17 @@ export default function Settings() {
     <div className="flex flex-col gap-6 animate-fade-in pb-12">
       {/* Toast Notification */}
       {showToast && (
-        <div className="fixed bottom-6 right-6 z-50 bg-slate-900 bg-navy-900 border border-slate-200 border-white/[0.06] text-slate-100 px-5 py-3 rounded-xl shadow-xl text-sm font-semibold flex items-center gap-2">
+        <div className="fixed bottom-6 right-6 z-50 bg-slate-900 bg-white dark:bg-white dark:bg-navy-900/40 border border-slate-200 dark:border-slate-200 dark:border-slate-200 dark:border-white/[0.06] text-slate-800 dark:text-slate-700 dark:text-slate-700 dark:text-slate-200/40 border border-slate-200 dark:border-slate-200 dark:border-slate-200 dark:border-white/[0.06] text-slate-800 dark:text-slate-700 dark:text-slate-700 dark:text-slate-200 border border-slate-200 border-slate-200 dark:border-slate-200 dark:border-white/[0.06] text-slate-100 px-5 py-3 rounded-xl shadow-xl text-sm font-semibold flex items-center gap-2">
           <span className="w-2 h-2 rounded-full bg-indigo-500 animate-ping"></span>
           {toastMessage}
         </div>
       )}
 
       {/* Top Horizontal Tab Nav */}
-      <div className="bg-navy-800/60 backdrop-blur-md border border-white/[0.06] rounded-3xl p-6 shadow-md">
+      <div className="glass-card backdrop-blur-md border border-slate-200 dark:border-slate-200 dark:border-white/[0.06] rounded-3xl p-6 shadow-md">
         <div className="mb-5">
           <h2 className="text-2xl font-bold text-slate-800 dark:text-white font-display">System Settings</h2>
-          <p className="text-sm text-slate-500 dark:text-slate-500 dark:text-slate-500 dark:text-slate-400 font-medium mt-1">Configure preferences and platform rules</p>
+          <p className="text-sm text-slate-500 dark:text-slate-500 dark:text-slate-500 dark:text-slate-500 dark:text-slate-500 dark:text-slate-400 font-medium mt-1">Configure preferences and platform rules</p>
         </div>
         <div className="grid grid-cols-2 gap-2">
           {menuItems.map((item) => (
@@ -309,10 +309,10 @@ export default function Settings() {
               className={`flex items-center gap-2.5 px-5 py-3 rounded-2xl text-sm font-semibold transition-all duration-200 cursor-pointer ${
                 activeSubTab === item.id
                   ? 'bg-violet-600 bg-violet-600 text-white shadow-md shadow-indigo-500/20'
-                  : 'bg-navy-700/60/60 hover:bg-gray-200 hover:bg-navy-700 text-slate-300'
+                  : 'glass-surface/60 hover:bg-gray-200 hover:bg-navy-700 text-slate-650 dark:text-slate-650 dark:text-slate-300'
               }`}
             >
-              <span className={activeSubTab === item.id ? 'text-white' : 'text-slate-400'}>
+              <span className={activeSubTab === item.id ? 'text-white' : 'text-slate-500 dark:text-slate-500 dark:text-slate-400'}>
                 {item.icon}
               </span>
               {item.title}
@@ -322,7 +322,7 @@ export default function Settings() {
       </div>
 
       {/* Content Panel */}
-      <div className="bg-navy-800/60 backdrop-blur-md border border-white/[0.06] rounded-3xl p-8 shadow-md">
+      <div className="glass-card backdrop-blur-md border border-slate-200 dark:border-slate-200 dark:border-white/[0.06] rounded-3xl p-8 shadow-md">
           
           {/* TAB 1: GENERAL */}
           {activeSubTab === 'general' && (
@@ -353,28 +353,28 @@ export default function Settings() {
                   </div>
                 )}
 
-                <div className="border border-white/[0.06] rounded-2xl overflow-hidden bg-navy-800/60/20 bg-navy-900/20">
+                <div className="border border-slate-200 dark:border-slate-200 dark:border-white/[0.06] rounded-2xl overflow-hidden glass-card/20 bg-white dark:bg-white dark:bg-navy-900/40 border border-slate-200 dark:border-slate-200 dark:border-slate-200 dark:border-white/[0.06] text-slate-800 dark:text-slate-700 dark:text-slate-700 dark:text-slate-200/40 border border-slate-200 dark:border-slate-200 dark:border-slate-200 dark:border-white/[0.06] text-slate-800 dark:text-slate-700 dark:text-slate-700 dark:text-slate-200/20">
                   <table className="w-full text-xs">
                     <thead>
-                      <tr className="bg-navy-900/40 bg-navy-700/60 border-b border-white/[0.06]">
-                        <th className="px-5 py-3 text-left font-bold text-slate-200 uppercase tracking-wider">Company Name</th>
-                        <th className="px-5 py-3 text-right font-bold text-slate-200 uppercase tracking-wider">Actions</th>
+                      <tr className="glass-surface border-b border-slate-200 dark:border-slate-200 dark:border-white/[0.06]">
+                        <th className="px-5 py-3 text-left font-bold text-slate-700 dark:text-slate-700 dark:text-slate-200 uppercase tracking-wider">Company Name</th>
+                        <th className="px-5 py-3 text-right font-bold text-slate-700 dark:text-slate-700 dark:text-slate-200 uppercase tracking-wider">Actions</th>
                       </tr>
                     </thead>
                     <tbody className="divide-y divide-gray-200/40 dark:divide-slate-800/60">
                       {businesses.map((business) => (
-                        <tr key={business.id} className="hover:bg-navy-900/40 dark:hover:bg-slate-800/20 transition-colors">
+                        <tr key={business.id} className="hover:glass-surface dark:hover:bg-slate-800/20 transition-colors">
                           <td className="px-5 py-4">
                             {editingId === business.id ? (
                               <input
                                 type="text"
                                 value={editName}
                                 onChange={(e) => setEditName(e.target.value)}
-                                className="px-2.5 py-1.5 bg-navy-800/60 bg-navy-900/40 border border-white/[0.06] rounded-lg text-white placeholder-slate-500 focus:outline-none text-xs transition-all"
+                                className="px-2.5 py-1.5 glass-card glass-surface border border-slate-200 dark:border-slate-200 dark:border-white/[0.06] rounded-lg text-white placeholder-slate-500 focus:outline-none text-xs transition-all"
                                 autoFocus
                               />
                             ) : (
-                              <span className="font-semibold text-slate-200">
+                              <span className="font-semibold text-slate-700 dark:text-slate-700 dark:text-slate-200">
                                 {business.name} {activeBusiness?.id === business.id && (
                                   <span className="ml-2 text-[9px] font-bold text-emerald-600 bg-emerald-100 dark:bg-emerald-950/60 text-emerald-600 dark:text-emerald-600 dark:text-emerald-600 dark:text-emerald-400 px-1.5 py-0.5 rounded">Active</span>
                                 )}
@@ -393,7 +393,7 @@ export default function Settings() {
                                   </button>
                                   <button
                                     onClick={() => setEditingId(null)}
-                                    className="px-3 py-1 border border-white/[0.06] dark:border-slate-850 hover:bg-slate-800 text-slate-500 dark:text-slate-400 text-xs font-bold rounded-lg transition-colors cursor-pointer"
+                                    className="px-3 py-1 border border-slate-200 dark:border-slate-200 dark:border-white/[0.06] dark:border-slate-850 hover:bg-slate-800 text-slate-500 dark:text-slate-500 dark:text-slate-500 dark:text-slate-400 text-xs font-bold rounded-lg transition-colors cursor-pointer"
                                   >
                                     Cancel
                                   </button>
@@ -438,7 +438,7 @@ export default function Settings() {
               </div>
 
               {/* Delete Company Data Section */}
-              <div className="pt-8 border-t border-white/[0.06]/40 border-white/[0.06]/40 space-y-6">
+              <div className="pt-8 border-t border-slate-200 dark:border-slate-200 dark:border-white/[0.06]/40 border-slate-200 dark:border-slate-200 dark:border-white/[0.06]/40 space-y-6">
                 <div>
                   <h4 className="text-lg font-bold text-red-600 text-red-400 uppercase tracking-wider font-display">Delete Company Data</h4>
                   <p className="text-sm text-slate-500 mt-1">Permanently delete all transaction history, catalog products, snapshots, and logs for the active company segment without deleting the company record itself.</p>
@@ -447,7 +447,7 @@ export default function Settings() {
                 <div className="border border-red-500/15 dark:border-red-500/30 bg-red-500/[0.01] rounded-2xl p-6 flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
                   <div className="space-y-1 text-left">
                     <span className="text-xs font-bold text-slate-500 uppercase tracking-wider">Active Target Company</span>
-                    <p className="text-base font-bold text-slate-200 font-display mt-0.5">
+                    <p className="text-base font-bold text-slate-700 dark:text-slate-700 dark:text-slate-200 font-display mt-0.5">
                       {activeBusiness?.name || 'No active company selected'}
                     </p>
                   </div>
@@ -487,7 +487,7 @@ export default function Settings() {
 
               <div className="flex flex-col md:flex-row gap-8">
                 {/* Profile Pic Upload */}
-                <div className="flex flex-col items-center text-center md:border-r border-white/[0.06] md:pr-8 md:min-w-[180px]">
+                <div className="flex flex-col items-center text-center md:border-r border-slate-200 dark:border-slate-200 dark:border-white/[0.06] md:pr-8 md:min-w-[180px]">
                   <div
                     onClick={() => document.getElementById('avatar-input').click()}
                     className="group relative w-20 h-20 rounded-full cursor-pointer overflow-hidden ring-4 ring-violet-500/10 shadow-md mb-4 mx-auto"
@@ -517,7 +517,7 @@ export default function Settings() {
                   <button
                     type="button"
                     onClick={() => document.getElementById('avatar-input').click()}
-                    className="mb-2 px-3 py-1.5 border border-gray-250 border-white/[0.06] hover:bg-navy-900/40 dark:hover:bg-slate-800 text-slate-300 dark:text-slate-400 text-xs font-semibold rounded-xl transition-all shadow-sm cursor-pointer"
+                    className="mb-2 px-3 py-1.5 border border-gray-250 border-slate-200 dark:border-slate-200 dark:border-white/[0.06] hover:glass-surface dark:hover:bg-slate-800 text-slate-650 dark:text-slate-650 dark:text-slate-300 dark:text-slate-500 dark:text-slate-500 dark:text-slate-400 text-xs font-semibold rounded-xl transition-all shadow-sm cursor-pointer"
                   >
                     Edit Photo
                   </button>
@@ -538,7 +538,7 @@ export default function Settings() {
                           type="text"
                           value={firstName}
                           onChange={(e) => setFirstName(e.target.value)}
-                          className="block w-full px-3.5 py-2.5 bg-navy-800/60 bg-navy-900/40 border border-white/[0.06] focus:border-indigo-500 focus:ring-1 focus:ring-violet-500 rounded-xl text-white placeholder-gray-400 focus:outline-none text-xs transition-all shadow-inner"
+                          className="block w-full px-3.5 py-2.5 glass-card glass-surface border border-slate-200 dark:border-slate-200 dark:border-white/[0.06] focus:border-indigo-500 focus:ring-1 focus:ring-violet-500 rounded-xl text-white placeholder-gray-400 focus:outline-none text-xs transition-all shadow-inner"
                         />
                       </div>
                       <div>
@@ -547,7 +547,7 @@ export default function Settings() {
                           type="text"
                           value={lastName}
                           onChange={(e) => setLastName(e.target.value)}
-                          className="block w-full px-3.5 py-2.5 bg-navy-800/60 bg-navy-900/40 border border-white/[0.06] focus:border-indigo-500 focus:ring-1 focus:ring-violet-500 rounded-xl text-white placeholder-gray-400 focus:outline-none text-xs transition-all shadow-inner"
+                          className="block w-full px-3.5 py-2.5 glass-card glass-surface border border-slate-200 dark:border-slate-200 dark:border-white/[0.06] focus:border-indigo-500 focus:ring-1 focus:ring-violet-500 rounded-xl text-white placeholder-gray-400 focus:outline-none text-xs transition-all shadow-inner"
                         />
                       </div>
                     </div>
@@ -560,12 +560,12 @@ export default function Settings() {
                           value={usernameField}
                           onChange={(e) => setUsernameField(e.target.value)}
                           required
-                          className="block w-full px-3.5 py-2.5 bg-navy-800/60 bg-navy-900/40 border border-white/[0.06] focus:border-indigo-500 focus:ring-1 focus:ring-violet-500 rounded-xl text-white placeholder-gray-400 focus:outline-none text-xs transition-all shadow-inner"
+                          className="block w-full px-3.5 py-2.5 glass-card glass-surface border border-slate-200 dark:border-slate-200 dark:border-white/[0.06] focus:border-indigo-500 focus:ring-1 focus:ring-violet-500 rounded-xl text-white placeholder-gray-400 focus:outline-none text-xs transition-all shadow-inner"
                         />
                       </div>
                       <div>
                         <span className="block text-xs font-semibold text-slate-500 uppercase tracking-wider mb-1.5">Email Address</span>
-                        <div className="px-3.5 py-2.5 bg-gray-200/50 bg-navy-800/60 border border-white/[0.06] dark:border-slate-850 rounded-xl text-slate-400 text-xs font-semibold">
+                        <div className="px-3.5 py-2.5 bg-gray-200/50 glass-card border border-slate-200 dark:border-slate-200 dark:border-white/[0.06] dark:border-slate-850 rounded-xl text-slate-500 dark:text-slate-500 dark:text-slate-400 text-xs font-semibold">
                           {user?.email}
                         </div>
                       </div>
@@ -585,9 +585,9 @@ export default function Settings() {
               </div>
 
               {/* Password update and danger zones */}
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6 pt-8 border-t border-white/[0.06]/40 border-white/[0.06]/40">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6 pt-8 border-t border-slate-200 dark:border-slate-200 dark:border-white/[0.06]/40 border-slate-200 dark:border-slate-200 dark:border-white/[0.06]/40">
                 {/* Security change password */}
-                <div className="border border-white/[0.06] rounded-2xl p-5 space-y-4 bg-navy-800/60/20 bg-navy-900/10">
+                <div className="border border-slate-200 dark:border-slate-200 dark:border-white/[0.06] rounded-2xl p-5 space-y-4 glass-card/20 bg-white dark:bg-white dark:bg-navy-900/40 border border-slate-200 dark:border-slate-200 dark:border-slate-200 dark:border-white/[0.06] text-slate-800 dark:text-slate-700 dark:text-slate-700 dark:text-slate-200/40 border border-slate-200 dark:border-slate-200 dark:border-slate-200 dark:border-white/[0.06] text-slate-800 dark:text-slate-700 dark:text-slate-700 dark:text-slate-200/10">
                   {!showPasswordForm ? (
                     <div className="text-center py-4 space-y-3">
                       <div className="w-10 h-10 bg-violet-500/10 rounded-full flex items-center justify-center text-violet-400 mx-auto">
@@ -637,7 +637,7 @@ export default function Settings() {
                           value={oldPassword}
                           onChange={(e) => setOldPassword(e.target.value)}
                           placeholder="Current Password"
-                          className="block w-full px-3.5 py-2 bg-navy-800/60 bg-navy-900/40 border border-white/[0.06] focus:border-indigo-500 rounded-xl text-white placeholder-gray-400 focus:outline-none text-xs"
+                          className="block w-full px-3.5 py-2 glass-card glass-surface border border-slate-200 dark:border-slate-200 dark:border-white/[0.06] focus:border-indigo-500 rounded-xl text-white placeholder-gray-400 focus:outline-none text-xs"
                         />
                         <input
                           type="password"
@@ -645,10 +645,10 @@ export default function Settings() {
                           value={newPassword}
                           onChange={(e) => setNewPassword(e.target.value)}
                           placeholder="New Password"
-                          className="block w-full px-3.5 py-2 bg-navy-800/60 bg-navy-900/40 border border-white/[0.06] focus:border-indigo-500 rounded-xl text-white placeholder-gray-400 focus:outline-none text-xs"
+                          className="block w-full px-3.5 py-2 glass-card glass-surface border border-slate-200 dark:border-slate-200 dark:border-white/[0.06] focus:border-indigo-500 rounded-xl text-white placeholder-gray-400 focus:outline-none text-xs"
                         />
                         {newPassword && (
-                          <ul className="grid grid-cols-1 gap-0.5 text-[9px] font-bold text-slate-400 bg-slate-950/20 border border-slate-900 rounded-xl p-2.5">
+                          <ul className="grid grid-cols-1 gap-0.5 text-[9px] font-bold text-slate-500 dark:text-slate-500 dark:text-slate-400 bg-slate-950/20 border border-slate-900 rounded-xl p-2.5">
                             {passwordChecks.map((c, i) => (
                               <li key={i} className={`flex items-center gap-1 ${c.passed ? 'text-emerald-600 dark:text-emerald-600 dark:text-emerald-600 dark:text-emerald-400' : 'text-slate-500'}`}>
                                 <span>{c.passed ? '✓' : '•'}</span> {c.label}
@@ -662,7 +662,7 @@ export default function Settings() {
                           value={newPasswordConfirm}
                           onChange={(e) => setNewPasswordConfirm(e.target.value)}
                           placeholder="Confirm New Password"
-                          className="block w-full px-3.5 py-2 bg-navy-800/60 bg-navy-900/40 border border-white/[0.06] focus:border-indigo-500 rounded-xl text-white placeholder-gray-400 focus:outline-none text-xs"
+                          className="block w-full px-3.5 py-2 glass-card glass-surface border border-slate-200 dark:border-slate-200 dark:border-white/[0.06] focus:border-indigo-500 rounded-xl text-white placeholder-gray-400 focus:outline-none text-xs"
                         />
                         <button
                           type="submit"
@@ -705,7 +705,7 @@ export default function Settings() {
                         value={confirmPassword}
                         onChange={(e) => setConfirmPassword(e.target.value)}
                         placeholder="Type Password to Confirm"
-                        className="block w-full px-3.5 py-2.5 bg-navy-800/60 bg-navy-900/40 border border-red-500/10 focus:border-red-500 rounded-xl text-xs text-white placeholder-gray-400 text-left"
+                        className="block w-full px-3.5 py-2.5 glass-card glass-surface border border-red-500/10 focus:border-red-500 rounded-xl text-xs text-white placeholder-gray-400 text-left"
                       />
                       <div className="flex gap-2">
                         <button
@@ -720,7 +720,7 @@ export default function Settings() {
                             setShowDeleteConfirm(false);
                             setConfirmPassword('');
                           }}
-                          className="flex-1 py-2 border border-white/[0.06] text-slate-300 text-xs font-bold rounded-lg cursor-pointer"
+                          className="flex-1 py-2 border border-slate-200 dark:border-slate-200 dark:border-white/[0.06] text-slate-650 dark:text-slate-650 dark:text-slate-300 text-xs font-bold rounded-lg cursor-pointer"
                         >
                           Cancel
                         </button>
@@ -753,7 +753,7 @@ export default function Settings() {
                     step="5"
                     value={alertSettings.safetyStock}
                     onChange={(e) => setAlertSettings(prev => ({ ...prev, safetyStock: parseInt(e.target.value) }))}
-                    className="w-full accent-indigo-600 cursor-pointer h-1.5 bg-gray-200 bg-navy-700/60 rounded-lg"
+                    className="w-full accent-indigo-600 cursor-pointer h-1.5 bg-gray-200 glass-surface rounded-lg"
                   />
                   <p className="text-xs text-slate-500">Items with stock lower than this threshold flag as "Low Stock" warning anomalies.</p>
                 </div>
@@ -770,7 +770,7 @@ export default function Settings() {
                     step="1"
                     value={alertSettings.csatThreshold}
                     onChange={(e) => setAlertSettings(prev => ({ ...prev, csatThreshold: parseInt(e.target.value) }))}
-                    className="w-full accent-indigo-600 cursor-pointer h-1.5 bg-gray-200 bg-navy-700/60 rounded-lg"
+                    className="w-full accent-indigo-600 cursor-pointer h-1.5 bg-gray-200 glass-surface rounded-lg"
                   />
                   <p className="text-xs text-slate-500">Alerts trigger if the customer satisfaction score falls below this baseline percentage.</p>
                 </div>
@@ -787,12 +787,12 @@ export default function Settings() {
                     step="0.1"
                     value={alertSettings.starRating}
                     onChange={(e) => setAlertSettings(prev => ({ ...prev, starRating: parseFloat(e.target.value) }))}
-                    className="w-full accent-indigo-600 cursor-pointer h-1.5 bg-gray-200 bg-navy-700/60 rounded-lg"
+                    className="w-full accent-indigo-600 cursor-pointer h-1.5 bg-gray-200 glass-surface rounded-lg"
                   />
                   <p className="text-xs text-slate-500">Trigger warnings if the aggregate catalog sentiment drops below this star index.</p>
                 </div>
 
-                <div className="flex items-center justify-between p-4 bg-navy-800/60/20 bg-navy-900/20 border border-white/[0.06] rounded-2xl">
+                <div className="flex items-center justify-between p-4 glass-card/20 bg-white dark:bg-white dark:bg-navy-900/40 border border-slate-200 dark:border-slate-200 dark:border-slate-200 dark:border-white/[0.06] text-slate-800 dark:text-slate-700 dark:text-slate-700 dark:text-slate-200/40 border border-slate-200 dark:border-slate-200 dark:border-slate-200 dark:border-white/[0.06] text-slate-800 dark:text-slate-700 dark:text-slate-700 dark:text-slate-200/20 border border-slate-200 dark:border-slate-200 dark:border-white/[0.06] rounded-2xl">
                   <div>
                     <h5 className="text-base font-bold text-slate-800 dark:text-white">Send Email Alerts</h5>
                     <p className="text-xs text-slate-500 mt-1">Receive immediate notification updates on high severity anomalies.</p>
@@ -804,11 +804,11 @@ export default function Settings() {
                       onChange={(e) => setAlertSettings(prev => ({ ...prev, emailAlerts: e.target.checked }))}
                       className="sr-only peer"
                     />
-                    <div className="w-9 h-5 bg-gray-200 bg-navy-700/60 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-navy-800/60 after:border-white/[0.08] after:border after:rounded-full after:h-4 after:w-4 after:transition-all dark:border-gray-600 peer-checked:bg-violet-600"></div>
+                    <div className="w-9 h-5 bg-gray-200 glass-surface peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:glass-card after:border-slate-200 dark:border-slate-200 dark:border-white/[0.08] after:border after:rounded-full after:h-4 after:w-4 after:transition-all dark:border-gray-600 peer-checked:bg-violet-600"></div>
                   </label>
                 </div>
 
-                <div className="flex justify-end pt-4 border-t border-white/[0.06]/40 border-white/[0.06]/40">
+                <div className="flex justify-end pt-4 border-t border-slate-200 dark:border-slate-200 dark:border-white/[0.06]/40 border-slate-200 dark:border-slate-200 dark:border-white/[0.06]/40">
                   <button
                     type="submit"
                     className="px-6 py-2.5 bg-violet-600 hover:bg-violet-500 bg-violet-600 hover:bg-violet-500 text-white text-xs font-semibold rounded-xl transition-all shadow-sm shadow-indigo-500/10 cursor-pointer"
@@ -833,7 +833,7 @@ export default function Settings() {
                 <h4 className="text-xs font-bold text-slate-500 uppercase tracking-wider">Active Integrations</h4>
 
                 {/* CSV Import */}
-                <div className="flex items-center justify-between p-4 bg-navy-800/60/20 bg-navy-900/20 border border-white/[0.06] rounded-2xl group hover:border-indigo-500/30 transition-colors">
+                <div className="flex items-center justify-between p-4 glass-card/20 bg-white dark:bg-white dark:bg-navy-900/40 border border-slate-200 dark:border-slate-200 dark:border-slate-200 dark:border-white/[0.06] text-slate-800 dark:text-slate-700 dark:text-slate-700 dark:text-slate-200/40 border border-slate-200 dark:border-slate-200 dark:border-slate-200 dark:border-white/[0.06] text-slate-800 dark:text-slate-700 dark:text-slate-700 dark:text-slate-200/20 border border-slate-200 dark:border-slate-200 dark:border-white/[0.06] rounded-2xl group hover:border-indigo-500/30 transition-colors">
                   <div className="flex items-center gap-3">
                     <div className="w-9 h-9 rounded-xl bg-violet-500/10 bg-violet-600/20 flex items-center justify-center text-violet-400 flex-shrink-0">
                       <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -852,7 +852,7 @@ export default function Settings() {
                 </div>
 
                 {/* Competitor Price Scraper — SerpAPI + Flipkart */}
-                <div className="flex items-center justify-between p-4 bg-navy-800/60/20 bg-navy-900/20 border border-white/[0.06] rounded-2xl group hover:border-indigo-500/30 transition-colors">
+                <div className="flex items-center justify-between p-4 glass-card/20 bg-white dark:bg-white dark:bg-navy-900/40 border border-slate-200 dark:border-slate-200 dark:border-slate-200 dark:border-white/[0.06] text-slate-800 dark:text-slate-700 dark:text-slate-700 dark:text-slate-200/40 border border-slate-200 dark:border-slate-200 dark:border-slate-200 dark:border-white/[0.06] text-slate-800 dark:text-slate-700 dark:text-slate-700 dark:text-slate-200/20 border border-slate-200 dark:border-slate-200 dark:border-white/[0.06] rounded-2xl group hover:border-indigo-500/30 transition-colors">
                   <div className="flex items-center gap-3">
                     <div className="w-9 h-9 rounded-xl bg-amber-500/10 dark:bg-amber-500/20 flex items-center justify-center text-amber-600 text-amber-400 flex-shrink-0">
                       <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -871,7 +871,7 @@ export default function Settings() {
                 </div>
 
                 {/* Google Trends */}
-                <div className="flex items-center justify-between p-4 bg-navy-800/60/20 bg-navy-900/20 border border-white/[0.06] rounded-2xl group hover:border-indigo-500/30 transition-colors">
+                <div className="flex items-center justify-between p-4 glass-card/20 bg-white dark:bg-white dark:bg-navy-900/40 border border-slate-200 dark:border-slate-200 dark:border-slate-200 dark:border-white/[0.06] text-slate-800 dark:text-slate-700 dark:text-slate-700 dark:text-slate-200/40 border border-slate-200 dark:border-slate-200 dark:border-slate-200 dark:border-white/[0.06] text-slate-800 dark:text-slate-700 dark:text-slate-700 dark:text-slate-200/20 border border-slate-200 dark:border-slate-200 dark:border-white/[0.06] rounded-2xl group hover:border-indigo-500/30 transition-colors">
                   <div className="flex items-center gap-3">
                     <div className="w-9 h-9 rounded-xl bg-rose-500/10 dark:bg-rose-500/20 flex items-center justify-center text-rose-600 dark:text-rose-600 dark:text-rose-600 dark:text-rose-600 dark:text-rose-400 flex-shrink-0">
                       <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -891,10 +891,10 @@ export default function Settings() {
               </div>
 
               {/* Scraper Settings */}
-              <form onSubmit={handleSaveSync} className="space-y-5 pt-2 border-t border-white/[0.06]/40 border-white/[0.06]/40">
+              <form onSubmit={handleSaveSync} className="space-y-5 pt-2 border-t border-slate-200 dark:border-slate-200 dark:border-white/[0.06]/40 border-slate-200 dark:border-slate-200 dark:border-white/[0.06]/40">
                 <h4 className="text-xs font-bold text-slate-500 uppercase tracking-wider pt-2">Scraper Settings</h4>
 
-                <div className="flex items-center justify-between p-4 bg-navy-800/60/20 bg-navy-900/20 border border-white/[0.06] rounded-2xl">
+                <div className="flex items-center justify-between p-4 glass-card/20 bg-white dark:bg-white dark:bg-navy-900/40 border border-slate-200 dark:border-slate-200 dark:border-slate-200 dark:border-white/[0.06] text-slate-800 dark:text-slate-700 dark:text-slate-700 dark:text-slate-200/40 border border-slate-200 dark:border-slate-200 dark:border-slate-200 dark:border-white/[0.06] text-slate-800 dark:text-slate-700 dark:text-slate-700 dark:text-slate-200/20 border border-slate-200 dark:border-slate-200 dark:border-white/[0.06] rounded-2xl">
                   <div>
                     <h5 className="text-base font-bold text-slate-800 dark:text-white">Auto-refresh Competitor Prices</h5>
                     <p className="text-xs text-slate-500 mt-1">Automatically trigger scraper on each product view.</p>
@@ -906,7 +906,7 @@ export default function Settings() {
                       onChange={(e) => setSyncSettings(prev => ({ ...prev, autoSync: e.target.checked }))}
                       className="sr-only peer"
                     />
-                    <div className="w-9 h-5 bg-gray-200 bg-navy-700/60 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-navy-800/60 after:border-white/[0.08] after:border after:rounded-full after:h-4 after:w-4 after:transition-all dark:border-gray-600 peer-checked:bg-violet-600"></div>
+                    <div className="w-9 h-5 bg-gray-200 glass-surface peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:glass-card after:border-slate-200 dark:border-slate-200 dark:border-white/[0.08] after:border after:rounded-full after:h-4 after:w-4 after:transition-all dark:border-gray-600 peer-checked:bg-violet-600"></div>
                   </label>
                 </div>
 
@@ -916,7 +916,7 @@ export default function Settings() {
                     disabled={!syncSettings.autoSync}
                     value={syncSettings.frequency}
                     onChange={(e) => setSyncSettings(prev => ({ ...prev, frequency: e.target.value }))}
-                    className="block w-full px-3.5 py-2.5 bg-navy-800/60 bg-navy-900/40 border border-white/[0.06] focus:border-indigo-500 focus:ring-1 focus:ring-violet-500 rounded-xl text-white placeholder-gray-400 focus:outline-none text-xs transition-all disabled:opacity-40"
+                    className="block w-full px-3.5 py-2.5 glass-card glass-surface border border-slate-200 dark:border-slate-200 dark:border-white/[0.06] focus:border-indigo-500 focus:ring-1 focus:ring-violet-500 rounded-xl text-white placeholder-gray-400 focus:outline-none text-xs transition-all disabled:opacity-40"
                   >
                     <option value="on_demand">On Demand (manual trigger)</option>
                     <option value="daily">Every 24 Hours (Daily)</option>
@@ -930,7 +930,7 @@ export default function Settings() {
                   <select
                     value={syncSettings.channel}
                     onChange={(e) => setSyncSettings(prev => ({ ...prev, channel: e.target.value }))}
-                    className="block w-full px-3.5 py-2.5 bg-navy-800/60 bg-navy-900/40 border border-white/[0.06] focus:border-indigo-500 focus:ring-1 focus:ring-violet-500 rounded-xl text-white placeholder-gray-400 focus:outline-none text-xs transition-all"
+                    className="block w-full px-3.5 py-2.5 glass-card glass-surface border border-slate-200 dark:border-slate-200 dark:border-white/[0.06] focus:border-indigo-500 focus:ring-1 focus:ring-violet-500 rounded-xl text-white placeholder-gray-400 focus:outline-none text-xs transition-all"
                   >
                     <option value="csv">CSV File Upload (Sales, Inventory, Reviews)</option>
                     <option value="serpapi">SerpAPI Automated Scrape</option>
@@ -939,7 +939,7 @@ export default function Settings() {
                   </select>
                 </div>
 
-                <div className="flex justify-end pt-4 border-t border-white/[0.06]/40 border-white/[0.06]/40">
+                <div className="flex justify-end pt-4 border-t border-slate-200 dark:border-slate-200 dark:border-white/[0.06]/40 border-slate-200 dark:border-slate-200 dark:border-white/[0.06]/40">
                   <button
                     type="submit"
                     className="px-6 py-2.5 bg-violet-600 hover:bg-violet-500 bg-violet-600 hover:bg-violet-500 text-white text-xs font-semibold rounded-xl transition-all shadow-sm shadow-indigo-500/10 cursor-pointer"
@@ -957,7 +957,7 @@ export default function Settings() {
       {/* Success Modal */}
       {showSuccessModal && (
         <div className="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex items-center justify-center p-4 animate-fade-in">
-          <div className="bg-navy-800/60 border border-gray-150 border-white/[0.06] rounded-2xl p-6 shadow-xl max-w-sm w-full text-center space-y-4 transform scale-100 transition-all duration-300">
+          <div className="glass-card border border-gray-150 border-slate-200 dark:border-slate-200 dark:border-white/[0.06] rounded-2xl p-6 shadow-xl max-w-sm w-full text-center space-y-4 transform scale-100 transition-all duration-300">
             <div className="w-12 h-12 bg-emerald-500/10 rounded-full flex items-center justify-center text-emerald-600 text-emerald-600 dark:text-emerald-600 dark:text-emerald-600 dark:text-emerald-400 mx-auto">
               <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
@@ -965,7 +965,7 @@ export default function Settings() {
             </div>
             <div>
               <h3 className="text-lg font-bold text-slate-800 dark:text-white font-display">Account Updated</h3>
-              <p className="text-xs text-slate-400 mt-1.5 leading-relaxed">
+              <p className="text-xs text-slate-500 dark:text-slate-500 dark:text-slate-400 mt-1.5 leading-relaxed">
                 Your personal details and profile credentials have been successfully updated.
               </p>
             </div>

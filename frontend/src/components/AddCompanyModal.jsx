@@ -30,12 +30,12 @@ export default function AddCompanyModal({ isOpen, onClose }) {
 
   return (
     <div className="fixed inset-0 z-[100] flex items-center justify-center bg-black/60 backdrop-blur-sm px-4 transition-opacity">
-      <div className="bg-navy-800/95 backdrop-blur-xl rounded-2xl shadow-glass-lg w-full max-w-md overflow-hidden animate-scale-up border border-white/[0.08]">
-        <div className="px-6 py-4 border-b border-white/[0.06] flex justify-between items-center">
+      <div className="bg-navy-800/95 backdrop-blur-xl rounded-2xl shadow-glass-lg w-full max-w-md overflow-hidden animate-scale-up border border-slate-200 dark:border-slate-200 dark:border-white/[0.08]">
+        <div className="px-6 py-4 border-b border-slate-200 dark:border-slate-200 dark:border-white/[0.06] flex justify-between items-center">
           <h3 className="text-lg font-bold text-slate-800 dark:text-white font-display">Add New Company</h3>
           <button 
             onClick={onClose}
-            className="text-slate-400 hover:text-slate-200 focus:outline-none transition-colors"
+            className="text-slate-500 dark:text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:text-slate-700 dark:text-slate-200 focus:outline-none transition-colors"
           >
             <span className="sr-only">Close</span>
             <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -53,7 +53,7 @@ export default function AddCompanyModal({ isOpen, onClose }) {
           
           <div className="space-y-4">
             <div>
-              <label htmlFor="companyName" className="block text-sm font-medium text-slate-300 mb-1.5">
+              <label htmlFor="companyName" className="block text-sm font-medium text-slate-650 dark:text-slate-650 dark:text-slate-300 mb-1.5">
                 Company Name <span className="text-red-400">*</span>
               </label>
               <input
@@ -62,13 +62,13 @@ export default function AddCompanyModal({ isOpen, onClose }) {
                 required
                 value={name}
                 onChange={(e) => setName(e.target.value)}
-                className="w-full px-3 py-2.5 bg-navy-900/80 border border-white/[0.08] rounded-xl text-white placeholder-slate-600 focus:outline-none focus-glow sm:text-sm transition-all"
+                className="w-full px-3 py-2.5 bg-white dark:bg-white dark:bg-white dark:bg-navy-900/40 border border-slate-200 dark:border-slate-200 dark:border-slate-200 dark:border-white/[0.06] text-slate-800 dark:text-slate-700 dark:text-slate-700 dark:text-slate-200/40 border border-slate-200 dark:border-slate-200 dark:border-slate-200 dark:border-white/[0.06] text-slate-800 dark:text-slate-700 dark:text-slate-700 dark:text-slate-200/40 border border-slate-200 dark:border-slate-200 dark:border-slate-200 dark:border-white/[0.06] text-slate-800 dark:text-slate-700 dark:text-slate-700 dark:text-slate-200 border border-slate-200 dark:border-slate-200 dark:border-white/[0.08] rounded-xl text-white placeholder-slate-600 focus:outline-none focus-glow sm:text-sm transition-all"
                 placeholder="e.g. Acme Corp"
               />
             </div>
             
             <div>
-              <label htmlFor="industry" className="block text-sm font-medium text-slate-300 mb-1.5">
+              <label htmlFor="industry" className="block text-sm font-medium text-slate-650 dark:text-slate-650 dark:text-slate-300 mb-1.5">
                 Industry
               </label>
               <input
@@ -76,7 +76,7 @@ export default function AddCompanyModal({ isOpen, onClose }) {
                 type="text"
                 value={industry}
                 onChange={(e) => setIndustry(e.target.value)}
-                className="w-full px-3 py-2.5 bg-navy-900/80 border border-white/[0.08] rounded-xl text-white placeholder-slate-600 focus:outline-none focus-glow sm:text-sm transition-all"
+                className="w-full px-3 py-2.5 bg-white dark:bg-white dark:bg-white dark:bg-navy-900/40 border border-slate-200 dark:border-slate-200 dark:border-slate-200 dark:border-white/[0.06] text-slate-800 dark:text-slate-700 dark:text-slate-700 dark:text-slate-200/40 border border-slate-200 dark:border-slate-200 dark:border-slate-200 dark:border-white/[0.06] text-slate-800 dark:text-slate-700 dark:text-slate-700 dark:text-slate-200/40 border border-slate-200 dark:border-slate-200 dark:border-slate-200 dark:border-white/[0.06] text-slate-800 dark:text-slate-700 dark:text-slate-700 dark:text-slate-200 border border-slate-200 dark:border-slate-200 dark:border-white/[0.08] rounded-xl text-white placeholder-slate-600 focus:outline-none focus-glow sm:text-sm transition-all"
                 placeholder="e.g. Retail, Tech, Manufacturing"
               />
             </div>
@@ -86,7 +86,7 @@ export default function AddCompanyModal({ isOpen, onClose }) {
             <button
               type="button"
               onClick={onClose}
-              className="px-4 py-2 border border-white/[0.08] rounded-xl text-sm font-medium text-slate-300 bg-navy-700/60 hover:bg-navy-700 focus:outline-none transition-colors"
+              className="px-4 py-2 border border-slate-200 dark:border-slate-200 dark:border-white/[0.08] rounded-xl text-sm font-medium text-slate-650 dark:text-slate-650 dark:text-slate-300 glass-surface hover:bg-navy-700 focus:outline-none transition-colors"
               disabled={loading}
             >
               Cancel

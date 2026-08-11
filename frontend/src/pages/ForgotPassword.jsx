@@ -46,7 +46,7 @@ export default function ForgotPassword() {
       <h2 className="text-xl font-semibold text-center text-white tracking-tight font-display">
         Reset your password
       </h2>
-      <p className="mt-2 text-center text-sm text-slate-400 mb-6 leading-relaxed">
+      <p className="mt-2 text-center text-sm text-slate-500 dark:text-slate-500 dark:text-slate-400 mb-6 leading-relaxed">
         Enter your email and we will send you a reset link.
       </p>
 
@@ -65,7 +65,7 @@ export default function ForgotPassword() {
         )}
 
         <div>
-          <label htmlFor="email" className="text-xs font-semibold text-slate-400 mb-1.5 block">
+          <label htmlFor="email" className="text-xs font-semibold text-slate-500 dark:text-slate-500 dark:text-slate-400 mb-1.5 block">
             Email address
           </label>
           <div className="relative">
@@ -76,8 +76,8 @@ export default function ForgotPassword() {
               id="email"
               name="email"
               type="email"
-              className={`w-full pl-11 pr-4 py-2.5 bg-navy-900/80 border rounded-xl text-white placeholder-slate-600 focus:outline-none focus-glow transition-all duration-200 text-sm ${
-                fieldErrors.email ? 'border-red-500/50 focus:border-red-500 focus:ring-red-500/10' : 'border-white/[0.08]'
+              className={`w-full pl-11 pr-4 py-2.5 bg-white dark:bg-white dark:bg-white dark:bg-navy-900/40 border border-slate-200 dark:border-slate-200 dark:border-slate-200 dark:border-white/[0.06] text-slate-800 dark:text-slate-700 dark:text-slate-700 dark:text-slate-200/40 border border-slate-200 dark:border-slate-200 dark:border-slate-200 dark:border-white/[0.06] text-slate-800 dark:text-slate-700 dark:text-slate-700 dark:text-slate-200/40 border border-slate-200 dark:border-slate-200 dark:border-slate-200 dark:border-white/[0.06] text-slate-800 dark:text-slate-700 dark:text-slate-700 dark:text-slate-200 border rounded-xl text-white placeholder-slate-600 focus:outline-none focus-glow transition-all duration-200 text-sm ${
+                fieldErrors.email ? 'border-red-500/50 focus:border-red-500 focus:ring-red-500/10' : 'border-slate-200 dark:border-slate-200 dark:border-white/[0.08]'
               }`}
               placeholder="name@company.com"
               value={email}
@@ -115,7 +115,7 @@ export default function ForgotPassword() {
           </button>
         </div>
 
-        <div className="text-sm text-center text-slate-400 mt-6">
+        <div className="text-sm text-center text-slate-500 dark:text-slate-500 dark:text-slate-400 mt-6">
           <Link to="/login" className="font-semibold text-violet-400 hover:text-violet-300 transition-colors">
             Back to login
           </Link>

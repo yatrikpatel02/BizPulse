@@ -156,7 +156,7 @@ export default function Profile() {
       {/* User Info Card (Wider, horizontal design with decreased height) */}
       <div className="glass-card rounded-2xl p-6 shadow-sm flex flex-col md:flex-row items-center md:items-start gap-8">
         {/* Left: Interactive Avatar Upload */}
-        <div className="flex flex-col items-center text-center md:border-r border-white/[0.04] border-white/[0.06] md:pr-8 md:min-w-[200px]">
+        <div className="flex flex-col items-center text-center md:border-r border-slate-200/50 dark:border-slate-200/50 dark:border-white/[0.04] border-slate-200 dark:border-slate-200 dark:border-white/[0.06] md:pr-8 md:min-w-[200px]">
           <div 
             onClick={() => document.getElementById('avatar-input').click()}
             className="group relative w-20 h-20 rounded-full cursor-pointer overflow-hidden ring-4 ring-violet-500/10 shadow-md mb-4"
@@ -187,7 +187,7 @@ export default function Profile() {
           <button
             type="button"
             onClick={() => document.getElementById('avatar-input').click()}
-            className="mt-1 mb-3 px-3.5 py-1.5 border border-gray-250 border-white/[0.06] hover:bg-navy-900/40 dark:hover:bg-slate-800 text-slate-300 dark:text-slate-400 text-[11px] font-semibold rounded-xl transition-all shadow-sm flex items-center gap-1"
+            className="mt-1 mb-3 px-3.5 py-1.5 border border-gray-250 border-slate-200 dark:border-slate-200 dark:border-white/[0.06] hover:glass-surface dark:hover:bg-slate-800 text-slate-650 dark:text-slate-650 dark:text-slate-300 dark:text-slate-500 dark:text-slate-500 dark:text-slate-400 text-[11px] font-semibold rounded-xl transition-all shadow-sm flex items-center gap-1"
           >
             <svg className="w-3.5 h-3.5 text-slate-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15.232 5.232l3.536 3.536m-2.036-2.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />
@@ -197,7 +197,7 @@ export default function Profile() {
           <h2 className="text-xl font-bold text-slate-800 dark:text-white font-display">
             {user?.first_name || user?.last_name ? `${user.first_name} ${user.last_name}` : user?.username}
           </h2>
-          <p className="text-xs text-slate-400 mt-1">{user?.email}</p>
+          <p className="text-xs text-slate-500 dark:text-slate-500 dark:text-slate-400 mt-1">{user?.email}</p>
         </div>
 
         {/* Right: Personal details fields side-by-side */}
@@ -217,7 +217,7 @@ export default function Profile() {
                   type="text"
                   value={firstName}
                   onChange={(e) => setFirstName(e.target.value)}
-                  className="block w-full px-3.5 py-2 bg-navy-900/40 bg-navy-900/40 border border-white/[0.06] focus:border-indigo-500 rounded-xl text-white placeholder-gray-400 dark:placeholder-slate-500 focus:outline-none text-xs transition-all"
+                  className="block w-full px-3.5 py-2 glass-surface/40 border border-slate-200 dark:border-slate-200 dark:border-white/[0.06] focus:border-indigo-500 rounded-xl text-white placeholder-gray-400 dark:placeholder-slate-500 focus:outline-none text-xs transition-all"
                   placeholder="First Name"
                 />
               </div>
@@ -227,7 +227,7 @@ export default function Profile() {
                   type="text"
                   value={lastName}
                   onChange={(e) => setLastName(e.target.value)}
-                  className="block w-full px-3.5 py-2 bg-navy-900/40 bg-navy-900/40 border border-white/[0.06] focus:border-indigo-500 rounded-xl text-white placeholder-gray-400 dark:placeholder-slate-500 focus:outline-none text-xs transition-all"
+                  className="block w-full px-3.5 py-2 glass-surface/40 border border-slate-200 dark:border-slate-200 dark:border-white/[0.06] focus:border-indigo-500 rounded-xl text-white placeholder-gray-400 dark:placeholder-slate-500 focus:outline-none text-xs transition-all"
                   placeholder="Last Name"
                 />
               </div>
@@ -241,13 +241,13 @@ export default function Profile() {
                   value={usernameField}
                   onChange={(e) => setUsernameField(e.target.value)}
                   required
-                  className="block w-full px-3.5 py-2 bg-navy-900/40 bg-navy-900/40 border border-white/[0.06] focus:border-indigo-500 rounded-xl text-white placeholder-gray-400 dark:placeholder-slate-500 focus:outline-none text-xs transition-all"
+                  className="block w-full px-3.5 py-2 glass-surface/40 border border-slate-200 dark:border-slate-200 dark:border-white/[0.06] focus:border-indigo-500 rounded-xl text-white placeholder-gray-400 dark:placeholder-slate-500 focus:outline-none text-xs transition-all"
                   placeholder="Username"
                 />
               </div>
               <div>
                 <span className="block text-[10px] font-semibold text-slate-500 uppercase tracking-wider mb-1.5">Email Address</span>
-                <div className="px-3.5 py-2 bg-gray-100/70 bg-navy-800/60 border border-white/[0.06] dark:border-slate-850 rounded-xl text-slate-400 text-xs font-semibold">
+                <div className="px-3.5 py-2 bg-gray-100/70 glass-card border border-slate-200 dark:border-slate-200 dark:border-white/[0.06] dark:border-slate-850 rounded-xl text-slate-500 dark:text-slate-500 dark:text-slate-400 text-xs font-semibold">
                   {user?.email}
                 </div>
               </div>
@@ -281,7 +281,7 @@ export default function Profile() {
                 </div>
                 <div>
                   <h3 className="text-lg font-bold text-slate-800 dark:text-white font-display">Account Security</h3>
-                  <p className="text-xs text-slate-400 mt-1 max-w-[220px] mx-auto leading-relaxed">
+                  <p className="text-xs text-slate-500 dark:text-slate-500 dark:text-slate-400 mt-1 max-w-[220px] mx-auto leading-relaxed">
                     Update your account password to secure your metrics and uploads.
                   </p>
                 </div>
@@ -333,7 +333,7 @@ export default function Profile() {
                       required
                       value={oldPassword}
                       onChange={(e) => setOldPassword(e.target.value)}
-                      className="block w-full px-3.5 py-2 bg-navy-900/40 bg-navy-900/40 border border-white/[0.06] focus:border-indigo-500 rounded-xl text-white placeholder-gray-400 dark:placeholder-slate-500 focus:outline-none text-sm transition-all"
+                      className="block w-full px-3.5 py-2 glass-surface/40 border border-slate-200 dark:border-slate-200 dark:border-white/[0.06] focus:border-indigo-500 rounded-xl text-white placeholder-gray-400 dark:placeholder-slate-500 focus:outline-none text-sm transition-all"
                       placeholder="••••••••"
                     />
                   </div>
@@ -345,11 +345,11 @@ export default function Profile() {
                       required
                       value={newPassword}
                       onChange={(e) => setNewPassword(e.target.value)}
-                      className="block w-full px-3.5 py-2 bg-navy-900/40 bg-navy-900/40 border border-white/[0.06] focus:border-indigo-500 rounded-xl text-white placeholder-gray-400 dark:placeholder-slate-500 focus:outline-none text-sm transition-all"
+                      className="block w-full px-3.5 py-2 glass-surface/40 border border-slate-200 dark:border-slate-200 dark:border-white/[0.06] focus:border-indigo-500 rounded-xl text-white placeholder-gray-400 dark:placeholder-slate-500 focus:outline-none text-sm transition-all"
                       placeholder="••••••••"
                     />
                     {newPassword && (
-                      <ul className="mt-3 grid grid-cols-1 gap-1 text-[10px] font-semibold text-slate-400 bg-slate-950/20 border border-slate-900 rounded-xl p-2.5">
+                      <ul className="mt-3 grid grid-cols-1 gap-1 text-[10px] font-semibold text-slate-500 dark:text-slate-500 dark:text-slate-400 bg-slate-950/20 border border-slate-900 rounded-xl p-2.5">
                         {passwordChecks.map((c, i) => (
                           <li key={i} className={`flex items-center gap-1.5 ${c.passed ? 'text-emerald-600 dark:text-emerald-600 dark:text-emerald-600 dark:text-emerald-400' : 'text-slate-500'}`}>
                             <span>{c.passed ? '✓' : '•'}</span> {c.label}
@@ -366,7 +366,7 @@ export default function Profile() {
                       required
                       value={newPasswordConfirm}
                       onChange={(e) => setNewPasswordConfirm(e.target.value)}
-                      className="block w-full px-3.5 py-2 bg-navy-900/40 bg-navy-900/40 border border-white/[0.06] focus:border-indigo-500 rounded-xl text-white placeholder-gray-400 dark:placeholder-slate-500 focus:outline-none text-sm transition-all"
+                      className="block w-full px-3.5 py-2 glass-surface/40 border border-slate-200 dark:border-slate-200 dark:border-white/[0.06] focus:border-indigo-500 rounded-xl text-white placeholder-gray-400 dark:placeholder-slate-500 focus:outline-none text-sm transition-all"
                       placeholder="••••••••"
                     />
                     {newPasswordConfirm && !passwordsMatch && (
@@ -389,7 +389,7 @@ export default function Profile() {
           {/* Danger Zone Card */}
           <div className="glass-card rounded-2xl p-6 border border-red-200/10 dark:border-red-500/10 shadow-sm bg-red-500/[0.01] space-y-4">
             <h3 className="text-lg font-bold text-red-600 text-red-400 font-display">Delete Account</h3>
-            <p className="text-xs text-slate-400 leading-relaxed">
+            <p className="text-xs text-slate-500 dark:text-slate-500 dark:text-slate-400 leading-relaxed">
               Once you delete your account, all your uploaded datasets and analytics will be permanently removed.
             </p>
             
@@ -423,7 +423,7 @@ export default function Profile() {
                     value={confirmPassword}
                     onChange={(e) => setConfirmPassword(e.target.value)}
                     required
-                    className="block w-full px-3.5 py-2.5 bg-navy-900/40 bg-navy-900/40 border border-gray-250 border-white/[0.06] focus:border-indigo-500 rounded-xl text-white placeholder-gray-400 focus:outline-none text-xs transition-all"
+                    className="block w-full px-3.5 py-2.5 glass-surface/40 border border-gray-250 border-slate-200 dark:border-slate-200 dark:border-white/[0.06] focus:border-indigo-500 rounded-xl text-white placeholder-gray-400 focus:outline-none text-xs transition-all"
                     placeholder="••••••••"
                   />
                 </div>
@@ -444,7 +444,7 @@ export default function Profile() {
                       setConfirmPassword('');
                       setDeleteError('');
                     }}
-                    className="flex-1 py-2 border border-white/[0.06] hover:bg-navy-900/40 dark:hover:bg-slate-800 text-slate-300 text-xs font-semibold rounded-xl transition-all"
+                    className="flex-1 py-2 border border-slate-200 dark:border-slate-200 dark:border-white/[0.06] hover:glass-surface dark:hover:bg-slate-800 text-slate-650 dark:text-slate-650 dark:text-slate-300 text-xs font-semibold rounded-xl transition-all"
                   >
                     Cancel
                   </button>
@@ -473,17 +473,17 @@ export default function Profile() {
               </div>
             )}
 
-            <div className="border border-white/[0.04] border-white/[0.06] rounded-xl overflow-hidden">
+            <div className="border border-slate-200/50 dark:border-slate-200/50 dark:border-white/[0.04] border-slate-200 dark:border-slate-200 dark:border-white/[0.06] rounded-xl overflow-hidden">
               <table className="w-full text-sm">
                 <thead>
-                  <tr className="bg-navy-900/40 border-b border-white/[0.06]">
-                    <th className="px-5 py-3 text-left text-xs font-bold text-slate-200 uppercase tracking-wider">Company Name</th>
-                    <th className="px-5 py-3 text-right text-xs font-bold text-slate-200 uppercase tracking-wider">Actions</th>
+                  <tr className="glass-surface border-b border-slate-200 dark:border-slate-200 dark:border-white/[0.06]">
+                    <th className="px-5 py-3 text-left text-xs font-bold text-slate-700 dark:text-slate-700 dark:text-slate-200 uppercase tracking-wider">Company Name</th>
+                    <th className="px-5 py-3 text-right text-xs font-bold text-slate-700 dark:text-slate-700 dark:text-slate-200 uppercase tracking-wider">Actions</th>
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-gray-150 dark:divide-slate-800/60">
                   {businesses.map((business) => (
-                    <tr key={business.id} className="hover:bg-navy-900/40 dark:hover:bg-slate-800/20 transition-colors">
+                    <tr key={business.id} className="hover:glass-surface dark:hover:bg-slate-800/20 transition-colors">
                       <td className="px-5 py-4">
                         {editingId === business.id ? (
                           <input
@@ -494,7 +494,7 @@ export default function Profile() {
                             autoFocus
                           />
                         ) : (
-                          <span className="font-semibold text-slate-200">{business.name}</span>
+                          <span className="font-semibold text-slate-700 dark:text-slate-700 dark:text-slate-200">{business.name}</span>
                         )}
                       </td>
                       <td className="px-5 py-4 text-right">
@@ -509,7 +509,7 @@ export default function Profile() {
                               </button>
                               <button
                                 onClick={() => setEditingId(null)}
-                                className="px-3 py-1 border border-white/[0.06] hover:bg-slate-800 text-slate-500 text-slate-300 text-xs font-semibold rounded-lg transition-colors"
+                                className="px-3 py-1 border border-slate-200 dark:border-slate-200 dark:border-white/[0.06] hover:bg-slate-800 text-slate-500 text-slate-650 dark:text-slate-650 dark:text-slate-300 text-xs font-semibold rounded-lg transition-colors"
                               >
                                 Cancel
                               </button>
@@ -560,7 +560,7 @@ export default function Profile() {
       {/* Success Modal */}
       {showSuccessModal && (
         <div className="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex items-center justify-center p-4 animate-fade-in">
-          <div className="bg-navy-800/60 border border-gray-150 border-white/[0.06] rounded-2xl p-6 shadow-xl max-w-sm w-full text-center space-y-4 transform scale-100 transition-all duration-300">
+          <div className="glass-card border border-gray-150 border-slate-200 dark:border-slate-200 dark:border-white/[0.06] rounded-2xl p-6 shadow-xl max-w-sm w-full text-center space-y-4 transform scale-100 transition-all duration-300">
             <div className="w-12 h-12 bg-emerald-500/10 rounded-full flex items-center justify-center text-emerald-600 text-emerald-600 dark:text-emerald-600 dark:text-emerald-600 dark:text-emerald-400 mx-auto">
               <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
@@ -568,7 +568,7 @@ export default function Profile() {
             </div>
             <div>
               <h3 className="text-lg font-bold text-slate-800 dark:text-white font-display">Profile Saved</h3>
-              <p className="text-xs text-slate-400 mt-1.5 leading-relaxed">
+              <p className="text-xs text-slate-500 dark:text-slate-500 dark:text-slate-400 mt-1.5 leading-relaxed">
                 Your profile details and custom photo have been updated and synced successfully.
               </p>
             </div>

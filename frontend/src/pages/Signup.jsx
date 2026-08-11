@@ -123,12 +123,12 @@ export default function Signup() {
     }
   };
 
-  const inputClass = (fieldName) => `w-full pl-11 pr-4 py-2 bg-navy-900/80 border rounded-xl text-white placeholder-slate-600 focus:outline-none focus-glow transition-all duration-200 text-sm ${
-    fieldErrors[fieldName] ? 'border-red-500/50 focus:border-red-500 focus:ring-red-500/10' : 'border-white/[0.08]'
+  const inputClass = (fieldName) => `w-full pl-11 pr-4 py-2 bg-white dark:bg-white dark:bg-white dark:bg-navy-900/40 border border-slate-200 dark:border-slate-200 dark:border-slate-200 dark:border-white/[0.06] text-slate-800 dark:text-slate-700 dark:text-slate-700 dark:text-slate-200/40 border border-slate-200 dark:border-slate-200 dark:border-slate-200 dark:border-white/[0.06] text-slate-800 dark:text-slate-700 dark:text-slate-700 dark:text-slate-200/40 border border-slate-200 dark:border-slate-200 dark:border-slate-200 dark:border-white/[0.06] text-slate-800 dark:text-slate-700 dark:text-slate-700 dark:text-slate-200 border rounded-xl text-white placeholder-slate-600 focus:outline-none focus-glow transition-all duration-200 text-sm ${
+    fieldErrors[fieldName] ? 'border-red-500/50 focus:border-red-500 focus:ring-red-500/10' : 'border-slate-200 dark:border-slate-200 dark:border-white/[0.08]'
   }`;
 
-  const smallInputClass = (fieldName) => `w-full pl-9 pr-3 py-2 bg-navy-900/80 border rounded-xl text-white placeholder-slate-600 focus:outline-none focus-glow transition-all duration-200 text-sm ${
-    fieldErrors[fieldName] ? 'border-red-500/50 focus:border-red-500 focus:ring-red-500/10' : 'border-white/[0.08]'
+  const smallInputClass = (fieldName) => `w-full pl-9 pr-3 py-2 bg-white dark:bg-white dark:bg-white dark:bg-navy-900/40 border border-slate-200 dark:border-slate-200 dark:border-slate-200 dark:border-white/[0.06] text-slate-800 dark:text-slate-700 dark:text-slate-700 dark:text-slate-200/40 border border-slate-200 dark:border-slate-200 dark:border-slate-200 dark:border-white/[0.06] text-slate-800 dark:text-slate-700 dark:text-slate-700 dark:text-slate-200/40 border border-slate-200 dark:border-slate-200 dark:border-slate-200 dark:border-white/[0.06] text-slate-800 dark:text-slate-700 dark:text-slate-700 dark:text-slate-200 border rounded-xl text-white placeholder-slate-600 focus:outline-none focus-glow transition-all duration-200 text-sm ${
+    fieldErrors[fieldName] ? 'border-red-500/50 focus:border-red-500 focus:ring-red-500/10' : 'border-slate-200 dark:border-slate-200 dark:border-white/[0.08]'
   }`;
 
   return (
@@ -150,7 +150,7 @@ export default function Signup() {
           {/* First Name & Last Name */}
           <div className="grid grid-cols-2 gap-3">
             <div>
-              <label htmlFor="first_name" className="text-xs font-semibold text-slate-400 mb-1 block">
+              <label htmlFor="first_name" className="text-xs font-semibold text-slate-500 dark:text-slate-500 dark:text-slate-400 mb-1 block">
                 First name
               </label>
               <div className="relative">
@@ -171,7 +171,7 @@ export default function Signup() {
               )}
             </div>
             <div>
-              <label htmlFor="last_name" className="text-xs font-semibold text-slate-400 mb-1 block">
+              <label htmlFor="last_name" className="text-xs font-semibold text-slate-500 dark:text-slate-500 dark:text-slate-400 mb-1 block">
                 Last name
               </label>
               <div className="relative">
@@ -195,7 +195,7 @@ export default function Signup() {
 
           {/* Email field */}
           <div>
-            <label htmlFor="email" className="text-xs font-semibold text-slate-400 mb-1.5 block">
+            <label htmlFor="email" className="text-xs font-semibold text-slate-500 dark:text-slate-500 dark:text-slate-400 mb-1.5 block">
               Email address
             </label>
             <div className="relative">
@@ -219,7 +219,7 @@ export default function Signup() {
 
           {/* Username field */}
           <div>
-            <label htmlFor="username" className="text-xs font-semibold text-slate-400 mb-1.5 block">
+            <label htmlFor="username" className="text-xs font-semibold text-slate-500 dark:text-slate-500 dark:text-slate-400 mb-1.5 block">
               Username
             </label>
             <div className="relative">
@@ -242,7 +242,7 @@ export default function Signup() {
 
           {/* Password field */}
           <div>
-            <label htmlFor="password" className="text-xs font-semibold text-slate-400 mb-1.5 block">
+            <label htmlFor="password" className="text-xs font-semibold text-slate-500 dark:text-slate-500 dark:text-slate-400 mb-1.5 block">
               Password
             </label>
             <div className="relative">
@@ -262,7 +262,7 @@ export default function Signup() {
               <p className="mt-1 text-xs text-red-400 font-medium">{fieldErrors.password}</p>
             )}
             {formData.password && (
-              <ul className="mt-2.5 space-y-1 text-xs bg-navy-900/80 p-3 rounded-xl border border-white/[0.06] grid grid-cols-1 md:grid-cols-2 gap-x-4">
+              <ul className="mt-2.5 space-y-1 text-xs bg-white dark:bg-white dark:bg-white dark:bg-navy-900/40 border border-slate-200 dark:border-slate-200 dark:border-slate-200 dark:border-white/[0.06] text-slate-800 dark:text-slate-700 dark:text-slate-700 dark:text-slate-200/40 border border-slate-200 dark:border-slate-200 dark:border-slate-200 dark:border-white/[0.06] text-slate-800 dark:text-slate-700 dark:text-slate-700 dark:text-slate-200/40 border border-slate-200 dark:border-slate-200 dark:border-slate-200 dark:border-white/[0.06] text-slate-800 dark:text-slate-700 dark:text-slate-700 dark:text-slate-200 p-3 rounded-xl border border-slate-200 dark:border-slate-200 dark:border-white/[0.06] grid grid-cols-1 md:grid-cols-2 gap-x-4">
                 {passwordChecks.map((c, i) => (
                   <li key={i} className={`flex items-center gap-1.5 ${c.passed ? 'text-emerald-400 font-medium' : 'text-slate-600'}`}>
                     {c.passed ? <Check size={12} className="shrink-0" /> : <X size={12} className="shrink-0" />}
@@ -275,7 +275,7 @@ export default function Signup() {
 
           {/* Confirm Password field */}
           <div>
-            <label htmlFor="password_confirm" className="text-xs font-semibold text-slate-400 mb-1.5 block">
+            <label htmlFor="password_confirm" className="text-xs font-semibold text-slate-500 dark:text-slate-500 dark:text-slate-400 mb-1.5 block">
               Confirm password
             </label>
             <div className="relative">
@@ -285,8 +285,8 @@ export default function Signup() {
               <input
                 name="password_confirm"
                 type="password"
-                className={`w-full pl-11 pr-4 py-2 bg-navy-900/80 border rounded-xl text-white placeholder-slate-600 focus:outline-none focus-glow transition-all duration-200 text-sm ${
-                  fieldErrors.password_confirm ? 'border-red-500/50 focus:border-red-500 focus:ring-red-500/10' : 'border-white/[0.08]'
+                className={`w-full pl-11 pr-4 py-2 bg-white dark:bg-white dark:bg-white dark:bg-navy-900/40 border border-slate-200 dark:border-slate-200 dark:border-slate-200 dark:border-white/[0.06] text-slate-800 dark:text-slate-700 dark:text-slate-700 dark:text-slate-200/40 border border-slate-200 dark:border-slate-200 dark:border-slate-200 dark:border-white/[0.06] text-slate-800 dark:text-slate-700 dark:text-slate-700 dark:text-slate-200/40 border border-slate-200 dark:border-slate-200 dark:border-slate-200 dark:border-white/[0.06] text-slate-800 dark:text-slate-700 dark:text-slate-700 dark:text-slate-200 border rounded-xl text-white placeholder-slate-600 focus:outline-none focus-glow transition-all duration-200 text-sm ${
+                  fieldErrors.password_confirm ? 'border-red-500/50 focus:border-red-500 focus:ring-red-500/10' : 'border-slate-200 dark:border-slate-200 dark:border-white/[0.08]'
                 }`}
                 placeholder="••••••••"
                 value={formData.password_confirm}
@@ -325,16 +325,16 @@ export default function Signup() {
 
         {/* Divider */}
         <div className="relative flex py-2 items-center">
-          <div className="flex-grow border-t border-white/[0.06]"></div>
+          <div className="flex-grow border-t border-slate-200 dark:border-slate-200 dark:border-white/[0.06]"></div>
           <span className="flex-shrink mx-4 text-slate-500 text-xs font-semibold uppercase tracking-wider">or</span>
-          <div className="flex-grow border-t border-white/[0.06]"></div>
+          <div className="flex-grow border-t border-slate-200 dark:border-slate-200 dark:border-white/[0.06]"></div>
         </div>
 
         {/* Google Sign-in */}
         <GoogleLoginButton text="signup_with" />
 
         {/* Sign in Link */}
-        <div className="text-sm text-center text-slate-400 mt-6">
+        <div className="text-sm text-center text-slate-500 dark:text-slate-500 dark:text-slate-400 mt-6">
           Already have an account?{' '}
           <Link to="/login" className="font-semibold text-violet-400 hover:text-violet-300 transition-colors">
             Sign in

@@ -76,7 +76,7 @@ export default function Login() {
         <div className="space-y-4.5">
           {/* Email field */}
           <div>
-            <label htmlFor="email" className="text-xs font-semibold text-slate-400 mb-1.5 block">
+            <label htmlFor="email" className="text-xs font-semibold text-slate-500 dark:text-slate-500 dark:text-slate-400 mb-1.5 block">
               Email address
             </label>
             <div className="relative">
@@ -88,8 +88,8 @@ export default function Login() {
                 name="email"
                 type="email"
                 autoComplete="email"
-                className={`w-full pl-11 pr-4 py-2.5 bg-navy-900/80 border rounded-xl text-white placeholder-slate-600 focus:outline-none focus-glow transition-all duration-200 text-sm ${
-                  fieldErrors.email ? 'border-red-500/50 focus:border-red-500 focus:ring-red-500/10' : 'border-white/[0.08]'
+                className={`w-full pl-11 pr-4 py-2.5 bg-white dark:bg-white dark:bg-white dark:bg-navy-900/40 border border-slate-200 dark:border-slate-200 dark:border-slate-200 dark:border-white/[0.06] text-slate-800 dark:text-slate-700 dark:text-slate-700 dark:text-slate-200/40 border border-slate-200 dark:border-slate-200 dark:border-slate-200 dark:border-white/[0.06] text-slate-800 dark:text-slate-700 dark:text-slate-700 dark:text-slate-200/40 border border-slate-200 dark:border-slate-200 dark:border-slate-200 dark:border-white/[0.06] text-slate-800 dark:text-slate-700 dark:text-slate-700 dark:text-slate-200 border rounded-xl text-white placeholder-slate-600 focus:outline-none focus-glow transition-all duration-200 text-sm ${
+                  fieldErrors.email ? 'border-red-500/50 focus:border-red-500 focus:ring-red-500/10' : 'border-slate-200 dark:border-slate-200 dark:border-white/[0.08]'
                 }`}
                 placeholder="you@example.com"
                 value={email}
@@ -107,7 +107,7 @@ export default function Login() {
           {/* Password field */}
           <div>
             <div className="flex justify-between items-center mb-1.5">
-              <label htmlFor="password" className="text-xs font-semibold text-slate-400">
+              <label htmlFor="password" className="text-xs font-semibold text-slate-500 dark:text-slate-500 dark:text-slate-400">
                 Password
               </label>
             </div>
@@ -120,8 +120,8 @@ export default function Login() {
                 name="password"
                 type={showPassword ? 'text' : 'password'}
                 autoComplete="current-password"
-                className={`w-full pl-11 pr-12 py-2.5 bg-navy-900/80 border rounded-xl text-white placeholder-slate-600 focus:outline-none focus-glow transition-all duration-200 text-sm ${
-                  fieldErrors.password ? 'border-red-500/50 focus:border-red-500 focus:ring-red-500/10' : 'border-white/[0.08]'
+                className={`w-full pl-11 pr-12 py-2.5 bg-white dark:bg-white dark:bg-white dark:bg-navy-900/40 border border-slate-200 dark:border-slate-200 dark:border-slate-200 dark:border-white/[0.06] text-slate-800 dark:text-slate-700 dark:text-slate-700 dark:text-slate-200/40 border border-slate-200 dark:border-slate-200 dark:border-slate-200 dark:border-white/[0.06] text-slate-800 dark:text-slate-700 dark:text-slate-700 dark:text-slate-200/40 border border-slate-200 dark:border-slate-200 dark:border-slate-200 dark:border-white/[0.06] text-slate-800 dark:text-slate-700 dark:text-slate-700 dark:text-slate-200 border rounded-xl text-white placeholder-slate-600 focus:outline-none focus-glow transition-all duration-200 text-sm ${
+                  fieldErrors.password ? 'border-red-500/50 focus:border-red-500 focus:ring-red-500/10' : 'border-slate-200 dark:border-slate-200 dark:border-white/[0.08]'
                 }`}
                 placeholder="Enter your password"
                 value={password}
@@ -133,7 +133,7 @@ export default function Login() {
               <button
                 type="button"
                 onClick={() => setShowPassword(!showPassword)}
-                className="absolute right-4 top-1/2 -translate-y-1/2 text-slate-500 hover:text-slate-300 transition-colors"
+                className="absolute right-4 top-1/2 -translate-y-1/2 text-slate-500 hover:text-slate-650 dark:text-slate-650 dark:text-slate-300 transition-colors"
                 tabIndex="-1"
               >
                 {showPassword ? <EyeOff size={16} /> : <Eye size={16} />}
@@ -178,16 +178,16 @@ export default function Login() {
 
         {/* Divider */}
         <div className="relative flex py-2 items-center">
-          <div className="flex-grow border-t border-white/[0.06]"></div>
+          <div className="flex-grow border-t border-slate-200 dark:border-slate-200 dark:border-white/[0.06]"></div>
           <span className="flex-shrink mx-4 text-slate-500 text-xs font-semibold uppercase tracking-wider">or</span>
-          <div className="flex-grow border-t border-white/[0.06]"></div>
+          <div className="flex-grow border-t border-slate-200 dark:border-slate-200 dark:border-white/[0.06]"></div>
         </div>
 
         {/* Google Sign-in */}
         <GoogleLoginButton text="signin_with" />
 
         {/* Sign up Link */}
-        <div className="mt-6 text-center text-sm text-slate-400">
+        <div className="mt-6 text-center text-sm text-slate-500 dark:text-slate-500 dark:text-slate-400">
           Don&apos;t have an account?{' '}
           <Link to="/signup" className="font-semibold text-violet-400 hover:text-violet-300 transition-colors">
             Sign up

@@ -67,7 +67,7 @@ export default function Data() {
                     className={`w-10 h-10 rounded-full flex items-center justify-center font-bold text-sm z-10 transition-colors ${
                       isActive ? 'bg-violet-600 text-white shadow-md' : 
                       isPast ? 'bg-violet-500/20 text-violet-300' : 
-                      'bg-navy-700/60 text-slate-500'
+                      'glass-surface text-slate-500'
                     }`}
                   >
                     {isPast ? (
@@ -87,7 +87,7 @@ export default function Data() {
                   {/* Connector Line */}
                   {stepNumber < 3 && (
                     <div className={`absolute top-5 left-1/2 w-full h-[2px] -z-10 ${
-                      isPast ? 'bg-violet-500/30' : 'bg-navy-700/60'
+                      isPast ? 'bg-violet-500/30' : 'glass-surface'
                     }`} />
                   )}
                 </div>

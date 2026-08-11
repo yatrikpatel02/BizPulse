@@ -279,11 +279,11 @@ export default function DashboardLayout({ children }) {
       <Sidebar isOpen={isSidebarOpen} setIsOpen={setIsSidebarOpen} />
       <div className="flex-1 flex flex-col overflow-hidden w-full relative z-10 grid-bg">
         {/* Top Header */}
-        <header className="flex-shrink-0 flex items-center justify-between px-6 py-3.5 bg-white/80 dark:bg-navy-900/80 backdrop-blur-xl border-b border-slate-200 dark:border-white/[0.06] z-40 relative transition-colors duration-200">
+        <header className="flex-shrink-0 flex items-center justify-between px-6 py-3.5 bg-white/80 dark:bg-white dark:bg-white dark:bg-white dark:bg-navy-900/40 border border-slate-200 dark:border-slate-200 dark:border-slate-200 dark:border-white/[0.06] text-slate-800 dark:text-slate-700 dark:text-slate-700 dark:text-slate-200/40 border border-slate-200 dark:border-slate-200 dark:border-slate-200 dark:border-white/[0.06] text-slate-800 dark:text-slate-700 dark:text-slate-700 dark:text-slate-200/40 border border-slate-200 dark:border-slate-200 dark:border-slate-200 dark:border-white/[0.06] text-slate-800 dark:text-slate-700 dark:text-slate-700 dark:text-slate-200 backdrop-blur-xl border-b border-slate-200 dark:border-slate-200 dark:border-slate-200 dark:border-white/[0.06] z-40 relative transition-colors duration-200">
           <div className="flex items-center space-x-3">
             <button 
               onClick={() => setIsSidebarOpen(!isSidebarOpen)}
-              className="p-2 -ml-2 rounded-lg text-slate-500 hover:text-slate-800 hover:bg-slate-100 dark:text-slate-400 dark:hover:text-slate-200 dark:hover:bg-white/[0.05] focus:outline-none transition-colors"
+              className="p-2 -ml-2 rounded-lg text-slate-500 hover:text-slate-800 hover:bg-slate-100 dark:text-slate-500 dark:text-slate-500 dark:text-slate-400 dark:hover:text-slate-700 dark:text-slate-700 dark:text-slate-200 dark:hover:bg-white/[0.05] focus:outline-none transition-colors"
             >
               <span className="sr-only">Open sidebar</span>
               <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -292,14 +292,14 @@ export default function DashboardLayout({ children }) {
             </button>
             <div className="flex flex-col">
               <h2 className="text-base font-bold text-slate-800 dark:text-white font-display leading-tight">{title}</h2>
-              <span className="text-[11px] text-slate-500 dark:text-slate-500 dark:text-slate-500 dark:text-slate-400 font-medium hidden sm:block mt-0.5 leading-none">{subtitle}</span>
+              <span className="text-[11px] text-slate-500 dark:text-slate-500 dark:text-slate-500 dark:text-slate-500 dark:text-slate-500 dark:text-slate-400 font-medium hidden sm:block mt-0.5 leading-none">{subtitle}</span>
             </div>
           </div>
           <div className="flex items-center space-x-3">
             <div className="relative" ref={notificationRef}>
               <button
                 onClick={() => setIsNotificationsOpen(!isNotificationsOpen)}
-                className="p-2 rounded-lg text-slate-500 hover:text-slate-800 hover:bg-slate-100 dark:text-slate-400 dark:hover:text-slate-200 dark:hover:bg-white/[0.05] transition-colors focus:outline-none relative cursor-pointer"
+                className="p-2 rounded-lg text-slate-500 hover:text-slate-800 hover:bg-slate-100 dark:text-slate-500 dark:text-slate-500 dark:text-slate-400 dark:hover:text-slate-700 dark:text-slate-700 dark:text-slate-200 dark:hover:bg-white/[0.05] transition-colors focus:outline-none relative cursor-pointer"
                 title="Notifications"
               >
                 <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -312,8 +312,8 @@ export default function DashboardLayout({ children }) {
 
               {isNotificationsOpen && (
                 <>
-                  <div className="absolute right-0 mt-2 w-80 sm:w-96 bg-white dark:bg-navy-800/95 backdrop-blur-xl border border-slate-200 dark:border-white/[0.08] rounded-2xl shadow-md dark:shadow-glass-lg z-50 py-3 animate-fade-in">
-                    <div className="flex items-center justify-between px-4 pb-2 border-b border-white/[0.06]">
+                  <div className="absolute right-0 mt-2 w-80 sm:w-96 bg-white dark:bg-navy-800/95 backdrop-blur-xl border border-slate-200 dark:border-slate-200 dark:border-slate-200 dark:border-white/[0.08] rounded-2xl shadow-md dark:shadow-glass-lg z-50 py-3 animate-fade-in">
+                    <div className="flex items-center justify-between px-4 pb-2 border-b border-slate-200 dark:border-slate-200 dark:border-white/[0.06]">
                       <div className="flex items-center gap-1.5">
                         <span className="text-sm font-bold text-slate-800 dark:text-slate-100 font-display">Notifications</span>
                         {unreadCount > 0 && (
@@ -370,12 +370,12 @@ export default function DashboardLayout({ children }) {
                             </div>
                             <div className="flex-1 space-y-1">
                               <div className="flex items-center justify-between">
-                                <span className={`text-xs font-bold ${notif.unread ? 'text-slate-800 dark:text-slate-100' : 'text-slate-500 dark:text-slate-400'}`}>
+                                <span className={`text-xs font-bold ${notif.unread ? 'text-slate-800 dark:text-slate-100' : 'text-slate-500 dark:text-slate-500 dark:text-slate-500 dark:text-slate-400'}`}>
                                   {notif.title}
                                 </span>
                                 <span className="text-[10px] text-gray-400 dark:text-slate-500">{formatTimeAgo(notif.date)}</span>
                               </div>
-                              <p className="text-[11px] text-slate-600 dark:text-slate-400 leading-relaxed">{notif.desc}</p>
+                              <p className="text-[11px] text-slate-600 dark:text-slate-500 dark:text-slate-500 dark:text-slate-400 leading-relaxed">{notif.desc}</p>
                             </div>
                           </div>
                         ))
@@ -383,7 +383,7 @@ export default function DashboardLayout({ children }) {
                     </div>
 
                     {notifications.length > 0 && (
-                      <div className="px-4 pt-2 mt-2 border-t border-white/[0.06] flex justify-end">
+                      <div className="px-4 pt-2 mt-2 border-t border-slate-200 dark:border-slate-200 dark:border-white/[0.06] flex justify-end">
                         <button
                           onClick={clearNotifications}
                           className="text-[10px] text-slate-500 hover:text-red-400 font-bold transition-colors cursor-pointer"
@@ -398,7 +398,7 @@ export default function DashboardLayout({ children }) {
             </div>
             <button
               onClick={toggleTheme}
-              className="p-2 rounded-lg text-slate-500 hover:text-slate-800 hover:bg-slate-100 dark:text-slate-400 dark:hover:text-slate-200 dark:hover:bg-white/[0.05] transition-colors focus:outline-none"
+              className="p-2 rounded-lg text-slate-500 hover:text-slate-800 hover:bg-slate-100 dark:text-slate-500 dark:text-slate-500 dark:text-slate-400 dark:hover:text-slate-700 dark:text-slate-700 dark:text-slate-200 dark:hover:bg-white/[0.05] transition-colors focus:outline-none"
               title={isDarkMode ? 'Switch to Light Mode' : 'Switch to Dark Mode'}
             >
               {isDarkMode ? (
@@ -412,7 +412,7 @@ export default function DashboardLayout({ children }) {
               )}
             </button>
 
-            <Link to="/profile" className="flex items-center space-x-2 border-l border-slate-200 dark:border-white/[0.08] pl-3 hover:opacity-80 transition-opacity">
+            <Link to="/profile" className="flex items-center space-x-2 border-l border-slate-200 dark:border-slate-200 dark:border-slate-200 dark:border-white/[0.08] pl-3 hover:opacity-80 transition-opacity">
               {user?.avatar ? (
                 <img src={user.avatar} alt="Avatar" className="w-8 h-8 rounded-full object-cover ring-2 ring-violet-500/30 shadow-glow-purple-sm" />
               ) : (
@@ -420,7 +420,7 @@ export default function DashboardLayout({ children }) {
                   {(user?.first_name?.charAt(0) || '') + (user?.last_name?.charAt(0) || '') || user?.username?.charAt(0) || 'U'}
                 </div>
               )}
-              <span className="text-sm font-semibold text-slate-700 dark:text-slate-300 hidden sm:block">
+              <span className="text-sm font-semibold text-slate-700 dark:text-slate-650 dark:text-slate-650 dark:text-slate-300 hidden sm:block">
                 {user?.first_name || user?.last_name ? `${user.first_name} ${user.last_name}` : user?.username}
               </span>
             </Link>

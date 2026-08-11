@@ -97,13 +97,13 @@ export default function Insights() {
         <h2 className="text-3xl font-extrabold text-slate-900 dark:text-white tracking-tight font-display">
           Actionable Business Insights
         </h2>
-        <p className="text-sm text-slate-400 mt-1">
+        <p className="text-sm text-slate-500 dark:text-slate-500 dark:text-slate-400 mt-1">
           Automatically generated recommendations answering: <span className="font-semibold text-violet-400">"What should I do?"</span>
         </p>
       </div>
 
       {/* Automated AI Recommendations — moved from Analytics Forecasts tab */}
-      <div className="bg-navy-800/60 backdrop-blur-md border border-white/[0.06] rounded-3xl p-6 shadow-md">
+      <div className="glass-card backdrop-blur-md border border-slate-200 dark:border-slate-200 dark:border-white/[0.06] rounded-3xl p-6 shadow-md">
         <h3 className="text-lg font-bold text-slate-800 dark:text-white mb-1">Automated AI Recommendations</h3>
         <p className="text-xs text-slate-500 mb-6">Real-time decisions identified from sales and market intelligence data</p>
 
@@ -146,7 +146,7 @@ export default function Insights() {
                 </div>
                 <div className="space-y-1 flex-1">
                   <div className="flex items-center gap-2">
-                    <h4 className="text-sm font-bold text-slate-200">{insight.title}</h4>
+                    <h4 className="text-sm font-bold text-slate-700 dark:text-slate-700 dark:text-slate-200">{insight.title}</h4>
                     <span className={`text-[9px] uppercase font-bold px-2 py-0.5 rounded-full ${
                       insight.severity === 'high' ? 'bg-rose-500/10 text-rose-600 dark:text-rose-600 dark:text-rose-600 dark:text-rose-600 dark:text-rose-400' 
                       : insight.severity === 'medium' ? 'bg-amber-500/10 text-amber-600 text-amber-400'
@@ -155,7 +155,7 @@ export default function Insights() {
                       {insight.severity} Priority
                     </span>
                   </div>
-                  <p className="text-xs text-gray-500 dark:text-slate-400 leading-relaxed">
+                  <p className="text-xs text-gray-500 dark:text-slate-500 dark:text-slate-500 dark:text-slate-400 leading-relaxed">
                     {previewDescription(insight.description)}
                   </p>
                 </div>
@@ -165,7 +165,7 @@ export default function Insights() {
         )}
       </div>
       {/* Filters Bar */}
-      <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4 bg-navy-800/60 backdrop-blur-md border border-white/[0.06] rounded-2xl p-4 shadow-sm">
+      <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4 glass-card backdrop-blur-md border border-slate-200 dark:border-slate-200 dark:border-white/[0.06] rounded-2xl p-4 shadow-sm">
         <div className="flex flex-wrap items-center gap-3">
           {/* Severity Filter */}
           <div className="flex flex-col gap-1">
@@ -173,7 +173,7 @@ export default function Insights() {
             <select
               value={severityFilter}
               onChange={(e) => setSeverityFilter(e.target.value)}
-              className="bg-navy-900/40 bg-navy-900/40 border border-white/[0.06] text-sm font-semibold rounded-xl px-4 py-2 outline-none focus:ring-1 focus:ring-violet-500 text-slate-200 text-slate-300"
+              className="glass-surface/40 border border-slate-200 dark:border-slate-200 dark:border-white/[0.06] text-sm font-semibold rounded-xl px-4 py-2 outline-none focus:ring-1 focus:ring-violet-500 text-slate-700 dark:text-slate-700 dark:text-slate-200 text-slate-650 dark:text-slate-650 dark:text-slate-300"
             >
               <option value="all">All Severities</option>
               <option value="high">High Severity</option>
@@ -188,7 +188,7 @@ export default function Insights() {
             <select
               value={typeFilter}
               onChange={(e) => setTypeFilter(e.target.value)}
-              className="bg-navy-900/40 bg-navy-900/40 border border-white/[0.06] text-sm font-semibold rounded-xl px-4 py-2 outline-none focus:ring-1 focus:ring-violet-500 text-slate-200 text-slate-300"
+              className="glass-surface/40 border border-slate-200 dark:border-slate-200 dark:border-white/[0.06] text-sm font-semibold rounded-xl px-4 py-2 outline-none focus:ring-1 focus:ring-violet-500 text-slate-700 dark:text-slate-700 dark:text-slate-200 text-slate-650 dark:text-slate-650 dark:text-slate-300"
             >
               <option value="all">All Recommendation Types</option>
               <option value="revenue_declining">Revenue Decline</option>
@@ -208,7 +208,7 @@ export default function Insights() {
 
       {/* Insights Cards Grid */}
       {loading ? (
-        <div className="flex flex-col items-center justify-center py-24 text-slate-400 space-y-3">
+        <div className="flex flex-col items-center justify-center py-24 text-slate-500 dark:text-slate-500 dark:text-slate-400 space-y-3">
           <svg className="w-8 h-8 animate-spin text-violet-400" fill="none" viewBox="0 0 24 24">
             <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="3" />
             <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" />
@@ -222,7 +222,7 @@ export default function Insights() {
           <svg className="w-14 h-14 text-violet-400/70 mb-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
           </svg>
-          <h4 className="text-lg font-bold text-slate-300">All Clear! No alerts found</h4>
+          <h4 className="text-lg font-bold text-slate-650 dark:text-slate-650 dark:text-slate-300">All Clear! No alerts found</h4>
           <p className="text-sm text-slate-500 mt-1">
             Your operations are currently performing optimally. Try adjusting your filters.
           </p>
@@ -272,7 +272,7 @@ export default function Insights() {
             return (
               <div 
                 key={insight.id}
-                className={`bg-navy-800/60 border border-white/[0.06] border-l-4 ${colorConfig.border} rounded-2xl p-6 shadow-sm hover:shadow-md transition-all duration-300 flex flex-col justify-between`}
+                className={`glass-card border border-slate-200 dark:border-slate-200 dark:border-white/[0.06] border-l-4 ${colorConfig.border} rounded-2xl p-6 shadow-sm hover:shadow-md transition-all duration-300 flex flex-col justify-between`}
               >
                 <div className="space-y-4">
                   {/* Top Bar inside Card */}
@@ -290,7 +290,7 @@ export default function Insights() {
                     </div>
                     <button
                       onClick={() => handleDismiss(insight.id)}
-                      className="p-1 text-slate-500 hover:text-slate-400 dark:hover:text-slate-300 rounded-lg hover:bg-navy-900/40 dark:hover:bg-slate-800 transition-colors self-start"
+                      className="p-1 text-slate-500 hover:text-slate-500 dark:text-slate-500 dark:text-slate-400 dark:hover:text-slate-650 dark:text-slate-650 dark:text-slate-300 rounded-lg hover:glass-surface dark:hover:bg-slate-800 transition-colors self-start"
                       title="Dismiss Recommendation"
                     >
                       <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -300,12 +300,12 @@ export default function Insights() {
                   </div>
 
                   {/* Body Text Sections */}
-                  <div className="space-y-3 pt-2 text-xs leading-relaxed text-slate-300">
+                  <div className="space-y-3 pt-2 text-xs leading-relaxed text-slate-650 dark:text-slate-650 dark:text-slate-300">
                     {/* Problem */}
                     {parsed.problem && (
                       <div>
                         <span className="font-bold text-[10px] text-slate-500 uppercase tracking-wide block mb-0.5">Problem</span>
-                        <p className="font-semibold text-slate-200">{parsed.problem}</p>
+                        <p className="font-semibold text-slate-700 dark:text-slate-700 dark:text-slate-200">{parsed.problem}</p>
                       </div>
                     )}
 
@@ -329,14 +329,14 @@ export default function Insights() {
                     {parsed.recommendation && (
                       <div className="p-3.5 bg-violet-500/[0.07] border border-violet-500/10 rounded-xl">
                         <span className="font-bold text-[10px] text-violet-400 uppercase tracking-wide block mb-1">Recommendation</span>
-                        <p className="font-medium text-slate-200">{parsed.recommendation}</p>
+                        <p className="font-medium text-slate-700 dark:text-slate-700 dark:text-slate-200">{parsed.recommendation}</p>
                       </div>
                     )}
                   </div>
                 </div>
 
                 {/* Bottom Action Trigger Button */}
-                <div className="mt-6 pt-4 border-t border-gray-150 border-white/[0.06] flex justify-end">
+                <div className="mt-6 pt-4 border-t border-gray-150 border-slate-200 dark:border-slate-200 dark:border-white/[0.06] flex justify-end">
                   <button
                     onClick={() => setActionModal({ title: insight.title, recommendation: parsed.recommendation })}
                     className="px-4 py-2 bg-gradient-to-r from-violet-600 to-indigo-600 hover:from-violet-500 hover:to-indigo-500 text-white font-bold text-xs rounded-xl shadow-sm hover:shadow-lg hover:shadow-violet-500/10 hover:-translate-y-0.5 transition-all duration-300"
@@ -353,14 +353,14 @@ export default function Insights() {
       {/* Action Details Dialog Modal */}
       {actionModal && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm animate-fade-in">
-          <div className="w-full max-w-md bg-navy-800/60 glass-card rounded-2xl p-6 shadow-glass-lg space-y-4 animate-scale-up">
-            <div className="flex items-center justify-between border-b border-white/[0.06] pb-3">
+          <div className="w-full max-w-md glass-card glass-card rounded-2xl p-6 shadow-glass-lg space-y-4 animate-scale-up">
+            <div className="flex items-center justify-between border-b border-slate-200 dark:border-slate-200 dark:border-white/[0.06] pb-3">
               <h3 className="text-lg font-bold text-slate-800 dark:text-white font-display flex items-center gap-2">
                 <span className="text-xl">🚀</span> Action Strategy
               </h3>
               <button
                 onClick={() => setActionModal(null)}
-                className="p-1 text-slate-500 hover:text-slate-400 dark:hover:text-slate-200 hover:bg-navy-800/60/[0.05] rounded-lg transition-colors"
+                className="p-1 text-slate-500 hover:text-slate-500 dark:text-slate-500 dark:text-slate-400 dark:hover:text-slate-700 dark:text-slate-700 dark:text-slate-200 hover:glass-card/[0.05] rounded-lg transition-colors"
               >
                 <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
@@ -371,12 +371,12 @@ export default function Insights() {
             <div className="space-y-3.5">
               <div>
                 <span className="text-[10px] font-bold text-slate-500 uppercase tracking-wide block mb-1">Target Area</span>
-                <p className="font-semibold text-slate-200 text-sm">{actionModal.title}</p>
+                <p className="font-semibold text-slate-700 dark:text-slate-700 dark:text-slate-200 text-sm">{actionModal.title}</p>
               </div>
 
               <div>
                 <span className="text-[10px] font-bold text-slate-500 uppercase tracking-wide block mb-1">Action Plan</span>
-                <p className="text-xs leading-relaxed text-slate-300 p-3 bg-navy-900/40 bg-navy-900/40 rounded-xl border border-white/[0.04] border-white/[0.06]">
+                <p className="text-xs leading-relaxed text-slate-650 dark:text-slate-650 dark:text-slate-300 p-3 glass-surface/40 rounded-xl border border-slate-200/50 dark:border-slate-200/50 dark:border-white/[0.04] border-slate-200 dark:border-slate-200 dark:border-white/[0.06]">
                   {actionModal.recommendation}
                 </p>
               </div>
@@ -387,7 +387,7 @@ export default function Insights() {
               </div>
             </div>
 
-            <div className="pt-4 border-t border-white/[0.06] flex justify-end">
+            <div className="pt-4 border-t border-slate-200 dark:border-slate-200 dark:border-white/[0.06] flex justify-end">
               <button
                 onClick={() => setActionModal(null)}
                 className="px-5 py-2.5 bg-violet-600 hover:bg-violet-500 text-white font-semibold text-xs rounded-xl hover:shadow-lg hover:shadow-violet-500/20 hover:-translate-y-0.5 transition-all duration-300"

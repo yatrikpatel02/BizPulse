@@ -207,14 +207,14 @@ export default function Analytics() {
   if (!activeBusiness) {
     return (
       <div className="flex flex-col items-center justify-center min-h-[60vh] text-center px-4">
-        <div className="bg-navy-800/60 p-8 rounded-2xl border border-white/[0.06] shadow-2xl backdrop-blur-md max-w-md">
+        <div className="glass-card p-8 rounded-2xl border border-slate-200 dark:border-slate-200 dark:border-white/[0.06] shadow-2xl backdrop-blur-md max-w-md">
           <div className="mb-4 flex justify-center text-violet-400">
             <svg className="w-16 h-16 animate-bounce" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
             </svg>
           </div>
           <h2 className="text-xl font-bold text-slate-800 dark:text-white mb-2">No Active Business</h2>
-          <p className="text-slate-400 mb-4">Please select or create a business/company in the sidebar switcher to load your analytics dashboard.</p>
+          <p className="text-slate-500 dark:text-slate-500 dark:text-slate-400 mb-4">Please select or create a business/company in the sidebar switcher to load your analytics dashboard.</p>
         </div>
       </div>
     );
@@ -412,26 +412,26 @@ export default function Analytics() {
     return (
       <div className="space-y-6">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-          <div className="bg-navy-800/60 backdrop-blur-md border border-white/[0.06] rounded-2xl p-5 shadow-sm">
+          <div className="glass-card backdrop-blur-md border border-slate-200 dark:border-slate-200 dark:border-white/[0.06] rounded-2xl p-5 shadow-sm">
             <span className="text-[10px] font-bold text-slate-500 uppercase block">Total Tracked Products</span>
             <span className="text-2xl font-extrabold text-violet-400 mt-1 block">{totalTracked}</span>
           </div>
-          <div className="bg-navy-800/60 backdrop-blur-md border border-white/[0.06] rounded-2xl p-5 shadow-sm">
+          <div className="glass-card backdrop-blur-md border border-slate-200 dark:border-slate-200 dark:border-white/[0.06] rounded-2xl p-5 shadow-sm">
             <span className="text-[10px] font-bold text-slate-500 uppercase block">Cheaper than Competitor</span>
             <span className="text-2xl font-extrabold text-emerald-500 mt-1 block">{cheaperCount}</span>
           </div>
-          <div className="bg-navy-800/60 backdrop-blur-md border border-white/[0.06] rounded-2xl p-5 shadow-sm">
+          <div className="glass-card backdrop-blur-md border border-slate-200 dark:border-slate-200 dark:border-white/[0.06] rounded-2xl p-5 shadow-sm">
             <span className="text-[10px] font-bold text-slate-500 uppercase block">Priced Competitively</span>
             <span className="text-2xl font-extrabold text-violet-400 mt-1 block">{competitiveCount}</span>
           </div>
-          <div className="bg-navy-800/60 backdrop-blur-md border border-white/[0.06] rounded-2xl p-5 shadow-sm">
+          <div className="glass-card backdrop-blur-md border border-slate-200 dark:border-slate-200 dark:border-white/[0.06] rounded-2xl p-5 shadow-sm">
             <span className="text-[10px] font-bold text-slate-500 uppercase block">Priced Higher</span>
             <span className="text-2xl font-extrabold text-rose-500 mt-1 block">{higherCount}</span>
           </div>
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-          <div className="lg:col-span-2 bg-navy-800/60 backdrop-blur-md border border-white/[0.06] rounded-3xl p-6 shadow-md">
+          <div className="lg:col-span-2 glass-card backdrop-blur-md border border-slate-200 dark:border-slate-200 dark:border-white/[0.06] rounded-3xl p-6 shadow-md">
             <div className="flex items-center justify-between mb-2">
               <h3 className="text-base font-bold text-slate-800 dark:text-white">Price Deviation Index</h3>
               <div className="flex gap-4 text-[10px] font-bold text-slate-500 uppercase">
@@ -449,11 +449,11 @@ export default function Analytics() {
                 const isCheaper = gap < 0;
 
                 return (
-                  <div key={prod.productId} className="flex items-center gap-4 text-xs hover:bg-navy-900/40 dark:hover:bg-slate-800/20 p-1 rounded-lg transition-colors">
-                    <div className="w-1/3 font-semibold text-slate-300 truncate" title={prod.productName}>
+                  <div key={prod.productId} className="flex items-center gap-4 text-xs hover:glass-surface dark:hover:bg-slate-800/20 p-1 rounded-lg transition-colors">
+                    <div className="w-1/3 font-semibold text-slate-650 dark:text-slate-650 dark:text-slate-300 truncate" title={prod.productName}>
                       {prod.productName}
                     </div>
-                    <div className="flex-1 relative h-6 bg-navy-700/60 rounded-lg flex items-center px-1">
+                    <div className="flex-1 relative h-6 glass-surface rounded-lg flex items-center px-1">
                       <div className="absolute left-1/2 top-0 bottom-0 w-0.5 bg-gray-300 dark:bg-slate-600/70 z-10"></div>
                       {isCheaper ? (
                         <div
@@ -467,7 +467,7 @@ export default function Analytics() {
                         ></div>
                       )}
                     </div>
-                    <div className={`w-20 text-right font-extrabold text-xs ${isCheaper ? 'text-emerald-500' : gap > 5 ? 'text-rose-500' : 'text-slate-400'}`}>
+                    <div className={`w-20 text-right font-extrabold text-xs ${isCheaper ? 'text-emerald-500' : gap > 5 ? 'text-rose-500' : 'text-slate-500 dark:text-slate-500 dark:text-slate-400'}`}>
                       {gap >= 0 ? `+${gap.toFixed(1)}%` : `${gap.toFixed(1)}%`}
                     </div>
                   </div>
@@ -475,10 +475,10 @@ export default function Analytics() {
               })}
             </div>
           </div>
-          <div className="bg-navy-800/60 backdrop-blur-md border border-white/[0.06] rounded-3xl p-6 shadow-md flex flex-col justify-between">
+          <div className="glass-card backdrop-blur-md border border-slate-200 dark:border-slate-200 dark:border-white/[0.06] rounded-3xl p-6 shadow-md flex flex-col justify-between">
             <div>
               <h3 className="text-base font-bold text-slate-800 dark:text-white mb-3">Pricing Strategy Guide</h3>
-              <ul className="space-y-3 text-xs text-slate-400">
+              <ul className="space-y-3 text-xs text-slate-500 dark:text-slate-500 dark:text-slate-400">
                 <li className="flex items-start gap-2">
                   <span className="w-1.5 h-1.5 bg-emerald-500 rounded-full mt-1.5 flex-shrink-0"></span>
                   <span><strong>Underpriced Items:</strong> Products priced below all competitors. Good for high volume, but consider raising prices to improve margins.</span>
@@ -502,12 +502,12 @@ export default function Analytics() {
           </div>
         </div>
 
-        <div className="bg-navy-800/60 backdrop-blur-md border border-white/[0.06] rounded-3xl p-6 shadow-md">
+        <div className="glass-card backdrop-blur-md border border-slate-200 dark:border-slate-200 dark:border-white/[0.06] rounded-3xl p-6 shadow-md">
           <h3 className="text-base font-bold text-slate-800 dark:text-white mb-4">Competitor Price Comparison Table</h3>
           <div className="overflow-x-auto">
             <table className="w-full text-left text-sm">
               <thead>
-                <tr className="border-b border-white/[0.06] text-xs font-extrabold text-slate-200 uppercase tracking-wider">
+                <tr className="border-b border-slate-200 dark:border-slate-200 dark:border-white/[0.06] text-xs font-extrabold text-slate-700 dark:text-slate-700 dark:text-slate-200 uppercase tracking-wider">
                   <th className="pb-3">Product Name</th>
                   <th className="pb-3 text-right">Our Price</th>
                   <th className="pb-3 text-right">Comp. Min</th>
@@ -542,25 +542,25 @@ export default function Analytics() {
 
                   const gap = prod.differencePct;
                   const gapText = gap >= 0 ? `+${gap.toFixed(1)}%` : `${gap.toFixed(1)}%`;
-                  const gapColor = gap > 5 ? 'text-rose-500 font-semibold' : gap < -5 ? 'text-emerald-500 font-semibold' : 'text-slate-400';
+                  const gapColor = gap > 5 ? 'text-rose-500 font-semibold' : gap < -5 ? 'text-emerald-500 font-semibold' : 'text-slate-500 dark:text-slate-500 dark:text-slate-400';
 
                   const isSyncing = collectingProductId === prod.productId;
 
                   return (
-                    <tr key={prod.productId} className="hover:bg-navy-900/40 dark:hover:bg-slate-800/30 transition-colors">
-                      <td className="py-4 font-semibold text-slate-200">
+                    <tr key={prod.productId} className="hover:glass-surface dark:hover:bg-slate-800/30 transition-colors">
+                      <td className="py-4 font-semibold text-slate-700 dark:text-slate-700 dark:text-slate-200">
                         {prod.productName}
                       </td>
                       <td className="py-4 text-right font-bold text-slate-800 dark:text-white">
                         ₹{prod.ourPrice.toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
                       </td>
-                      <td className="py-4 text-right text-slate-400">
+                      <td className="py-4 text-right text-slate-500 dark:text-slate-500 dark:text-slate-400">
                         ₹{prod.minPrice.toLocaleString('en-IN', { minimumFractionDigits: 2 })}
                       </td>
-                      <td className="py-4 text-right text-slate-400">
+                      <td className="py-4 text-right text-slate-500 dark:text-slate-500 dark:text-slate-400">
                         ₹{prod.avgPrice.toLocaleString('en-IN', { minimumFractionDigits: 2 })}
                       </td>
-                      <td className="py-4 text-right text-slate-400">
+                      <td className="py-4 text-right text-slate-500 dark:text-slate-500 dark:text-slate-400">
                         ₹{prod.maxPrice.toLocaleString('en-IN', { minimumFractionDigits: 2 })}
                       </td>
                       <td className={`py-4 text-right font-bold ${gapColor}`}>
@@ -577,7 +577,7 @@ export default function Analytics() {
                               href={src.url}
                               target="_blank"
                               rel="noopener noreferrer"
-                              className="text-[10px] bg-slate-100 bg-navy-700/60 text-slate-600 text-slate-400 hover:text-indigo-600 border border-white/[0.06] px-2 py-0.5 rounded transition-all duration-200"
+                              className="text-[10px] bg-slate-100 glass-surface text-slate-600 text-slate-500 dark:text-slate-500 dark:text-slate-400 hover:text-indigo-600 border border-slate-200 dark:border-slate-200 dark:border-white/[0.06] px-2 py-0.5 rounded transition-all duration-200"
                             >
                               {src.name}: ₹{src.price}
                             </a>
@@ -668,7 +668,7 @@ export default function Analytics() {
               onClick={() => setActiveTab(tab.id)}
               className={`flex-1 flex items-center justify-center px-4 py-2 text-xs font-semibold rounded-lg transition-all duration-200 whitespace-nowrap min-w-max ${activeTab === tab.id
                   ? 'bg-gradient-to-r from-violet-600 to-indigo-600 text-white shadow-glow-purple-sm nav-active-glow'
-                  : 'text-slate-400 hover:text-white hover:bg-slate-50 dark:hover:bg-slate-50 dark:hover:bg-slate-50 dark:hover:bg-white/[0.03]'
+                  : 'text-slate-500 dark:text-slate-500 dark:text-slate-400 hover:text-white hover:bg-slate-50 dark:hover:bg-slate-50 dark:hover:bg-slate-50 dark:hover:bg-white/[0.03]'
                 }`}
             >
               {tab.icon}
@@ -682,17 +682,17 @@ export default function Analytics() {
           <div className="flex flex-wrap items-center gap-3">
             {(activeTab === 'sales' || activeTab === 'inventory') && (
               <>
-                <div className="flex items-center gap-2 bg-slate-100/80 px-3 py-1.5 rounded-lg border border-slate-200 dark:bg-navy-900/80 dark:border-white/[0.08] focus-within:border-violet-500/50 transition-colors">
+                <div className="flex items-center gap-2 bg-slate-100/80 px-3 py-1.5 rounded-lg border border-slate-200 dark:bg-white dark:bg-white dark:bg-white dark:bg-navy-900/40 border border-slate-200 dark:border-slate-200 dark:border-slate-200 dark:border-white/[0.06] text-slate-800 dark:text-slate-700 dark:text-slate-700 dark:text-slate-200/40 border border-slate-200 dark:border-slate-200 dark:border-slate-200 dark:border-white/[0.06] text-slate-800 dark:text-slate-700 dark:text-slate-700 dark:text-slate-200/40 border border-slate-200 dark:border-slate-200 dark:border-slate-200 dark:border-white/[0.06] text-slate-800 dark:text-slate-700 dark:text-slate-700 dark:text-slate-200 dark:border-slate-200 dark:border-slate-200 dark:border-white/[0.08] focus-within:border-violet-500/50 transition-colors">
                   <span className="text-xs font-medium text-slate-500">From</span>
                   <input
                     type="date"
                     value={startDate}
                     onChange={(e) => setStartDate(e.target.value)}
                     max={endDate || todayStr}
-                    className="bg-transparent text-xs font-semibold text-slate-200 focus:outline-none cursor-pointer [color-scheme:dark]"
+                    className="bg-transparent text-xs font-semibold text-slate-700 dark:text-slate-700 dark:text-slate-200 focus:outline-none cursor-pointer [color-scheme:dark]"
                   />
                 </div>
-                <div className="flex items-center gap-2 bg-slate-100/80 px-3 py-1.5 rounded-lg border border-slate-200 dark:bg-navy-900/80 dark:border-white/[0.08] focus-within:border-violet-500/50 transition-colors">
+                <div className="flex items-center gap-2 bg-slate-100/80 px-3 py-1.5 rounded-lg border border-slate-200 dark:bg-white dark:bg-white dark:bg-white dark:bg-navy-900/40 border border-slate-200 dark:border-slate-200 dark:border-slate-200 dark:border-white/[0.06] text-slate-800 dark:text-slate-700 dark:text-slate-700 dark:text-slate-200/40 border border-slate-200 dark:border-slate-200 dark:border-slate-200 dark:border-white/[0.06] text-slate-800 dark:text-slate-700 dark:text-slate-700 dark:text-slate-200/40 border border-slate-200 dark:border-slate-200 dark:border-slate-200 dark:border-white/[0.06] text-slate-800 dark:text-slate-700 dark:text-slate-700 dark:text-slate-200 dark:border-slate-200 dark:border-slate-200 dark:border-white/[0.08] focus-within:border-violet-500/50 transition-colors">
                   <span className="text-xs font-medium text-slate-500">To</span>
                   <input
                     type="date"
@@ -700,7 +700,7 @@ export default function Analytics() {
                     onChange={(e) => setEndDate(e.target.value)}
                     min={startDate}
                     max={todayStr}
-                    className="bg-transparent text-xs font-semibold text-slate-200 focus:outline-none cursor-pointer [color-scheme:dark]"
+                    className="bg-transparent text-xs font-semibold text-slate-700 dark:text-slate-700 dark:text-slate-200 focus:outline-none cursor-pointer [color-scheme:dark]"
                   />
                 </div>
               </>
@@ -709,7 +709,7 @@ export default function Analytics() {
               <select
                 value={interval}
                 onChange={(e) => setIntervalVal(e.target.value)}
-                className="bg-slate-100/80 text-xs font-semibold text-slate-700 dark:text-slate-200 px-3 py-1.5 rounded-lg border border-slate-200 dark:border-white/[0.08] focus-glow focus:outline-none cursor-pointer"
+                className="bg-slate-100/80 text-xs font-semibold text-slate-700 dark:text-slate-700 dark:text-slate-700 dark:text-slate-200 px-3 py-1.5 rounded-lg border border-slate-200 dark:border-slate-200 dark:border-slate-200 dark:border-white/[0.08] focus-glow focus:outline-none cursor-pointer"
               >
                 <option value="daily">Daily</option>
                 <option value="weekly">Weekly</option>
@@ -720,10 +720,10 @@ export default function Analytics() {
 
           {/* Demo Data Switcher Option */}
           <div className="flex items-center gap-2">
-            <span className="text-xs font-medium text-slate-400">Demo Mode</span>
+            <span className="text-xs font-medium text-slate-500 dark:text-slate-500 dark:text-slate-400">Demo Mode</span>
             <button
               onClick={() => setUseDemoData(!useDemoData)}
-              className={`relative inline-flex h-5 w-10 items-center rounded-full transition-colors focus:outline-none ${useDemoData ? 'bg-violet-600 shadow-glow-purple-sm' : 'bg-navy-700/60 border border-white/[0.08]'
+              className={`relative inline-flex h-5 w-10 items-center rounded-full transition-colors focus:outline-none ${useDemoData ? 'bg-violet-600 shadow-glow-purple-sm' : 'glass-surface border border-slate-200 dark:border-slate-200 dark:border-white/[0.08]'
                 }`}
             >
               <span
@@ -738,7 +738,7 @@ export default function Analytics() {
       {loading && (
         <div className="flex items-center justify-center py-8">
           <div className="animate-spin rounded-full h-8 w-8 border-t-2 border-b-2 border-indigo-600"></div>
-          <span className="ml-3 text-sm text-slate-400">Updating metrics...</span>
+          <span className="ml-3 text-sm text-slate-500 dark:text-slate-500 dark:text-slate-400">Updating metrics...</span>
         </div>
       )}
 
@@ -760,7 +760,7 @@ export default function Analytics() {
                   className="glass-card hover:border-violet-500/20 hover:-translate-y-1 hover:shadow-glow-purple rounded-2xl p-5 flex flex-col transition-all duration-300 cursor-default group hover-lift"
                 >
                   <div className="flex items-center justify-between mb-3.5">
-                    <span className="text-xs font-semibold text-slate-400 font-display">{card.title}</span>
+                    <span className="text-xs font-semibold text-slate-500 dark:text-slate-500 dark:text-slate-400 font-display">{card.title}</span>
                     <div className="w-8 h-8 rounded-lg bg-violet-500/10 border border-violet-500/10 flex items-center justify-center text-violet-400 group-hover:shadow-glow-purple-sm transition-all duration-300">
                       {card.icon}
                     </div>
@@ -774,7 +774,7 @@ export default function Analytics() {
                       />
                     </div>
                     {card.subtitle && (
-                      <div className="text-xs text-slate-500 dark:text-slate-500 dark:text-slate-500 dark:text-slate-400 font-medium">
+                      <div className="text-xs text-slate-500 dark:text-slate-500 dark:text-slate-500 dark:text-slate-500 dark:text-slate-500 dark:text-slate-400 font-medium">
                         {card.subtitle}
                       </div>
                     )}
@@ -783,7 +783,7 @@ export default function Analytics() {
                     <span className="inline-flex items-center text-emerald-600 dark:text-emerald-600 dark:text-emerald-600 dark:text-emerald-400">
                       ↗ {card.change}
                     </span>
-                    <span className="text-slate-500 dark:text-slate-500 dark:text-slate-500 dark:text-slate-400 font-medium whitespace-nowrap">vs last period</span>
+                    <span className="text-slate-500 dark:text-slate-500 dark:text-slate-500 dark:text-slate-500 dark:text-slate-500 dark:text-slate-400 font-medium whitespace-nowrap">vs last period</span>
                   </div>
                 </div>
               ))}
@@ -792,7 +792,7 @@ export default function Analytics() {
             {/* Sales Trends Chart & Breakdown */}
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
               {/* Main Line Chart */}
-              <div className="lg:col-span-2 bg-navy-800/60 backdrop-blur-md border border-white/[0.06] rounded-3xl p-6 shadow-md">
+              <div className="lg:col-span-2 glass-card backdrop-blur-md border border-slate-200 dark:border-slate-200 dark:border-white/[0.06] rounded-3xl p-6 shadow-md">
                 <div className="flex items-center justify-between mb-6">
                   <div>
                     <h3 className="text-lg font-bold text-slate-800 dark:text-white">Revenue Performance Over Time</h3>
@@ -805,7 +805,7 @@ export default function Analytics() {
               </div>
 
               {/* Weekly/Seasonality spikes */}
-              <div className="bg-navy-800/60 backdrop-blur-md border border-white/[0.06] rounded-3xl p-6 shadow-md">
+              <div className="glass-card backdrop-blur-md border border-slate-200 dark:border-slate-200 dark:border-white/[0.06] rounded-3xl p-6 shadow-md">
                 <h3 className="text-lg font-bold text-slate-800 dark:text-white mb-2">Weekly Spikes</h3>
                 <p className="text-xs text-slate-500 mb-6">Average customer purchase activity by weekday</p>
                 <div className="h-56">
@@ -815,21 +815,21 @@ export default function Analytics() {
             </div>
 
             {/* Product Performance Table */}
-            <div className="bg-navy-800/60 backdrop-blur-md border border-white/[0.06] rounded-3xl p-6 shadow-md">
+            <div className="glass-card backdrop-blur-md border border-slate-200 dark:border-slate-200 dark:border-white/[0.06] rounded-3xl p-6 shadow-md">
               <h3 className="text-lg font-bold text-slate-800 dark:text-white mb-4">Product Revenue Breakdown</h3>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-start">
                 <div className="overflow-x-auto">
                   <table className="w-full text-left text-sm">
                     <thead>
-                      <tr className="border-b border-white/[0.06] text-slate-200 text-xs font-bold uppercase tracking-wider">
+                      <tr className="border-b border-slate-200 dark:border-slate-200 dark:border-white/[0.06] text-slate-700 dark:text-slate-700 dark:text-slate-200 text-xs font-bold uppercase tracking-wider">
                         <th className="pb-3 font-semibold">Product Name</th>
                         <th className="pb-3 font-semibold text-right">Revenue Generated</th>
                       </tr>
                     </thead>
                     <tbody className="divide-y divide-gray-100 dark:divide-slate-800/60">
                       {currentSales.product_performance.map((item, idx) => (
-                        <tr key={idx} className="hover:bg-navy-900/40 dark:hover:bg-slate-800/30 transition-colors">
-                          <td className="py-3 font-medium text-slate-300">{item.label}</td>
+                        <tr key={idx} className="hover:glass-surface dark:hover:bg-slate-800/30 transition-colors">
+                          <td className="py-3 font-medium text-slate-650 dark:text-slate-650 dark:text-slate-300">{item.label}</td>
                           <td className="py-3 text-right font-bold text-slate-800 dark:text-white">
                             ₹{item.value.toLocaleString(undefined, { maximumFractionDigits: 0 })}
                           </td>
@@ -847,11 +847,11 @@ export default function Analytics() {
                       const pct = (item.value / maxVal) * 100;
                       return (
                         <div key={idx} className="space-y-1">
-                          <div className="flex justify-between text-xs font-semibold text-slate-400">
+                          <div className="flex justify-between text-xs font-semibold text-slate-500 dark:text-slate-500 dark:text-slate-400">
                             <span>{item.label}</span>
                             <span>{pct.toFixed(0)}%</span>
                           </div>
-                          <div className="h-2 bg-navy-700/60 rounded-full overflow-hidden">
+                          <div className="h-2 glass-surface rounded-full overflow-hidden">
                             <div
                               className="h-full bg-gradient-to-r from-indigo-500 to-blue-500 rounded-full transition-all duration-1000"
                               style={{ width: `${pct}%` }}
@@ -883,7 +883,7 @@ export default function Analytics() {
                   className="glass-card hover:border-violet-500/20 hover:-translate-y-1 hover:shadow-glow-purple rounded-2xl p-5 flex flex-col transition-all duration-300 cursor-default group hover-lift"
                 >
                   <div className="flex items-center justify-between mb-3.5">
-                    <span className="text-xs font-semibold text-slate-400 font-display">{card.title}</span>
+                    <span className="text-xs font-semibold text-slate-500 dark:text-slate-500 dark:text-slate-400 font-display">{card.title}</span>
                     <div className="w-8 h-8 rounded-lg bg-violet-500/10 border border-violet-500/10 flex items-center justify-center text-violet-400 group-hover:shadow-glow-purple-sm transition-all duration-300">
                       {card.icon}
                     </div>
@@ -897,7 +897,7 @@ export default function Analytics() {
                       />
                     </div>
                     {card.subtitle && (
-                      <div className="text-xs text-slate-500 dark:text-slate-500 dark:text-slate-500 dark:text-slate-400 font-medium">
+                      <div className="text-xs text-slate-500 dark:text-slate-500 dark:text-slate-500 dark:text-slate-500 dark:text-slate-500 dark:text-slate-400 font-medium">
                         {card.subtitle}
                       </div>
                     )}
@@ -906,12 +906,12 @@ export default function Analytics() {
                     <span className={`inline-flex items-center ${card.change.startsWith('-') || card.change.toLowerCase().includes('down') || card.change.toLowerCase().includes('critical')
                         ? 'text-rose-600 dark:text-rose-600 dark:text-rose-600 dark:text-rose-400'
                         : card.change.toLowerCase().includes('stable')
-                          ? 'text-slate-400'
+                          ? 'text-slate-500 dark:text-slate-500 dark:text-slate-400'
                           : 'text-emerald-600 dark:text-emerald-600 dark:text-emerald-600 dark:text-emerald-400'
                       }`}>
                       {card.change.startsWith('-') || card.change.toLowerCase().includes('down') ? '↘' : card.change.toLowerCase().includes('stable') ? '' : '↗'} {card.change}
                     </span>
-                    <span className="text-slate-500 dark:text-slate-500 dark:text-slate-500 dark:text-slate-400 font-medium whitespace-nowrap">vs last period</span>
+                    <span className="text-slate-500 dark:text-slate-500 dark:text-slate-500 dark:text-slate-500 dark:text-slate-500 dark:text-slate-400 font-medium whitespace-nowrap">vs last period</span>
                   </div>
                 </div>
               ))}
@@ -919,7 +919,7 @@ export default function Analytics() {
 
             {/* Inventory Snapshots History */}
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-              <div className="lg:col-span-2 bg-navy-800/60 backdrop-blur-md border border-white/[0.06] rounded-3xl p-6 shadow-md">
+              <div className="lg:col-span-2 glass-card backdrop-blur-md border border-slate-200 dark:border-slate-200 dark:border-white/[0.06] rounded-3xl p-6 shadow-md">
                 <h3 className="text-lg font-bold text-slate-800 dark:text-white mb-2">Historical Stock Snapshot Value</h3>
                 <p className="text-xs text-slate-500 mb-6">Total inventory value stored at the beginning of each period</p>
                 <div className="h-64">
@@ -927,7 +927,7 @@ export default function Analytics() {
                 </div>
               </div>
               {/* Stock Alerts & Anomalies */}
-              <div className="bg-navy-800/60 backdrop-blur-md border border-white/[0.06] rounded-3xl p-6 shadow-md">
+              <div className="glass-card backdrop-blur-md border border-slate-200 dark:border-slate-200 dark:border-white/[0.06] rounded-3xl p-6 shadow-md">
                 <h3 className="text-lg font-bold text-slate-800 dark:text-white mb-1">Stock Level Alerts</h3>
                 <p className="text-xs text-slate-500 mb-4">Detected slow-moving or critical inventory items</p>
                 <div className="space-y-4 max-h-64 overflow-y-auto pr-1">
@@ -952,8 +952,8 @@ export default function Analytics() {
                           </span>
                           <span className="text-[10px] text-slate-500 font-semibold uppercase">Qty: {item.qty}</span>
                         </div>
-                        <h4 className="text-sm font-bold text-slate-200">{item.product}</h4>
-                        <p className="text-xs text-slate-400 mt-1">
+                        <h4 className="text-sm font-bold text-slate-700 dark:text-slate-700 dark:text-slate-200">{item.product}</h4>
+                        <p className="text-xs text-slate-500 dark:text-slate-500 dark:text-slate-400 mt-1">
                           {item.type === 'depleted'
                             ? 'This product is below the reorder point. Customers may encounter order delays.'
                             : 'High level of inventory detected with extremely low sales velocities this period.'}
@@ -982,7 +982,7 @@ export default function Analytics() {
                   className="glass-card hover:border-violet-500/20 hover:-translate-y-1 hover:shadow-glow-purple rounded-2xl p-5 flex flex-col transition-all duration-300 cursor-default group hover-lift"
                 >
                   <div className="flex items-center justify-between mb-3.5">
-                    <span className="text-xs font-semibold text-slate-400 font-display">{card.title}</span>
+                    <span className="text-xs font-semibold text-slate-500 dark:text-slate-500 dark:text-slate-400 font-display">{card.title}</span>
                     <div className="w-8 h-8 rounded-lg bg-violet-500/10 flex items-center justify-center text-violet-400">
                       {card.icon}
                     </div>
@@ -996,7 +996,7 @@ export default function Analytics() {
                       />
                     </div>
                     {card.subtitle && (
-                      <div className="text-xs text-slate-500 dark:text-slate-500 dark:text-slate-500 dark:text-slate-400 font-medium">
+                      <div className="text-xs text-slate-500 dark:text-slate-500 dark:text-slate-500 dark:text-slate-500 dark:text-slate-500 dark:text-slate-400 font-medium">
                         {card.subtitle}
                       </div>
                     )}
@@ -1008,7 +1008,7 @@ export default function Analytics() {
                       }`}>
                       {card.change.startsWith('-') || card.change.toLowerCase().includes('down') || card.change.toLowerCase().includes('negative') ? '↘' : '↗'} {card.change}
                     </span>
-                    <span className="text-slate-500 dark:text-slate-500 dark:text-slate-500 dark:text-slate-400 font-medium whitespace-nowrap">vs last period</span>
+                    <span className="text-slate-500 dark:text-slate-500 dark:text-slate-500 dark:text-slate-500 dark:text-slate-500 dark:text-slate-400 font-medium whitespace-nowrap">vs last period</span>
                   </div>
                 </div>
               ))}
@@ -1017,7 +1017,7 @@ export default function Analytics() {
             {/* Donut Sentiment breakdown and Complaints Categories */}
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
               {/* Sentiment Breakdowns */}
-              <div className="bg-navy-800/60 backdrop-blur-md border border-white/[0.06] rounded-3xl p-8 shadow-md flex flex-col justify-between">
+              <div className="glass-card backdrop-blur-md border border-slate-200 dark:border-slate-200 dark:border-white/[0.06] rounded-3xl p-8 shadow-md flex flex-col justify-between">
                 <div>
                   <h3 className="text-lg font-bold text-slate-800 dark:text-white mb-1">Sentiment Distribution</h3>
                   <p className="text-xs text-slate-500 mb-6">AI-analyzed review tones for this company</p>
@@ -1032,7 +1032,7 @@ export default function Analytics() {
               </div>
 
               {/* Complaints by category */}
-              <div className="bg-navy-800/60 backdrop-blur-md border border-white/[0.06] rounded-3xl p-8 shadow-md">
+              <div className="glass-card backdrop-blur-md border border-slate-200 dark:border-slate-200 dark:border-white/[0.06] rounded-3xl p-8 shadow-md">
                 <h3 className="text-lg font-bold text-slate-800 dark:text-white mb-1">Complaints Breakdown</h3>
                 <p className="text-xs text-slate-500 mb-6">Categorized using Natural Language Processing (NLP)</p>
 
@@ -1042,14 +1042,14 @@ export default function Analytics() {
                     const pct = (item.value / maxVal) * 100;
                     return (
                       <div key={idx} className="space-y-1.5">
-                        <div className="flex justify-between items-center text-xs font-semibold text-slate-300">
+                        <div className="flex justify-between items-center text-xs font-semibold text-slate-650 dark:text-slate-650 dark:text-slate-300">
                           <span className="flex items-center">
                             <span className="w-2.5 h-2.5 bg-rose-500 rounded-full mr-2"></span>
                             {item.label}
                           </span>
                           <span className="font-bold text-slate-800 dark:text-white">{item.value} reviews</span>
                         </div>
-                        <div className="h-2 bg-navy-700/60 rounded-full overflow-hidden">
+                        <div className="h-2 glass-surface rounded-full overflow-hidden">
                           <div
                             className="h-full bg-gradient-to-r from-rose-500 to-amber-500 rounded-full transition-all duration-1000"
                             style={{ width: `${pct}%` }}
@@ -1063,12 +1063,12 @@ export default function Analytics() {
             </div>
 
             {/* Recent complaints table snippet */}
-            <div className="bg-navy-800/60 backdrop-blur-md border border-white/[0.06] rounded-3xl p-6 shadow-md">
+            <div className="glass-card backdrop-blur-md border border-slate-200 dark:border-slate-200 dark:border-white/[0.06] rounded-3xl p-6 shadow-md">
               <h3 className="text-lg font-bold text-slate-800 dark:text-white mb-4">Flagged Customer Complaints</h3>
               <div className="overflow-x-auto">
                 <table className="w-full text-left text-sm">
                   <thead>
-                    <tr className="border-b border-white/[0.06] text-slate-200 text-xs font-bold uppercase tracking-wider">
+                    <tr className="border-b border-slate-200 dark:border-slate-200 dark:border-white/[0.06] text-slate-700 dark:text-slate-700 dark:text-slate-200 text-xs font-bold uppercase tracking-wider">
                       <th className="pb-3 font-semibold">Customer</th>
                       <th className="pb-3 font-semibold">Product</th>
                       <th className="pb-3 font-semibold">Rating</th>
@@ -1078,9 +1078,9 @@ export default function Analytics() {
                   </thead>
                   <tbody className="divide-y divide-gray-100 dark:divide-slate-800/60">
                     {currentCustomers.recent_complaints.map((c, idx) => (
-                      <tr key={idx} className="hover:bg-navy-900/40 dark:hover:bg-slate-800/30 transition-colors">
-                        <td className="py-4 font-semibold text-slate-200">{c.author}</td>
-                        <td className="py-4 font-medium text-slate-400">{c.product}</td>
+                      <tr key={idx} className="hover:glass-surface dark:hover:bg-slate-800/30 transition-colors">
+                        <td className="py-4 font-semibold text-slate-700 dark:text-slate-700 dark:text-slate-200">{c.author}</td>
+                        <td className="py-4 font-medium text-slate-500 dark:text-slate-500 dark:text-slate-400">{c.product}</td>
                         <td className="py-4">
                           <span className="text-rose-500 dark:text-rose-600 dark:text-rose-600 dark:text-rose-600 dark:text-rose-400 font-bold bg-rose-500/10 px-2 py-0.5 rounded-lg text-xs">
                             {c.rating} ★
@@ -1091,7 +1091,7 @@ export default function Analytics() {
                             {c.category}
                           </span>
                         </td>
-                        <td className="py-4 text-slate-400 text-xs max-w-sm truncate">{c.text}</td>
+                        <td className="py-4 text-slate-500 dark:text-slate-500 dark:text-slate-400 text-xs max-w-sm truncate">{c.text}</td>
                       </tr>
                     ))}
                   </tbody>
@@ -1140,7 +1140,7 @@ export default function Analytics() {
                       </div>
                     </div>
 
-                    <p className="text-xs text-slate-400 mt-6 max-w-xs leading-relaxed">
+                    <p className="text-xs text-slate-500 dark:text-slate-500 dark:text-slate-400 mt-6 max-w-xs leading-relaxed">
                       {actualDesc}
                     </p>
                   </>
@@ -1201,7 +1201,7 @@ export default function Analytics() {
                       </div>
                     </div>
 
-                    <p className="text-xs text-slate-400 mt-6 max-w-xs leading-relaxed">
+                    <p className="text-xs text-slate-500 dark:text-slate-500 dark:text-slate-400 mt-6 max-w-xs leading-relaxed">
                       {
                         Number(latestHealthPrediction.value) >= 80
                           ? 'Your business is predicted to perform at optimal efficiency. Revenue forecasts indicate strong stability and high margins.'
@@ -1228,13 +1228,13 @@ export default function Analytics() {
             </div>
 
             {/* List of generated forecasts */}
-            <div className="bg-navy-800/60 backdrop-blur-md border border-white/[0.06] rounded-3xl p-6 shadow-md">
+            <div className="glass-card backdrop-blur-md border border-slate-200 dark:border-slate-200 dark:border-white/[0.06] rounded-3xl p-6 shadow-md">
               <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-4">
                 <div>
                   <h3 className="text-lg font-bold text-slate-800 dark:text-white mb-1">Predictive Models Output</h3>
                   <p className="text-xs text-slate-500">All ML-generated predictions from the analytics_prediction table ({currentPredictions.list.length} records)</p>
                 </div>
-                <div className="flex flex-wrap gap-1.5 p-1 bg-slate-100/80 dark:bg-navy-900/40 rounded-xl border border-slate-200 dark:border-white/[0.06]">
+                <div className="flex flex-wrap gap-1.5 p-1 bg-slate-100/80 dark:glass-surface rounded-xl border border-slate-200 dark:border-slate-200 dark:border-slate-200 dark:border-white/[0.06]">
                   {[
                     { id: 'all', label: 'All' },
                     { id: 'sales_forecast', label: 'Sales' },
@@ -1246,8 +1246,8 @@ export default function Analytics() {
                       key={tab.id}
                       onClick={() => setPredictionFilter(tab.id)}
                       className={`px-3 py-1 text-xs font-bold rounded-lg transition-colors ${predictionFilter === tab.id
-                          ? 'bg-navy-800/60 text-violet-400 shadow-sm border border-white/[0.04] border-white/[0.06]'
-                          : 'text-slate-500 hover:text-slate-800 dark:text-slate-400 dark:hover:text-slate-200'
+                          ? 'glass-card text-violet-400 shadow-sm border border-slate-200/50 dark:border-slate-200/50 dark:border-white/[0.04] border-slate-200 dark:border-slate-200 dark:border-white/[0.06]'
+                          : 'text-slate-500 hover:text-slate-800 dark:text-slate-500 dark:text-slate-500 dark:text-slate-400 dark:hover:text-slate-700 dark:text-slate-700 dark:text-slate-200'
                         }`}
                     >
                       {tab.label}
@@ -1258,7 +1258,7 @@ export default function Analytics() {
               <div className="overflow-x-auto">
                 <table className="w-full text-left text-sm">
                   <thead>
-                    <tr className="border-b border-white/[0.06] text-slate-200 text-xs font-bold uppercase tracking-wider">
+                    <tr className="border-b border-slate-200 dark:border-slate-200 dark:border-white/[0.06] text-slate-700 dark:text-slate-700 dark:text-slate-200 text-xs font-bold uppercase tracking-wider">
                       <th className="pb-3 font-semibold">Model Name</th>
                       <th className="pb-3 font-semibold">Forecast Type</th>
                       <th className="pb-3 font-semibold">Product</th>
@@ -1283,7 +1283,7 @@ export default function Analytics() {
                         'business_health': 'text-violet-400 bg-violet-500/10',
                         'product_risk': 'text-rose-600 dark:text-rose-600 dark:text-rose-600 dark:text-rose-600 dark:text-rose-400 bg-rose-500/10'
                       };
-                      const typeColor = typeColors[pred.prediction_type] || 'text-slate-400 bg-gray-100';
+                      const typeColor = typeColors[pred.prediction_type] || 'text-slate-500 dark:text-slate-500 dark:text-slate-400 bg-gray-100';
 
                       const displayValue = pred.prediction_type === 'sales_forecast'
                         ? `₹${Number(pred.value || 0).toLocaleString('en-IN', { maximumFractionDigits: 2 })}`
@@ -1293,7 +1293,7 @@ export default function Analytics() {
                       const confPct = conf <= 1 ? (conf * 100).toFixed(1) : Number(conf).toFixed(1);
 
                       return (
-                        <tr key={pred.id} className="hover:bg-navy-900/40 dark:hover:bg-slate-800/30 transition-colors">
+                        <tr key={pred.id} className="hover:glass-surface dark:hover:bg-slate-800/30 transition-colors">
                           <td className="py-3.5">
                             <span className="font-semibold text-violet-400">{pred.model_name || pred.model_version || 'N/A'}</span>
                             {pred.model_version && pred.model_name && (
@@ -1305,10 +1305,10 @@ export default function Analytics() {
                               {typeLabel}
                             </span>
                           </td>
-                          <td className="py-3.5 text-xs font-medium text-slate-300">
+                          <td className="py-3.5 text-xs font-medium text-slate-650 dark:text-slate-650 dark:text-slate-300">
                             {pred.product || '—'}
                           </td>
-                          <td className="py-3.5 text-xs text-slate-400">
+                          <td className="py-3.5 text-xs text-slate-500 dark:text-slate-500 dark:text-slate-400">
                             {pred.period_start} to {pred.period_end}
                           </td>
                           <td className="py-3.5 text-right font-extrabold text-white">

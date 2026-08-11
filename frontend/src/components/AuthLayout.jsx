@@ -13,7 +13,7 @@ export default function AuthLayout({ children }) {
 
       <div className="w-full max-w-[440px] relative z-10">
         {/* Main glassmorphic card */}
-        <div className="w-full bg-navy-800/60 backdrop-blur-xl border border-white/[0.06] rounded-2xl p-8 md:p-10 shadow-glass-lg relative">
+        <div className="w-full glass-card backdrop-blur-xl border border-slate-200 dark:border-slate-200 dark:border-white/[0.06] rounded-2xl p-8 md:p-10 shadow-glass-lg relative">
           
           {/* Custom Purple/Blue SVG Isometric Wireframe Cube Logo */}
           <div className="flex justify-center mb-6">

@@ -1,6 +1,8 @@
+import { useTheme } from '../../context/ThemeContext';
 import React, { useState } from 'react';
 
 export default function MonthlyRevenueTrend({ trends = [] }) {
+  const { isDarkMode } = useTheme();
   const data = (trends && trends.length > 0)
     ? trends.map(t => ({
         month: t.label || t.date || '',
@@ -86,10 +88,10 @@ export default function MonthlyRevenueTrend({ trends = [] }) {
     <div className="glass-card rounded-2xl p-6 flex flex-col w-full">
       <div className="flex items-center justify-between mb-2">
         <div>
-          <h3 className="text-lg font-bold text-white font-display">Monthly Revenue Trend</h3>
+          <h3 className="text-lg font-bold text-slate-800 dark:text-white font-display">Monthly Revenue Trend</h3>
           <p className="text-xs text-slate-500 font-medium">{dateRangeSubtitle}</p>
         </div>
-        <span className="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-bold bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
+        <span className="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-bold bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20">
           +14.2% YoY
         </span>
       </div>
@@ -115,7 +117,7 @@ export default function MonthlyRevenueTrend({ trends = [] }) {
                 y1={getY(tick)}
                 x2={width - paddingRight}
                 y2={getY(tick)}
-                stroke="rgba(255,255,255,0.04)"
+                stroke={isDarkMode ? "rgba(255,255,255,0.04)" : "rgba(15,23,42,0.06)"}
                 strokeWidth={1}
                 strokeDasharray="4 4"
               />
@@ -123,7 +125,7 @@ export default function MonthlyRevenueTrend({ trends = [] }) {
                 x={paddingLeft - 12}
                 y={getY(tick) + 4}
                 className="text-[11px] font-semibold"
-                fill="rgba(148,163,184,0.6)"
+                fill={isDarkMode ? "rgba(148,163,184,0.6)" : "rgba(71,85,105,0.75)"}
                 textAnchor="end"
               >
                 {formatValue(tick)}
@@ -168,7 +170,7 @@ export default function MonthlyRevenueTrend({ trends = [] }) {
               cy={getY(d.value)}
               r={hoveredIndex === i ? 6 : 4.5}
               fill={hoveredIndex === i ? '#a855f7' : '#8b5cf6'}
-              stroke="#0a0e1a"
+              stroke={isDarkMode ? "#0a0e1a" : "#ffffff"}
               strokeWidth={hoveredIndex === i ? 2.5 : 2}
               className="transition-all duration-150"
             />
@@ -223,7 +225,7 @@ export default function MonthlyRevenueTrend({ trends = [] }) {
                   x={getX(i)}
                   y={paddingTop + chartHeight + 22}
                   className="text-[11px] font-semibold"
-                  fill="rgba(148,163,184,0.5)"
+                  fill={isDarkMode ? "rgba(148,163,184,0.5)" : "rgba(71,85,105,0.6)"}
                   textAnchor="middle"
                 >
                   {formatDateLabel(d.month)}

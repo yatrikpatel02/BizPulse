@@ -47,7 +47,7 @@ export function AreaChart({ data = [], xKey = 'label', yKey = 'value', height = 
 
   if (!Array.isArray(data) || data.length === 0) {
     return (
-      <div className="flex items-center justify-center bg-white dark:bg-navy-800/60 rounded-2xl border border-slate-200/60 dark:border-white/[0.06] shadow-sm dark:shadow-glass backdrop-blur-md" style={{ height }}>
+      <div className="flex items-center justify-center bg-white dark:glass-card rounded-2xl border border-slate-200/60 dark:border-slate-200 dark:border-slate-200 dark:border-white/[0.06] shadow-sm dark:shadow-glass backdrop-blur-md" style={{ height }}>
         <p className="text-slate-500 text-sm">No trend data available</p>
       </div>
     );
@@ -246,7 +246,7 @@ export function AreaChart({ data = [], xKey = 'label', yKey = 'value', height = 
       {/* Glassmorphism Tooltip absolute overlay */}
       {hoveredIndex !== null && points[hoveredIndex] && (
         <div 
-          className="absolute z-20 pointer-events-none transition-all duration-75 transform -translate-x-1/2 -translate-y-full p-3 bg-white dark:bg-navy-800/95 backdrop-blur-md border border-slate-200 dark:border-white/[0.06] rounded-xl shadow-md dark:shadow-xl min-w-[120px] text-center"
+          className="absolute z-20 pointer-events-none transition-all duration-75 transform -translate-x-1/2 -translate-y-full p-3 bg-white dark:bg-navy-800/95 backdrop-blur-md border border-slate-200 dark:border-slate-200 dark:border-slate-200 dark:border-white/[0.06] rounded-xl shadow-md dark:shadow-xl min-w-[120px] text-center"
           style={{ 
             left: `${tooltipPos.x}px`, 
             top: `${tooltipPos.y}px` 
@@ -274,7 +274,7 @@ export function BarChart({ data = [], xKey = 'label', yKey = 'value', height = 2
 
   if (!Array.isArray(data) || data.length === 0) {
     return (
-      <div className="flex items-center justify-center bg-white dark:bg-navy-800/60 rounded-2xl border border-slate-200/60 dark:border-white/[0.06] shadow-sm dark:shadow-glass backdrop-blur-md" style={{ height }}>
+      <div className="flex items-center justify-center bg-white dark:glass-card rounded-2xl border border-slate-200/60 dark:border-slate-200 dark:border-slate-200 dark:border-white/[0.06] shadow-sm dark:shadow-glass backdrop-blur-md" style={{ height }}>
         <p className="text-slate-500 text-sm">No visualization data available</p>
       </div>
     );
@@ -417,7 +417,7 @@ export function BarChart({ data = [], xKey = 'label', yKey = 'value', height = 2
       {/* Tooltip Overlay */}
       {hoveredIdx !== null && bars[hoveredIdx] && (
         <div 
-          className="absolute z-20 pointer-events-none transition-all duration-75 transform -translate-x-1/2 -translate-y-full p-3 bg-white dark:bg-navy-800/95 backdrop-blur-md border border-slate-200 dark:border-white/[0.06] rounded-xl shadow-md dark:shadow-xl min-w-[120px] text-center"
+          className="absolute z-20 pointer-events-none transition-all duration-75 transform -translate-x-1/2 -translate-y-full p-3 bg-white dark:bg-navy-800/95 backdrop-blur-md border border-slate-200 dark:border-slate-200 dark:border-slate-200 dark:border-white/[0.06] rounded-xl shadow-md dark:shadow-xl min-w-[120px] text-center"
           style={{ 
             left: `${tooltipPos.x}px`, 
             top: `${tooltipPos.y}px` 
@@ -443,7 +443,7 @@ export function DonutChart({ data = [], size = 200, innerLabel = 'CSAT', innerVa
 
   if (!Array.isArray(data) || data.length === 0) {
     return (
-      <div className="flex items-center justify-center bg-white dark:bg-navy-800/60 rounded-2xl border border-slate-200/60 dark:border-white/[0.06] shadow-sm dark:shadow-glass backdrop-blur-md" style={{ height: size }}>
+      <div className="flex items-center justify-center bg-white dark:glass-card rounded-2xl border border-slate-200/60 dark:border-slate-200 dark:border-slate-200 dark:border-white/[0.06] shadow-sm dark:shadow-glass backdrop-blur-md" style={{ height: size }}>
         <p className="text-slate-500 text-sm">No sentiment data</p>
       </div>
     );
@@ -532,13 +532,13 @@ export function DonutChart({ data = [], size = 200, innerLabel = 'CSAT', innerVa
             onMouseLeave={() => setHoveredIdx(null)}
             className={`flex items-center justify-between text-xs px-3 py-1.5 rounded-lg border transition-all duration-200 cursor-pointer ${
               hoveredIdx === idx 
-                ? 'bg-white/[0.04] border-white/[0.08] scale-[1.03] shadow-glow-purple-sm' 
+                ? 'bg-white/[0.04] border-slate-200 dark:border-slate-200 dark:border-white/[0.08] scale-[1.03] shadow-glow-purple-sm' 
                 : 'border-transparent hover:bg-white/[0.02]'
             }`}
           >
             <div className="flex items-center gap-2">
               <span className="w-3 h-3 rounded-full flex-shrink-0" style={{ backgroundColor: seg.color }}></span>
-              <span className="font-medium text-slate-300">{seg.label}</span>
+              <span className="font-medium text-slate-650 dark:text-slate-650 dark:text-slate-300">{seg.label}</span>
             </div>
             <span className="font-semibold text-white pl-4">{seg.pct}%</span>
           </div>

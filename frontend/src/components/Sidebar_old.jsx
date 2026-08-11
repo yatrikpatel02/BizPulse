@@ -48,7 +48,7 @@ export default function Sidebar({ isOpen, setIsOpen }) {
                   `flex items-center px-4 py-3 text-sm font-medium rounded-lg transition-colors duration-200 ${
                     isActive
                       ? 'bg-indigo-50 dark:bg-indigo-900/30 text-indigo-700 dark:text-indigo-300'
-                      : 'text-gray-600 dark:text-slate-400 hover:bg-gray-50 dark:hover:bg-slate-800/50 hover:text-gray-900 dark:hover:text-slate-200'
+                      : 'text-gray-600 dark:text-slate-500 dark:text-slate-500 dark:text-slate-400 hover:bg-gray-50 dark:hover:bg-slate-800/50 hover:text-gray-900 dark:hover:text-slate-700 dark:text-slate-700 dark:text-slate-200'
                   }`
                 }
               >
@@ -61,7 +61,7 @@ export default function Sidebar({ isOpen, setIsOpen }) {
         <div className="border-t dark:border-slate-800 p-4 min-w-[16rem] space-y-2">
           <button
             onClick={toggleTheme}
-            className="flex items-center w-full px-4 py-3 text-sm font-medium text-gray-600 dark:text-slate-400 rounded-lg hover:bg-gray-50 dark:hover:bg-slate-800/50 transition-colors"
+            className="flex items-center w-full px-4 py-3 text-sm font-medium text-gray-600 dark:text-slate-500 dark:text-slate-500 dark:text-slate-400 rounded-lg hover:bg-gray-50 dark:hover:bg-slate-800/50 transition-colors"
           >
             <span className="mr-3 text-lg">{isDarkMode ? '☀️' : '🌙'}</span>
             {isDarkMode ? 'Light Mode' : 'Dark Mode'}

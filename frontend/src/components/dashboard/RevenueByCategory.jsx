@@ -1,6 +1,8 @@
+import { useTheme } from '../../context/ThemeContext';
 import React, { useState } from 'react';
 
 export default function RevenueByCategory({ productPerformance = [] }) {
+  const { isDarkMode } = useTheme();
   const segments = (productPerformance && productPerformance.length > 0)
     ? (() => {
         const categoryMap = {
@@ -54,7 +56,7 @@ export default function RevenueByCategory({ productPerformance = [] }) {
   return (
     <div className="glass-card rounded-2xl p-6 flex flex-col w-full">
       <div>
-        <h3 className="text-lg font-bold text-white font-display">Revenue by Category</h3>
+        <h3 className="text-lg font-bold text-slate-800 dark:text-white font-display">Revenue by Category</h3>
         <p className="text-xs text-slate-500 font-medium">Distribution breakdown</p>
       </div>
 
@@ -101,7 +103,7 @@ export default function RevenueByCategory({ productPerformance = [] }) {
                 className={`${
                   segments[hoveredIdx].label.length > 8 ? 'text-[7px]' : 'text-[8.5px]'
                 } font-bold uppercase tracking-wider`}
-                fill="rgba(148,163,184,0.7)"
+                fill={isDarkMode ? "rgba(148,163,184,0.7)" : "rgba(71,85,105,0.85)"}
                 textLength={segments[hoveredIdx].label.length > 8 ? "42" : undefined}
                 lengthAdjust={segments[hoveredIdx].label.length > 8 ? "spacingAndGlyphs" : undefined}
               >
@@ -112,7 +114,7 @@ export default function RevenueByCategory({ productPerformance = [] }) {
                 y={cy + 10}
                 textAnchor="middle"
                 className="text-[14px] font-extrabold font-display"
-                fill="#ffffff"
+                fill={isDarkMode ? "#ffffff" : "#1e293b"}
               >
                 {segments[hoveredIdx].value}%
               </text>
@@ -124,7 +126,7 @@ export default function RevenueByCategory({ productPerformance = [] }) {
                 y={cy - 4}
                 textAnchor="middle"
                 className="text-[8.5px] font-bold uppercase tracking-wider"
-                fill="rgba(148,163,184,0.7)"
+                fill={isDarkMode ? "rgba(148,163,184,0.7)" : "rgba(71,85,105,0.85)"}
               >
                 Total
               </text>
@@ -133,7 +135,7 @@ export default function RevenueByCategory({ productPerformance = [] }) {
                 y={cy + 10}
                 textAnchor="middle"
                 className="text-[14px] font-extrabold font-display"
-                fill="#ffffff"
+                fill={isDarkMode ? "#ffffff" : "#1e293b"}
               >
                 100%
               </text>
@@ -143,14 +145,14 @@ export default function RevenueByCategory({ productPerformance = [] }) {
       </div>
 
       {/* Legend list */}
-      <div className="space-y-1.5 mt-2 border-t border-white/[0.06] pt-4">
+      <div className="space-y-1.5 mt-2 border-t border-slate-200 dark:border-slate-200 dark:border-white/[0.06] pt-4">
         {segments.map((seg, idx) => (
           <div 
             key={idx} 
             className={`flex items-center justify-between text-sm px-2.5 py-1.5 rounded-xl transition-all duration-200 cursor-pointer ${
               hoveredIdx === idx 
                 ? 'bg-violet-500/10 translate-x-1.5' 
-                : 'hover:bg-white/[0.03]'
+                : 'hover:bg-slate-50 dark:hover:bg-white/[0.03]'
             }`}
             onMouseEnter={() => setHoveredIdx(idx)}
             onMouseLeave={() => setHoveredIdx(null)}
@@ -161,11 +163,11 @@ export default function RevenueByCategory({ productPerformance = [] }) {
                 style={{ backgroundColor: seg.color }}
               />
               <span className={`font-semibold transition-colors ${
-                hoveredIdx === idx ? 'text-violet-400 font-bold' : 'text-slate-400'
+                hoveredIdx === idx ? 'text-violet-450 dark:text-violet-400 font-bold' : 'text-slate-500 dark:text-slate-500 dark:text-slate-500 dark:text-slate-400'
               }`}>{seg.label}</span>
             </div>
             <span className={`font-bold transition-colors ${
-              hoveredIdx === idx ? 'text-violet-400 font-extrabold' : 'text-white'
+              hoveredIdx === idx ? 'text-violet-450 dark:text-violet-400 font-extrabold' : 'text-slate-800 dark:text-white'
             }`}>{seg.value}%</span>
           </div>
         ))}

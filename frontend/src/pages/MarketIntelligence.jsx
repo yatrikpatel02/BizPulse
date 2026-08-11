@@ -116,7 +116,7 @@ export default function MarketIntelligence() {
         <h2 className="text-3xl font-extrabold text-gray-900 dark:text-slate-100 tracking-tight font-display">
           Market Intelligence
         </h2>
-        <p className="text-sm text-gray-500 dark:text-slate-400 mt-1">
+        <p className="text-sm text-gray-500 dark:text-slate-500 dark:text-slate-500 dark:text-slate-400 mt-1">
           Monitor market demand for your products and potential expansion opportunities.
         </p>
       </div>
@@ -134,7 +134,7 @@ export default function MarketIntelligence() {
             value={newKeyword}
             onChange={(e) => setNewKeyword(e.target.value)}
             placeholder="Enter product keyword..."
-            className="flex-1 bg-gray-50/50 dark:bg-slate-950/40 border border-gray-200 dark:border-slate-800 text-sm font-semibold rounded-xl px-4 py-2 outline-none focus:ring-1 focus:ring-indigo-500 text-gray-800 dark:text-slate-300"
+            className="flex-1 bg-gray-50/50 dark:bg-slate-950/40 border border-gray-200 dark:border-slate-800 text-sm font-semibold rounded-xl px-4 py-2 outline-none focus:ring-1 focus:ring-indigo-500 text-gray-800 dark:text-slate-650 dark:text-slate-650 dark:text-slate-300"
           />
           <button
             type="submit"
@@ -168,7 +168,7 @@ export default function MarketIntelligence() {
                 key={kw.id}
                 className="flex items-center justify-between p-3 bg-gray-50/50 dark:bg-slate-950/40 border border-gray-100 dark:border-slate-800/60 rounded-xl"
               >
-                <span className="text-sm font-semibold text-gray-800 dark:text-slate-200">{kw.keyword}</span>
+                <span className="text-sm font-semibold text-gray-800 dark:text-slate-700 dark:text-slate-700 dark:text-slate-200">{kw.keyword}</span>
                 <button
                   onClick={() => handleRemove(kw.id)}
                   className="p-1 text-gray-400 hover:text-red-500 dark:hover:text-red-400 rounded-lg hover:bg-gray-100 dark:hover:bg-slate-800 transition-colors"
@@ -201,7 +201,7 @@ export default function MarketIntelligence() {
           </button>
 
           {analyzing && (
-            <span className="text-xs font-semibold text-gray-500 dark:text-slate-400">
+            <span className="text-xs font-semibold text-gray-500 dark:text-slate-500 dark:text-slate-500 dark:text-slate-400">
               {elapsed}s elapsed
             </span>
           )}
