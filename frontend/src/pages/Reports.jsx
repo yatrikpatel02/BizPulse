@@ -504,7 +504,7 @@ export default function Reports() {
                 if (key.endsWith('_pct')) return null;
                 return (
                   <span key={key} className={`px-2.5 py-1 rounded-lg text-xs font-bold border ${
-                    key.toLowerCase().includes('positive') ? 'bg-emerald-50 bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 text-emerald-600 dark:text-emerald-400 border-emerald-500/20' :
+                    key.toLowerCase().includes('positive') ? 'bg-emerald-50 bg-emerald-500/10 text-emerald-600 dark:text-emerald-600 dark:text-emerald-600 dark:text-emerald-400 text-emerald-600 dark:text-emerald-600 dark:text-emerald-600 dark:text-emerald-400 border-emerald-500/20' :
                     key.toLowerCase().includes('negative') ? 'bg-red-50 dark:bg-red-950/30 text-red-700 text-red-400 border-red-200/40' :
                     'bg-navy-900/40 text-slate-400 border-white/[0.06]/40'
                   }`}>
@@ -547,7 +547,7 @@ export default function Reports() {
                 <div className="flex items-center justify-between">
                   <span className="font-bold text-sm text-white capitalize">{ins.keyword || ins.term}</span>
                   <span className={`text-xs font-bold px-2 py-0.5 rounded-full ${
-                    ins.insight_type === 'Opportunity' || ins.insight_type === 'Positive Trend' ? 'bg-emerald-100 text-emerald-600 dark:text-emerald-400' :
+                    ins.insight_type === 'Opportunity' || ins.insight_type === 'Positive Trend' ? 'bg-emerald-100 text-emerald-600 dark:text-emerald-600 dark:text-emerald-600 dark:text-emerald-400' :
                     ins.insight_type === 'Risk' || ins.insight_type === 'Warning' ? 'bg-red-100 text-red-700' :
                     'bg-gray-100 text-slate-400'
                   }`}>{ins.insight_type}</span>
@@ -672,7 +672,7 @@ export default function Reports() {
                     <th className="px-6 py-4 text-xs font-bold text-slate-200 uppercase tracking-wider text-right">Actions</th>
                   </tr>
                 </thead>
-                <tbody className="divide-y divide-slate-150 dark:divide-white/[0.04]">
+                <tbody className="divide-y divide-slate-150 dark:divide-slate-150 dark:divide-slate-150 dark:divide-white/[0.04]">
                   {reports.map((report) => (
                     <tr
                       key={report.id}
@@ -682,7 +682,7 @@ export default function Reports() {
                         <div className="font-semibold text-white capitalize">
                           {report.report_type} Report
                         </div>
-                        <div className="text-xs text-slate-500 dark:text-slate-400 font-medium">
+                        <div className="text-xs text-slate-500 dark:text-slate-500 dark:text-slate-500 dark:text-slate-400 font-medium">
                           Range: {report.parameters?.start_date || '-'} to {report.parameters?.end_date || '-'}
                         </div>
                       </td>
@@ -692,7 +692,7 @@ export default function Reports() {
                       <td className="px-6 py-4">
                         <span className={`inline-flex items-center px-2 py-0.5 rounded-full text-xs font-bold ${
                           report.status === 'completed'
-                            ? 'bg-emerald-500/10 bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20'
+                            ? 'bg-emerald-500/10 bg-emerald-500/10 text-emerald-600 dark:text-emerald-600 dark:text-emerald-600 dark:text-emerald-400 text-emerald-600 dark:text-emerald-600 dark:text-emerald-600 dark:text-emerald-400 border border-emerald-500/20'
                             : 'bg-amber-100 text-amber-700'
                         }`}>
                           {report.status}
@@ -713,7 +713,7 @@ export default function Reports() {
                           </button>
                           <button
                             onClick={() => handleDelete(report.id)}
-                            className="p-1.5 text-slate-500 hover:text-rose-600 text-slate-400 dark:hover:text-rose-600 dark:text-rose-400 hover:bg-rose-50 dark:hover:bg-rose-950/20 rounded-lg transition-all duration-200"
+                            className="p-1.5 text-slate-500 hover:text-rose-600 text-slate-400 dark:hover:text-rose-600 dark:text-rose-600 dark:text-rose-600 dark:text-rose-400 hover:bg-rose-50 dark:hover:bg-rose-950/20 rounded-lg transition-all duration-200"
                             title="Delete Report"
                           >
                             <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">

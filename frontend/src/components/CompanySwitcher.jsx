@@ -37,7 +37,7 @@ export default function CompanySwitcher() {
 
       {isOpen && (
         <div className="absolute top-full left-3 right-3 mt-1 bg-white dark:bg-navy-800/95 backdrop-blur-xl border border-slate-200 dark:border-white/[0.08] rounded-xl shadow-md dark:shadow-glass-lg z-50 overflow-hidden animate-fade-in">
-          <div className="max-h-60 overflow-y-auto divide-y divide-slate-150 dark:divide-white/[0.04]">
+          <div className="max-h-60 overflow-y-auto divide-y divide-slate-150 dark:divide-slate-150 dark:divide-slate-150 dark:divide-white/[0.04]">
             {businesses.length === 0 ? (
               <div className="px-4 py-2 text-sm text-slate-500 italic">No companies found</div>
             ) : (

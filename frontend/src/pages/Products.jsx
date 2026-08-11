@@ -245,7 +245,7 @@ export default function Products() {
                    <th className="px-6 py-4 text-xs font-bold text-slate-200 uppercase tracking-wider text-right">Actions</th>
                  </tr>
                </thead>
-              <tbody className="divide-y divide-slate-150 dark:divide-white/[0.04]">
+              <tbody className="divide-y divide-slate-150 dark:divide-slate-150 dark:divide-slate-150 dark:divide-white/[0.04]">
                 {filteredProducts.map((product) => (
                   <tr 
                     key={product.id}
@@ -268,7 +268,7 @@ export default function Products() {
                     <td className="px-6 py-4">
                       <span className={`inline-flex items-center px-2 py-0.5 rounded-full text-xs font-bold ${
                         product.is_active 
-                          ? 'bg-emerald-500/10 bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20' 
+                          ? 'bg-emerald-500/10 bg-emerald-500/10 text-emerald-600 dark:text-emerald-600 dark:text-emerald-600 dark:text-emerald-400 text-emerald-600 dark:text-emerald-600 dark:text-emerald-600 dark:text-emerald-400 border border-emerald-500/20' 
                           : 'bg-navy-700/60 text-slate-400'
                       }`}>
                         {product.is_active ? 'Active' : 'Inactive'}
@@ -287,7 +287,7 @@ export default function Products() {
                         </button>
                         <button
                           onClick={() => handleDelete(product.id)}
-                          className="p-1.5 text-slate-500 hover:text-rose-600 text-slate-400 dark:hover:text-rose-600 dark:text-rose-400 hover:bg-rose-50 dark:hover:bg-rose-950/20 rounded-lg transition-all duration-200"
+                          className="p-1.5 text-slate-500 hover:text-rose-600 text-slate-400 dark:hover:text-rose-600 dark:text-rose-600 dark:text-rose-600 dark:text-rose-400 hover:bg-rose-50 dark:hover:bg-rose-950/20 rounded-lg transition-all duration-200"
                           title="Delete Product"
                         >
                           <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">

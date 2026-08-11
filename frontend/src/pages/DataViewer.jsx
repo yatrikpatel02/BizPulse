@@ -104,7 +104,7 @@ function SalesTable({ data }) {
               <td className="px-4 py-3 text-slate-300">
                 {row.unit_price != null ? `₹${parseFloat(row.unit_price).toFixed(2)}` : '—'}
               </td>
-              <td className="px-4 py-3 font-semibold text-emerald-600 text-emerald-600 dark:text-emerald-400">
+              <td className="px-4 py-3 font-semibold text-emerald-600 text-emerald-600 dark:text-emerald-600 dark:text-emerald-600 dark:text-emerald-400">
                 ₹{parseFloat(row.revenue).toLocaleString('en-IN', { minimumFractionDigits: 2 })}
               </td>
             </tr>
@@ -139,7 +139,7 @@ function InventoryTable({ data }) {
                 <td className="px-4 py-3">
                   {low
                     ? <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-xs font-medium bg-red-100 bg-red-500/10 text-red-700 text-red-400">⚠ Low Stock</span>
-                    : <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-xs font-medium bg-emerald-100 dark:bg-emerald-900/30 text-emerald-600 dark:text-emerald-400 text-emerald-600 dark:text-emerald-400">✓ OK</span>
+                    : <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-xs font-medium bg-emerald-100 dark:bg-emerald-900/30 text-emerald-600 dark:text-emerald-600 dark:text-emerald-600 dark:text-emerald-400 text-emerald-600 dark:text-emerald-600 dark:text-emerald-600 dark:text-emerald-400">✓ OK</span>
                   }
                 </td>
               </tr>
@@ -259,7 +259,7 @@ export default function DataViewer() {
   }[activeTab];
 
   const activeStyle = {
-    emerald: 'border-emerald-500 text-emerald-600 text-emerald-600 dark:text-emerald-400',
+    emerald: 'border-emerald-500 text-emerald-600 text-emerald-600 dark:text-emerald-600 dark:text-emerald-600 dark:text-emerald-400',
     blue: 'border-blue-500 text-blue-600 dark:text-blue-400',
     amber: 'border-amber-500 text-amber-600 text-amber-400',
   }[tabColor];

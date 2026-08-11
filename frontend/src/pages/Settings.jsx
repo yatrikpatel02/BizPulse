@@ -299,7 +299,7 @@ export default function Settings() {
       <div className="bg-navy-800/60 backdrop-blur-md border border-white/[0.06] rounded-3xl p-6 shadow-md">
         <div className="mb-5">
           <h2 className="text-2xl font-bold text-slate-800 dark:text-white font-display">System Settings</h2>
-          <p className="text-sm text-slate-500 dark:text-slate-400 font-medium mt-1">Configure preferences and platform rules</p>
+          <p className="text-sm text-slate-500 dark:text-slate-500 dark:text-slate-500 dark:text-slate-400 font-medium mt-1">Configure preferences and platform rules</p>
         </div>
         <div className="grid grid-cols-2 gap-2">
           {menuItems.map((item) => (
@@ -376,7 +376,7 @@ export default function Settings() {
                             ) : (
                               <span className="font-semibold text-slate-200">
                                 {business.name} {activeBusiness?.id === business.id && (
-                                  <span className="ml-2 text-[9px] font-bold text-emerald-600 bg-emerald-100 dark:bg-emerald-950/60 text-emerald-600 dark:text-emerald-400 px-1.5 py-0.5 rounded">Active</span>
+                                  <span className="ml-2 text-[9px] font-bold text-emerald-600 bg-emerald-100 dark:bg-emerald-950/60 text-emerald-600 dark:text-emerald-600 dark:text-emerald-600 dark:text-emerald-400 px-1.5 py-0.5 rounded">Active</span>
                                 )}
                               </span>
                             )}
@@ -628,7 +628,7 @@ export default function Settings() {
                       </div>
 
                       {passwordError && <div className="bg-red-500/10 border border-red-500/20 text-red-400 p-2.5 rounded-xl text-xs font-semibold animate-pulse">{passwordError}</div>}
-                      {passwordSuccess && <div className="bg-emerald-500/10 border border-emerald-500/20 text-emerald-600 dark:text-emerald-400 p-2.5 rounded-xl text-xs font-semibold">{passwordSuccess}</div>}
+                      {passwordSuccess && <div className="bg-emerald-500/10 border border-emerald-500/20 text-emerald-600 dark:text-emerald-600 dark:text-emerald-600 dark:text-emerald-400 p-2.5 rounded-xl text-xs font-semibold">{passwordSuccess}</div>}
 
                       <form onSubmit={handlePasswordChange} className="space-y-3">
                         <input
@@ -650,7 +650,7 @@ export default function Settings() {
                         {newPassword && (
                           <ul className="grid grid-cols-1 gap-0.5 text-[9px] font-bold text-slate-400 bg-slate-950/20 border border-slate-900 rounded-xl p-2.5">
                             {passwordChecks.map((c, i) => (
-                              <li key={i} className={`flex items-center gap-1 ${c.passed ? 'text-emerald-600 dark:text-emerald-400' : 'text-slate-500'}`}>
+                              <li key={i} className={`flex items-center gap-1 ${c.passed ? 'text-emerald-600 dark:text-emerald-600 dark:text-emerald-600 dark:text-emerald-400' : 'text-slate-500'}`}>
                                 <span>{c.passed ? '✓' : '•'}</span> {c.label}
                               </li>
                             ))}
@@ -847,7 +847,7 @@ export default function Settings() {
                   </div>
                   <div className="flex items-center gap-2">
                     <span className="w-2 h-2 rounded-full bg-emerald-500"></span>
-                    <span className="text-xs font-bold text-emerald-600 text-emerald-600 dark:text-emerald-400">Active</span>
+                    <span className="text-xs font-bold text-emerald-600 text-emerald-600 dark:text-emerald-600 dark:text-emerald-600 dark:text-emerald-400">Active</span>
                   </div>
                 </div>
 
@@ -866,14 +866,14 @@ export default function Settings() {
                   </div>
                   <div className="flex items-center gap-2">
                     <span className="w-2 h-2 rounded-full bg-emerald-500"></span>
-                    <span className="text-xs font-bold text-emerald-600 text-emerald-600 dark:text-emerald-400">Active</span>
+                    <span className="text-xs font-bold text-emerald-600 text-emerald-600 dark:text-emerald-600 dark:text-emerald-600 dark:text-emerald-400">Active</span>
                   </div>
                 </div>
 
                 {/* Google Trends */}
                 <div className="flex items-center justify-between p-4 bg-navy-800/60/20 bg-navy-900/20 border border-white/[0.06] rounded-2xl group hover:border-indigo-500/30 transition-colors">
                   <div className="flex items-center gap-3">
-                    <div className="w-9 h-9 rounded-xl bg-rose-500/10 dark:bg-rose-500/20 flex items-center justify-center text-rose-600 dark:text-rose-600 dark:text-rose-400 flex-shrink-0">
+                    <div className="w-9 h-9 rounded-xl bg-rose-500/10 dark:bg-rose-500/20 flex items-center justify-center text-rose-600 dark:text-rose-600 dark:text-rose-600 dark:text-rose-600 dark:text-rose-400 flex-shrink-0">
                       <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
                       </svg>
@@ -885,7 +885,7 @@ export default function Settings() {
                   </div>
                   <div className="flex items-center gap-2">
                     <span className="w-2 h-2 rounded-full bg-emerald-500"></span>
-                    <span className="text-xs font-bold text-emerald-600 text-emerald-600 dark:text-emerald-400">Active</span>
+                    <span className="text-xs font-bold text-emerald-600 text-emerald-600 dark:text-emerald-600 dark:text-emerald-600 dark:text-emerald-400">Active</span>
                   </div>
                 </div>
               </div>
@@ -958,7 +958,7 @@ export default function Settings() {
       {showSuccessModal && (
         <div className="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex items-center justify-center p-4 animate-fade-in">
           <div className="bg-navy-800/60 border border-gray-150 border-white/[0.06] rounded-2xl p-6 shadow-xl max-w-sm w-full text-center space-y-4 transform scale-100 transition-all duration-300">
-            <div className="w-12 h-12 bg-emerald-500/10 rounded-full flex items-center justify-center text-emerald-600 text-emerald-600 dark:text-emerald-400 mx-auto">
+            <div className="w-12 h-12 bg-emerald-500/10 rounded-full flex items-center justify-center text-emerald-600 text-emerald-600 dark:text-emerald-600 dark:text-emerald-600 dark:text-emerald-400 mx-auto">
               <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
               </svg>

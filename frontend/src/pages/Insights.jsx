@@ -148,7 +148,7 @@ export default function Insights() {
                   <div className="flex items-center gap-2">
                     <h4 className="text-sm font-bold text-slate-200">{insight.title}</h4>
                     <span className={`text-[9px] uppercase font-bold px-2 py-0.5 rounded-full ${
-                      insight.severity === 'high' ? 'bg-rose-500/10 text-rose-600 dark:text-rose-600 dark:text-rose-400' 
+                      insight.severity === 'high' ? 'bg-rose-500/10 text-rose-600 dark:text-rose-600 dark:text-rose-600 dark:text-rose-600 dark:text-rose-400' 
                       : insight.severity === 'medium' ? 'bg-amber-500/10 text-amber-600 text-amber-400'
                       : 'bg-violet-500/10 text-violet-400'
                     }`}>
@@ -381,7 +381,7 @@ export default function Insights() {
                 </p>
               </div>
 
-              <div className="p-3.5 bg-emerald-500/10 border border-emerald-500/20 text-emerald-800 text-emerald-600 dark:text-emerald-400 text-xs rounded-xl flex gap-2">
+              <div className="p-3.5 bg-emerald-500/10 border border-emerald-500/20 text-emerald-800 text-emerald-600 dark:text-emerald-600 dark:text-emerald-600 dark:text-emerald-400 text-xs rounded-xl flex gap-2">
                 <span className="text-base">💡</span>
                 <p className="font-medium">To proceed, you can export these details to your reports tab or discuss pricing strategies with your distributors immediately.</p>
               </div>

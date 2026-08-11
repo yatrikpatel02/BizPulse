@@ -320,7 +320,7 @@ export default function Profile() {
                 )}
                 
                 {passwordSuccess && (
-                  <div className="bg-emerald-500/10 border border-emerald-500/20 text-emerald-600 dark:text-emerald-400 p-3 rounded-xl text-xs font-semibold">
+                  <div className="bg-emerald-500/10 border border-emerald-500/20 text-emerald-600 dark:text-emerald-600 dark:text-emerald-600 dark:text-emerald-400 p-3 rounded-xl text-xs font-semibold">
                     {passwordSuccess}
                   </div>
                 )}
@@ -351,7 +351,7 @@ export default function Profile() {
                     {newPassword && (
                       <ul className="mt-3 grid grid-cols-1 gap-1 text-[10px] font-semibold text-slate-400 bg-slate-950/20 border border-slate-900 rounded-xl p-2.5">
                         {passwordChecks.map((c, i) => (
-                          <li key={i} className={`flex items-center gap-1.5 ${c.passed ? 'text-emerald-600 dark:text-emerald-400' : 'text-slate-500'}`}>
+                          <li key={i} className={`flex items-center gap-1.5 ${c.passed ? 'text-emerald-600 dark:text-emerald-600 dark:text-emerald-600 dark:text-emerald-400' : 'text-slate-500'}`}>
                             <span>{c.passed ? '✓' : '•'}</span> {c.label}
                           </li>
                         ))}
@@ -561,7 +561,7 @@ export default function Profile() {
       {showSuccessModal && (
         <div className="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex items-center justify-center p-4 animate-fade-in">
           <div className="bg-navy-800/60 border border-gray-150 border-white/[0.06] rounded-2xl p-6 shadow-xl max-w-sm w-full text-center space-y-4 transform scale-100 transition-all duration-300">
-            <div className="w-12 h-12 bg-emerald-500/10 rounded-full flex items-center justify-center text-emerald-600 text-emerald-600 dark:text-emerald-400 mx-auto">
+            <div className="w-12 h-12 bg-emerald-500/10 rounded-full flex items-center justify-center text-emerald-600 text-emerald-600 dark:text-emerald-600 dark:text-emerald-600 dark:text-emerald-400 mx-auto">
               <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
               </svg>

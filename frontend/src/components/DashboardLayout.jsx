@@ -292,7 +292,7 @@ export default function DashboardLayout({ children }) {
             </button>
             <div className="flex flex-col">
               <h2 className="text-base font-bold text-slate-800 dark:text-white font-display leading-tight">{title}</h2>
-              <span className="text-[11px] text-slate-500 dark:text-slate-400 font-medium hidden sm:block mt-0.5 leading-none">{subtitle}</span>
+              <span className="text-[11px] text-slate-500 dark:text-slate-500 dark:text-slate-500 dark:text-slate-400 font-medium hidden sm:block mt-0.5 leading-none">{subtitle}</span>
             </div>
           </div>
           <div className="flex items-center space-x-3">
@@ -332,7 +332,7 @@ export default function DashboardLayout({ children }) {
                       )}
                     </div>
 
-                    <div className="max-h-[300px] overflow-y-auto divide-y divide-slate-150 dark:divide-white/[0.04]">
+                    <div className="max-h-[300px] overflow-y-auto divide-y divide-slate-150 dark:divide-slate-150 dark:divide-slate-150 dark:divide-white/[0.04]">
                       {notifications.length === 0 ? (
                         <div className="py-8 text-center text-slate-500 text-xs">
                           All caught up! No notifications.
@@ -341,7 +341,7 @@ export default function DashboardLayout({ children }) {
                         notifications.map((notif) => (
                           <div
                             key={notif.id}
-                            className={`p-4 flex gap-3 hover:bg-slate-50 dark:hover:bg-white/[0.03] transition-colors text-left ${
+                            className={`p-4 flex gap-3 hover:bg-slate-50 dark:hover:bg-slate-50 dark:hover:bg-slate-50 dark:hover:bg-white/[0.03] transition-colors text-left ${
                               notif.unread ? 'bg-violet-500/[0.03]' : ''
                             }`}
                           >
@@ -361,7 +361,7 @@ export default function DashboardLayout({ children }) {
                                 </div>
                               )}
                               {notif.type === 'success' && (
-                                <div className="w-8 h-8 rounded-lg bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 flex items-center justify-center">
+                                <div className="w-8 h-8 rounded-lg bg-emerald-500/10 text-emerald-600 dark:text-emerald-600 dark:text-emerald-600 dark:text-emerald-400 flex items-center justify-center">
                                   <svg className="w-4.5 h-4.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
                                   </svg>

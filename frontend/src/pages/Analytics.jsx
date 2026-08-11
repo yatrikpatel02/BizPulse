@@ -519,7 +519,7 @@ export default function Analytics() {
                   <th className="pb-3 text-center">Actions</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-slate-150 dark:divide-white/[0.04]">
+              <tbody className="divide-y divide-slate-150 dark:divide-slate-150 dark:divide-slate-150 dark:divide-white/[0.04]">
                 {productsData.map((prod) => {
                   let statusBadge = (
                     <span className="text-violet-400 bg-violet-500/10 px-2 py-0.5 rounded-full text-xs font-semibold">
@@ -668,7 +668,7 @@ export default function Analytics() {
               onClick={() => setActiveTab(tab.id)}
               className={`flex-1 flex items-center justify-center px-4 py-2 text-xs font-semibold rounded-lg transition-all duration-200 whitespace-nowrap min-w-max ${activeTab === tab.id
                   ? 'bg-gradient-to-r from-violet-600 to-indigo-600 text-white shadow-glow-purple-sm nav-active-glow'
-                  : 'text-slate-400 hover:text-white hover:bg-slate-50 dark:hover:bg-white/[0.03]'
+                  : 'text-slate-400 hover:text-white hover:bg-slate-50 dark:hover:bg-slate-50 dark:hover:bg-slate-50 dark:hover:bg-white/[0.03]'
                 }`}
             >
               {tab.icon}
@@ -774,16 +774,16 @@ export default function Analytics() {
                       />
                     </div>
                     {card.subtitle && (
-                      <div className="text-xs text-slate-500 dark:text-slate-400 font-medium">
+                      <div className="text-xs text-slate-500 dark:text-slate-500 dark:text-slate-500 dark:text-slate-400 font-medium">
                         {card.subtitle}
                       </div>
                     )}
                   </div>
                   <div className="mt-3.5 flex items-center gap-1.5 text-xs font-semibold leading-none">
-                    <span className="inline-flex items-center text-emerald-600 dark:text-emerald-400">
+                    <span className="inline-flex items-center text-emerald-600 dark:text-emerald-600 dark:text-emerald-600 dark:text-emerald-400">
                       ↗ {card.change}
                     </span>
-                    <span className="text-slate-500 dark:text-slate-400 font-medium whitespace-nowrap">vs last period</span>
+                    <span className="text-slate-500 dark:text-slate-500 dark:text-slate-500 dark:text-slate-400 font-medium whitespace-nowrap">vs last period</span>
                   </div>
                 </div>
               ))}
@@ -897,21 +897,21 @@ export default function Analytics() {
                       />
                     </div>
                     {card.subtitle && (
-                      <div className="text-xs text-slate-500 dark:text-slate-400 font-medium">
+                      <div className="text-xs text-slate-500 dark:text-slate-500 dark:text-slate-500 dark:text-slate-400 font-medium">
                         {card.subtitle}
                       </div>
                     )}
                   </div>
                   <div className="mt-3.5 flex items-center gap-1.5 text-xs font-semibold leading-none">
                     <span className={`inline-flex items-center ${card.change.startsWith('-') || card.change.toLowerCase().includes('down') || card.change.toLowerCase().includes('critical')
-                        ? 'text-rose-600 dark:text-rose-400'
+                        ? 'text-rose-600 dark:text-rose-600 dark:text-rose-600 dark:text-rose-400'
                         : card.change.toLowerCase().includes('stable')
                           ? 'text-slate-400'
-                          : 'text-emerald-600 dark:text-emerald-400'
+                          : 'text-emerald-600 dark:text-emerald-600 dark:text-emerald-600 dark:text-emerald-400'
                       }`}>
                       {card.change.startsWith('-') || card.change.toLowerCase().includes('down') ? '↘' : card.change.toLowerCase().includes('stable') ? '' : '↗'} {card.change}
                     </span>
-                    <span className="text-slate-500 dark:text-slate-400 font-medium whitespace-nowrap">vs last period</span>
+                    <span className="text-slate-500 dark:text-slate-500 dark:text-slate-500 dark:text-slate-400 font-medium whitespace-nowrap">vs last period</span>
                   </div>
                 </div>
               ))}
@@ -946,7 +946,7 @@ export default function Analytics() {
                           }`}
                       >
                         <div className="flex items-center justify-between mb-1.5">
-                          <span className={`text-xs font-bold ${item.type === 'depleted' ? 'text-rose-600 dark:text-rose-600 dark:text-rose-400' : 'text-violet-400'
+                          <span className={`text-xs font-bold ${item.type === 'depleted' ? 'text-rose-600 dark:text-rose-600 dark:text-rose-600 dark:text-rose-600 dark:text-rose-400' : 'text-violet-400'
                             }`}>
                             {item.status}
                           </span>
@@ -996,19 +996,19 @@ export default function Analytics() {
                       />
                     </div>
                     {card.subtitle && (
-                      <div className="text-xs text-slate-500 dark:text-slate-400 font-medium">
+                      <div className="text-xs text-slate-500 dark:text-slate-500 dark:text-slate-500 dark:text-slate-400 font-medium">
                         {card.subtitle}
                       </div>
                     )}
                   </div>
                   <div className="mt-3.5 flex items-center gap-1.5 text-xs font-semibold leading-none">
                     <span className={`inline-flex items-center ${card.change.startsWith('-') || card.change.toLowerCase().includes('down') || card.change.toLowerCase().includes('critical') || card.change.toLowerCase().includes('negative')
-                        ? 'text-rose-600 dark:text-rose-400'
-                        : 'text-emerald-600 dark:text-emerald-400'
+                        ? 'text-rose-600 dark:text-rose-600 dark:text-rose-600 dark:text-rose-400'
+                        : 'text-emerald-600 dark:text-emerald-600 dark:text-emerald-600 dark:text-emerald-400'
                       }`}>
                       {card.change.startsWith('-') || card.change.toLowerCase().includes('down') || card.change.toLowerCase().includes('negative') ? '↘' : '↗'} {card.change}
                     </span>
-                    <span className="text-slate-500 dark:text-slate-400 font-medium whitespace-nowrap">vs last period</span>
+                    <span className="text-slate-500 dark:text-slate-500 dark:text-slate-500 dark:text-slate-400 font-medium whitespace-nowrap">vs last period</span>
                   </div>
                 </div>
               ))}
@@ -1082,7 +1082,7 @@ export default function Analytics() {
                         <td className="py-4 font-semibold text-slate-200">{c.author}</td>
                         <td className="py-4 font-medium text-slate-400">{c.product}</td>
                         <td className="py-4">
-                          <span className="text-rose-500 dark:text-rose-600 dark:text-rose-400 font-bold bg-rose-500/10 px-2 py-0.5 rounded-lg text-xs">
+                          <span className="text-rose-500 dark:text-rose-600 dark:text-rose-600 dark:text-rose-600 dark:text-rose-400 font-bold bg-rose-500/10 px-2 py-0.5 rounded-lg text-xs">
                             {c.rating} ★
                           </span>
                         </td>
@@ -1278,10 +1278,10 @@ export default function Analytics() {
                       const typeLabel = typeLabels[pred.prediction_type] || pred.prediction_type;
 
                       const typeColors = {
-                        'sales_forecast': 'text-emerald-600 text-emerald-600 dark:text-emerald-400 bg-emerald-500/10',
+                        'sales_forecast': 'text-emerald-600 text-emerald-600 dark:text-emerald-600 dark:text-emerald-600 dark:text-emerald-400 bg-emerald-500/10',
                         'demand_forecast': 'text-blue-600 dark:text-blue-400 bg-blue-500/10',
                         'business_health': 'text-violet-400 bg-violet-500/10',
-                        'product_risk': 'text-rose-600 dark:text-rose-600 dark:text-rose-400 bg-rose-500/10'
+                        'product_risk': 'text-rose-600 dark:text-rose-600 dark:text-rose-600 dark:text-rose-600 dark:text-rose-400 bg-rose-500/10'
                       };
                       const typeColor = typeColors[pred.prediction_type] || 'text-slate-400 bg-gray-100';
 
