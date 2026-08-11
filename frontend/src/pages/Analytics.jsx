@@ -689,7 +689,7 @@ export default function Analytics() {
                     value={startDate}
                     onChange={(e) => setStartDate(e.target.value)}
                     max={endDate || todayStr}
-                    className="bg-transparent text-xs font-semibold text-slate-700 dark:text-slate-200 focus:outline-none cursor-pointer [color-scheme:dark]"
+                    className="bg-transparent text-xs font-semibold text-slate-700 dark:text-slate-200 focus:outline-none cursor-pointer [color-scheme:light] dark:[color-scheme:dark]"
                   />
                 </div>
                 <div className="flex items-center gap-2 bg-slate-100/80 dark:bg-navy-900/40 px-3 py-1.5 rounded-lg border border-slate-200 dark:border-white/[0.08] focus-within:border-violet-500/50 transition-colors">
@@ -700,7 +700,7 @@ export default function Analytics() {
                     onChange={(e) => setEndDate(e.target.value)}
                     min={startDate}
                     max={todayStr}
-                    className="bg-transparent text-xs font-semibold text-slate-700 dark:text-slate-200 focus:outline-none cursor-pointer [color-scheme:dark]"
+                    className="bg-transparent text-xs font-semibold text-slate-700 dark:text-slate-200 focus:outline-none cursor-pointer [color-scheme:light] dark:[color-scheme:dark]"
                   />
                 </div>
               </>
