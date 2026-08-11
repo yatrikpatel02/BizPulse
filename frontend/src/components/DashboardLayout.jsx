@@ -19,6 +19,15 @@ export default function DashboardLayout({ children }) {
   const { activeBusiness } = useBusiness();
   const [notifications, setNotifications] = useState([]);
   const [loadingNotifications, setLoadingNotifications] = useState(false);
+  const [timeTicker, setTimeTicker] = useState(0);
+
+  // Live ticking loop to force React to update relative timestamps on-screen
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setTimeTicker(prev => prev + 1);
+    }, 30000); // Tick every 30 seconds
+    return () => clearInterval(timer);
+  }, []);
 
   // Helper to format relative time dynamically
   const formatTimeAgo = (dateString) => {
@@ -144,10 +153,9 @@ export default function DashboardLayout({ children }) {
         // Sort all alerts chronologically (latest first)
         list.sort((a, b) => b.date - a.date);
 
-        // Remove the temporary date object before setting state
-        const sanitizedList = list.map(({ date, ...rest }) => rest);
-        setNotifications(sanitizedList);
-        console.log("BizPulse Notification System: Dynamic notifications populated. Count:", sanitizedList.length);
+        // Keep the date object to evaluate relative time on the fly during render
+        setNotifications(list);
+        console.log("BizPulse Notification System: Dynamic notifications populated. Count:", list.length);
 
       } catch (err) {
         console.error("Error generating notifications:", err);
@@ -360,7 +368,7 @@ export default function DashboardLayout({ children }) {
                                 <span className={`text-xs font-bold ${notif.unread ? 'text-gray-800 dark:text-slate-100' : 'text-gray-600 dark:text-slate-400'}`}>
                                   {notif.title}
                                 </span>
-                                <span className="text-[10px] text-gray-400 dark:text-slate-500">{notif.time}</span>
+                                <span className="text-[10px] text-gray-400 dark:text-slate-500">{formatTimeAgo(notif.date)}</span>
                               </div>
                               <p className="text-[11px] text-gray-500 dark:text-slate-400 leading-relaxed">{notif.desc}</p>
                             </div>
