@@ -3,6 +3,9 @@ import { Link, useLocation } from 'react-router-dom';
 import Sidebar from './Sidebar';
 import { useAuth } from '../context/AuthContext';
 import { useTheme } from '../context/ThemeContext';
+import { useBusiness } from '../context/BusinessContext';
+import { getUserSettings } from '../services/auth';
+import { getInventoryAnalytics, getInsights, getCustomerReviews } from '../services/analytics';
 
 export default function DashboardLayout({ children }) {
   const { user } = useAuth();
@@ -13,32 +16,136 @@ export default function DashboardLayout({ children }) {
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
   const [isNotificationsOpen, setIsNotificationsOpen] = useState(false);
   const notificationRef = useRef(null);
-  const [notifications, setNotifications] = useState([
-    {
-      id: 1,
-      title: 'Low Stock Alert',
-      desc: 'Wireless Mouse stock is down to 12 units (Threshold: 50).',
-      time: '10m ago',
-      unread: true,
-      type: 'warning'
-    },
-    {
-      id: 2,
-      title: 'Competitor Price Warning',
-      desc: 'Flipkart seller listed Laptop Sleeve at ₹899 (yours: ₹999).',
-      time: '1h ago',
-      unread: true,
-      type: 'info'
-    },
-    {
-      id: 3,
-      title: 'Data Sync Success',
-      desc: 'Successfully synced latest transactions (244 new rows).',
-      time: '4h ago',
-      unread: false,
-      type: 'success'
+  const { activeBusiness } = useBusiness();
+  const [notifications, setNotifications] = useState([]);
+  const [loadingNotifications, setLoadingNotifications] = useState(false);
+
+  // Helper to format relative time dynamically
+  const formatTimeAgo = (dateString) => {
+    if (!dateString) return 'Just now';
+    try {
+      const now = new Date();
+      const date = new Date(dateString);
+      const seconds = Math.floor((now - date) / 1000);
+      
+      if (seconds < 60) return 'Just now';
+      const minutes = Math.floor(seconds / 60);
+      if (minutes < 60) return `${minutes}m ago`;
+      const hours = Math.floor(minutes / 60);
+      if (hours < 24) return `${hours}h ago`;
+      const days = Math.floor(hours / 24);
+      if (days === 1) return 'Yesterday';
+      return `${days}d ago`;
+    } catch (e) {
+      return 'Just now';
     }
-  ]);
+  };
+
+  useEffect(() => {
+    const loadDynamicNotifications = async () => {
+      if (!activeBusiness?.id) return;
+      setLoadingNotifications(true);
+      try {
+        // 1. Fetch user settings for safety stock and star rating thresholds
+        let thresholds = { safetyStock: 50, starRating: 4.0 };
+        try {
+          const settings = await getUserSettings();
+          thresholds = {
+            safetyStock: settings.safety_stock || 50,
+            starRating: parseFloat(settings.star_rating) || 4.0,
+          };
+        } catch (e) {
+          console.error("Failed to load user settings, using default thresholds", e);
+        }
+
+        const list = [];
+
+        // 2. Fetch inventory stock alerts/anomalies
+        try {
+          const invData = await getInventoryAnalytics({ business_id: activeBusiness.id });
+          const anomalies = invData?.anomalies || [];
+          anomalies.forEach((prod) => {
+            const qty = prod.quantity_on_hand || 0;
+            const reorderThreshold = thresholds.safetyStock;
+            if (qty <= reorderThreshold) {
+              list.push({
+                id: `low-stock-${prod.product_id}-${qty}`,
+                title: qty === 0 ? 'Out of Stock Alert' : 'Low Stock Alert',
+                desc: `${prod.product_name} is down to ${qty} units (Safety Threshold: ${reorderThreshold}).`,
+                time: 'Just now',
+                unread: true,
+                type: 'warning',
+                date: new Date() // for sorting
+              });
+            }
+          });
+        } catch (e) {
+          console.error("Failed to fetch inventory stock alerts", e);
+        }
+
+        // 3. Fetch customer reviews and alert if rating is below threshold
+        try {
+          const reviews = await getCustomerReviews({ business_id: activeBusiness.id });
+          if (Array.isArray(reviews)) {
+            reviews.forEach((review) => {
+              const rating = parseFloat(review.rating) || 0;
+              if (rating <= thresholds.starRating) {
+                list.push({
+                  id: `review-${review.id}`,
+                  title: `Low Review Alert (${rating}★)`,
+                  desc: `"${review.comment_text || 'No comment'}" on ${review.product_name || 'Product'}`,
+                  time: formatTimeAgo(review.created_at),
+                  unread: true,
+                  type: 'info',
+                  date: new Date(review.created_at) // for sorting
+                });
+              }
+            });
+          }
+        } catch (e) {
+          console.error("Failed to fetch customer reviews alerts", e);
+        }
+
+        // 4. Fetch ML insights and competitor price mismatches
+        try {
+          const insights = await getInsights({ business_id: activeBusiness.id });
+          if (Array.isArray(insights)) {
+            insights.forEach((insight) => {
+              let alertType = 'info';
+              if (insight.severity === 'high') alertType = 'warning';
+              else if (insight.insight_type === 'growing_demand') alertType = 'success';
+              
+              list.push({
+                id: `insight-${insight.id}`,
+                title: insight.title,
+                desc: insight.description,
+                time: formatTimeAgo(insight.generated_at),
+                unread: !insight.is_read,
+                type: alertType,
+                date: new Date(insight.generated_at) // for sorting
+              });
+            });
+          }
+        } catch (e) {
+          console.error("Failed to fetch ML insights", e);
+        }
+
+        // Sort all alerts chronologically (latest first)
+        list.sort((a, b) => b.date - a.date);
+
+        // Remove the temporary date object before setting state
+        const sanitizedList = list.map(({ date, ...rest }) => rest);
+        setNotifications(sanitizedList);
+
+      } catch (err) {
+        console.error("Error generating notifications:", err);
+      } finally {
+        setLoadingNotifications(false);
+      }
+    };
+
+    loadDynamicNotifications();
+  }, [activeBusiness?.id]);
 
   const unreadCount = notifications.filter(n => n.unread).length;
 
