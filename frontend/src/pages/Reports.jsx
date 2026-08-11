@@ -390,19 +390,19 @@ export default function Reports() {
         <div className="grid grid-cols-2 gap-3">
           <div className="p-3 glass-card border border-slate-200/50 dark:border-slate-200/50 dark:border-white/[0.04] border-slate-200 dark:border-slate-200 dark:border-white/[0.06] rounded-xl">
             <span className="text-[10px] font-bold text-slate-500 uppercase block">Total Revenue</span>
-            <span className="text-sm font-extrabold text-white">{formatCurrency(metrics.total_revenue)}</span>
+            <span className="text-sm font-extrabold text-slate-800 dark:text-white">{formatCurrency(metrics.total_revenue)}</span>
           </div>
           <div className="p-3 glass-card border border-slate-200/50 dark:border-slate-200/50 dark:border-white/[0.04] border-slate-200 dark:border-slate-200 dark:border-white/[0.06] rounded-xl">
             <span className="text-[10px] font-bold text-slate-500 uppercase block">Total Orders</span>
-            <span className="text-sm font-extrabold text-white">{Number(totalOrders).toLocaleString()}</span>
+            <span className="text-sm font-extrabold text-slate-800 dark:text-white">{Number(totalOrders).toLocaleString()}</span>
           </div>
           <div className="p-3 glass-card border border-slate-200/50 dark:border-slate-200/50 dark:border-white/[0.04] border-slate-200 dark:border-slate-200 dark:border-white/[0.06] rounded-xl">
             <span className="text-[10px] font-bold text-slate-500 uppercase block">Avg. Order Value</span>
-            <span className="text-sm font-extrabold text-white">{formatCurrency(avgOrderValue)}</span>
+            <span className="text-sm font-extrabold text-slate-800 dark:text-white">{formatCurrency(avgOrderValue)}</span>
           </div>
           <div className="p-3 glass-card border border-slate-200/50 dark:border-slate-200/50 dark:border-white/[0.04] border-slate-200 dark:border-slate-200 dark:border-white/[0.06] rounded-xl">
             <span className="text-[10px] font-bold text-slate-500 uppercase block">Total Quantity Sold</span>
-            <span className="text-sm font-extrabold text-white">{Number(metrics.total_quantity || 0).toLocaleString()}</span>
+            <span className="text-sm font-extrabold text-slate-800 dark:text-white">{Number(metrics.total_quantity || 0).toLocaleString()}</span>
           </div>
         </div>
         {/* Top Products */}
@@ -443,11 +443,11 @@ export default function Reports() {
         <div className="grid grid-cols-2 gap-3">
           <div className="p-3 glass-card border border-slate-200/50 dark:border-slate-200/50 dark:border-white/[0.04] border-slate-200 dark:border-slate-200 dark:border-white/[0.06] rounded-xl">
             <span className="text-[10px] font-bold text-slate-500 uppercase block">Total Products Tracked</span>
-            <span className="text-sm font-extrabold text-white">{summary.total_products != null ? summary.total_products : '-'}</span>
+            <span className="text-sm font-extrabold text-slate-800 dark:text-white">{summary.total_products != null ? summary.total_products : '-'}</span>
           </div>
           <div className="p-3 glass-card border border-slate-200/50 dark:border-slate-200/50 dark:border-white/[0.04] border-slate-200 dark:border-slate-200 dark:border-white/[0.06] rounded-xl">
             <span className="text-[10px] font-bold text-slate-500 uppercase block">Total Stock Value</span>
-            <span className="text-sm font-extrabold text-white">{formatCurrency(summary.total_value)}</span>
+            <span className="text-sm font-extrabold text-slate-800 dark:text-white">{formatCurrency(summary.total_value)}</span>
           </div>
           <div className="p-3 glass-card border border-slate-200/50 dark:border-slate-200/50 dark:border-white/[0.04] border-slate-200 dark:border-slate-200 dark:border-white/[0.06] rounded-xl">
             <span className="text-[10px] font-bold text-slate-500 uppercase block">Out of Stock Items</span>
@@ -488,11 +488,11 @@ export default function Reports() {
         <div className="grid grid-cols-2 gap-3">
           <div className="p-3 glass-card border border-slate-200/50 dark:border-slate-200/50 dark:border-white/[0.04] border-slate-200 dark:border-slate-200 dark:border-white/[0.06] rounded-xl">
             <span className="text-[10px] font-bold text-slate-500 uppercase block">Total Reviews</span>
-            <span className="text-sm font-extrabold text-white">{summary.total_reviews != null ? summary.total_reviews : '-'}</span>
+            <span className="text-sm font-extrabold text-slate-800 dark:text-white">{summary.total_reviews != null ? summary.total_reviews : '-'}</span>
           </div>
           <div className="p-3 glass-card border border-slate-200/50 dark:border-slate-200/50 dark:border-white/[0.04] border-slate-200 dark:border-slate-200 dark:border-white/[0.06] rounded-xl">
             <span className="text-[10px] font-bold text-slate-500 uppercase block">Average Rating</span>
-            <span className="text-sm font-extrabold text-white">{Number(summary.average_rating || 0).toFixed(1)} ⭐</span>
+            <span className="text-sm font-extrabold text-slate-800 dark:text-white">{Number(summary.average_rating || 0).toFixed(1)} ⭐</span>
           </div>
         </div>
         {/* Sentiment Breakdown */}
