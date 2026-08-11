@@ -66,8 +66,8 @@ export default function Data() {
                   <div 
                     className={`w-10 h-10 rounded-full flex items-center justify-center font-bold text-sm z-10 transition-colors ${
                       isActive ? 'bg-violet-600 text-white shadow-md' : 
-                      isPast ? 'bg-violet-500/20 text-violet-300' : 
-                      'glass-surface text-slate-500'
+                      isPast ? 'bg-violet-500/20 text-violet-600 dark:text-violet-300' : 
+                      'bg-white dark:bg-navy-900 border border-slate-200 dark:border-white/[0.08] text-slate-500'
                     }`}
                   >
                     {isPast ? (
@@ -79,7 +79,7 @@ export default function Data() {
                     )}
                   </div>
                   <span className={`mt-2 text-xs font-medium ${
-                    isActive ? 'text-violet-400' : 'text-slate-500'
+                    isActive ? 'text-violet-600 dark:text-violet-400' : 'text-slate-500'
                   }`}>
                     {label}
                   </span>
@@ -87,7 +87,7 @@ export default function Data() {
                   {/* Connector Line */}
                   {stepNumber < 3 && (
                     <div className={`absolute top-5 left-1/2 w-full h-[2px] -z-10 ${
-                      isPast ? 'bg-violet-500/30' : 'glass-surface'
+                      isPast ? 'bg-violet-600 dark:bg-violet-500/30' : 'bg-slate-200 dark:bg-white/[0.08]'
                     }`} />
                   )}
                 </div>
