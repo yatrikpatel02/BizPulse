@@ -123,10 +123,18 @@ export default function Signup() {
     }
   };
 
+  const inputClass = (fieldName) => `w-full pl-11 pr-4 py-2 bg-navy-900/80 border rounded-xl text-white placeholder-slate-600 focus:outline-none focus-glow transition-all duration-200 text-sm ${
+    fieldErrors[fieldName] ? 'border-red-500/50 focus:border-red-500 focus:ring-red-500/10' : 'border-white/[0.08]'
+  }`;
+
+  const smallInputClass = (fieldName) => `w-full pl-9 pr-3 py-2 bg-navy-900/80 border rounded-xl text-white placeholder-slate-600 focus:outline-none focus-glow transition-all duration-200 text-sm ${
+    fieldErrors[fieldName] ? 'border-red-500/50 focus:border-red-500 focus:ring-red-500/10' : 'border-white/[0.08]'
+  }`;
+
   return (
     <div>
       {/* Page Title */}
-      <h2 className="text-xl font-semibold text-center text-white mb-6 tracking-tight">
+      <h2 className="text-xl font-semibold text-center text-white mb-6 tracking-tight font-display">
         Create your account
       </h2>
 
@@ -142,19 +150,17 @@ export default function Signup() {
           {/* First Name & Last Name */}
           <div className="grid grid-cols-2 gap-3">
             <div>
-              <label htmlFor="first_name" className="text-xs font-semibold text-gray-400 mb-1 block">
+              <label htmlFor="first_name" className="text-xs font-semibold text-slate-400 mb-1 block">
                 First name
               </label>
               <div className="relative">
-                <span className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-500">
+                <span className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-500">
                   <User size={14} />
                 </span>
                 <input
                   name="first_name"
                   type="text"
-                  className={`w-full pl-9 pr-3 py-2 bg-[#13151b] border rounded-xl text-white placeholder-[#3e424e] focus:outline-none focus:border-[#c09e75] focus:ring-2 focus:ring-[#c09e75]/20 transition-all duration-200 text-sm ${
-                    fieldErrors.first_name ? 'border-red-500/50 focus:border-red-500 focus:ring-red-500/10' : 'border-[#232731]'
-                  }`}
+                  className={smallInputClass('first_name')}
                   placeholder="First name"
                   value={formData.first_name}
                   onChange={handleChange}
@@ -165,19 +171,17 @@ export default function Signup() {
               )}
             </div>
             <div>
-              <label htmlFor="last_name" className="text-xs font-semibold text-gray-400 mb-1 block">
+              <label htmlFor="last_name" className="text-xs font-semibold text-slate-400 mb-1 block">
                 Last name
               </label>
               <div className="relative">
-                <span className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-500">
+                <span className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-500">
                   <User size={14} />
                 </span>
                 <input
                   name="last_name"
                   type="text"
-                  className={`w-full pl-9 pr-3 py-2 bg-[#13151b] border rounded-xl text-white placeholder-[#3e424e] focus:outline-none focus:border-[#c09e75] focus:ring-2 focus:ring-[#c09e75]/20 transition-all duration-200 text-sm ${
-                    fieldErrors.last_name ? 'border-red-500/50 focus:border-red-500 focus:ring-red-500/10' : 'border-[#232731]'
-                  }`}
+                  className={smallInputClass('last_name')}
                   placeholder="Last name"
                   value={formData.last_name}
                   onChange={handleChange}
@@ -191,20 +195,18 @@ export default function Signup() {
 
           {/* Email field */}
           <div>
-            <label htmlFor="email" className="text-xs font-semibold text-gray-400 mb-1.5 block">
+            <label htmlFor="email" className="text-xs font-semibold text-slate-400 mb-1.5 block">
               Email address
             </label>
             <div className="relative">
-              <span className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-500">
+              <span className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-500">
                 <Mail size={16} />
               </span>
               <input
                 name="email"
                 type="email"
                 autoComplete="email"
-                className={`w-full pl-11 pr-4 py-2 bg-[#13151b] border rounded-xl text-white placeholder-[#3e424e] focus:outline-none focus:border-[#c09e75] focus:ring-2 focus:ring-[#c09e75]/20 transition-all duration-200 text-sm ${
-                  fieldErrors.email ? 'border-red-500/50 focus:border-red-500 focus:ring-red-500/10' : 'border-[#232731]'
-                }`}
+                className={inputClass('email')}
                 placeholder="name@company.com"
                 value={formData.email}
                 onChange={handleChange}
@@ -217,19 +219,17 @@ export default function Signup() {
 
           {/* Username field */}
           <div>
-            <label htmlFor="username" className="text-xs font-semibold text-gray-400 mb-1.5 block">
+            <label htmlFor="username" className="text-xs font-semibold text-slate-400 mb-1.5 block">
               Username
             </label>
             <div className="relative">
-              <span className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-500">
+              <span className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-500">
                 <User size={16} />
               </span>
               <input
                 name="username"
                 type="text"
-                className={`w-full pl-11 pr-4 py-2 bg-[#13151b] border rounded-xl text-white placeholder-[#3e424e] focus:outline-none focus:border-[#c09e75] focus:ring-2 focus:ring-[#c09e75]/20 transition-all duration-200 text-sm ${
-                  fieldErrors.username ? 'border-red-500/50 focus:border-red-500 focus:ring-red-500/10' : 'border-[#232731]'
-                }`}
+                className={inputClass('username')}
                 placeholder="username"
                 value={formData.username}
                 onChange={handleChange}
@@ -242,19 +242,17 @@ export default function Signup() {
 
           {/* Password field */}
           <div>
-            <label htmlFor="password" className="text-xs font-semibold text-gray-400 mb-1.5 block">
+            <label htmlFor="password" className="text-xs font-semibold text-slate-400 mb-1.5 block">
               Password
             </label>
             <div className="relative">
-              <span className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-500">
+              <span className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-500">
                 <Lock size={16} />
               </span>
               <input
                 name="password"
                 type="password"
-                className={`w-full pl-11 pr-4 py-2 bg-[#13151b] border rounded-xl text-white placeholder-[#3e424e] focus:outline-none focus:border-[#c09e75] focus:ring-2 focus:ring-[#c09e75]/20 transition-all duration-200 text-sm ${
-                  fieldErrors.password ? 'border-red-500/50 focus:border-red-500 focus:ring-red-500/10' : 'border-[#232731]'
-                }`}
+                className={inputClass('password')}
                 placeholder="••••••••"
                 value={formData.password}
                 onChange={handleChange}
@@ -264,9 +262,9 @@ export default function Signup() {
               <p className="mt-1 text-xs text-red-400 font-medium">{fieldErrors.password}</p>
             )}
             {formData.password && (
-              <ul className="mt-2.5 space-y-1 text-xs bg-[#13151b] p-3 rounded-xl border border-[#232731] grid grid-cols-1 md:grid-cols-2 gap-x-4">
+              <ul className="mt-2.5 space-y-1 text-xs bg-navy-900/80 p-3 rounded-xl border border-white/[0.06] grid grid-cols-1 md:grid-cols-2 gap-x-4">
                 {passwordChecks.map((c, i) => (
-                  <li key={i} className={`flex items-center gap-1.5 ${c.passed ? 'text-green-400 font-medium' : 'text-[#5e6573]'}`}>
+                  <li key={i} className={`flex items-center gap-1.5 ${c.passed ? 'text-emerald-400 font-medium' : 'text-slate-600'}`}>
                     {c.passed ? <Check size={12} className="shrink-0" /> : <X size={12} className="shrink-0" />}
                     <span>{c.label}</span>
                   </li>
@@ -277,18 +275,18 @@ export default function Signup() {
 
           {/* Confirm Password field */}
           <div>
-            <label htmlFor="password_confirm" className="text-xs font-semibold text-gray-400 mb-1.5 block">
+            <label htmlFor="password_confirm" className="text-xs font-semibold text-slate-400 mb-1.5 block">
               Confirm password
             </label>
             <div className="relative">
-              <span className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-500">
+              <span className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-500">
                 <Lock size={16} />
               </span>
               <input
                 name="password_confirm"
                 type="password"
-                className={`w-full pl-11 pr-4 py-2 bg-[#13151b] border rounded-xl text-white placeholder-[#3e424e] focus:outline-none focus:ring-2 focus:ring-[#c09e75]/20 transition-all duration-200 text-sm ${
-                  fieldErrors.password_confirm ? 'border-red-500/50 focus:border-red-500 focus:ring-red-500/10' : 'border-[#232731]'
+                className={`w-full pl-11 pr-4 py-2 bg-navy-900/80 border rounded-xl text-white placeholder-slate-600 focus:outline-none focus-glow transition-all duration-200 text-sm ${
+                  fieldErrors.password_confirm ? 'border-red-500/50 focus:border-red-500 focus:ring-red-500/10' : 'border-white/[0.08]'
                 }`}
                 placeholder="••••••••"
                 value={formData.password_confirm}
@@ -306,11 +304,11 @@ export default function Signup() {
           <button
             type="submit"
             disabled={loading}
-            className="w-full py-2.5 px-4 bg-gradient-to-r from-[#DFBA8A] via-[#C49B6D] to-[#8E673E] hover:brightness-105 active:scale-[0.98] text-gray-950 font-semibold rounded-xl shadow-lg shadow-[#c09e75]/5 hover:shadow-[#c09e75]/15 focus:outline-none transition-all duration-200 text-sm flex items-center justify-center gap-2"
+            className="w-full py-2.5 px-4 bg-gradient-to-r from-violet-600 to-indigo-600 hover:from-violet-500 hover:to-indigo-500 active:scale-[0.98] text-white font-semibold rounded-xl shadow-lg shadow-violet-500/10 hover:shadow-violet-500/20 focus:outline-none transition-all duration-200 text-sm flex items-center justify-center gap-2"
           >
             {loading ? (
               <div className="flex items-center gap-2">
-                <svg className="animate-spin h-4 w-4 text-gray-950" fill="none" viewBox="0 0 24 24">
+                <svg className="animate-spin h-4 w-4 text-white" fill="none" viewBox="0 0 24 24">
                   <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
                   <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z" />
                 </svg>
@@ -327,18 +325,18 @@ export default function Signup() {
 
         {/* Divider */}
         <div className="relative flex py-2 items-center">
-          <div className="flex-grow border-t border-[#232731]"></div>
-          <span className="flex-shrink mx-4 text-gray-500 text-xs font-semibold uppercase tracking-wider">or</span>
-          <div className="flex-grow border-t border-[#232731]"></div>
+          <div className="flex-grow border-t border-white/[0.06]"></div>
+          <span className="flex-shrink mx-4 text-slate-500 text-xs font-semibold uppercase tracking-wider">or</span>
+          <div className="flex-grow border-t border-white/[0.06]"></div>
         </div>
 
         {/* Google Sign-in */}
         <GoogleLoginButton text="signup_with" />
 
         {/* Sign in Link */}
-        <div className="text-sm text-center text-gray-400 mt-6">
+        <div className="text-sm text-center text-slate-400 mt-6">
           Already have an account?{' '}
-          <Link to="/login" className="font-semibold text-[#c09e75] hover:text-[#d4b58e] transition-colors">
+          <Link to="/login" className="font-semibold text-violet-400 hover:text-violet-300 transition-colors">
             Sign in
           </Link>
         </div>

@@ -75,41 +75,41 @@ export default function MappingStep({ headers, suggestedMappings, sourceType, on
   const currentExpectedFields = EXPECTED_FIELDS[sourceType] || [];
 
   return (
-    <div className="max-w-4xl mx-auto bg-white dark:bg-slate-900 rounded-xl shadow-sm border dark:border-slate-800 p-8">
-      <h2 className="text-2xl font-bold text-gray-900 dark:text-slate-100 mb-2">Map Your Columns</h2>
-      <p className="text-gray-600 dark:text-slate-400 mb-6">
+    <div className="max-w-4xl mx-auto bg-navy-800/60 bg-navy-800/60 rounded-xl shadow-sm border border-white/[0.06] p-8">
+      <h2 className="text-2xl font-bold text-white text-white mb-2">Map Your Columns</h2>
+      <p className="text-slate-400 text-slate-400 mb-6">
          Match the columns from your uploaded file to the required system fields. We&apos;ve auto-matched some based on their names.
       </p>
 
       {error && (
-        <div className="mb-6 p-4 bg-red-50 dark:bg-red-900/30 text-red-700 dark:text-red-400 rounded-lg text-sm border border-red-200 dark:border-red-800/50">
+        <div className="mb-6 p-4 bg-red-50 bg-red-500/10 text-red-700 text-red-400 rounded-lg text-sm border border-red-200 dark:border-red-800/50">
           {error}
         </div>
       )}
 
-      <div className="overflow-hidden border border-gray-200 dark:border-slate-700 rounded-lg mb-8">
+      <div className="overflow-hidden border border-white/[0.06] border-white/[0.06] rounded-lg mb-8">
         <table className="min-w-full divide-y divide-gray-200 dark:divide-slate-700">
-          <thead className="bg-gray-50 dark:bg-slate-800">
+          <thead className="bg-navy-900/40 bg-navy-700/60">
             <tr>
-              <th scope="col" className="px-6 py-3 text-left text-xs font-bold text-gray-700 dark:text-slate-200 uppercase tracking-wider">
+              <th scope="col" className="px-6 py-3 text-left text-xs font-bold text-slate-300 text-slate-200 uppercase tracking-wider">
                 Your File Column
               </th>
-              <th scope="col" className="px-6 py-3 text-left text-xs font-bold text-gray-700 dark:text-slate-200 uppercase tracking-wider">
+              <th scope="col" className="px-6 py-3 text-left text-xs font-bold text-slate-300 text-slate-200 uppercase tracking-wider">
                 System Field
               </th>
             </tr>
           </thead>
-          <tbody className="bg-white dark:bg-slate-900 divide-y divide-gray-200 dark:divide-slate-700">
+          <tbody className="bg-navy-800/60 bg-navy-800/60 divide-y divide-gray-200 dark:divide-slate-700">
             {headers.map((header, idx) => (
               <tr key={idx}>
-                <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 dark:text-slate-200">
+                <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-slate-200">
                   {header}
                 </td>
-                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-slate-400">
+                <td className="px-6 py-4 whitespace-nowrap text-sm text-slate-500 text-slate-400">
                   <select
                     value={mapping[header] || ''}
                     onChange={(e) => handleSelectChange(header, e.target.value)}
-                    className="w-full px-3 py-2 bg-gray-50 dark:bg-slate-950 border border-gray-300 dark:border-slate-700 rounded-md focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 dark:text-slate-200 outline-none transition-colors"
+                    className="w-full px-3 py-2 bg-navy-900/40 bg-navy-900 border border-white/[0.08] border-white/[0.06] rounded-md focus:ring-2 focus:ring-violet-500 focus:border-indigo-500 text-slate-200 outline-none transition-colors"
                   >
                     <option value="">-- Do not import --</option>
                     {currentExpectedFields.map(field => (
@@ -129,14 +129,14 @@ export default function MappingStep({ headers, suggestedMappings, sourceType, on
         <button
           type="button"
           onClick={onBack}
-          className="px-6 py-2.5 bg-white dark:bg-slate-800 border border-gray-300 dark:border-slate-700 hover:bg-gray-50 dark:hover:bg-slate-700 text-gray-700 dark:text-slate-300 font-medium rounded-lg transition-colors"
+          className="px-6 py-2.5 bg-navy-800/60 bg-navy-700/60 border border-white/[0.08] border-white/[0.06] hover:bg-navy-900/40 hover:bg-navy-700 text-slate-300 text-slate-300 font-medium rounded-lg transition-colors"
         >
           Back
         </button>
         <button
           type="button"
           onClick={handleContinue}
-          className="px-6 py-2.5 bg-indigo-600 hover:bg-indigo-700 dark:bg-indigo-500 dark:hover:bg-indigo-600 text-white font-medium rounded-lg shadow-sm focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition-colors"
+          className="px-6 py-2.5 bg-violet-600 hover:bg-violet-500 bg-violet-600 hover:bg-violet-500 text-white font-medium rounded-lg shadow-sm focus:ring-2 focus:ring-offset-2 focus:ring-violet-500 transition-colors"
         >
           Preview & Validate
         </button>

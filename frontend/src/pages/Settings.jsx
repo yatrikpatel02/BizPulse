@@ -289,17 +289,17 @@ export default function Settings() {
     <div className="flex flex-col gap-6 animate-fade-in pb-12">
       {/* Toast Notification */}
       {showToast && (
-        <div className="fixed bottom-6 right-6 z-50 bg-slate-900 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 text-slate-100 px-5 py-3 rounded-xl shadow-xl text-sm font-semibold flex items-center gap-2">
+        <div className="fixed bottom-6 right-6 z-50 bg-slate-900 bg-navy-900 border border-slate-200 border-white/[0.06] text-slate-100 px-5 py-3 rounded-xl shadow-xl text-sm font-semibold flex items-center gap-2">
           <span className="w-2 h-2 rounded-full bg-indigo-500 animate-ping"></span>
           {toastMessage}
         </div>
       )}
 
       {/* Top Horizontal Tab Nav */}
-      <div className="bg-white/60 dark:bg-slate-900/60 backdrop-blur-md border border-white/20 dark:border-slate-800/80 rounded-3xl p-6 shadow-md">
+      <div className="bg-navy-800/60 backdrop-blur-md border border-white/[0.06] rounded-3xl p-6 shadow-md">
         <div className="mb-5">
-          <h2 className="text-2xl font-bold text-gray-800 dark:text-slate-100 font-display">System Settings</h2>
-          <p className="text-sm text-gray-400 dark:text-slate-500 font-medium mt-1">Configure preferences and platform rules</p>
+          <h2 className="text-2xl font-bold text-slate-800 dark:text-white font-display">System Settings</h2>
+          <p className="text-sm text-slate-500 dark:text-slate-400 font-medium mt-1">Configure preferences and platform rules</p>
         </div>
         <div className="grid grid-cols-2 gap-2">
           {menuItems.map((item) => (
@@ -308,11 +308,11 @@ export default function Settings() {
               onClick={() => setActiveSubTab(item.id)}
               className={`flex items-center gap-2.5 px-5 py-3 rounded-2xl text-sm font-semibold transition-all duration-200 cursor-pointer ${
                 activeSubTab === item.id
-                  ? 'bg-indigo-600 dark:bg-indigo-500 text-white shadow-md shadow-indigo-500/20'
-                  : 'bg-gray-100 dark:bg-slate-800/60 hover:bg-gray-200 dark:hover:bg-slate-700 text-gray-600 dark:text-slate-300'
+                  ? 'bg-violet-600 bg-violet-600 text-white shadow-md shadow-indigo-500/20'
+                  : 'bg-navy-700/60/60 hover:bg-gray-200 hover:bg-navy-700 text-slate-300'
               }`}
             >
-              <span className={activeSubTab === item.id ? 'text-white' : 'text-gray-400 dark:text-slate-400'}>
+              <span className={activeSubTab === item.id ? 'text-white' : 'text-slate-400'}>
                 {item.icon}
               </span>
               {item.title}
@@ -322,26 +322,26 @@ export default function Settings() {
       </div>
 
       {/* Content Panel */}
-      <div className="bg-white/60 dark:bg-slate-900/60 backdrop-blur-md border border-white/20 dark:border-slate-800/80 rounded-3xl p-8 shadow-md">
+      <div className="bg-navy-800/60 backdrop-blur-md border border-white/[0.06] rounded-3xl p-8 shadow-md">
           
           {/* TAB 1: GENERAL */}
           {activeSubTab === 'general' && (
             <div className="space-y-8 animate-fade-in flex-1">
               <div>
-                <h3 className="text-3xl font-bold text-gray-800 dark:text-slate-100 font-display">General & Company Settings</h3>
-                <p className="text-sm text-gray-400 dark:text-slate-500 mt-1">Manage and configure your registered business companies.</p>
+                <h3 className="text-3xl font-bold text-slate-800 dark:text-white font-display">General & Company Settings</h3>
+                <p className="text-sm text-slate-500 mt-1">Manage and configure your registered business companies.</p>
               </div>
 
               {/* Manage Companies List */}
               <div className="space-y-6">
                 <div className="flex items-center justify-between">
                   <div>
-                    <h4 className="text-sm font-bold text-gray-800 dark:text-slate-100 uppercase tracking-wider font-display">Manage Companies</h4>
-                    <p className="text-sm text-gray-400 dark:text-slate-500 mt-1">Edit or add company segments for dashboard visualization.</p>
+                    <h4 className="text-sm font-bold text-slate-800 dark:text-white uppercase tracking-wider font-display">Manage Companies</h4>
+                    <p className="text-sm text-slate-500 mt-1">Edit or add company segments for dashboard visualization.</p>
                   </div>
                   <button
                     onClick={() => setIsAddModalOpen(true)}
-                    className="px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-semibold rounded-xl shadow-sm transition-colors flex items-center gap-1 cursor-pointer"
+                    className="px-4 py-2 bg-violet-600 hover:bg-violet-500 text-white text-xs font-semibold rounded-xl shadow-sm transition-colors flex items-center gap-1 cursor-pointer"
                   >
                     + Add Company
                   </button>
@@ -353,30 +353,30 @@ export default function Settings() {
                   </div>
                 )}
 
-                <div className="border border-gray-200/50 dark:border-slate-800 rounded-2xl overflow-hidden bg-white/20 dark:bg-slate-950/20">
+                <div className="border border-white/[0.06] rounded-2xl overflow-hidden bg-navy-800/60/20 bg-navy-900/20">
                   <table className="w-full text-xs">
                     <thead>
-                      <tr className="bg-gray-50/50 dark:bg-slate-800/50 border-b border-gray-200 dark:border-slate-800">
-                        <th className="px-5 py-3 text-left font-bold text-gray-700 dark:text-slate-200 uppercase tracking-wider">Company Name</th>
-                        <th className="px-5 py-3 text-right font-bold text-gray-700 dark:text-slate-200 uppercase tracking-wider">Actions</th>
+                      <tr className="bg-navy-900/40 bg-navy-700/60 border-b border-white/[0.06]">
+                        <th className="px-5 py-3 text-left font-bold text-slate-200 uppercase tracking-wider">Company Name</th>
+                        <th className="px-5 py-3 text-right font-bold text-slate-200 uppercase tracking-wider">Actions</th>
                       </tr>
                     </thead>
                     <tbody className="divide-y divide-gray-200/40 dark:divide-slate-800/60">
                       {businesses.map((business) => (
-                        <tr key={business.id} className="hover:bg-gray-50/50 dark:hover:bg-slate-800/20 transition-colors">
+                        <tr key={business.id} className="hover:bg-navy-900/40 dark:hover:bg-slate-800/20 transition-colors">
                           <td className="px-5 py-4">
                             {editingId === business.id ? (
                               <input
                                 type="text"
                                 value={editName}
                                 onChange={(e) => setEditName(e.target.value)}
-                                className="px-2.5 py-1.5 bg-white/40 dark:bg-slate-950/40 border border-gray-200 dark:border-slate-700 rounded-lg text-gray-900 dark:text-white placeholder-slate-500 focus:outline-none text-xs transition-all"
+                                className="px-2.5 py-1.5 bg-navy-800/60 bg-navy-900/40 border border-white/[0.06] rounded-lg text-white placeholder-slate-500 focus:outline-none text-xs transition-all"
                                 autoFocus
                               />
                             ) : (
-                              <span className="font-semibold text-gray-800 dark:text-slate-200">
+                              <span className="font-semibold text-slate-200">
                                 {business.name} {activeBusiness?.id === business.id && (
-                                  <span className="ml-2 text-[9px] font-bold text-emerald-600 bg-emerald-100 dark:bg-emerald-950/60 dark:text-emerald-400 px-1.5 py-0.5 rounded">Active</span>
+                                  <span className="ml-2 text-[9px] font-bold text-emerald-600 bg-emerald-100 dark:bg-emerald-950/60 text-emerald-600 dark:text-emerald-400 px-1.5 py-0.5 rounded">Active</span>
                                 )}
                               </span>
                             )}
@@ -387,13 +387,13 @@ export default function Settings() {
                                 <>
                                   <button
                                     onClick={() => handleSaveEdit(business.id)}
-                                    className="px-3 py-1 bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-bold rounded-lg transition-colors cursor-pointer"
+                                    className="px-3 py-1 bg-violet-600 hover:bg-violet-500 text-white text-xs font-bold rounded-lg transition-colors cursor-pointer"
                                   >
                                     Save
                                   </button>
                                   <button
                                     onClick={() => setEditingId(null)}
-                                    className="px-3 py-1 border border-gray-200 dark:border-slate-850 hover:bg-slate-800 text-gray-400 dark:text-slate-350 text-xs font-bold rounded-lg transition-colors cursor-pointer"
+                                    className="px-3 py-1 border border-white/[0.06] dark:border-slate-850 hover:bg-slate-800 text-slate-500 dark:text-slate-400 text-xs font-bold rounded-lg transition-colors cursor-pointer"
                                   >
                                     Cancel
                                   </button>
@@ -405,7 +405,7 @@ export default function Settings() {
                                       setEditingId(business.id);
                                       setEditName(business.name);
                                     }}
-                                    className="p-1.5 text-gray-400 hover:text-indigo-600 dark:hover:text-indigo-400 rounded-lg hover:bg-indigo-50 dark:hover:bg-indigo-950/30 transition-colors cursor-pointer"
+                                    className="p-1.5 text-slate-500 hover:text-indigo-600 dark:hover:text-violet-400 rounded-lg hover:bg-indigo-50 dark:hover:bg-indigo-950/30 transition-colors cursor-pointer"
                                     title="Rename Company"
                                   >
                                     <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -419,7 +419,7 @@ export default function Settings() {
                                         triggerToast('Company deleted.');
                                       }
                                     }}
-                                    className="p-1.5 text-gray-400 hover:text-red-600 dark:hover:text-red-400 rounded-lg hover:bg-red-50 dark:hover:bg-red-950/30 transition-colors cursor-pointer"
+                                    className="p-1.5 text-slate-500 hover:text-red-600 dark:hover:text-red-400 rounded-lg hover:bg-red-50 dark:hover:bg-red-950/30 transition-colors cursor-pointer"
                                     title="Delete Company"
                                   >
                                     <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -438,16 +438,16 @@ export default function Settings() {
               </div>
 
               {/* Delete Company Data Section */}
-              <div className="pt-8 border-t border-gray-200/40 dark:border-slate-800/40 space-y-6">
+              <div className="pt-8 border-t border-white/[0.06]/40 border-white/[0.06]/40 space-y-6">
                 <div>
-                  <h4 className="text-lg font-bold text-red-600 dark:text-red-400 uppercase tracking-wider font-display">Delete Company Data</h4>
-                  <p className="text-sm text-gray-400 dark:text-slate-500 mt-1">Permanently delete all transaction history, catalog products, snapshots, and logs for the active company segment without deleting the company record itself.</p>
+                  <h4 className="text-lg font-bold text-red-600 text-red-400 uppercase tracking-wider font-display">Delete Company Data</h4>
+                  <p className="text-sm text-slate-500 mt-1">Permanently delete all transaction history, catalog products, snapshots, and logs for the active company segment without deleting the company record itself.</p>
                 </div>
 
                 <div className="border border-red-500/15 dark:border-red-500/30 bg-red-500/[0.01] rounded-2xl p-6 flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
                   <div className="space-y-1 text-left">
-                    <span className="text-xs font-bold text-gray-400 dark:text-slate-500 uppercase tracking-wider">Active Target Company</span>
-                    <p className="text-base font-bold text-gray-800 dark:text-slate-200 font-display mt-0.5">
+                    <span className="text-xs font-bold text-slate-500 uppercase tracking-wider">Active Target Company</span>
+                    <p className="text-base font-bold text-slate-200 font-display mt-0.5">
                       {activeBusiness?.name || 'No active company selected'}
                     </p>
                   </div>
@@ -481,22 +481,22 @@ export default function Settings() {
           {activeSubTab === 'account' && (
             <div className="space-y-8 animate-fade-in flex-1">
               <div>
-                <h3 className="text-3xl font-bold text-gray-800 dark:text-slate-100 font-display">Account Security & Credentials</h3>
-                <p className="text-sm text-gray-400 dark:text-slate-500 mt-1">Edit personal metadata, change password or delete accounts.</p>
+                <h3 className="text-3xl font-bold text-slate-800 dark:text-white font-display">Account Security & Credentials</h3>
+                <p className="text-sm text-slate-500 mt-1">Edit personal metadata, change password or delete accounts.</p>
               </div>
 
               <div className="flex flex-col md:flex-row gap-8">
                 {/* Profile Pic Upload */}
-                <div className="flex flex-col items-center text-center md:border-r border-gray-200/50 dark:border-slate-800/80 md:pr-8 md:min-w-[180px]">
+                <div className="flex flex-col items-center text-center md:border-r border-white/[0.06] md:pr-8 md:min-w-[180px]">
                   <div
                     onClick={() => document.getElementById('avatar-input').click()}
-                    className="group relative w-20 h-20 rounded-full cursor-pointer overflow-hidden ring-4 ring-indigo-500/10 shadow-md mb-4 mx-auto"
+                    className="group relative w-20 h-20 rounded-full cursor-pointer overflow-hidden ring-4 ring-violet-500/10 shadow-md mb-4 mx-auto"
                     title="Click to change profile picture"
                   >
                     {avatarPreview ? (
                       <img src={avatarPreview} alt="Avatar" className="w-full h-full object-cover" />
                     ) : (
-                      <div className="w-full h-full bg-indigo-50/70 dark:bg-indigo-950/40 flex items-center justify-center text-indigo-600 dark:text-indigo-400 font-bold text-2.5xl uppercase font-display">
+                      <div className="w-full h-full bg-indigo-50/70 dark:bg-violet-500/10 flex items-center justify-center text-violet-400 font-bold text-2.5xl uppercase font-display">
                         {userInitials}
                       </div>
                     )}
@@ -517,11 +517,11 @@ export default function Settings() {
                   <button
                     type="button"
                     onClick={() => document.getElementById('avatar-input').click()}
-                    className="mb-2 px-3 py-1.5 border border-gray-250 dark:border-slate-800 hover:bg-gray-50 dark:hover:bg-slate-800 text-gray-700 dark:text-slate-350 text-xs font-semibold rounded-xl transition-all shadow-sm cursor-pointer"
+                    className="mb-2 px-3 py-1.5 border border-gray-250 border-white/[0.06] hover:bg-navy-900/40 dark:hover:bg-slate-800 text-slate-300 dark:text-slate-400 text-xs font-semibold rounded-xl transition-all shadow-sm cursor-pointer"
                   >
                     Edit Photo
                   </button>
-                  <p className="text-xs text-gray-400 max-w-[130px] leading-tight">Recommended JPG or PNG. Max size 2MB.</p>
+                  <p className="text-xs text-slate-500 max-w-[130px] leading-tight">Recommended JPG or PNG. Max size 2MB.</p>
                 </div>
 
                 {/* Form fields */}
@@ -533,39 +533,39 @@ export default function Settings() {
 
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                       <div>
-                        <label className="block text-xs font-semibold text-gray-400 dark:text-slate-500 uppercase tracking-wider mb-1.5">First Name</label>
+                        <label className="block text-xs font-semibold text-slate-500 uppercase tracking-wider mb-1.5">First Name</label>
                         <input
                           type="text"
                           value={firstName}
                           onChange={(e) => setFirstName(e.target.value)}
-                          className="block w-full px-3.5 py-2.5 bg-white/40 dark:bg-slate-950/40 border border-gray-200 dark:border-slate-800/80 focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 rounded-xl text-gray-900 dark:text-white placeholder-gray-400 focus:outline-none text-xs transition-all shadow-inner"
+                          className="block w-full px-3.5 py-2.5 bg-navy-800/60 bg-navy-900/40 border border-white/[0.06] focus:border-indigo-500 focus:ring-1 focus:ring-violet-500 rounded-xl text-white placeholder-gray-400 focus:outline-none text-xs transition-all shadow-inner"
                         />
                       </div>
                       <div>
-                        <label className="block text-xs font-semibold text-gray-400 dark:text-slate-500 uppercase tracking-wider mb-1.5">Last Name</label>
+                        <label className="block text-xs font-semibold text-slate-500 uppercase tracking-wider mb-1.5">Last Name</label>
                         <input
                           type="text"
                           value={lastName}
                           onChange={(e) => setLastName(e.target.value)}
-                          className="block w-full px-3.5 py-2.5 bg-white/40 dark:bg-slate-950/40 border border-gray-200 dark:border-slate-800/80 focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 rounded-xl text-gray-900 dark:text-white placeholder-gray-400 focus:outline-none text-xs transition-all shadow-inner"
+                          className="block w-full px-3.5 py-2.5 bg-navy-800/60 bg-navy-900/40 border border-white/[0.06] focus:border-indigo-500 focus:ring-1 focus:ring-violet-500 rounded-xl text-white placeholder-gray-400 focus:outline-none text-xs transition-all shadow-inner"
                         />
                       </div>
                     </div>
 
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                       <div>
-                        <label className="block text-xs font-semibold text-gray-400 dark:text-slate-500 uppercase tracking-wider mb-1.5">Username</label>
+                        <label className="block text-xs font-semibold text-slate-500 uppercase tracking-wider mb-1.5">Username</label>
                         <input
                           type="text"
                           value={usernameField}
                           onChange={(e) => setUsernameField(e.target.value)}
                           required
-                          className="block w-full px-3.5 py-2.5 bg-white/40 dark:bg-slate-950/40 border border-gray-200 dark:border-slate-800/80 focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 rounded-xl text-gray-900 dark:text-white placeholder-gray-400 focus:outline-none text-xs transition-all shadow-inner"
+                          className="block w-full px-3.5 py-2.5 bg-navy-800/60 bg-navy-900/40 border border-white/[0.06] focus:border-indigo-500 focus:ring-1 focus:ring-violet-500 rounded-xl text-white placeholder-gray-400 focus:outline-none text-xs transition-all shadow-inner"
                         />
                       </div>
                       <div>
-                        <span className="block text-xs font-semibold text-gray-400 dark:text-slate-500 uppercase tracking-wider mb-1.5">Email Address</span>
-                        <div className="px-3.5 py-2.5 bg-gray-200/50 dark:bg-slate-900 border border-gray-200 dark:border-slate-850 rounded-xl text-gray-500 dark:text-slate-400 text-xs font-semibold">
+                        <span className="block text-xs font-semibold text-slate-500 uppercase tracking-wider mb-1.5">Email Address</span>
+                        <div className="px-3.5 py-2.5 bg-gray-200/50 bg-navy-800/60 border border-white/[0.06] dark:border-slate-850 rounded-xl text-slate-400 text-xs font-semibold">
                           {user?.email}
                         </div>
                       </div>
@@ -575,7 +575,7 @@ export default function Settings() {
                       <button
                         type="submit"
                         disabled={profileLoading}
-                        className="px-5 py-2.5 bg-indigo-600 hover:bg-indigo-700 dark:bg-indigo-500 dark:hover:bg-indigo-600 text-white text-xs font-semibold rounded-xl transition-all shadow-sm cursor-pointer"
+                        className="px-5 py-2.5 bg-violet-600 hover:bg-violet-500 bg-violet-600 hover:bg-violet-500 text-white text-xs font-semibold rounded-xl transition-all shadow-sm cursor-pointer"
                       >
                         {profileLoading ? 'Saving...' : 'Save Profile Details'}
                       </button>
@@ -585,24 +585,24 @@ export default function Settings() {
               </div>
 
               {/* Password update and danger zones */}
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6 pt-8 border-t border-gray-200/40 dark:border-slate-800/40">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6 pt-8 border-t border-white/[0.06]/40 border-white/[0.06]/40">
                 {/* Security change password */}
-                <div className="border border-gray-200 dark:border-slate-800 rounded-2xl p-5 space-y-4 bg-white/20 dark:bg-slate-950/10">
+                <div className="border border-white/[0.06] rounded-2xl p-5 space-y-4 bg-navy-800/60/20 bg-navy-900/10">
                   {!showPasswordForm ? (
                     <div className="text-center py-4 space-y-3">
-                      <div className="w-10 h-10 bg-indigo-500/10 rounded-full flex items-center justify-center text-indigo-600 dark:text-indigo-400 mx-auto">
+                      <div className="w-10 h-10 bg-violet-500/10 rounded-full flex items-center justify-center text-violet-400 mx-auto">
                         <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
                         </svg>
                       </div>
                       <div>
-                        <h4 className="text-lg font-bold text-gray-800 dark:text-slate-100 font-display">Update Password</h4>
-                        <p className="text-xs text-gray-400 max-w-[200px] mx-auto leading-relaxed mt-1">Secure your dashboard credentials with a stronger password.</p>
+                        <h4 className="text-lg font-bold text-slate-800 dark:text-white font-display">Update Password</h4>
+                        <p className="text-xs text-slate-500 max-w-[200px] mx-auto leading-relaxed mt-1">Secure your dashboard credentials with a stronger password.</p>
                       </div>
                       <button
                         type="button"
                         onClick={() => setShowPasswordForm(true)}
-                        className="w-full py-2 bg-indigo-600 hover:bg-indigo-700 dark:bg-indigo-500 dark:hover:bg-indigo-600 text-white text-xs font-semibold rounded-xl transition-all cursor-pointer"
+                        className="w-full py-2 bg-violet-600 hover:bg-violet-500 bg-violet-600 hover:bg-violet-500 text-white text-xs font-semibold rounded-xl transition-all cursor-pointer"
                       >
                         Change Password
                       </button>
@@ -610,7 +610,7 @@ export default function Settings() {
                   ) : (
                     <div className="space-y-4">
                       <div className="flex items-center justify-between">
-                        <h4 className="text-lg font-bold text-gray-800 dark:text-slate-100 font-display">Change Password</h4>
+                        <h4 className="text-lg font-bold text-slate-800 dark:text-white font-display">Change Password</h4>
                         <button
                           type="button"
                           onClick={() => {
@@ -621,14 +621,14 @@ export default function Settings() {
                             setNewPassword('');
                             setNewPasswordConfirm('');
                           }}
-                          className="text-xs text-indigo-500 hover:text-indigo-600 font-semibold cursor-pointer"
+                          className="text-xs text-violet-400 hover:text-indigo-600 font-semibold cursor-pointer"
                         >
                           Cancel
                         </button>
                       </div>
 
                       {passwordError && <div className="bg-red-500/10 border border-red-500/20 text-red-400 p-2.5 rounded-xl text-xs font-semibold animate-pulse">{passwordError}</div>}
-                      {passwordSuccess && <div className="bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 p-2.5 rounded-xl text-xs font-semibold">{passwordSuccess}</div>}
+                      {passwordSuccess && <div className="bg-emerald-500/10 border border-emerald-500/20 text-emerald-600 dark:text-emerald-400 p-2.5 rounded-xl text-xs font-semibold">{passwordSuccess}</div>}
 
                       <form onSubmit={handlePasswordChange} className="space-y-3">
                         <input
@@ -637,7 +637,7 @@ export default function Settings() {
                           value={oldPassword}
                           onChange={(e) => setOldPassword(e.target.value)}
                           placeholder="Current Password"
-                          className="block w-full px-3.5 py-2 bg-white/40 dark:bg-slate-950/40 border border-gray-200 dark:border-slate-800 focus:border-indigo-500 rounded-xl text-gray-900 dark:text-white placeholder-gray-400 focus:outline-none text-xs"
+                          className="block w-full px-3.5 py-2 bg-navy-800/60 bg-navy-900/40 border border-white/[0.06] focus:border-indigo-500 rounded-xl text-white placeholder-gray-400 focus:outline-none text-xs"
                         />
                         <input
                           type="password"
@@ -645,12 +645,12 @@ export default function Settings() {
                           value={newPassword}
                           onChange={(e) => setNewPassword(e.target.value)}
                           placeholder="New Password"
-                          className="block w-full px-3.5 py-2 bg-white/40 dark:bg-slate-950/40 border border-gray-200 dark:border-slate-800 focus:border-indigo-500 rounded-xl text-gray-900 dark:text-white placeholder-gray-400 focus:outline-none text-xs"
+                          className="block w-full px-3.5 py-2 bg-navy-800/60 bg-navy-900/40 border border-white/[0.06] focus:border-indigo-500 rounded-xl text-white placeholder-gray-400 focus:outline-none text-xs"
                         />
                         {newPassword && (
                           <ul className="grid grid-cols-1 gap-0.5 text-[9px] font-bold text-slate-400 bg-slate-950/20 border border-slate-900 rounded-xl p-2.5">
                             {passwordChecks.map((c, i) => (
-                              <li key={i} className={`flex items-center gap-1 ${c.passed ? 'text-emerald-400' : 'text-slate-500'}`}>
+                              <li key={i} className={`flex items-center gap-1 ${c.passed ? 'text-emerald-600 dark:text-emerald-400' : 'text-slate-500'}`}>
                                 <span>{c.passed ? '✓' : '•'}</span> {c.label}
                               </li>
                             ))}
@@ -662,12 +662,12 @@ export default function Settings() {
                           value={newPasswordConfirm}
                           onChange={(e) => setNewPasswordConfirm(e.target.value)}
                           placeholder="Confirm New Password"
-                          className="block w-full px-3.5 py-2 bg-white/40 dark:bg-slate-950/40 border border-gray-200 dark:border-slate-800 focus:border-indigo-500 rounded-xl text-gray-900 dark:text-white placeholder-gray-400 focus:outline-none text-xs"
+                          className="block w-full px-3.5 py-2 bg-navy-800/60 bg-navy-900/40 border border-white/[0.06] focus:border-indigo-500 rounded-xl text-white placeholder-gray-400 focus:outline-none text-xs"
                         />
                         <button
                           type="submit"
                           disabled={passwordLoading || !allChecksPassed || !passwordsMatch}
-                          className="w-full py-2 bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-semibold rounded-xl disabled:opacity-40 cursor-pointer"
+                          className="w-full py-2 bg-violet-600 hover:bg-violet-500 text-white text-xs font-semibold rounded-xl disabled:opacity-40 cursor-pointer"
                         >
                           {passwordLoading ? 'Updating...' : 'Update Password'}
                         </button>
@@ -678,14 +678,14 @@ export default function Settings() {
 
                 {/* Danger zone */}
                 <div className="border border-red-500/15 dark:border-red-500/30 bg-red-500/[0.01] rounded-2xl p-5 space-y-4 flex flex-col items-center justify-center text-center">
-                  <div className="w-10 h-10 bg-red-500/10 rounded-full flex items-center justify-center text-red-500 dark:text-red-400 mx-auto">
+                  <div className="w-10 h-10 bg-red-500/10 rounded-full flex items-center justify-center text-red-500 text-red-400 mx-auto">
                     <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
                     </svg>
                   </div>
                   <div>
-                    <h4 className="text-lg font-bold text-red-600 dark:text-red-400 font-display">Delete Account</h4>
-                    <p className="text-xs text-gray-400 leading-relaxed mt-1 max-w-[200px] mx-auto">Permanently deletes account datasets, metrics, configuration, and logs.</p>
+                    <h4 className="text-lg font-bold text-red-600 text-red-400 font-display">Delete Account</h4>
+                    <p className="text-xs text-slate-500 leading-relaxed mt-1 max-w-[200px] mx-auto">Permanently deletes account datasets, metrics, configuration, and logs.</p>
                   </div>
 
                   {deleteError && <div className="w-full bg-red-500/10 border border-red-500/20 text-red-400 p-2.5 rounded-xl text-xs font-semibold animate-pulse">{deleteError}</div>}
@@ -705,7 +705,7 @@ export default function Settings() {
                         value={confirmPassword}
                         onChange={(e) => setConfirmPassword(e.target.value)}
                         placeholder="Type Password to Confirm"
-                        className="block w-full px-3.5 py-2.5 bg-white/40 dark:bg-slate-950/40 border border-red-500/10 focus:border-red-500 rounded-xl text-xs text-gray-900 dark:text-white placeholder-gray-400 text-left"
+                        className="block w-full px-3.5 py-2.5 bg-navy-800/60 bg-navy-900/40 border border-red-500/10 focus:border-red-500 rounded-xl text-xs text-white placeholder-gray-400 text-left"
                       />
                       <div className="flex gap-2">
                         <button
@@ -720,7 +720,7 @@ export default function Settings() {
                             setShowDeleteConfirm(false);
                             setConfirmPassword('');
                           }}
-                          className="flex-1 py-2 border border-gray-200 dark:border-slate-800 text-gray-700 dark:text-slate-300 text-xs font-bold rounded-lg cursor-pointer"
+                          className="flex-1 py-2 border border-white/[0.06] text-slate-300 text-xs font-bold rounded-lg cursor-pointer"
                         >
                           Cancel
                         </button>
@@ -736,15 +736,15 @@ export default function Settings() {
           {activeSubTab === 'thresholds' && (
             <div className="space-y-8 animate-fade-in flex-1">
               <div>
-                <h3 className="text-3xl font-bold text-gray-800 dark:text-slate-100 font-display">Alert Limits & Thresholds</h3>
-                <p className="text-sm text-gray-400 dark:text-slate-500 mt-1">Determine at what levels warnings trigger inside the dashboard.</p>
+                <h3 className="text-3xl font-bold text-slate-800 dark:text-white font-display">Alert Limits & Thresholds</h3>
+                <p className="text-sm text-slate-500 mt-1">Determine at what levels warnings trigger inside the dashboard.</p>
               </div>
 
               <form onSubmit={handleSaveThresholds} className="space-y-6 max-w-xl">
                 <div className="space-y-3">
                   <div className="flex justify-between items-center">
-                    <label className="text-sm font-semibold text-gray-400 dark:text-slate-500 uppercase tracking-wider">Safety Stock Level Alert</label>
-                    <span className="text-xs font-bold text-indigo-600 dark:text-indigo-400 bg-indigo-500/10 px-2.5 py-1 rounded-xl">{alertSettings.safetyStock} units</span>
+                    <label className="text-sm font-semibold text-slate-500 uppercase tracking-wider">Safety Stock Level Alert</label>
+                    <span className="text-xs font-bold text-violet-400 bg-violet-500/10 px-2.5 py-1 rounded-xl">{alertSettings.safetyStock} units</span>
                   </div>
                   <input
                     type="range"
@@ -753,15 +753,15 @@ export default function Settings() {
                     step="5"
                     value={alertSettings.safetyStock}
                     onChange={(e) => setAlertSettings(prev => ({ ...prev, safetyStock: parseInt(e.target.value) }))}
-                    className="w-full accent-indigo-600 cursor-pointer h-1.5 bg-gray-200 dark:bg-slate-800 rounded-lg"
+                    className="w-full accent-indigo-600 cursor-pointer h-1.5 bg-gray-200 bg-navy-700/60 rounded-lg"
                   />
-                  <p className="text-xs text-gray-400">Items with stock lower than this threshold flag as "Low Stock" warning anomalies.</p>
+                  <p className="text-xs text-slate-500">Items with stock lower than this threshold flag as "Low Stock" warning anomalies.</p>
                 </div>
 
                 <div className="space-y-3">
                   <div className="flex justify-between items-center">
-                    <label className="text-sm font-semibold text-gray-400 dark:text-slate-500 uppercase tracking-wider">CSAT Warning Limit</label>
-                    <span className="text-xs font-bold text-indigo-600 dark:text-indigo-400 bg-indigo-500/10 px-2.5 py-1 rounded-xl">{alertSettings.csatThreshold}%</span>
+                    <label className="text-sm font-semibold text-slate-500 uppercase tracking-wider">CSAT Warning Limit</label>
+                    <span className="text-xs font-bold text-violet-400 bg-violet-500/10 px-2.5 py-1 rounded-xl">{alertSettings.csatThreshold}%</span>
                   </div>
                   <input
                     type="range"
@@ -770,15 +770,15 @@ export default function Settings() {
                     step="1"
                     value={alertSettings.csatThreshold}
                     onChange={(e) => setAlertSettings(prev => ({ ...prev, csatThreshold: parseInt(e.target.value) }))}
-                    className="w-full accent-indigo-600 cursor-pointer h-1.5 bg-gray-200 dark:bg-slate-800 rounded-lg"
+                    className="w-full accent-indigo-600 cursor-pointer h-1.5 bg-gray-200 bg-navy-700/60 rounded-lg"
                   />
-                  <p className="text-xs text-gray-400">Alerts trigger if the customer satisfaction score falls below this baseline percentage.</p>
+                  <p className="text-xs text-slate-500">Alerts trigger if the customer satisfaction score falls below this baseline percentage.</p>
                 </div>
 
                 <div className="space-y-3">
                   <div className="flex justify-between items-center">
-                    <label className="text-sm font-semibold text-gray-400 dark:text-slate-500 uppercase tracking-wider">Customer Star Rating Warning</label>
-                    <span className="text-xs font-bold text-indigo-600 dark:text-indigo-400 bg-indigo-500/10 px-2.5 py-1 rounded-xl">{alertSettings.starRating.toFixed(1)} ★</span>
+                    <label className="text-sm font-semibold text-slate-500 uppercase tracking-wider">Customer Star Rating Warning</label>
+                    <span className="text-xs font-bold text-violet-400 bg-violet-500/10 px-2.5 py-1 rounded-xl">{alertSettings.starRating.toFixed(1)} ★</span>
                   </div>
                   <input
                     type="range"
@@ -787,15 +787,15 @@ export default function Settings() {
                     step="0.1"
                     value={alertSettings.starRating}
                     onChange={(e) => setAlertSettings(prev => ({ ...prev, starRating: parseFloat(e.target.value) }))}
-                    className="w-full accent-indigo-600 cursor-pointer h-1.5 bg-gray-200 dark:bg-slate-800 rounded-lg"
+                    className="w-full accent-indigo-600 cursor-pointer h-1.5 bg-gray-200 bg-navy-700/60 rounded-lg"
                   />
-                  <p className="text-xs text-gray-400">Trigger warnings if the aggregate catalog sentiment drops below this star index.</p>
+                  <p className="text-xs text-slate-500">Trigger warnings if the aggregate catalog sentiment drops below this star index.</p>
                 </div>
 
-                <div className="flex items-center justify-between p-4 bg-white/20 dark:bg-slate-950/20 border border-gray-200 dark:border-slate-800/80 rounded-2xl">
+                <div className="flex items-center justify-between p-4 bg-navy-800/60/20 bg-navy-900/20 border border-white/[0.06] rounded-2xl">
                   <div>
-                    <h5 className="text-base font-bold text-gray-800 dark:text-slate-100">Send Email Alerts</h5>
-                    <p className="text-xs text-gray-400 mt-1">Receive immediate notification updates on high severity anomalies.</p>
+                    <h5 className="text-base font-bold text-slate-800 dark:text-white">Send Email Alerts</h5>
+                    <p className="text-xs text-slate-500 mt-1">Receive immediate notification updates on high severity anomalies.</p>
                   </div>
                   <label className="relative inline-flex items-center cursor-pointer">
                     <input
@@ -804,14 +804,14 @@ export default function Settings() {
                       onChange={(e) => setAlertSettings(prev => ({ ...prev, emailAlerts: e.target.checked }))}
                       className="sr-only peer"
                     />
-                    <div className="w-9 h-5 bg-gray-200 dark:bg-slate-800 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all dark:border-gray-600 peer-checked:bg-indigo-600"></div>
+                    <div className="w-9 h-5 bg-gray-200 bg-navy-700/60 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-navy-800/60 after:border-white/[0.08] after:border after:rounded-full after:h-4 after:w-4 after:transition-all dark:border-gray-600 peer-checked:bg-violet-600"></div>
                   </label>
                 </div>
 
-                <div className="flex justify-end pt-4 border-t border-gray-200/40 dark:border-slate-800/40">
+                <div className="flex justify-end pt-4 border-t border-white/[0.06]/40 border-white/[0.06]/40">
                   <button
                     type="submit"
-                    className="px-6 py-2.5 bg-indigo-600 hover:bg-indigo-700 dark:bg-indigo-500 dark:hover:bg-indigo-600 text-white text-xs font-semibold rounded-xl transition-all shadow-sm shadow-indigo-500/10 cursor-pointer"
+                    className="px-6 py-2.5 bg-violet-600 hover:bg-violet-500 bg-violet-600 hover:bg-violet-500 text-white text-xs font-semibold rounded-xl transition-all shadow-sm shadow-indigo-500/10 cursor-pointer"
                   >
                     Save Alert Thresholds
                   </button>
@@ -824,80 +824,80 @@ export default function Settings() {
           {activeSubTab === 'sync' && (
             <div className="space-y-8 animate-fade-in flex-1">
               <div>
-                <h3 className="text-3xl font-bold text-gray-800 dark:text-slate-100 font-display">Integrations & Data Sync</h3>
-                <p className="text-sm text-gray-400 dark:text-slate-500 mt-1">Manage scraper engines, import channels, and data pipeline settings.</p>
+                <h3 className="text-3xl font-bold text-slate-800 dark:text-white font-display">Integrations & Data Sync</h3>
+                <p className="text-sm text-slate-500 mt-1">Manage scraper engines, import channels, and data pipeline settings.</p>
               </div>
 
               {/* Active Integration Cards */}
               <div className="space-y-3">
-                <h4 className="text-xs font-bold text-gray-400 dark:text-slate-500 uppercase tracking-wider">Active Integrations</h4>
+                <h4 className="text-xs font-bold text-slate-500 uppercase tracking-wider">Active Integrations</h4>
 
                 {/* CSV Import */}
-                <div className="flex items-center justify-between p-4 bg-white/20 dark:bg-slate-950/20 border border-gray-200 dark:border-slate-800/80 rounded-2xl group hover:border-indigo-500/30 transition-colors">
+                <div className="flex items-center justify-between p-4 bg-navy-800/60/20 bg-navy-900/20 border border-white/[0.06] rounded-2xl group hover:border-indigo-500/30 transition-colors">
                   <div className="flex items-center gap-3">
-                    <div className="w-9 h-9 rounded-xl bg-indigo-500/10 dark:bg-indigo-500/20 flex items-center justify-center text-indigo-600 dark:text-indigo-400 flex-shrink-0">
+                    <div className="w-9 h-9 rounded-xl bg-violet-500/10 bg-violet-600/20 flex items-center justify-center text-violet-400 flex-shrink-0">
                       <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
                       </svg>
                     </div>
                     <div>
-                      <h5 className="text-base font-bold text-gray-800 dark:text-slate-100">CSV File Import</h5>
-                      <p className="text-xs text-gray-400 mt-0.5">Upload sales, inventory, and review data via CSV files.</p>
+                      <h5 className="text-base font-bold text-slate-800 dark:text-white">CSV File Import</h5>
+                      <p className="text-xs text-slate-500 mt-0.5">Upload sales, inventory, and review data via CSV files.</p>
                     </div>
                   </div>
                   <div className="flex items-center gap-2">
                     <span className="w-2 h-2 rounded-full bg-emerald-500"></span>
-                    <span className="text-xs font-bold text-emerald-600 dark:text-emerald-400">Active</span>
+                    <span className="text-xs font-bold text-emerald-600 text-emerald-600 dark:text-emerald-400">Active</span>
                   </div>
                 </div>
 
                 {/* Competitor Price Scraper — SerpAPI + Flipkart */}
-                <div className="flex items-center justify-between p-4 bg-white/20 dark:bg-slate-950/20 border border-gray-200 dark:border-slate-800/80 rounded-2xl group hover:border-indigo-500/30 transition-colors">
+                <div className="flex items-center justify-between p-4 bg-navy-800/60/20 bg-navy-900/20 border border-white/[0.06] rounded-2xl group hover:border-indigo-500/30 transition-colors">
                   <div className="flex items-center gap-3">
-                    <div className="w-9 h-9 rounded-xl bg-amber-500/10 dark:bg-amber-500/20 flex items-center justify-center text-amber-600 dark:text-amber-400 flex-shrink-0">
+                    <div className="w-9 h-9 rounded-xl bg-amber-500/10 dark:bg-amber-500/20 flex items-center justify-center text-amber-600 text-amber-400 flex-shrink-0">
                       <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
                       </svg>
                     </div>
                     <div>
-                      <h5 className="text-base font-bold text-gray-800 dark:text-slate-100">Competitor Price Scraper</h5>
-                      <p className="text-xs text-gray-400 mt-0.5">Fetches live competitor prices via SerpAPI (Google/Amazon) and Flipkart scraper.</p>
+                      <h5 className="text-base font-bold text-slate-800 dark:text-white">Competitor Price Scraper</h5>
+                      <p className="text-xs text-slate-500 mt-0.5">Fetches live competitor prices via SerpAPI (Google/Amazon) and Flipkart scraper.</p>
                     </div>
                   </div>
                   <div className="flex items-center gap-2">
                     <span className="w-2 h-2 rounded-full bg-emerald-500"></span>
-                    <span className="text-xs font-bold text-emerald-600 dark:text-emerald-400">Active</span>
+                    <span className="text-xs font-bold text-emerald-600 text-emerald-600 dark:text-emerald-400">Active</span>
                   </div>
                 </div>
 
                 {/* Google Trends */}
-                <div className="flex items-center justify-between p-4 bg-white/20 dark:bg-slate-950/20 border border-gray-200 dark:border-slate-800/80 rounded-2xl group hover:border-indigo-500/30 transition-colors">
+                <div className="flex items-center justify-between p-4 bg-navy-800/60/20 bg-navy-900/20 border border-white/[0.06] rounded-2xl group hover:border-indigo-500/30 transition-colors">
                   <div className="flex items-center gap-3">
-                    <div className="w-9 h-9 rounded-xl bg-rose-500/10 dark:bg-rose-500/20 flex items-center justify-center text-rose-600 dark:text-rose-400 flex-shrink-0">
+                    <div className="w-9 h-9 rounded-xl bg-rose-500/10 dark:bg-rose-500/20 flex items-center justify-center text-rose-600 dark:text-rose-600 dark:text-rose-400 flex-shrink-0">
                       <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
                       </svg>
                     </div>
                     <div>
-                      <h5 className="text-base font-bold text-gray-800 dark:text-slate-100">Google Trends Pipeline</h5>
-                      <p className="text-xs text-gray-400 mt-0.5">Pulls search interest data from Google Trends for product demand analysis.</p>
+                      <h5 className="text-base font-bold text-slate-800 dark:text-white">Google Trends Pipeline</h5>
+                      <p className="text-xs text-slate-500 mt-0.5">Pulls search interest data from Google Trends for product demand analysis.</p>
                     </div>
                   </div>
                   <div className="flex items-center gap-2">
                     <span className="w-2 h-2 rounded-full bg-emerald-500"></span>
-                    <span className="text-xs font-bold text-emerald-600 dark:text-emerald-400">Active</span>
+                    <span className="text-xs font-bold text-emerald-600 text-emerald-600 dark:text-emerald-400">Active</span>
                   </div>
                 </div>
               </div>
 
               {/* Scraper Settings */}
-              <form onSubmit={handleSaveSync} className="space-y-5 pt-2 border-t border-gray-200/40 dark:border-slate-800/40">
-                <h4 className="text-xs font-bold text-gray-400 dark:text-slate-500 uppercase tracking-wider pt-2">Scraper Settings</h4>
+              <form onSubmit={handleSaveSync} className="space-y-5 pt-2 border-t border-white/[0.06]/40 border-white/[0.06]/40">
+                <h4 className="text-xs font-bold text-slate-500 uppercase tracking-wider pt-2">Scraper Settings</h4>
 
-                <div className="flex items-center justify-between p-4 bg-white/20 dark:bg-slate-950/20 border border-gray-200 dark:border-slate-800/80 rounded-2xl">
+                <div className="flex items-center justify-between p-4 bg-navy-800/60/20 bg-navy-900/20 border border-white/[0.06] rounded-2xl">
                   <div>
-                    <h5 className="text-base font-bold text-gray-800 dark:text-slate-100">Auto-refresh Competitor Prices</h5>
-                    <p className="text-xs text-gray-400 mt-1">Automatically trigger scraper on each product view.</p>
+                    <h5 className="text-base font-bold text-slate-800 dark:text-white">Auto-refresh Competitor Prices</h5>
+                    <p className="text-xs text-slate-500 mt-1">Automatically trigger scraper on each product view.</p>
                   </div>
                   <label className="relative inline-flex items-center cursor-pointer">
                     <input
@@ -906,31 +906,31 @@ export default function Settings() {
                       onChange={(e) => setSyncSettings(prev => ({ ...prev, autoSync: e.target.checked }))}
                       className="sr-only peer"
                     />
-                    <div className="w-9 h-5 bg-gray-200 dark:bg-slate-800 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all dark:border-gray-600 peer-checked:bg-indigo-600"></div>
+                    <div className="w-9 h-5 bg-gray-200 bg-navy-700/60 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-navy-800/60 after:border-white/[0.08] after:border after:rounded-full after:h-4 after:w-4 after:transition-all dark:border-gray-600 peer-checked:bg-violet-600"></div>
                   </label>
                 </div>
 
                 <div className="space-y-2">
-                  <label className="block text-xs font-bold text-gray-400 dark:text-slate-500 uppercase tracking-wider">Scrape Refresh Frequency</label>
+                  <label className="block text-xs font-bold text-slate-500 uppercase tracking-wider">Scrape Refresh Frequency</label>
                   <select
                     disabled={!syncSettings.autoSync}
                     value={syncSettings.frequency}
                     onChange={(e) => setSyncSettings(prev => ({ ...prev, frequency: e.target.value }))}
-                    className="block w-full px-3.5 py-2.5 bg-white/40 dark:bg-slate-950/40 border border-gray-200 dark:border-slate-800/80 focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 rounded-xl text-gray-900 dark:text-white placeholder-gray-400 focus:outline-none text-xs transition-all disabled:opacity-40"
+                    className="block w-full px-3.5 py-2.5 bg-navy-800/60 bg-navy-900/40 border border-white/[0.06] focus:border-indigo-500 focus:ring-1 focus:ring-violet-500 rounded-xl text-white placeholder-gray-400 focus:outline-none text-xs transition-all disabled:opacity-40"
                   >
                     <option value="on_demand">On Demand (manual trigger)</option>
                     <option value="daily">Every 24 Hours (Daily)</option>
                     <option value="weekly">Every 7 Days (Weekly)</option>
                   </select>
-                  <p className="text-xs text-gray-400">Controls how often the SerpAPI and Flipkart scraper automatically refetch prices.</p>
+                  <p className="text-xs text-slate-500">Controls how often the SerpAPI and Flipkart scraper automatically refetch prices.</p>
                 </div>
 
                 <div className="space-y-2">
-                  <label className="block text-xs font-bold text-gray-400 dark:text-slate-500 uppercase tracking-wider">Data Import Method</label>
+                  <label className="block text-xs font-bold text-slate-500 uppercase tracking-wider">Data Import Method</label>
                   <select
                     value={syncSettings.channel}
                     onChange={(e) => setSyncSettings(prev => ({ ...prev, channel: e.target.value }))}
-                    className="block w-full px-3.5 py-2.5 bg-white/40 dark:bg-slate-950/40 border border-gray-200 dark:border-slate-800/80 focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 rounded-xl text-gray-900 dark:text-white placeholder-gray-400 focus:outline-none text-xs transition-all"
+                    className="block w-full px-3.5 py-2.5 bg-navy-800/60 bg-navy-900/40 border border-white/[0.06] focus:border-indigo-500 focus:ring-1 focus:ring-violet-500 rounded-xl text-white placeholder-gray-400 focus:outline-none text-xs transition-all"
                   >
                     <option value="csv">CSV File Upload (Sales, Inventory, Reviews)</option>
                     <option value="serpapi">SerpAPI Automated Scrape</option>
@@ -939,10 +939,10 @@ export default function Settings() {
                   </select>
                 </div>
 
-                <div className="flex justify-end pt-4 border-t border-gray-200/40 dark:border-slate-800/40">
+                <div className="flex justify-end pt-4 border-t border-white/[0.06]/40 border-white/[0.06]/40">
                   <button
                     type="submit"
-                    className="px-6 py-2.5 bg-indigo-600 hover:bg-indigo-700 dark:bg-indigo-500 dark:hover:bg-indigo-600 text-white text-xs font-semibold rounded-xl transition-all shadow-sm shadow-indigo-500/10 cursor-pointer"
+                    className="px-6 py-2.5 bg-violet-600 hover:bg-violet-500 bg-violet-600 hover:bg-violet-500 text-white text-xs font-semibold rounded-xl transition-all shadow-sm shadow-indigo-500/10 cursor-pointer"
                   >
                     Save Integration Settings
                   </button>
@@ -956,23 +956,23 @@ export default function Settings() {
 
       {/* Success Modal */}
       {showSuccessModal && (
-        <div className="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 flex items-center justify-center p-4 animate-fade-in">
-          <div className="bg-white dark:bg-slate-900 border border-gray-150 dark:border-slate-800 rounded-2xl p-6 shadow-xl max-w-sm w-full text-center space-y-4 transform scale-100 transition-all duration-300">
-            <div className="w-12 h-12 bg-emerald-500/10 rounded-full flex items-center justify-center text-emerald-600 dark:text-emerald-400 mx-auto">
+        <div className="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex items-center justify-center p-4 animate-fade-in">
+          <div className="bg-navy-800/60 border border-gray-150 border-white/[0.06] rounded-2xl p-6 shadow-xl max-w-sm w-full text-center space-y-4 transform scale-100 transition-all duration-300">
+            <div className="w-12 h-12 bg-emerald-500/10 rounded-full flex items-center justify-center text-emerald-600 text-emerald-600 dark:text-emerald-400 mx-auto">
               <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
               </svg>
             </div>
             <div>
-              <h3 className="text-lg font-bold text-gray-800 dark:text-slate-100 font-display">Account Updated</h3>
-              <p className="text-xs text-gray-500 dark:text-slate-400 mt-1.5 leading-relaxed">
+              <h3 className="text-lg font-bold text-slate-800 dark:text-white font-display">Account Updated</h3>
+              <p className="text-xs text-slate-400 mt-1.5 leading-relaxed">
                 Your personal details and profile credentials have been successfully updated.
               </p>
             </div>
             <button
               type="button"
               onClick={() => setShowSuccessModal(false)}
-              className="w-full py-2 bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-semibold rounded-xl transition-all shadow-sm cursor-pointer"
+              className="w-full py-2 bg-violet-600 hover:bg-violet-500 text-white text-xs font-semibold rounded-xl transition-all shadow-sm cursor-pointer"
             >
               Got it
             </button>

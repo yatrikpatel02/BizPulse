@@ -190,24 +190,24 @@ export default function Dashboard() {
       ];
 
   if (loading) {
-    return <div className="text-gray-500 font-semibold text-sm">Loading dashboard...</div>;
+    return <div className="text-slate-500 font-semibold text-sm">Loading dashboard...</div>;
   }
 
   if (businesses.length === 0) {
     return (
       <div className="flex flex-col items-center justify-center min-h-[60vh] relative">
-        <div className="absolute w-[250px] h-[250px] bg-indigo-600/10 glow-orb"></div>
-        <div className="glass-card p-10 rounded-2xl shadow-xl text-center max-w-md border border-white/10 z-10">
-          <div className="mb-6 flex justify-center text-indigo-500">
+        <div className="absolute w-[300px] h-[300px] bg-violet-600/10 glow-orb"></div>
+        <div className="glass-card p-10 rounded-2xl shadow-glass-lg text-center max-w-md z-10">
+          <div className="mb-6 flex justify-center text-violet-400">
             <svg className="w-16 h-16 animate-pulse" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
             </svg>
           </div>
-          <h2 className="text-3xl font-extrabold text-gray-900 dark:text-slate-100 tracking-tight font-display mb-3">Welcome to BizPulse</h2>
-          <p className="text-sm text-gray-500 dark:text-slate-400 mb-8 leading-relaxed">To get started, please create your first company to start analyzing data.</p>
+          <h2 className="text-3xl font-extrabold text-white tracking-tight font-display mb-3">Welcome to BizPulse</h2>
+          <p className="text-sm text-slate-400 mb-8 leading-relaxed">To get started, please create your first company to start analyzing data.</p>
           <button 
             onClick={() => setIsModalOpen(true)}
-            className="w-full py-3 bg-gradient-to-r from-indigo-600 to-indigo-700 hover:from-indigo-500 hover:to-indigo-600 text-white font-semibold rounded-xl hover:shadow-lg hover:shadow-indigo-500/20 hover:-translate-y-0.5 transition-all duration-300"
+            className="w-full py-3 bg-gradient-to-r from-violet-600 to-indigo-600 hover:from-violet-500 hover:to-indigo-500 text-white font-semibold rounded-xl hover:shadow-lg hover:shadow-violet-500/20 hover:-translate-y-0.5 transition-all duration-300"
           >
             Create Company
           </button>

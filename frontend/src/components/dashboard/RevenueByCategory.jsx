@@ -4,10 +4,10 @@ export default function RevenueByCategory({ productPerformance = [] }) {
   const segments = (productPerformance && productPerformance.length > 0)
     ? (() => {
         const categoryMap = {
-          'Electronics': { value: 0, color: '#4f46e5' },
-          'Office & Computing': { value: 0, color: '#818cf8' },
-          'Fashion & Apparel': { value: 0, color: '#c7d2fe' },
-          'General & Others': { value: 0, color: '#e0e7ff' }
+          'Electronics': { value: 0, color: '#8b5cf6' },
+          'Office & Computing': { value: 0, color: '#6366f1' },
+          'Fashion & Apparel': { value: 0, color: '#3b82f6' },
+          'General & Others': { value: 0, color: '#38bdf8' }
         };
 
         productPerformance.forEach(p => {
@@ -36,10 +36,10 @@ export default function RevenueByCategory({ productPerformance = [] }) {
           .filter(seg => seg.value > 0);
       })()
     : [
-        { label: 'Electronics', value: 42, color: '#4f46e5' },
-        { label: 'Fashion', value: 25, color: '#818cf8' },
-        { label: 'Home & Living', value: 18, color: '#c7d2fe' },
-        { label: 'Beauty', value: 15, color: '#e0e7ff' },
+        { label: 'Electronics', value: 42, color: '#8b5cf6' },
+        { label: 'Fashion', value: 25, color: '#6366f1' },
+        { label: 'Home & Living', value: 18, color: '#3b82f6' },
+        { label: 'Beauty', value: 15, color: '#38bdf8' },
       ];
 
   const [hoveredIdx, setHoveredIdx] = useState(null);
@@ -52,10 +52,10 @@ export default function RevenueByCategory({ productPerformance = [] }) {
   let accumulatedPercent = 0;
 
   return (
-    <div className="bg-white dark:bg-slate-900 border border-gray-200 dark:border-slate-800 rounded-2xl p-6 shadow-sm flex flex-col w-full">
+    <div className="glass-card rounded-2xl p-6 flex flex-col w-full">
       <div>
-        <h3 className="text-lg font-bold text-gray-800 dark:text-slate-100 font-display">Revenue by Category</h3>
-        <p className="text-xs text-gray-500 dark:text-slate-400 font-medium">Distribution breakdown</p>
+        <h3 className="text-lg font-bold text-white font-display">Revenue by Category</h3>
+        <p className="text-xs text-slate-500 font-medium">Distribution breakdown</p>
       </div>
 
       {/* Donut Chart Visual */}
@@ -85,6 +85,7 @@ export default function RevenueByCategory({ productPerformance = [] }) {
                 onMouseEnter={() => setHoveredIdx(idx)}
                 onMouseLeave={() => setHoveredIdx(null)}
                 className="transition-all duration-300 ease-out cursor-pointer"
+                style={hoveredIdx === idx ? { filter: `drop-shadow(0 0 6px ${seg.color}40)` } : {}}
                 pointerEvents="stroke"
               />
             );
@@ -99,7 +100,8 @@ export default function RevenueByCategory({ productPerformance = [] }) {
                 textAnchor="middle"
                 className={`${
                   segments[hoveredIdx].label.length > 8 ? 'text-[7px]' : 'text-[8.5px]'
-                } font-bold fill-gray-400 dark:fill-slate-500 uppercase tracking-wider`}
+                } font-bold uppercase tracking-wider`}
+                fill="rgba(148,163,184,0.7)"
                 textLength={segments[hoveredIdx].label.length > 8 ? "42" : undefined}
                 lengthAdjust={segments[hoveredIdx].label.length > 8 ? "spacingAndGlyphs" : undefined}
               >
@@ -109,7 +111,8 @@ export default function RevenueByCategory({ productPerformance = [] }) {
                 x={cx}
                 y={cy + 10}
                 textAnchor="middle"
-                className="text-[14px] font-extrabold fill-gray-900 dark:fill-white font-display"
+                className="text-[14px] font-extrabold font-display"
+                fill="#ffffff"
               >
                 {segments[hoveredIdx].value}%
               </text>
@@ -120,7 +123,8 @@ export default function RevenueByCategory({ productPerformance = [] }) {
                 x={cx}
                 y={cy - 4}
                 textAnchor="middle"
-                className="text-[8.5px] font-bold fill-gray-400 dark:fill-slate-500 uppercase tracking-wider"
+                className="text-[8.5px] font-bold uppercase tracking-wider"
+                fill="rgba(148,163,184,0.7)"
               >
                 Total
               </text>
@@ -128,7 +132,8 @@ export default function RevenueByCategory({ productPerformance = [] }) {
                 x={cx}
                 y={cy + 10}
                 textAnchor="middle"
-                className="text-[14px] font-extrabold fill-gray-900 dark:fill-white font-display"
+                className="text-[14px] font-extrabold font-display"
+                fill="#ffffff"
               >
                 100%
               </text>
@@ -138,14 +143,14 @@ export default function RevenueByCategory({ productPerformance = [] }) {
       </div>
 
       {/* Legend list */}
-      <div className="space-y-1.5 mt-2 border-t border-gray-50 dark:border-slate-800/60 pt-4">
+      <div className="space-y-1.5 mt-2 border-t border-white/[0.06] pt-4">
         {segments.map((seg, idx) => (
           <div 
             key={idx} 
             className={`flex items-center justify-between text-sm px-2.5 py-1.5 rounded-xl transition-all duration-200 cursor-pointer ${
               hoveredIdx === idx 
-                ? 'bg-indigo-50/50 dark:bg-indigo-950/20 translate-x-1.5' 
-                : 'hover:bg-gray-50/50 dark:hover:bg-slate-850/30'
+                ? 'bg-violet-500/10 translate-x-1.5' 
+                : 'hover:bg-white/[0.03]'
             }`}
             onMouseEnter={() => setHoveredIdx(idx)}
             onMouseLeave={() => setHoveredIdx(null)}
@@ -156,11 +161,11 @@ export default function RevenueByCategory({ productPerformance = [] }) {
                 style={{ backgroundColor: seg.color }}
               />
               <span className={`font-semibold transition-colors ${
-                hoveredIdx === idx ? 'text-indigo-600 dark:text-indigo-400 font-bold' : 'text-gray-700 dark:text-slate-350'
+                hoveredIdx === idx ? 'text-violet-400 font-bold' : 'text-slate-400'
               }`}>{seg.label}</span>
             </div>
             <span className={`font-bold transition-colors ${
-              hoveredIdx === idx ? 'text-indigo-600 dark:text-indigo-400 font-extrabold' : 'text-gray-900 dark:text-white'
+              hoveredIdx === idx ? 'text-violet-400 font-extrabold' : 'text-white'
             }`}>{seg.value}%</span>
           </div>
         ))}

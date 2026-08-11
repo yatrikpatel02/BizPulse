@@ -22,24 +22,24 @@ export default function CompanySwitcher() {
   }, []);
 
   return (
-    <div className="relative w-full px-4 py-2 border-b dark:border-slate-800" ref={dropdownRef}>
+    <div className="relative w-full px-3 py-2.5 border-b border-white/[0.06]" ref={dropdownRef}>
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="w-full flex items-center justify-between bg-gray-50 dark:bg-slate-800 hover:bg-gray-100 dark:hover:bg-slate-700 px-3 py-2 rounded-md border dark:border-slate-700 text-sm font-medium text-gray-700 dark:text-slate-300 transition-colors"
+        className="w-full flex items-center justify-between bg-slate-100 hover:bg-slate-200/80 dark:bg-navy-800/60 dark:hover:bg-navy-700/60 px-3 py-2 rounded-xl border border-slate-200 dark:border-white/[0.06] text-sm font-medium text-slate-700 dark:text-slate-300 transition-all duration-200"
       >
         <span className="truncate flex-1 text-left">
           {activeBusiness ? activeBusiness.name : 'No Company Selected'}
         </span>
-        <svg className={`w-4 h-4 ml-2 transition-transform duration-200 ${isOpen ? 'rotate-180' : ''}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <svg className={`w-4 h-4 ml-2 transition-transform duration-200 text-slate-500 ${isOpen ? 'rotate-180' : ''}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7" />
         </svg>
       </button>
 
       {isOpen && (
-        <div className="absolute top-full left-4 right-4 mt-1 bg-white dark:bg-slate-800 border dark:border-slate-700 rounded-md shadow-lg z-50 overflow-hidden">
-          <div className="max-h-60 overflow-y-auto divide-y divide-gray-150 dark:divide-slate-700/80">
+        <div className="absolute top-full left-3 right-3 mt-1 bg-white dark:bg-navy-800/95 backdrop-blur-xl border border-slate-200 dark:border-white/[0.08] rounded-xl shadow-md dark:shadow-glass-lg z-50 overflow-hidden animate-fade-in">
+          <div className="max-h-60 overflow-y-auto divide-y divide-slate-150 dark:divide-white/[0.04]">
             {businesses.length === 0 ? (
-              <div className="px-4 py-2 text-sm text-gray-500 dark:text-slate-400 italic">No companies found</div>
+              <div className="px-4 py-2 text-sm text-slate-500 italic">No companies found</div>
             ) : (
               businesses.map(business => (
                 <div key={business.id} className="flex items-center group">
@@ -50,8 +50,8 @@ export default function CompanySwitcher() {
                     }}
                     className={`flex-1 text-left px-4 py-2.5 text-sm transition-colors ${
                       activeBusiness?.id === business.id 
-                        ? 'text-indigo-600 dark:text-indigo-400 font-semibold bg-indigo-50/60 dark:bg-indigo-900/20' 
-                        : 'text-gray-700 dark:text-slate-300 hover:bg-gray-50 dark:hover:bg-slate-700/50'
+                        ? 'text-violet-400 font-semibold bg-violet-500/10' 
+                        : 'text-slate-700 hover:bg-slate-50 dark:text-slate-300 dark:hover:bg-white/[0.04]'
                     }`}
                   >
                     <span className="truncate block">{business.name}</span>
@@ -61,7 +61,7 @@ export default function CompanySwitcher() {
                       e.stopPropagation();
                       setCompanyToDelete(business);
                     }}
-                    className="px-3 py-2 text-gray-400 dark:text-slate-500 hover:text-red-500 dark:hover:text-red-400 hover:bg-red-50 dark:hover:bg-red-900/30 transition-all duration-300 hover:drop-shadow-[0_0_8px_rgba(239,68,68,0.8)]"
+                    className="px-3 py-2 text-slate-500 hover:text-red-400 hover:bg-red-500/10 transition-all duration-300"
                     title="Delete Company"
                   >
                     <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -72,13 +72,13 @@ export default function CompanySwitcher() {
               ))
             )}
           </div>
-          <div className="border-t dark:border-slate-700">
+          <div className="border-t border-white/[0.06]">
             <button
               onClick={() => {
                 setIsOpen(false);
                 setIsModalOpen(true);
               }}
-              className="w-full text-left px-4 py-2 text-sm text-indigo-600 dark:text-indigo-400 hover:bg-indigo-50 dark:hover:bg-indigo-900/30 font-medium transition-colors flex items-center"
+              className="w-full text-left px-4 py-2.5 text-sm text-violet-400 hover:bg-violet-500/10 font-medium transition-colors flex items-center"
             >
               <span className="mr-2">+</span> Add Company
             </button>
@@ -90,22 +90,22 @@ export default function CompanySwitcher() {
 
       {/* Custom Delete Confirmation Modal */}
       {companyToDelete && createPortal(
-        <div className="fixed inset-0 z-[100] flex items-center justify-center bg-gray-900 bg-opacity-50 dark:bg-opacity-80 px-4 transition-opacity">
-          <div className="bg-white dark:bg-slate-900 rounded-xl shadow-xl w-full max-w-sm overflow-hidden animate-fade-in border dark:border-slate-800">
+        <div className="fixed inset-0 z-[100] flex items-center justify-center bg-black/60 backdrop-blur-sm px-4 transition-opacity">
+          <div className="bg-navy-800/95 backdrop-blur-xl rounded-2xl shadow-glass-lg w-full max-w-sm overflow-hidden animate-scale-up border border-white/[0.08]">
             <div className="p-6">
-              <div className="flex items-center justify-center w-12 h-12 mx-auto bg-red-100 dark:bg-red-900/30 rounded-full mb-4">
-                <svg className="w-6 h-6 text-red-600 dark:text-red-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <div className="flex items-center justify-center w-12 h-12 mx-auto bg-red-500/10 rounded-xl mb-4">
+                <svg className="w-6 h-6 text-red-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
                 </svg>
               </div>
-              <h3 className="text-lg font-medium text-center text-gray-900 dark:text-slate-100 mb-2">Delete Company</h3>
-              <p className="text-sm text-center text-gray-500 dark:text-slate-400">
-                 Are you sure you want to delete <span className="font-semibold text-gray-900 dark:text-slate-200">&quot;{companyToDelete.name}&quot;</span>? This action cannot be undone.
+              <h3 className="text-lg font-bold text-center text-white mb-2 font-display">Delete Company</h3>
+              <p className="text-sm text-center text-slate-400">
+                 Are you sure you want to delete <span className="font-semibold text-slate-200">&quot;{companyToDelete.name}&quot;</span>? This action cannot be undone.
               </p>
               <div className="mt-6 flex justify-center space-x-3">
                 <button
                   onClick={() => setCompanyToDelete(null)}
-                  className="px-4 py-2 border border-gray-300 dark:border-slate-700 rounded-md text-sm font-medium text-gray-700 dark:text-slate-300 bg-white dark:bg-slate-800 hover:bg-gray-50 dark:hover:bg-slate-700 transition-colors"
+                  className="px-4 py-2 border border-white/[0.08] rounded-xl text-sm font-medium text-slate-300 bg-navy-700/60 hover:bg-navy-700 transition-colors"
                 >
                   Cancel
                 </button>
@@ -114,7 +114,7 @@ export default function CompanySwitcher() {
                     removeBusiness(companyToDelete.id);
                     setCompanyToDelete(null);
                   }}
-                  className="px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-red-600 hover:bg-red-700 dark:bg-red-500 dark:hover:bg-red-600 focus:outline-none transition-colors"
+                  className="px-4 py-2 rounded-xl shadow-sm text-sm font-medium text-white bg-red-600 hover:bg-red-500 focus:outline-none transition-colors"
                 >
                   Delete
                 </button>

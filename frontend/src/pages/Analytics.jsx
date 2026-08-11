@@ -113,7 +113,7 @@ const DEMO_DATA = {
 export default function Analytics() {
   const { activeBusiness, loading: businessLoading } = useBusiness();
   const location = useLocation();
-  
+
   // States
   const [activeTab, setActiveTab] = useState('sales');
 
@@ -149,7 +149,7 @@ export default function Analytics() {
   // Fetch real data from Backend APIs
   const fetchAnalyticsData = async () => {
     if (!activeBusiness || useDemoData) return;
-    
+
     setLoading(true);
     try {
       const queryParams = {
@@ -207,14 +207,14 @@ export default function Analytics() {
   if (!activeBusiness) {
     return (
       <div className="flex flex-col items-center justify-center min-h-[60vh] text-center px-4">
-        <div className="bg-white/60 dark:bg-slate-900/60 p-8 rounded-2xl border border-white/20 dark:border-slate-800/80 shadow-2xl backdrop-blur-md max-w-md">
-          <div className="mb-4 flex justify-center text-indigo-500">
+        <div className="bg-navy-800/60 p-8 rounded-2xl border border-white/[0.06] shadow-2xl backdrop-blur-md max-w-md">
+          <div className="mb-4 flex justify-center text-violet-400">
             <svg className="w-16 h-16 animate-bounce" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
             </svg>
           </div>
-          <h2 className="text-xl font-bold text-gray-900 dark:text-slate-100 mb-2">No Active Business</h2>
-          <p className="text-gray-500 dark:text-slate-400 mb-4">Please select or create a business/company in the sidebar switcher to load your analytics dashboard.</p>
+          <h2 className="text-xl font-bold text-slate-800 dark:text-white mb-2">No Active Business</h2>
+          <p className="text-slate-400 mb-4">Please select or create a business/company in the sidebar switcher to load your analytics dashboard.</p>
         </div>
       </div>
     );
@@ -230,33 +230,33 @@ export default function Analytics() {
   const currentSales = {
     metrics: {
       ...rawSales.metrics,
-      total_orders: rawSales.metrics?.total_orders !== undefined 
-        ? rawSales.metrics.total_orders 
+      total_orders: rawSales.metrics?.total_orders !== undefined
+        ? rawSales.metrics.total_orders
         : rawSales.metrics?.transaction_count,
-      average_order_value: rawSales.metrics?.average_order_value !== undefined 
-        ? rawSales.metrics.average_order_value 
-        : (rawSales.metrics?.transaction_count > 0 
-            ? (rawSales.metrics.total_revenue / rawSales.metrics.transaction_count) 
-            : rawSales.metrics?.average_unit_price || 0)
+      average_order_value: rawSales.metrics?.average_order_value !== undefined
+        ? rawSales.metrics.average_order_value
+        : (rawSales.metrics?.transaction_count > 0
+          ? (rawSales.metrics.total_revenue / rawSales.metrics.transaction_count)
+          : rawSales.metrics?.average_unit_price || 0)
     },
-    trends: Array.isArray(rawSales.trends) 
-      ? rawSales.trends.map(t => ({ 
-          label: t.label || t.date || '', 
-          value: t.value !== undefined ? t.value : (t.revenue || 0) 
-        }))
+    trends: Array.isArray(rawSales.trends)
+      ? rawSales.trends.map(t => ({
+        label: t.label || t.date || '',
+        value: t.value !== undefined ? t.value : (t.revenue || 0)
+      }))
       : [],
     product_performance: Array.isArray(rawSales.product_performance)
       ? rawSales.product_performance.map(p => ({
-          label: p.label || p.product_name || '',
-          value: p.value !== undefined ? p.value : (p.total_revenue || 0)
-        }))
+        label: p.label || p.product_name || '',
+        value: p.value !== undefined ? p.value : (p.total_revenue || 0)
+      }))
       : [],
-    seasonality: rawSales.seasonality 
+    seasonality: rawSales.seasonality
       ? (Array.isArray(rawSales.seasonality)
-          ? rawSales.seasonality.map(s => ({ label: s.label, value: s.value }))
-          : (rawSales.seasonality.weekly && Array.isArray(rawSales.seasonality.weekly)
-              ? rawSales.seasonality.weekly.map(w => ({ label: w.label || w.day?.substring(0, 3) || '', value: w.value !== undefined ? w.value : (w.revenue || w.quantity || 0) }))
-              : []))
+        ? rawSales.seasonality.map(s => ({ label: s.label, value: s.value }))
+        : (rawSales.seasonality.weekly && Array.isArray(rawSales.seasonality.weekly)
+          ? rawSales.seasonality.weekly.map(w => ({ label: w.label || w.day?.substring(0, 3) || '', value: w.value !== undefined ? w.value : (w.revenue || w.quantity || 0) }))
+          : []))
       : []
   };
 
@@ -270,17 +270,17 @@ export default function Analytics() {
     },
     anomalies: Array.isArray(rawInventory.anomalies)
       ? rawInventory.anomalies.map(a => ({
-          type: a.type || (a.status === 'out_of_stock' || a.status === 'understock' ? 'depleted' : 'overstocked'),
-          product: a.product || a.product_name || '',
-          qty: a.qty !== undefined ? a.qty : (a.quantity_on_hand || 0),
-          status: a.status || (a.type === 'depleted' ? 'Low Stock' : 'Overstocked')
-        }))
+        type: a.type || (a.status === 'out_of_stock' || a.status === 'understock' ? 'depleted' : 'overstocked'),
+        product: a.product || a.product_name || '',
+        qty: a.qty !== undefined ? a.qty : (a.quantity_on_hand || 0),
+        status: a.status || (a.type === 'depleted' ? 'Low Stock' : 'Overstocked')
+      }))
       : [],
     history: Array.isArray(rawInventory.history)
       ? rawInventory.history.map(h => ({
-          label: h.label || h.date || '',
-          value: h.value !== undefined ? h.value : (h.total_value || h.total_quantity || 0)
-        }))
+        label: h.label || h.date || '',
+        value: h.value !== undefined ? h.value : (h.total_value || h.total_quantity || 0)
+      }))
       : []
   };
 
@@ -291,27 +291,27 @@ export default function Analytics() {
     total_reviews: rawCustomers.total_reviews || 0,
     sentiment_distribution: Array.isArray(rawCustomers.sentiment_distribution)
       ? rawCustomers.sentiment_distribution
-      : (rawCustomers.sentiment_distribution 
-          ? [
-              { label: 'Positive', value: rawCustomers.sentiment_distribution.positive || 0 },
-              { label: 'Neutral', value: rawCustomers.sentiment_distribution.neutral || 0 },
-              { label: 'Negative', value: rawCustomers.sentiment_distribution.negative || 0 }
-            ]
-          : []),
+      : (rawCustomers.sentiment_distribution
+        ? [
+          { label: 'Positive', value: rawCustomers.sentiment_distribution.positive || 0 },
+          { label: 'Neutral', value: rawCustomers.sentiment_distribution.neutral || 0 },
+          { label: 'Negative', value: rawCustomers.sentiment_distribution.negative || 0 }
+        ]
+        : []),
     complaints_by_category: Array.isArray(rawCustomers.complaints_by_category)
       ? rawCustomers.complaints_by_category.map(c => ({
-          label: c.label || c.category || '',
-          value: c.value !== undefined ? c.value : (c.count || 0)
-        }))
+        label: c.label || c.category || '',
+        value: c.value !== undefined ? c.value : (c.count || 0)
+      }))
       : [],
     recent_complaints: Array.isArray(rawCustomers.recent_complaints)
       ? rawCustomers.recent_complaints.map(c => ({
-          author: c.author || c.author_name || 'Anonymous',
-          rating: c.rating || 0,
-          text: c.text || '',
-          category: c.category || 'General',
-          product: c.product || c.product_name || 'N/A'
-        }))
+        author: c.author || c.author_name || 'Anonymous',
+        rating: c.rating || 0,
+        text: c.text || '',
+        category: c.category || 'General',
+        product: c.product || c.product_name || 'N/A'
+      }))
       : [],
     trends: Array.isArray(rawCustomers.trends) ? rawCustomers.trends : []
   };
@@ -338,18 +338,18 @@ export default function Analytics() {
 
   const getProductCompetitorMap = () => {
     const map = {};
-    const pricesList = (useDemoData || competitorPrices.length === 0) 
+    const pricesList = (useDemoData || competitorPrices.length === 0)
       ? [
-          { product: 1, product_name: "Premium Cotton T-Shirt", product_price: 499, competitor_name: "Amazon", price: 479, url: "https://amazon.in" },
-          { product: 1, product_name: "Premium Cotton T-Shirt", product_price: 499, competitor_name: "Flipkart", price: 519, url: "https://flipkart.com" },
-          { product: 1, product_name: "Premium Cotton T-Shirt", product_price: 499, competitor_name: "Google Shopping", price: 489, url: "https://google.com" },
-          { product: 2, product_name: "Slim Fit Jeans", product_price: 1299, competitor_name: "Amazon", price: 1399, url: "https://amazon.in" },
-          { product: 2, product_name: "Slim Fit Jeans", product_price: 1299, competitor_name: "Flipkart", price: 1249, url: "https://flipkart.com" },
-          { product: 2, product_name: "Slim Fit Jeans", product_price: 1299, competitor_name: "Google Shopping", price: 1299, url: "https://google.com" },
-          { product: 3, product_name: "Leather Wallet", product_price: 899, competitor_name: "Amazon", price: 999, url: "https://amazon.in" },
-          { product: 3, product_name: "Leather Wallet", product_price: 899, competitor_name: "Flipkart", price: 949, url: "https://flipkart.com" },
-          { product: 3, product_name: "Leather Wallet", product_price: 899, competitor_name: "Google Shopping", price: 919, url: "https://google.com" }
-        ]
+        { product: 1, product_name: "Premium Cotton T-Shirt", product_price: 499, competitor_name: "Amazon", price: 479, url: "https://amazon.in" },
+        { product: 1, product_name: "Premium Cotton T-Shirt", product_price: 499, competitor_name: "Flipkart", price: 519, url: "https://flipkart.com" },
+        { product: 1, product_name: "Premium Cotton T-Shirt", product_price: 499, competitor_name: "Google Shopping", price: 489, url: "https://google.com" },
+        { product: 2, product_name: "Slim Fit Jeans", product_price: 1299, competitor_name: "Amazon", price: 1399, url: "https://amazon.in" },
+        { product: 2, product_name: "Slim Fit Jeans", product_price: 1299, competitor_name: "Flipkart", price: 1249, url: "https://flipkart.com" },
+        { product: 2, product_name: "Slim Fit Jeans", product_price: 1299, competitor_name: "Google Shopping", price: 1299, url: "https://google.com" },
+        { product: 3, product_name: "Leather Wallet", product_price: 899, competitor_name: "Amazon", price: 999, url: "https://amazon.in" },
+        { product: 3, product_name: "Leather Wallet", product_price: 899, competitor_name: "Flipkart", price: 949, url: "https://flipkart.com" },
+        { product: 3, product_name: "Leather Wallet", product_price: 899, competitor_name: "Google Shopping", price: 919, url: "https://google.com" }
+      ]
       : competitorPrices;
 
     pricesList.forEach(item => {
@@ -370,13 +370,13 @@ export default function Analytics() {
         url: item.url
       });
     });
-    
+
     return Object.values(map).map(p => {
       const prices = p.competitorPrices;
       const minPrice = Math.min(...prices);
       const maxPrice = Math.max(...prices);
       const avgPrice = prices.reduce((a, b) => a + b, 0) / prices.length;
-      
+
       const differencePct = ((p.ourPrice - avgPrice) / (avgPrice || 1)) * 100;
       let position = 'competitive';
       if (differencePct < -5) {
@@ -384,7 +384,7 @@ export default function Analytics() {
       } else if (differencePct > 5) {
         position = 'expensive';
       }
-      
+
       return {
         ...p,
         minPrice,
@@ -398,7 +398,7 @@ export default function Analytics() {
 
   const renderCompetitorSection = () => {
     const productsData = getProductCompetitorMap();
-    
+
     const totalTracked = productsData.length;
     const cheaperCount = productsData.filter(p => p.position === 'cheaper').length;
     const competitiveCount = productsData.filter(p => p.position === 'competitive').length;
@@ -412,62 +412,62 @@ export default function Analytics() {
     return (
       <div className="space-y-6">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-          <div className="bg-white/60 dark:bg-slate-900/60 backdrop-blur-md border border-white/20 dark:border-slate-800/80 rounded-2xl p-5 shadow-sm">
-            <span className="text-[10px] font-bold text-gray-400 dark:text-slate-500 uppercase block">Total Tracked Products</span>
-            <span className="text-2xl font-extrabold text-indigo-600 dark:text-indigo-400 mt-1 block">{totalTracked}</span>
+          <div className="bg-navy-800/60 backdrop-blur-md border border-white/[0.06] rounded-2xl p-5 shadow-sm">
+            <span className="text-[10px] font-bold text-slate-500 uppercase block">Total Tracked Products</span>
+            <span className="text-2xl font-extrabold text-violet-400 mt-1 block">{totalTracked}</span>
           </div>
-          <div className="bg-white/60 dark:bg-slate-900/60 backdrop-blur-md border border-white/20 dark:border-slate-800/80 rounded-2xl p-5 shadow-sm">
-            <span className="text-[10px] font-bold text-gray-400 dark:text-slate-500 uppercase block">Cheaper than Competitor</span>
+          <div className="bg-navy-800/60 backdrop-blur-md border border-white/[0.06] rounded-2xl p-5 shadow-sm">
+            <span className="text-[10px] font-bold text-slate-500 uppercase block">Cheaper than Competitor</span>
             <span className="text-2xl font-extrabold text-emerald-500 mt-1 block">{cheaperCount}</span>
           </div>
-          <div className="bg-white/60 dark:bg-slate-900/60 backdrop-blur-md border border-white/20 dark:border-slate-800/80 rounded-2xl p-5 shadow-sm">
-            <span className="text-[10px] font-bold text-gray-400 dark:text-slate-500 uppercase block">Priced Competitively</span>
-            <span className="text-2xl font-extrabold text-indigo-500 mt-1 block">{competitiveCount}</span>
+          <div className="bg-navy-800/60 backdrop-blur-md border border-white/[0.06] rounded-2xl p-5 shadow-sm">
+            <span className="text-[10px] font-bold text-slate-500 uppercase block">Priced Competitively</span>
+            <span className="text-2xl font-extrabold text-violet-400 mt-1 block">{competitiveCount}</span>
           </div>
-          <div className="bg-white/60 dark:bg-slate-900/60 backdrop-blur-md border border-white/20 dark:border-slate-800/80 rounded-2xl p-5 shadow-sm">
-            <span className="text-[10px] font-bold text-gray-400 dark:text-slate-500 uppercase block">Priced Higher</span>
+          <div className="bg-navy-800/60 backdrop-blur-md border border-white/[0.06] rounded-2xl p-5 shadow-sm">
+            <span className="text-[10px] font-bold text-slate-500 uppercase block">Priced Higher</span>
             <span className="text-2xl font-extrabold text-rose-500 mt-1 block">{higherCount}</span>
           </div>
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-          <div className="lg:col-span-2 bg-white/60 dark:bg-slate-900/60 backdrop-blur-md border border-white/20 dark:border-slate-800/80 rounded-3xl p-6 shadow-md">
+          <div className="lg:col-span-2 bg-navy-800/60 backdrop-blur-md border border-white/[0.06] rounded-3xl p-6 shadow-md">
             <div className="flex items-center justify-between mb-2">
-              <h3 className="text-base font-bold text-gray-800 dark:text-slate-100">Price Deviation Index</h3>
-              <div className="flex gap-4 text-[10px] font-bold text-gray-400 uppercase">
+              <h3 className="text-base font-bold text-slate-800 dark:text-white">Price Deviation Index</h3>
+              <div className="flex gap-4 text-[10px] font-bold text-slate-500 uppercase">
                 <span className="flex items-center gap-1.5"><span className="w-2.5 h-2.5 bg-emerald-500 rounded-sm"></span> Cheaper</span>
                 <span className="flex items-center gap-1.5"><span className="w-2.5 h-2.5 bg-rose-500 rounded-sm"></span> Pricier</span>
               </div>
             </div>
-            <p className="text-xs text-gray-400 dark:text-slate-500 mb-6">Percentage difference between your price and competitor averages (capped at ±30% for visual contrast)</p>
-            
+            <p className="text-xs text-slate-500 mb-6">Percentage difference between your price and competitor averages (capped at ±30% for visual contrast)</p>
+
             <div className="space-y-3.5 max-h-[320px] overflow-y-auto pr-2 custom-scrollbar">
               {productsData.map((prod) => {
                 const gap = prod.differencePct;
                 const cappedGap = Math.max(-30, Math.min(30, gap));
                 const barWidth = `${(Math.abs(cappedGap) / 30) * 50}%`;
                 const isCheaper = gap < 0;
-                
+
                 return (
-                  <div key={prod.productId} className="flex items-center gap-4 text-xs hover:bg-gray-50/50 dark:hover:bg-slate-800/20 p-1 rounded-lg transition-colors">
-                    <div className="w-1/3 font-semibold text-gray-700 dark:text-slate-300 truncate" title={prod.productName}>
+                  <div key={prod.productId} className="flex items-center gap-4 text-xs hover:bg-navy-900/40 dark:hover:bg-slate-800/20 p-1 rounded-lg transition-colors">
+                    <div className="w-1/3 font-semibold text-slate-300 truncate" title={prod.productName}>
                       {prod.productName}
                     </div>
-                    <div className="flex-1 relative h-6 bg-gray-100 dark:bg-slate-800/50 rounded-lg flex items-center px-1">
+                    <div className="flex-1 relative h-6 bg-navy-700/60 rounded-lg flex items-center px-1">
                       <div className="absolute left-1/2 top-0 bottom-0 w-0.5 bg-gray-300 dark:bg-slate-600/70 z-10"></div>
                       {isCheaper ? (
-                        <div 
-                          className="absolute right-1/2 h-3.5 bg-gradient-to-l from-emerald-400 to-emerald-500 rounded-l" 
+                        <div
+                          className="absolute right-1/2 h-3.5 bg-gradient-to-l from-emerald-400 to-emerald-500 rounded-l"
                           style={{ width: barWidth }}
                         ></div>
                       ) : (
-                        <div 
-                          className="absolute left-1/2 h-3.5 bg-gradient-to-r from-rose-400 to-rose-500 rounded-r" 
+                        <div
+                          className="absolute left-1/2 h-3.5 bg-gradient-to-r from-rose-400 to-rose-500 rounded-r"
                           style={{ width: barWidth }}
                         ></div>
                       )}
                     </div>
-                    <div className={`w-20 text-right font-extrabold text-xs ${isCheaper ? 'text-emerald-500' : gap > 5 ? 'text-rose-500' : 'text-gray-500 dark:text-slate-400'}`}>
+                    <div className={`w-20 text-right font-extrabold text-xs ${isCheaper ? 'text-emerald-500' : gap > 5 ? 'text-rose-500' : 'text-slate-400'}`}>
                       {gap >= 0 ? `+${gap.toFixed(1)}%` : `${gap.toFixed(1)}%`}
                     </div>
                   </div>
@@ -475,10 +475,10 @@ export default function Analytics() {
               })}
             </div>
           </div>
-          <div className="bg-white/60 dark:bg-slate-900/60 backdrop-blur-md border border-white/20 dark:border-slate-800/80 rounded-3xl p-6 shadow-md flex flex-col justify-between">
+          <div className="bg-navy-800/60 backdrop-blur-md border border-white/[0.06] rounded-3xl p-6 shadow-md flex flex-col justify-between">
             <div>
-              <h3 className="text-base font-bold text-gray-800 dark:text-slate-100 mb-3">Pricing Strategy Guide</h3>
-              <ul className="space-y-3 text-xs text-gray-600 dark:text-slate-400">
+              <h3 className="text-base font-bold text-slate-800 dark:text-white mb-3">Pricing Strategy Guide</h3>
+              <ul className="space-y-3 text-xs text-slate-400">
                 <li className="flex items-start gap-2">
                   <span className="w-1.5 h-1.5 bg-emerald-500 rounded-full mt-1.5 flex-shrink-0"></span>
                   <span><strong>Underpriced Items:</strong> Products priced below all competitors. Good for high volume, but consider raising prices to improve margins.</span>
@@ -494,7 +494,7 @@ export default function Analytics() {
               </ul>
             </div>
             {useDemoData && (
-              <div className="mt-4 p-3 bg-amber-500/10 rounded-xl border border-amber-500/20 text-amber-600 dark:text-amber-400 text-xs font-semibold flex items-center gap-2">
+              <div className="mt-4 p-3 bg-amber-500/10 rounded-xl border border-amber-500/20 text-amber-600 text-amber-400 text-xs font-semibold flex items-center gap-2">
                 <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" /></svg>
                 Showing High-Fidelity Demo Data. Toggle demo mode to connect to live crawler databases.
               </div>
@@ -502,12 +502,12 @@ export default function Analytics() {
           </div>
         </div>
 
-        <div className="bg-white/60 dark:bg-slate-900/60 backdrop-blur-md border border-white/20 dark:border-slate-800/80 rounded-3xl p-6 shadow-md">
-          <h3 className="text-base font-bold text-gray-800 dark:text-slate-100 mb-4">Competitor Price Comparison Table</h3>
+        <div className="bg-navy-800/60 backdrop-blur-md border border-white/[0.06] rounded-3xl p-6 shadow-md">
+          <h3 className="text-base font-bold text-slate-800 dark:text-white mb-4">Competitor Price Comparison Table</h3>
           <div className="overflow-x-auto">
             <table className="w-full text-left text-sm">
               <thead>
-                <tr className="border-b border-gray-200 dark:border-slate-700 text-xs font-extrabold text-gray-700 dark:text-slate-200 uppercase tracking-wider">
+                <tr className="border-b border-white/[0.06] text-xs font-extrabold text-slate-200 uppercase tracking-wider">
                   <th className="pb-3">Product Name</th>
                   <th className="pb-3 text-right">Our Price</th>
                   <th className="pb-3 text-right">Comp. Min</th>
@@ -519,10 +519,10 @@ export default function Analytics() {
                   <th className="pb-3 text-center">Actions</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-gray-100 dark:divide-slate-800/40">
+              <tbody className="divide-y divide-slate-150 dark:divide-white/[0.04]">
                 {productsData.map((prod) => {
                   let statusBadge = (
-                    <span className="text-indigo-600 dark:text-indigo-400 bg-indigo-500/10 px-2 py-0.5 rounded-full text-xs font-semibold">
+                    <span className="text-violet-400 bg-violet-500/10 px-2 py-0.5 rounded-full text-xs font-semibold">
                       Competitive
                     </span>
                   );
@@ -542,25 +542,25 @@ export default function Analytics() {
 
                   const gap = prod.differencePct;
                   const gapText = gap >= 0 ? `+${gap.toFixed(1)}%` : `${gap.toFixed(1)}%`;
-                  const gapColor = gap > 5 ? 'text-rose-500 font-semibold' : gap < -5 ? 'text-emerald-500 font-semibold' : 'text-gray-600 dark:text-slate-400';
+                  const gapColor = gap > 5 ? 'text-rose-500 font-semibold' : gap < -5 ? 'text-emerald-500 font-semibold' : 'text-slate-400';
 
                   const isSyncing = collectingProductId === prod.productId;
 
                   return (
-                    <tr key={prod.productId} className="hover:bg-gray-50/50 dark:hover:bg-slate-800/30 transition-colors">
-                      <td className="py-4 font-semibold text-gray-800 dark:text-slate-200">
+                    <tr key={prod.productId} className="hover:bg-navy-900/40 dark:hover:bg-slate-800/30 transition-colors">
+                      <td className="py-4 font-semibold text-slate-200">
                         {prod.productName}
                       </td>
-                      <td className="py-4 text-right font-bold text-gray-900 dark:text-slate-100">
+                      <td className="py-4 text-right font-bold text-slate-800 dark:text-white">
                         ₹{prod.ourPrice.toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
                       </td>
-                      <td className="py-4 text-right text-gray-600 dark:text-slate-400">
+                      <td className="py-4 text-right text-slate-400">
                         ₹{prod.minPrice.toLocaleString('en-IN', { minimumFractionDigits: 2 })}
                       </td>
-                      <td className="py-4 text-right text-gray-600 dark:text-slate-400">
+                      <td className="py-4 text-right text-slate-400">
                         ₹{prod.avgPrice.toLocaleString('en-IN', { minimumFractionDigits: 2 })}
                       </td>
-                      <td className="py-4 text-right text-gray-600 dark:text-slate-400">
+                      <td className="py-4 text-right text-slate-400">
                         ₹{prod.maxPrice.toLocaleString('en-IN', { minimumFractionDigits: 2 })}
                       </td>
                       <td className={`py-4 text-right font-bold ${gapColor}`}>
@@ -577,7 +577,7 @@ export default function Analytics() {
                               href={src.url}
                               target="_blank"
                               rel="noopener noreferrer"
-                              className="text-[10px] bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400 hover:text-indigo-600 border dark:border-slate-700 px-2 py-0.5 rounded transition-all duration-200"
+                              className="text-[10px] bg-slate-100 bg-navy-700/60 text-slate-600 text-slate-400 hover:text-indigo-600 border border-white/[0.06] px-2 py-0.5 rounded transition-all duration-200"
                             >
                               {src.name}: ₹{src.price}
                             </a>
@@ -619,8 +619,8 @@ export default function Analytics() {
 
   // Normalize Predictions Data
   const rawList = Array.isArray(rawPredictions.list) ? rawPredictions.list : (Array.isArray(rawPredictions) ? rawPredictions : []);
-  const filteredList = predictionFilter === 'all' 
-    ? rawList 
+  const filteredList = predictionFilter === 'all'
+    ? rawList
     : rawList.filter(p => p.prediction_type === predictionFilter);
 
   const currentPredictions = {
@@ -651,7 +651,7 @@ export default function Analytics() {
 
   return (
     <div className="space-y-6 pb-12 transition-all duration-300">
-      
+
       {/* Sticky Header Group: Tabs + Filters */}
       <div className="sticky top-0 z-20 bg-gray-50/95 dark:bg-[#090d16]/95 backdrop-blur-md pb-2 pt-1 flex flex-col gap-1.5 transition-all duration-200">
         {/* 1. Tab Selector Bar */}
@@ -666,11 +666,10 @@ export default function Analytics() {
             <button
               key={tab.id}
               onClick={() => setActiveTab(tab.id)}
-              className={`flex-1 flex items-center justify-center px-4 py-2 text-xs font-semibold rounded-lg transition-all duration-200 whitespace-nowrap min-w-max ${
-                activeTab === tab.id
-                  ? 'bg-white dark:bg-slate-900 text-indigo-600 dark:text-indigo-400 shadow-sm'
-                  : 'text-gray-500 dark:text-slate-400 hover:text-gray-900 dark:hover:text-slate-200'
-              }`}
+              className={`flex-1 flex items-center justify-center px-4 py-2 text-xs font-semibold rounded-lg transition-all duration-200 whitespace-nowrap min-w-max ${activeTab === tab.id
+                  ? 'bg-gradient-to-r from-violet-600 to-indigo-600 text-white shadow-glow-purple-sm nav-active-glow'
+                  : 'text-slate-400 hover:text-white hover:bg-slate-50 dark:hover:bg-white/[0.03]'
+                }`}
             >
               {tab.icon}
               {tab.label}
@@ -678,30 +677,30 @@ export default function Analytics() {
           ))}
         </div>
 
-        {/* 2. FILTER BAR */}
-        <div className="backdrop-blur-md bg-white/70 dark:bg-slate-900/75 py-2.5 px-4 border border-gray-200/80 dark:border-slate-800/80 rounded-2xl shadow-sm flex flex-wrap items-center justify-between gap-4 transition-colors">
+        {/* 2. Sleek Filter Bar */}
+        <div className="glass-card py-2 px-4 rounded-xl shadow-glass flex flex-wrap items-center justify-between gap-3 transition-colors duration-200">
           <div className="flex flex-wrap items-center gap-3">
             {(activeTab === 'sales' || activeTab === 'inventory') && (
               <>
-                <div className="flex items-center gap-1.5 bg-gray-50 dark:bg-slate-800 px-3 py-1.5 rounded-xl border dark:border-slate-700">
-                  <span className="text-xs font-medium text-gray-500 dark:text-slate-400">From</span>
-                  <input 
-                    type="date" 
-                    value={startDate} 
+                <div className="flex items-center gap-2 bg-slate-100/80 px-3 py-1.5 rounded-lg border border-slate-200 dark:bg-navy-900/80 dark:border-white/[0.08] focus-within:border-violet-500/50 transition-colors">
+                  <span className="text-xs font-medium text-slate-500">From</span>
+                  <input
+                    type="date"
+                    value={startDate}
                     onChange={(e) => setStartDate(e.target.value)}
                     max={endDate || todayStr}
-                    className="bg-transparent text-xs font-semibold text-gray-700 dark:text-slate-200 focus:outline-none"
+                    className="bg-transparent text-xs font-semibold text-slate-200 focus:outline-none cursor-pointer [color-scheme:dark]"
                   />
                 </div>
-                <div className="flex items-center gap-1.5 bg-gray-50 dark:bg-slate-800 px-3 py-1.5 rounded-xl border dark:border-slate-700">
-                  <span className="text-xs font-medium text-gray-500 dark:text-slate-400">To</span>
-                  <input 
-                    type="date" 
-                    value={endDate} 
+                <div className="flex items-center gap-2 bg-slate-100/80 px-3 py-1.5 rounded-lg border border-slate-200 dark:bg-navy-900/80 dark:border-white/[0.08] focus-within:border-violet-500/50 transition-colors">
+                  <span className="text-xs font-medium text-slate-500">To</span>
+                  <input
+                    type="date"
+                    value={endDate}
                     onChange={(e) => setEndDate(e.target.value)}
                     min={startDate}
                     max={todayStr}
-                    className="bg-transparent text-xs font-semibold text-gray-700 dark:text-slate-200 focus:outline-none"
+                    className="bg-transparent text-xs font-semibold text-slate-200 focus:outline-none cursor-pointer [color-scheme:dark]"
                   />
                 </div>
               </>
@@ -710,7 +709,7 @@ export default function Analytics() {
               <select
                 value={interval}
                 onChange={(e) => setIntervalVal(e.target.value)}
-                className="bg-gray-50 dark:bg-slate-800 text-xs font-semibold text-gray-700 dark:text-slate-200 px-3 py-1.5 rounded-xl border dark:border-slate-700 focus:outline-none cursor-pointer"
+                className="bg-slate-100/80 text-xs font-semibold text-slate-700 dark:text-slate-200 px-3 py-1.5 rounded-lg border border-slate-200 dark:border-white/[0.08] focus-glow focus:outline-none cursor-pointer"
               >
                 <option value="daily">Daily</option>
                 <option value="weekly">Weekly</option>
@@ -721,17 +720,15 @@ export default function Analytics() {
 
           {/* Demo Data Switcher Option */}
           <div className="flex items-center gap-2">
-            <span className="text-xs font-medium text-gray-500 dark:text-slate-400">Demo Mode</span>
+            <span className="text-xs font-medium text-slate-400">Demo Mode</span>
             <button
               onClick={() => setUseDemoData(!useDemoData)}
-              className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors focus:outline-none ${
-                useDemoData ? 'bg-indigo-600' : 'bg-gray-200 dark:bg-slate-800'
-              }`}
+              className={`relative inline-flex h-5 w-10 items-center rounded-full transition-colors focus:outline-none ${useDemoData ? 'bg-violet-600 shadow-glow-purple-sm' : 'bg-navy-700/60 border border-white/[0.08]'
+                }`}
             >
               <span
-                className={`inline-block h-4 w-4 transform rounded-full bg-white transition-transform ${
-                  useDemoData ? 'translate-x-6' : 'translate-x-1'
-                }`}
+                className={`inline-block h-3.5 w-3.5 transform rounded-full bg-white transition-transform ${useDemoData ? 'translate-x-5.5' : 'translate-x-0.5'
+                  }`}
               />
             </button>
           </div>
@@ -741,7 +738,7 @@ export default function Analytics() {
       {loading && (
         <div className="flex items-center justify-center py-8">
           <div className="animate-spin rounded-full h-8 w-8 border-t-2 border-b-2 border-indigo-600"></div>
-          <span className="ml-3 text-sm text-gray-500 dark:text-slate-400">Updating metrics...</span>
+          <span className="ml-3 text-sm text-slate-400">Updating metrics...</span>
         </div>
       )}
 
@@ -758,35 +755,35 @@ export default function Analytics() {
                 { title: 'Average Order Value', value: currentSales.metrics.average_order_value, subtitle: 'Average value per transaction', isAmount: true, change: '+4.5%', color: 'emerald', icon: <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z" /></svg> },
                 { title: 'Gross Profit Margin', value: currentSales.metrics.gross_margin_pct || 53.4, subtitle: 'Net margin performance', isAmount: false, suffix: '%', change: '+2.1%', color: 'indigo', icon: <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" /></svg> }
               ].map((card, i) => (
-                <div 
-                  key={i} 
-                  className="bg-white dark:bg-slate-900 border border-gray-200 dark:border-slate-800 hover:border-indigo-500/40 dark:hover:border-indigo-500/40 hover:-translate-y-1 hover:shadow-lg hover:shadow-indigo-500/5 rounded-2xl p-6 shadow-sm flex flex-col transition-all duration-300 cursor-default"
+                <div
+                  key={i}
+                  className="glass-card hover:border-violet-500/20 hover:-translate-y-1 hover:shadow-glow-purple rounded-2xl p-5 flex flex-col transition-all duration-300 cursor-default group hover-lift"
                 >
-                  <div className="flex items-center justify-between mb-4">
-                    <h3 className="text-sm font-semibold text-gray-500 dark:text-slate-400 font-display">{card.title}</h3>
-                    <div className="w-8 h-8 rounded-lg bg-indigo-50 dark:bg-indigo-950/40 flex items-center justify-center text-indigo-600 dark:text-indigo-400">
+                  <div className="flex items-center justify-between mb-3.5">
+                    <span className="text-xs font-semibold text-slate-400 font-display">{card.title}</span>
+                    <div className="w-8 h-8 rounded-lg bg-violet-500/10 border border-violet-500/10 flex items-center justify-center text-violet-400 group-hover:shadow-glow-purple-sm transition-all duration-300">
                       {card.icon}
                     </div>
                   </div>
-                  <div className="space-y-1.5 flex-1">
-                    <div className="text-lg sm:text-[24px] lg:text-lg xl:text-2xl font-bold text-gray-900 dark:text-white font-display tracking-tight break-words">
-                      <AnimatedCounter 
-                        value={card.value} 
-                        prefix={card.isAmount ? '₹' : ''} 
-                        suffix={card.suffix || ''} 
+                  <div className="space-y-1 flex-1">
+                    <div className="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-white font-display tracking-tight break-words">
+                      <AnimatedCounter
+                        value={card.value}
+                        prefix={card.isAmount ? '₹' : ''}
+                        suffix={card.suffix || ''}
                       />
                     </div>
                     {card.subtitle && (
-                      <div className="text-xs text-gray-500 dark:text-slate-400 font-medium">
+                      <div className="text-xs text-slate-500 dark:text-slate-400 font-medium">
                         {card.subtitle}
                       </div>
                     )}
                   </div>
-                  <div className="mt-4 flex flex-wrap items-center gap-x-1.5 gap-y-0.5 text-xs font-semibold leading-none">
+                  <div className="mt-3.5 flex items-center gap-1.5 text-xs font-semibold leading-none">
                     <span className="inline-flex items-center text-emerald-600 dark:text-emerald-400">
                       ↗ {card.change}
                     </span>
-                    <span className="text-gray-400 dark:text-slate-500 font-medium whitespace-nowrap">vs last period</span>
+                    <span className="text-slate-500 dark:text-slate-400 font-medium whitespace-nowrap">vs last period</span>
                   </div>
                 </div>
               ))}
@@ -795,11 +792,11 @@ export default function Analytics() {
             {/* Sales Trends Chart & Breakdown */}
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
               {/* Main Line Chart */}
-              <div className="lg:col-span-2 bg-white/60 dark:bg-slate-900/60 backdrop-blur-md border border-white/20 dark:border-slate-800/80 rounded-3xl p-6 shadow-md">
+              <div className="lg:col-span-2 bg-navy-800/60 backdrop-blur-md border border-white/[0.06] rounded-3xl p-6 shadow-md">
                 <div className="flex items-center justify-between mb-6">
                   <div>
-                    <h3 className="text-lg font-bold text-gray-800 dark:text-slate-100">Revenue Performance Over Time</h3>
-                    <p className="text-xs text-gray-400 dark:text-slate-500">Gross revenue trends calculated based on file parameters</p>
+                    <h3 className="text-lg font-bold text-slate-800 dark:text-white">Revenue Performance Over Time</h3>
+                    <p className="text-xs text-slate-500">Gross revenue trends calculated based on file parameters</p>
                   </div>
                 </div>
                 <div className="h-64">
@@ -808,9 +805,9 @@ export default function Analytics() {
               </div>
 
               {/* Weekly/Seasonality spikes */}
-              <div className="bg-white/60 dark:bg-slate-900/60 backdrop-blur-md border border-white/20 dark:border-slate-800/80 rounded-3xl p-6 shadow-md">
-                <h3 className="text-lg font-bold text-gray-800 dark:text-slate-100 mb-2">Weekly Spikes</h3>
-                <p className="text-xs text-gray-400 dark:text-slate-500 mb-6">Average customer purchase activity by weekday</p>
+              <div className="bg-navy-800/60 backdrop-blur-md border border-white/[0.06] rounded-3xl p-6 shadow-md">
+                <h3 className="text-lg font-bold text-slate-800 dark:text-white mb-2">Weekly Spikes</h3>
+                <p className="text-xs text-slate-500 mb-6">Average customer purchase activity by weekday</p>
                 <div className="h-56">
                   <BarChart data={currentSales.seasonality} color="emerald" valuePrefix="" />
                 </div>
@@ -818,22 +815,22 @@ export default function Analytics() {
             </div>
 
             {/* Product Performance Table */}
-            <div className="bg-white/60 dark:bg-slate-900/60 backdrop-blur-md border border-white/20 dark:border-slate-800/80 rounded-3xl p-6 shadow-md">
-              <h3 className="text-lg font-bold text-gray-800 dark:text-slate-100 mb-4">Product Revenue Breakdown</h3>
+            <div className="bg-navy-800/60 backdrop-blur-md border border-white/[0.06] rounded-3xl p-6 shadow-md">
+              <h3 className="text-lg font-bold text-slate-800 dark:text-white mb-4">Product Revenue Breakdown</h3>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-start">
                 <div className="overflow-x-auto">
                   <table className="w-full text-left text-sm">
                     <thead>
-                      <tr className="border-b border-gray-200 dark:border-slate-700 text-gray-700 dark:text-slate-200 text-xs font-bold uppercase tracking-wider">
+                      <tr className="border-b border-white/[0.06] text-slate-200 text-xs font-bold uppercase tracking-wider">
                         <th className="pb-3 font-semibold">Product Name</th>
                         <th className="pb-3 font-semibold text-right">Revenue Generated</th>
                       </tr>
                     </thead>
                     <tbody className="divide-y divide-gray-100 dark:divide-slate-800/60">
                       {currentSales.product_performance.map((item, idx) => (
-                        <tr key={idx} className="hover:bg-gray-50/50 dark:hover:bg-slate-800/30 transition-colors">
-                          <td className="py-3 font-medium text-gray-700 dark:text-slate-300">{item.label}</td>
-                          <td className="py-3 text-right font-bold text-gray-900 dark:text-slate-100">
+                        <tr key={idx} className="hover:bg-navy-900/40 dark:hover:bg-slate-800/30 transition-colors">
+                          <td className="py-3 font-medium text-slate-300">{item.label}</td>
+                          <td className="py-3 text-right font-bold text-slate-800 dark:text-white">
                             ₹{item.value.toLocaleString(undefined, { maximumFractionDigits: 0 })}
                           </td>
                         </tr>
@@ -843,19 +840,19 @@ export default function Analytics() {
                 </div>
                 {/* Horizontal Bar Chart showing performance */}
                 <div className="pt-0.5">
-                  <h4 className="text-xs font-semibold text-gray-400 dark:text-slate-500 uppercase tracking-wider mb-4">Visual Comparison</h4>
+                  <h4 className="text-xs font-semibold text-slate-500 uppercase tracking-wider mb-4">Visual Comparison</h4>
                   <div className="space-y-4">
                     {currentSales.product_performance.map((item, idx) => {
                       const maxVal = Math.max(...currentSales.product_performance.map(p => p.value));
                       const pct = (item.value / maxVal) * 100;
                       return (
                         <div key={idx} className="space-y-1">
-                          <div className="flex justify-between text-xs font-semibold text-gray-600 dark:text-slate-400">
+                          <div className="flex justify-between text-xs font-semibold text-slate-400">
                             <span>{item.label}</span>
                             <span>{pct.toFixed(0)}%</span>
                           </div>
-                          <div className="h-2 bg-gray-100 dark:bg-slate-800 rounded-full overflow-hidden">
-                            <div 
+                          <div className="h-2 bg-navy-700/60 rounded-full overflow-hidden">
+                            <div
                               className="h-full bg-gradient-to-r from-indigo-500 to-blue-500 rounded-full transition-all duration-1000"
                               style={{ width: `${pct}%` }}
                             ></div>
@@ -881,35 +878,40 @@ export default function Analytics() {
                 { title: 'Total Sourced Value', value: currentInventory.health.total_value, subtitle: 'Warehouse asset valuation', isAmount: true, change: '+12.4%', color: 'blue', icon: <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" /></svg> },
                 { title: 'Total SKUs Tracked', value: currentInventory.health.total_items, subtitle: 'Active catalog items', isAmount: false, change: 'Stable', color: 'emerald', icon: <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01" /></svg> }
               ].map((card, i) => (
-                <div 
-                  key={i} 
-                  className="bg-white dark:bg-slate-900 border border-gray-200 dark:border-slate-800 hover:border-indigo-500/40 dark:hover:border-indigo-500/40 hover:-translate-y-1 hover:shadow-lg hover:shadow-indigo-500/5 rounded-2xl p-6 shadow-sm flex flex-col transition-all duration-300 cursor-default"
+                <div
+                  key={i}
+                  className="glass-card hover:border-violet-500/20 hover:-translate-y-1 hover:shadow-glow-purple rounded-2xl p-5 flex flex-col transition-all duration-300 cursor-default group hover-lift"
                 >
-                  <div className="flex items-center justify-between mb-4">
-                    <h3 className="text-sm font-semibold text-gray-500 dark:text-slate-400 font-display">{card.title}</h3>
-                    <div className="w-8 h-8 rounded-lg bg-indigo-50 dark:bg-indigo-950/40 flex items-center justify-center text-indigo-600 dark:text-indigo-400">
+                  <div className="flex items-center justify-between mb-3.5">
+                    <span className="text-xs font-semibold text-slate-400 font-display">{card.title}</span>
+                    <div className="w-8 h-8 rounded-lg bg-violet-500/10 border border-violet-500/10 flex items-center justify-center text-violet-400 group-hover:shadow-glow-purple-sm transition-all duration-300">
                       {card.icon}
                     </div>
                   </div>
-                  <div className="space-y-1.5 flex-1">
-                    <div className="text-lg sm:text-[24px] lg:text-lg xl:text-2xl font-bold text-gray-900 dark:text-white font-display tracking-tight break-words">
-                      <AnimatedCounter 
-                        value={card.value} 
-                        prefix={card.isAmount ? '₹' : ''} 
-                        suffix={card.suffix || ''} 
+                  <div className="space-y-1 flex-1">
+                    <div className="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-white font-display tracking-tight break-words">
+                      <AnimatedCounter
+                        value={card.value}
+                        prefix={card.isAmount ? '₹' : ''}
+                        suffix={card.suffix || ''}
                       />
                     </div>
                     {card.subtitle && (
-                      <div className="text-xs text-gray-500 dark:text-slate-400 font-medium">
+                      <div className="text-xs text-slate-500 dark:text-slate-400 font-medium">
                         {card.subtitle}
                       </div>
                     )}
                   </div>
-                  <div className="mt-4 flex flex-wrap items-center gap-x-1.5 gap-y-0.5 text-xs font-semibold leading-none">
-                    <span className="inline-flex items-center text-emerald-600 dark:text-emerald-400">
-                      ↗ {card.change}
+                  <div className="mt-3.5 flex items-center gap-1.5 text-xs font-semibold leading-none">
+                    <span className={`inline-flex items-center ${card.change.startsWith('-') || card.change.toLowerCase().includes('down') || card.change.toLowerCase().includes('critical')
+                        ? 'text-rose-600 dark:text-rose-400'
+                        : card.change.toLowerCase().includes('stable')
+                          ? 'text-slate-400'
+                          : 'text-emerald-600 dark:text-emerald-400'
+                      }`}>
+                      {card.change.startsWith('-') || card.change.toLowerCase().includes('down') ? '↘' : card.change.toLowerCase().includes('stable') ? '' : '↗'} {card.change}
                     </span>
-                    <span className="text-gray-400 dark:text-slate-500 font-medium whitespace-nowrap">vs last period</span>
+                    <span className="text-slate-500 dark:text-slate-400 font-medium whitespace-nowrap">vs last period</span>
                   </div>
                 </div>
               ))}
@@ -917,17 +919,17 @@ export default function Analytics() {
 
             {/* Inventory Snapshots History */}
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-              <div className="lg:col-span-2 bg-white/60 dark:bg-slate-900/60 backdrop-blur-md border border-white/20 dark:border-slate-800/80 rounded-3xl p-6 shadow-md">
-                <h3 className="text-lg font-bold text-gray-800 dark:text-slate-100 mb-2">Historical Stock Snapshot Value</h3>
-                <p className="text-xs text-gray-400 dark:text-slate-500 mb-6">Total inventory value stored at the beginning of each period</p>
+              <div className="lg:col-span-2 bg-navy-800/60 backdrop-blur-md border border-white/[0.06] rounded-3xl p-6 shadow-md">
+                <h3 className="text-lg font-bold text-slate-800 dark:text-white mb-2">Historical Stock Snapshot Value</h3>
+                <p className="text-xs text-slate-500 mb-6">Total inventory value stored at the beginning of each period</p>
                 <div className="h-64">
                   <AreaChart data={currentInventory.history} color="blue" />
                 </div>
               </div>
               {/* Stock Alerts & Anomalies */}
-              <div className="bg-white/60 dark:bg-slate-900/60 backdrop-blur-md border border-white/20 dark:border-slate-800/80 rounded-3xl p-6 shadow-md">
-                <h3 className="text-lg font-bold text-gray-800 dark:text-slate-100 mb-1">Stock Level Alerts</h3>
-                <p className="text-xs text-gray-400 dark:text-slate-500 mb-4">Detected slow-moving or critical inventory items</p>
+              <div className="bg-navy-800/60 backdrop-blur-md border border-white/[0.06] rounded-3xl p-6 shadow-md">
+                <h3 className="text-lg font-bold text-slate-800 dark:text-white mb-1">Stock Level Alerts</h3>
+                <p className="text-xs text-slate-500 mb-4">Detected slow-moving or critical inventory items</p>
                 <div className="space-y-4 max-h-64 overflow-y-auto pr-1">
                   {[...currentInventory.anomalies]
                     .sort((a, b) => {
@@ -936,26 +938,24 @@ export default function Analytics() {
                       return 0;
                     })
                     .map((item, idx) => (
-                      <div 
-                        key={idx} 
-                        className={`flex flex-col p-4 rounded-2xl border transition-all duration-300 hover:shadow-md cursor-default ${
-                          item.type === 'depleted' 
-                            ? 'bg-rose-500/5 border-rose-500/20 dark:bg-rose-500/10' 
-                            : 'bg-indigo-500/5 border-indigo-500/20 dark:bg-indigo-500/10'
-                        }`}
+                      <div
+                        key={idx}
+                        className={`flex flex-col p-4 rounded-2xl border transition-all duration-300 hover:shadow-md cursor-default ${item.type === 'depleted'
+                            ? 'bg-rose-500/5 border-rose-500/20 dark:bg-rose-500/10'
+                            : 'bg-indigo-500/5 border-indigo-500/20 dark:bg-violet-500/10'
+                          }`}
                       >
                         <div className="flex items-center justify-between mb-1.5">
-                          <span className={`text-xs font-bold ${
-                            item.type === 'depleted' ? 'text-rose-600 dark:text-rose-400' : 'text-indigo-600 dark:text-indigo-400'
-                          }`}>
+                          <span className={`text-xs font-bold ${item.type === 'depleted' ? 'text-rose-600 dark:text-rose-600 dark:text-rose-400' : 'text-violet-400'
+                            }`}>
                             {item.status}
                           </span>
-                          <span className="text-[10px] text-gray-400 font-semibold uppercase">Qty: {item.qty}</span>
+                          <span className="text-[10px] text-slate-500 font-semibold uppercase">Qty: {item.qty}</span>
                         </div>
-                        <h4 className="text-sm font-bold text-gray-800 dark:text-slate-200">{item.product}</h4>
-                        <p className="text-xs text-gray-500 dark:text-slate-400 mt-1">
-                          {item.type === 'depleted' 
-                            ? 'This product is below the reorder point. Customers may encounter order delays.' 
+                        <h4 className="text-sm font-bold text-slate-200">{item.product}</h4>
+                        <p className="text-xs text-slate-400 mt-1">
+                          {item.type === 'depleted'
+                            ? 'This product is below the reorder point. Customers may encounter order delays.'
                             : 'High level of inventory detected with extremely low sales velocities this period.'}
                         </p>
                       </div>
@@ -974,38 +974,41 @@ export default function Analytics() {
               {[
                 { title: 'CSAT Percentage', value: currentCustomers.csat_score_pct, subtitle: 'Customer satisfaction score', isAmount: false, suffix: '%', change: '+0.5%', color: 'emerald', icon: <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14.828 14.828a4 4 0 01-5.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg> },
                 { title: 'Average Star Rating', value: currentCustomers.average_rating, subtitle: 'Overall feedback rating', isAmount: false, suffix: ' / 5', change: '+0.1', color: 'indigo', icon: <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.907c.961 0 1.36 1.254.588 1.81l-3.97 2.883a1 1 0 00-.364 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.971-2.883a1 1 0 00-1.17 0l-3.971 2.883c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.364-1.118L2.98 9.3c-.773-.556-.375-1.81.587-1.81h4.907a1 1 0 00.95-.69l1.519-4.674z" /></svg> },
-                { title: 'Total Reviews Analyzed', value: currentCustomers.total_reviews, subtitle: 'Processed review count', isAmount: false, change: '+45 this week', color: 'blue', icon: <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z" /></svg> },
-                { title: 'Total Negative Cases', value: currentCustomers.sentiment_distribution.find(s => s.label === 'Negative')?.value || 0, subtitle: 'Alerted complaints/negative issues', isAmount: false, change: 'Down 4%', color: 'rose', icon: <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg> }
+                { title: 'Total Reviews Processed', value: currentCustomers.total_reviews, subtitle: 'Processed review count', isAmount: false, change: '+45 this week', color: 'blue', icon: <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z" /></svg> },
+                { title: 'Total Negative Cases', value: currentCustomers.sentiment_distribution.find(s => s.label === 'Negative')?.value || 0, subtitle: 'Alerted complaints/issues', isAmount: false, change: 'Down 4%', color: 'rose', icon: <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg> }
               ].map((card, i) => (
-                <div 
-                  key={i} 
-                  className="bg-white dark:bg-slate-900 border border-gray-200 dark:border-slate-800 hover:border-indigo-500/40 dark:hover:border-indigo-500/40 hover:-translate-y-1 hover:shadow-lg hover:shadow-indigo-500/5 rounded-2xl p-6 shadow-sm flex flex-col transition-all duration-300 cursor-default"
+                <div
+                  key={i}
+                  className="glass-card hover:border-violet-500/20 hover:-translate-y-1 hover:shadow-glow-purple rounded-2xl p-5 flex flex-col transition-all duration-300 cursor-default group hover-lift"
                 >
-                  <div className="flex items-center justify-between mb-4">
-                    <h3 className="text-sm font-semibold text-gray-500 dark:text-slate-400 font-display">{card.title}</h3>
-                    <div className="w-8 h-8 rounded-lg bg-indigo-50 dark:bg-indigo-950/40 flex items-center justify-center text-indigo-600 dark:text-indigo-400">
+                  <div className="flex items-center justify-between mb-3.5">
+                    <span className="text-xs font-semibold text-slate-400 font-display">{card.title}</span>
+                    <div className="w-8 h-8 rounded-lg bg-violet-500/10 flex items-center justify-center text-violet-400">
                       {card.icon}
                     </div>
                   </div>
-                  <div className="space-y-1.5 flex-1">
-                    <div className="text-lg sm:text-[24px] lg:text-lg xl:text-2xl font-bold text-gray-900 dark:text-white font-display tracking-tight break-words">
-                      <AnimatedCounter 
-                        value={card.value} 
-                        prefix={card.isAmount ? '₹' : ''} 
-                        suffix={card.suffix || ''} 
+                  <div className="space-y-1 flex-1">
+                    <div className="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-white font-display tracking-tight break-words">
+                      <AnimatedCounter
+                        value={card.value}
+                        prefix={card.isAmount ? '₹' : ''}
+                        suffix={card.suffix || ''}
                       />
                     </div>
                     {card.subtitle && (
-                      <div className="text-xs text-gray-500 dark:text-slate-400 font-medium">
+                      <div className="text-xs text-slate-500 dark:text-slate-400 font-medium">
                         {card.subtitle}
                       </div>
                     )}
                   </div>
-                  <div className="mt-4 flex flex-wrap items-center gap-x-1.5 gap-y-0.5 text-xs font-semibold leading-none">
-                    <span className="inline-flex items-center text-emerald-600 dark:text-emerald-400">
-                      ↗ {card.change}
+                  <div className="mt-3.5 flex items-center gap-1.5 text-xs font-semibold leading-none">
+                    <span className={`inline-flex items-center ${card.change.startsWith('-') || card.change.toLowerCase().includes('down') || card.change.toLowerCase().includes('critical') || card.change.toLowerCase().includes('negative')
+                        ? 'text-rose-600 dark:text-rose-400'
+                        : 'text-emerald-600 dark:text-emerald-400'
+                      }`}>
+                      {card.change.startsWith('-') || card.change.toLowerCase().includes('down') || card.change.toLowerCase().includes('negative') ? '↘' : '↗'} {card.change}
                     </span>
-                    <span className="text-gray-400 dark:text-slate-500 font-medium whitespace-nowrap">vs last period</span>
+                    <span className="text-slate-500 dark:text-slate-400 font-medium whitespace-nowrap">vs last period</span>
                   </div>
                 </div>
               ))}
@@ -1014,40 +1017,40 @@ export default function Analytics() {
             {/* Donut Sentiment breakdown and Complaints Categories */}
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
               {/* Sentiment Breakdowns */}
-              <div className="bg-white/60 dark:bg-slate-900/60 backdrop-blur-md border border-white/20 dark:border-slate-800/80 rounded-3xl p-8 shadow-md flex flex-col justify-between">
+              <div className="bg-navy-800/60 backdrop-blur-md border border-white/[0.06] rounded-3xl p-8 shadow-md flex flex-col justify-between">
                 <div>
-                  <h3 className="text-lg font-bold text-gray-800 dark:text-slate-100 mb-1">Sentiment Distribution</h3>
-                  <p className="text-xs text-gray-400 dark:text-slate-500 mb-6">AI-analyzed review tones for this company</p>
+                  <h3 className="text-lg font-bold text-slate-800 dark:text-white mb-1">Sentiment Distribution</h3>
+                  <p className="text-xs text-slate-500 mb-6">AI-analyzed review tones for this company</p>
                 </div>
                 <div className="py-2">
-                  <DonutChart 
-                    data={currentCustomers.sentiment_distribution} 
-                    innerLabel="CSAT SCORE" 
+                  <DonutChart
+                    data={currentCustomers.sentiment_distribution}
+                    innerLabel="CSAT SCORE"
                     innerValue={`${currentCustomers.csat_score_pct}%`}
                   />
                 </div>
               </div>
 
               {/* Complaints by category */}
-              <div className="bg-white/60 dark:bg-slate-900/60 backdrop-blur-md border border-white/20 dark:border-slate-800/80 rounded-3xl p-8 shadow-md">
-                <h3 className="text-lg font-bold text-gray-800 dark:text-slate-100 mb-1">Complaints Breakdown</h3>
-                <p className="text-xs text-gray-400 dark:text-slate-500 mb-6">Categorized using Natural Language Processing (NLP)</p>
-                
+              <div className="bg-navy-800/60 backdrop-blur-md border border-white/[0.06] rounded-3xl p-8 shadow-md">
+                <h3 className="text-lg font-bold text-slate-800 dark:text-white mb-1">Complaints Breakdown</h3>
+                <p className="text-xs text-slate-500 mb-6">Categorized using Natural Language Processing (NLP)</p>
+
                 <div className="space-y-5">
                   {currentCustomers.complaints_by_category.map((item, idx) => {
                     const maxVal = Math.max(...currentCustomers.complaints_by_category.map(c => c.value));
                     const pct = (item.value / maxVal) * 100;
                     return (
                       <div key={idx} className="space-y-1.5">
-                        <div className="flex justify-between items-center text-xs font-semibold text-gray-700 dark:text-slate-300">
+                        <div className="flex justify-between items-center text-xs font-semibold text-slate-300">
                           <span className="flex items-center">
                             <span className="w-2.5 h-2.5 bg-rose-500 rounded-full mr-2"></span>
                             {item.label}
                           </span>
-                          <span className="font-bold text-gray-900 dark:text-slate-100">{item.value} reviews</span>
+                          <span className="font-bold text-slate-800 dark:text-white">{item.value} reviews</span>
                         </div>
-                        <div className="h-2 bg-gray-100 dark:bg-slate-800 rounded-full overflow-hidden">
-                          <div 
+                        <div className="h-2 bg-navy-700/60 rounded-full overflow-hidden">
+                          <div
                             className="h-full bg-gradient-to-r from-rose-500 to-amber-500 rounded-full transition-all duration-1000"
                             style={{ width: `${pct}%` }}
                           ></div>
@@ -1060,12 +1063,12 @@ export default function Analytics() {
             </div>
 
             {/* Recent complaints table snippet */}
-            <div className="bg-white/60 dark:bg-slate-900/60 backdrop-blur-md border border-white/20 dark:border-slate-800/80 rounded-3xl p-6 shadow-md">
-              <h3 className="text-lg font-bold text-gray-800 dark:text-slate-100 mb-4">Flagged Customer Complaints</h3>
+            <div className="bg-navy-800/60 backdrop-blur-md border border-white/[0.06] rounded-3xl p-6 shadow-md">
+              <h3 className="text-lg font-bold text-slate-800 dark:text-white mb-4">Flagged Customer Complaints</h3>
               <div className="overflow-x-auto">
                 <table className="w-full text-left text-sm">
                   <thead>
-                    <tr className="border-b border-gray-200 dark:border-slate-700 text-gray-700 dark:text-slate-200 text-xs font-bold uppercase tracking-wider">
+                    <tr className="border-b border-white/[0.06] text-slate-200 text-xs font-bold uppercase tracking-wider">
                       <th className="pb-3 font-semibold">Customer</th>
                       <th className="pb-3 font-semibold">Product</th>
                       <th className="pb-3 font-semibold">Rating</th>
@@ -1075,20 +1078,20 @@ export default function Analytics() {
                   </thead>
                   <tbody className="divide-y divide-gray-100 dark:divide-slate-800/60">
                     {currentCustomers.recent_complaints.map((c, idx) => (
-                      <tr key={idx} className="hover:bg-gray-50/50 dark:hover:bg-slate-800/30 transition-colors">
-                        <td className="py-4 font-semibold text-gray-800 dark:text-slate-200">{c.author}</td>
-                        <td className="py-4 font-medium text-gray-600 dark:text-slate-400">{c.product}</td>
+                      <tr key={idx} className="hover:bg-navy-900/40 dark:hover:bg-slate-800/30 transition-colors">
+                        <td className="py-4 font-semibold text-slate-200">{c.author}</td>
+                        <td className="py-4 font-medium text-slate-400">{c.product}</td>
                         <td className="py-4">
-                          <span className="text-rose-500 dark:text-rose-400 font-bold bg-rose-500/10 px-2 py-0.5 rounded-lg text-xs">
+                          <span className="text-rose-500 dark:text-rose-600 dark:text-rose-400 font-bold bg-rose-500/10 px-2 py-0.5 rounded-lg text-xs">
                             {c.rating} ★
                           </span>
                         </td>
                         <td className="py-4">
-                          <span className="text-amber-600 dark:text-amber-400 bg-amber-500/10 px-2.5 py-0.5 rounded-full text-xs font-semibold">
+                          <span className="text-amber-600 text-amber-400 bg-amber-500/10 px-2.5 py-0.5 rounded-full text-xs font-semibold">
                             {c.category}
                           </span>
                         </td>
-                        <td className="py-4 text-gray-500 dark:text-slate-400 text-xs max-w-sm truncate">{c.text}</td>
+                        <td className="py-4 text-slate-400 text-xs max-w-sm truncate">{c.text}</td>
                       </tr>
                     ))}
                   </tbody>
@@ -1103,50 +1106,50 @@ export default function Analytics() {
           <div className="space-y-6">
             {/* Upper grid containing business health details */}
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-              
+
               {/* Business Health Gauge Card (Actual/Baseline calculated on raw data) */}
-              <div className="bg-white/60 dark:bg-slate-900/60 backdrop-blur-md border border-white/20 dark:border-slate-800/80 rounded-3xl p-6 shadow-md flex flex-col items-center justify-center text-center">
-                <h3 className="text-lg font-bold text-gray-800 dark:text-slate-100 mb-2">Actual Business Health</h3>
-                <p className="text-xs text-gray-400 dark:text-slate-500 mb-6">Current operational health score calculated from active data</p>
-                
+              <div className="glass-card rounded-2xl p-6 shadow-glass flex flex-col items-center justify-center text-center">
+                <h3 className="text-lg font-bold text-slate-800 dark:text-white font-display mb-1">Actual Business Health</h3>
+                <p className="text-xs text-slate-500 mb-6">Current operational health score calculated from active data</p>
+
                 {actualScore !== null ? (
                   <>
                     <div className="relative w-40 h-40 flex items-center justify-center">
                       {/* Gauge Arc Background */}
                       <svg className="w-full h-full transform -rotate-90">
-                        <circle cx="80" cy="80" r="64" stroke="currentColor" strokeWidth="12" fill="transparent" className="text-gray-100 dark:text-slate-800/50" />
-                        <circle 
-                          cx="80" 
-                          cy="80" 
-                          r="64" 
+                        <circle cx="80" cy="80" r="64" stroke="rgba(255, 255, 255, 0.04)" strokeWidth="12" fill="transparent" />
+                        <circle
+                          cx="80"
+                          cy="80"
+                          r="64"
                           stroke={
                             Number(actualScore) >= 80 ? '#10b981' :
-                            Number(actualScore) >= 60 ? '#4f46e5' :
-                            Number(actualScore) >= 40 ? '#f59e0b' : '#ef4444'
-                          } 
-                          strokeWidth="12" 
-                          fill="transparent" 
+                              Number(actualScore) >= 60 ? '#8b5cf6' :
+                                Number(actualScore) >= 40 ? '#f59e0b' : '#ef4444'
+                          }
+                          strokeWidth="12"
+                          fill="transparent"
                           strokeDasharray={`${2 * Math.PI * 64}`}
                           strokeDashoffset={`${2 * Math.PI * 64 * (1 - Number(actualScore) / 100)}`}
                           strokeLinecap="round"
                         />
                       </svg>
                       <div className="absolute inset-0 flex flex-col items-center justify-center select-none">
-                        <span className="text-4xl font-extrabold text-gray-900 dark:text-white">{actualScore}</span>
-                        <span className="text-[10px] uppercase font-bold text-gray-400 dark:text-slate-500 mt-1">{actualCategory}</span>
+                        <span className="text-4xl font-extrabold text-white">{actualScore}</span>
+                        <span className="text-[10px] uppercase font-bold text-slate-500 mt-1">{actualCategory}</span>
                       </div>
                     </div>
-                    
-                    <p className="text-xs text-gray-500 dark:text-slate-400 mt-6 max-w-xs">
+
+                    <p className="text-xs text-slate-400 mt-6 max-w-xs leading-relaxed">
                       {actualDesc}
                     </p>
                   </>
                 ) : (
                   <div className="flex flex-col items-center justify-center py-8">
-                    <svg className="w-12 h-12 text-gray-300 dark:text-slate-700 mb-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <svg className="w-12 h-12 text-slate-600 mb-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
                     </svg>
-                    <p className="text-xs font-semibold text-gray-400 dark:text-slate-500 max-w-xs">
+                    <p className="text-xs font-semibold text-slate-500 max-w-xs">
                       No operational data is currently available. Please import transactional data to view actual health score.
                     </p>
                   </div>
@@ -1154,68 +1157,68 @@ export default function Analytics() {
               </div>
 
               {/* Predicted Business Health Score Card (Actual/Real DB data) */}
-              <div className="bg-white/60 dark:bg-slate-900/60 backdrop-blur-md border border-white/20 dark:border-slate-800/80 rounded-3xl p-6 shadow-md flex flex-col items-center justify-center text-center">
-                <h3 className="text-lg font-bold text-gray-800 dark:text-slate-100 mb-2">Predicted Business Health</h3>
-                <p className="text-xs text-gray-400 dark:text-slate-500 mb-6">
-                  {latestHealthPrediction 
-                    ? `ML Health Score for period ending ${latestHealthPrediction.period_end}` 
+              <div className="glass-card rounded-2xl p-6 shadow-glass flex flex-col items-center justify-center text-center">
+                <h3 className="text-lg font-bold text-slate-800 dark:text-white font-display mb-1">Predicted Business Health</h3>
+                <p className="text-xs text-slate-500 mb-6">
+                  {latestHealthPrediction
+                    ? `ML Health Score for period ending ${latestHealthPrediction.period_end}`
                     : 'Real-time forecasting score generated by model'}
                 </p>
-                
+
                 {latestHealthPrediction ? (
                   <>
                     <div className="relative w-40 h-40 flex items-center justify-center">
                       {/* Gauge Arc Background */}
                       <svg className="w-full h-full transform -rotate-90">
-                        <circle cx="80" cy="80" r="64" stroke="currentColor" strokeWidth="12" fill="transparent" className="text-gray-100 dark:text-slate-800/50" />
-                        <circle 
-                          cx="80" 
-                          cy="80" 
-                          r="64" 
+                        <circle cx="80" cy="80" r="64" stroke="rgba(255, 255, 255, 0.04)" strokeWidth="12" fill="transparent" />
+                        <circle
+                          cx="80"
+                          cy="80"
+                          r="64"
                           stroke={
                             Number(latestHealthPrediction.value) >= 80 ? '#10b981' :
-                            Number(latestHealthPrediction.value) >= 60 ? '#4f46e5' :
-                            Number(latestHealthPrediction.value) >= 40 ? '#f59e0b' : '#ef4444'
-                          } 
-                          strokeWidth="12" 
-                          fill="transparent" 
+                              Number(latestHealthPrediction.value) >= 60 ? '#8b5cf6' :
+                                Number(latestHealthPrediction.value) >= 40 ? '#f59e0b' : '#ef4444'
+                          }
+                          strokeWidth="12"
+                          fill="transparent"
                           strokeDasharray={`${2 * Math.PI * 64}`}
                           strokeDashoffset={`${2 * Math.PI * 64 * (1 - latestHealthPrediction.value / 100)}`}
                           strokeLinecap="round"
                         />
                       </svg>
                       <div className="absolute inset-0 flex flex-col items-center justify-center select-none">
-                        <span className="text-4xl font-extrabold text-gray-900 dark:text-white">
+                        <span className="text-4xl font-extrabold text-white">
                           {Number(latestHealthPrediction.value).toFixed(1)}
                         </span>
-                        <span className="text-[10px] uppercase font-bold text-gray-400 dark:text-slate-500 mt-1">
+                        <span className="text-[10px] uppercase font-bold text-slate-500 mt-1">
                           {
                             Number(latestHealthPrediction.value) >= 80 ? 'Very Healthy' :
-                            Number(latestHealthPrediction.value) >= 60 ? 'Healthy' :
-                            Number(latestHealthPrediction.value) >= 40 ? 'Average' : 'Critical'
+                              Number(latestHealthPrediction.value) >= 60 ? 'Healthy' :
+                                Number(latestHealthPrediction.value) >= 40 ? 'Average' : 'Critical'
                           }
                         </span>
                       </div>
                     </div>
-                    
-                    <p className="text-xs text-gray-500 dark:text-slate-400 mt-6 max-w-xs">
+
+                    <p className="text-xs text-slate-400 mt-6 max-w-xs leading-relaxed">
                       {
-                        Number(latestHealthPrediction.value) >= 80 
-                          ? 'Your business is predicted to perform at optimal efficiency. Revenue forecasts indicate strong stability and high margins.' 
+                        Number(latestHealthPrediction.value) >= 80
+                          ? 'Your business is predicted to perform at optimal efficiency. Revenue forecasts indicate strong stability and high margins.'
                           : Number(latestHealthPrediction.value) >= 60
-                          ? 'Your business is predicted to sustain a healthy growth trajectory with stable sales volume and inventory balance.'
-                          : Number(latestHealthPrediction.value) >= 40
-                          ? 'Your business is predicted to run at an average performance level. Tactical pricing or margin action is recommended.'
-                          : 'Your business is predicted to face significant inventory risks. Reorder actions or stock replenishments are highly advised.'
+                            ? 'Your business is predicted to sustain a healthy growth trajectory with stable sales volume and inventory balance.'
+                            : Number(latestHealthPrediction.value) >= 40
+                              ? 'Your business is predicted to run at an average performance level. Tactical pricing or margin action is recommended.'
+                              : 'Your business is predicted to face significant inventory risks. Reorder actions or stock replenishments are highly advised.'
                       }
                     </p>
                   </>
                 ) : (
                   <div className="flex flex-col items-center justify-center py-8">
-                    <svg className="w-12 h-12 text-gray-300 dark:text-slate-700 mb-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <svg className="w-12 h-12 text-slate-600 mb-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M13 10V3L4 14h7v7l9-11h-7z" />
                     </svg>
-                    <p className="text-xs font-semibold text-gray-400 dark:text-slate-500 max-w-xs">
+                    <p className="text-xs font-semibold text-slate-500 max-w-xs">
                       No ML prediction data has been generated yet for this business. Run the forecasting pipeline in backend.
                     </p>
                   </div>
@@ -1225,13 +1228,13 @@ export default function Analytics() {
             </div>
 
             {/* List of generated forecasts */}
-            <div className="bg-white/60 dark:bg-slate-900/60 backdrop-blur-md border border-white/20 dark:border-slate-800/80 rounded-3xl p-6 shadow-md">
+            <div className="bg-navy-800/60 backdrop-blur-md border border-white/[0.06] rounded-3xl p-6 shadow-md">
               <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-4">
                 <div>
-                  <h3 className="text-lg font-bold text-gray-800 dark:text-slate-100 mb-1">Predictive Models Output</h3>
-                  <p className="text-xs text-gray-400 dark:text-slate-500">All ML-generated predictions from the analytics_prediction table ({currentPredictions.list.length} records)</p>
+                  <h3 className="text-lg font-bold text-slate-800 dark:text-white mb-1">Predictive Models Output</h3>
+                  <p className="text-xs text-slate-500">All ML-generated predictions from the analytics_prediction table ({currentPredictions.list.length} records)</p>
                 </div>
-                <div className="flex flex-wrap gap-1.5 p-1 bg-gray-50 dark:bg-slate-950/40 rounded-xl border dark:border-slate-800">
+                <div className="flex flex-wrap gap-1.5 p-1 bg-slate-100/80 dark:bg-navy-900/40 rounded-xl border border-slate-200 dark:border-white/[0.06]">
                   {[
                     { id: 'all', label: 'All' },
                     { id: 'sales_forecast', label: 'Sales' },
@@ -1242,11 +1245,10 @@ export default function Analytics() {
                     <button
                       key={tab.id}
                       onClick={() => setPredictionFilter(tab.id)}
-                      className={`px-3 py-1 text-xs font-bold rounded-lg transition-colors ${
-                        predictionFilter === tab.id
-                          ? 'bg-white dark:bg-slate-900 text-indigo-600 dark:text-indigo-400 shadow-sm border border-gray-100 dark:border-slate-800/50'
-                          : 'text-gray-500 hover:text-gray-800 dark:text-slate-400 dark:hover:text-slate-200'
-                      }`}
+                      className={`px-3 py-1 text-xs font-bold rounded-lg transition-colors ${predictionFilter === tab.id
+                          ? 'bg-navy-800/60 text-violet-400 shadow-sm border border-white/[0.04] border-white/[0.06]'
+                          : 'text-slate-500 hover:text-slate-800 dark:text-slate-400 dark:hover:text-slate-200'
+                        }`}
                     >
                       {tab.label}
                     </button>
@@ -1256,7 +1258,7 @@ export default function Analytics() {
               <div className="overflow-x-auto">
                 <table className="w-full text-left text-sm">
                   <thead>
-                    <tr className="border-b border-gray-200 dark:border-slate-700 text-gray-700 dark:text-slate-200 text-xs font-bold uppercase tracking-wider">
+                    <tr className="border-b border-white/[0.06] text-slate-200 text-xs font-bold uppercase tracking-wider">
                       <th className="pb-3 font-semibold">Model Name</th>
                       <th className="pb-3 font-semibold">Forecast Type</th>
                       <th className="pb-3 font-semibold">Product</th>
@@ -1276,12 +1278,12 @@ export default function Analytics() {
                       const typeLabel = typeLabels[pred.prediction_type] || pred.prediction_type;
 
                       const typeColors = {
-                        'sales_forecast': 'text-emerald-600 dark:text-emerald-400 bg-emerald-500/10',
+                        'sales_forecast': 'text-emerald-600 text-emerald-600 dark:text-emerald-400 bg-emerald-500/10',
                         'demand_forecast': 'text-blue-600 dark:text-blue-400 bg-blue-500/10',
-                        'business_health': 'text-indigo-600 dark:text-indigo-400 bg-indigo-500/10',
-                        'product_risk': 'text-rose-600 dark:text-rose-400 bg-rose-500/10'
+                        'business_health': 'text-violet-400 bg-violet-500/10',
+                        'product_risk': 'text-rose-600 dark:text-rose-600 dark:text-rose-400 bg-rose-500/10'
                       };
-                      const typeColor = typeColors[pred.prediction_type] || 'text-gray-600 bg-gray-100';
+                      const typeColor = typeColors[pred.prediction_type] || 'text-slate-400 bg-gray-100';
 
                       const displayValue = pred.prediction_type === 'sales_forecast'
                         ? `₹${Number(pred.value || 0).toLocaleString('en-IN', { maximumFractionDigits: 2 })}`
@@ -1291,11 +1293,11 @@ export default function Analytics() {
                       const confPct = conf <= 1 ? (conf * 100).toFixed(1) : Number(conf).toFixed(1);
 
                       return (
-                        <tr key={pred.id} className="hover:bg-gray-50/50 dark:hover:bg-slate-800/30 transition-colors">
+                        <tr key={pred.id} className="hover:bg-navy-900/40 dark:hover:bg-slate-800/30 transition-colors">
                           <td className="py-3.5">
-                            <span className="font-semibold text-indigo-600 dark:text-indigo-400">{pred.model_name || pred.model_version || 'N/A'}</span>
+                            <span className="font-semibold text-violet-400">{pred.model_name || pred.model_version || 'N/A'}</span>
                             {pred.model_version && pred.model_name && (
-                              <span className="text-[10px] text-gray-400 dark:text-slate-500 ml-1.5">v{pred.model_version}</span>
+                              <span className="text-[10px] text-slate-500 ml-1.5">v{pred.model_version}</span>
                             )}
                           </td>
                           <td className="py-3.5">
@@ -1303,21 +1305,20 @@ export default function Analytics() {
                               {typeLabel}
                             </span>
                           </td>
-                          <td className="py-3.5 text-xs font-medium text-gray-700 dark:text-slate-300">
+                          <td className="py-3.5 text-xs font-medium text-slate-300">
                             {pred.product || '—'}
                           </td>
-                          <td className="py-3.5 text-xs text-gray-500 dark:text-slate-400">
+                          <td className="py-3.5 text-xs text-slate-400">
                             {pred.period_start} to {pred.period_end}
                           </td>
-                          <td className="py-3.5 text-right font-extrabold text-gray-900 dark:text-slate-100">
+                          <td className="py-3.5 text-right font-extrabold text-white">
                             {displayValue}
                           </td>
                           <td className="py-3.5 text-right">
-                            <span className={`text-xs font-bold px-2 py-0.5 rounded-full ${
-                              Number(confPct) >= 90 ? 'text-emerald-500 bg-emerald-500/10' :
-                              Number(confPct) >= 70 ? 'text-amber-500 bg-amber-500/10' :
-                              'text-rose-500 bg-rose-500/10'
-                            }`}>
+                            <span className={`text-xs font-bold px-2 py-0.5 rounded-full ${Number(confPct) >= 90 ? 'text-emerald-500 bg-emerald-500/10' :
+                                Number(confPct) >= 70 ? 'text-amber-500 bg-amber-500/10' :
+                                  'text-rose-500 bg-rose-500/10'
+                              }`}>
                               {confPct}%
                             </span>
                           </td>
