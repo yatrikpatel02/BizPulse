@@ -32,6 +32,168 @@ export default function Reports() {
   const [viewerData, setViewerData] = useState(null);
   const [viewerLoading, setViewerLoading] = useState(false);
 
+  // Clean and robust iframe-based printing logic
+  const handlePrint = () => {
+    const printContent = document.getElementById('report-print-area');
+    if (!printContent) return;
+
+    // Create a hidden iframe
+    const iframe = document.createElement('iframe');
+    iframe.style.position = 'fixed';
+    iframe.style.right = '0';
+    iframe.style.bottom = '0';
+    iframe.style.width = '0';
+    iframe.style.height = '0';
+    iframe.style.border = '0';
+    iframe.style.zIndex = '-1000';
+    document.body.appendChild(iframe);
+
+    const doc = iframe.contentWindow.document;
+    doc.open();
+    doc.write(`
+      <html>
+        <head>
+          <title>${reportViewer?.report_type ? reportViewer.report_type.charAt(0).toUpperCase() + reportViewer.report_type.slice(1) : 'Business'} Report</title>
+          <style>
+            body {
+              background: white !important;
+              color: black !important;
+              font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif !important;
+              padding: 40px !important;
+              margin: 0 !important;
+              font-size: 13px !important;
+              line-height: 1.5 !important;
+            }
+            /* Clean print layout styles */
+            #report-print-area {
+              width: 100% !important;
+              max-width: 100% !important;
+            }
+            * {
+              color: #000000 !important;
+              background-color: transparent !important;
+              box-shadow: none !important;
+              border-color: #e2e8f0 !important;
+            }
+            h4 {
+              font-size: 24px !important;
+              margin: 0 0 6px 0 !important;
+              font-weight: 700 !important;
+            }
+            h5 {
+              font-size: 16px !important;
+              margin: 0 0 12px 0 !important;
+              font-weight: 700 !important;
+              border-bottom: 2px solid #e2e8f0 !important;
+              padding-pb: 6px !important;
+            }
+            .grid {
+              display: grid !important;
+              grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+              gap: 16px !important;
+              margin-bottom: 24px !important;
+            }
+            .p-3 {
+              padding: 12px !important;
+              border: 1px solid #e2e8f0 !important;
+              border-radius: 12px !important;
+            }
+            .text-xs {
+              font-size: 11px !important;
+            }
+            .text-xl {
+              font-size: 20px !important;
+            }
+            .font-bold {
+              font-weight: 700 !important;
+            }
+            .font-semibold {
+              font-weight: 600 !important;
+            }
+            .text-gray-500 {
+              color: #64748b !important;
+            }
+            .text-gray-900 {
+              color: #0f172a !important;
+            }
+            .report-section {
+              page-break-inside: avoid !important;
+              break-inside: avoid !important;
+              margin-bottom: 40px !important;
+            }
+            table {
+              width: 100% !important;
+              border-collapse: collapse !important;
+              margin-top: 8px !important;
+              margin-bottom: 16px !important;
+            }
+            th, td {
+              padding: 8px 12px !important;
+              border-bottom: 1px solid #e2e8f0 !important;
+              text-align: left !important;
+            }
+            th {
+              font-weight: 600 !important;
+              color: #64748b !important;
+            }
+            hr {
+              border: 0 !important;
+              border-top: 1px solid #e2e8f0 !important;
+              margin: 24px 0 !important;
+            }
+            .flex {
+              display: flex !important;
+            }
+            .justify-between {
+              justify-content: space-between !important;
+            }
+            .items-start {
+              align-items: flex-start !important;
+            }
+            .items-center {
+              align-items: center !important;
+            }
+            .gap-2 {
+              gap: 8px !important;
+            }
+            .bg-indigo-500\\/10 {
+              background-color: #f0fdf4 !important;
+              color: #16a34a !important;
+            }
+            .px-2.5 {
+              padding-left: 10px !important;
+              padding-right: 10px !important;
+            }
+            .py-1 {
+              padding-top: 4px !important;
+              padding-bottom: 4px !important;
+            }
+            .rounded-lg {
+              border-radius: 8px !important;
+            }
+          </style>
+        </head>
+        <body>
+          <div id="report-print-area">
+            ${printContent.innerHTML}
+          </div>
+          <script>
+            window.onload = function() {
+              setTimeout(function() {
+                window.focus();
+                window.print();
+                setTimeout(function() {
+                  window.frameElement.remove();
+                }, 1000);
+              }, 500);
+            };
+          </script>
+        </body>
+      </html>
+    `);
+    doc.close();
+  };
+
   // List of report templates
   const reportTemplates = [
     {
@@ -223,7 +385,7 @@ export default function Reports() {
     const avgOrderValue = totalOrders > 0 ? (metrics.total_revenue / totalOrders) : 0;
 
     return (
-      <div className="space-y-3">
+      <div className="space-y-3 report-section">
         <h5 className="font-bold text-gray-800 dark:text-slate-200">📊 Sales Performance</h5>
         <div className="grid grid-cols-2 gap-3">
           <div className="p-3 bg-white dark:bg-slate-900 border border-gray-100 dark:border-slate-800 rounded-xl">
@@ -276,7 +438,7 @@ export default function Reports() {
     const summary = inv.health || {};
     const anomalies = inv.anomalies || [];
     return (
-      <div className="space-y-3">
+      <div className="space-y-3 report-section">
         <h5 className="font-bold text-gray-800 dark:text-slate-200">📦 Inventory Health</h5>
         <div className="grid grid-cols-2 gap-3">
           <div className="p-3 bg-white dark:bg-slate-900 border border-gray-100 dark:border-slate-800 rounded-xl">
@@ -321,7 +483,7 @@ export default function Reports() {
     const sentiments = cust.sentiment_distribution || {};
     const complaints = cust.complaints_by_category || [];
     return (
-      <div className="space-y-3">
+      <div className="space-y-3 report-section">
         <h5 className="font-bold text-gray-800 dark:text-slate-200">💬 Customer Feedback Intelligence</h5>
         <div className="grid grid-cols-2 gap-3">
           <div className="p-3 bg-white dark:bg-slate-900 border border-gray-100 dark:border-slate-800 rounded-xl">
@@ -374,7 +536,7 @@ export default function Reports() {
     if (!market) return <p className="text-xs text-gray-400 italic">Market data unavailable.</p>;
     const insights = market.insights || market.results || [];
     return (
-      <div className="space-y-3">
+      <div className="space-y-3 report-section">
         <h5 className="font-bold text-gray-800 dark:text-slate-200">📈 Market Trend Insights</h5>
         {insights.length === 0 ? (
           <p className="text-xs text-gray-400 italic">No market trend data available for the analyzed keywords.</p>
@@ -404,7 +566,7 @@ export default function Reports() {
 
   return (
     <div className="space-y-6">
-      <div className="space-y-6 no-print">
+      <div className="space-y-6">
         {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
         <div>
@@ -574,7 +736,7 @@ export default function Reports() {
       {generationModal && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-sm animate-fade-in">
           <div className="w-full max-w-md bg-white dark:bg-slate-900 border border-gray-200 dark:border-slate-800 rounded-3xl p-6 shadow-2xl space-y-4 animate-scale-up">
-            <div className="flex items-center justify-between border-b dark:border-slate-800/80 pb-3">
+            <div className="flex items-center justify-between border-b dark:border-slate-800/80 pb-3 ">
               <h3 className="text-lg font-bold text-gray-900 dark:text-white font-display">
                 Generate {generationModal.title}
               </h3>
@@ -634,10 +796,10 @@ export default function Reports() {
 
       {/* Report Viewer Modal — shows REAL data */}
       {reportViewer && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-sm animate-fade-in">
-          <div className="w-full max-w-3xl bg-white dark:bg-slate-900 border border-gray-200 dark:border-slate-800 rounded-3xl p-6 shadow-2xl space-y-4 animate-scale-up max-h-[90vh] overflow-y-auto">
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-sm animate-fade-in ">
+          <div className="w-full max-w-3xl bg-white dark:bg-slate-900 border border-gray-200 dark:border-slate-800 rounded-3xl p-6 shadow-2xl space-y-4 animate-scale-up max-h-[90vh] overflow-y-auto ">
             {/* Modal Header */}
-            <div className="flex items-center justify-between border-b dark:border-slate-800/80 pb-3">
+            <div className="flex items-center justify-between border-b dark:border-slate-800/80 pb-3 ">
               <h3 className="text-xl font-bold text-gray-900 dark:text-white font-display capitalize flex items-center gap-2">
                 <span>📄</span> {reportViewer.report_type} Report
               </h3>
@@ -702,12 +864,12 @@ export default function Reports() {
             </div>
 
             {/* Actions */}
-            <div className="pt-4 border-t dark:border-slate-800/80 flex items-center justify-end gap-3">
+            <div className="pt-4 border-t dark:border-slate-800/80 flex items-center justify-end gap-3 ">
               <button onClick={() => { setReportViewer(null); setViewerData(null); }}
                 className="px-5 py-2.5 bg-gray-100 hover:bg-gray-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-gray-700 dark:text-slate-300 font-semibold text-xs rounded-xl transition-all duration-200">
                 Close
               </button>
-              <button onClick={() => window.print()}
+              <button onClick={handlePrint}
                 className="px-5 py-2.5 bg-indigo-600 hover:bg-indigo-700 text-white font-semibold text-xs rounded-xl hover:shadow-lg hover:shadow-indigo-500/20 hover:-translate-y-0.5 transition-all duration-300">
                 🖨️ Print / Save PDF
               </button>

@@ -1,0 +1,541 @@
+date,product_name,category,quantity_on_hand,reorder_point
+2024-01-31,Allen Solly Polo T-Shirt,Fashion,8,40
+2024-01-31,AmazonBasics Adjustable Laptop Stand,Office & Computing,5,20
+2024-01-31,Anker 65W GaN Fast Charger,Electronics,25,40
+2024-01-31,Biotique Bio Morning Nector SPF,Beauty,82,80
+2024-01-31,FabIndia Cotton Kurta,Fashion,24,25
+2024-01-31,H&M Relaxed Fit Shirt,Fashion,5,50
+2024-01-31,HP 65W Laptop Power Adapter,Office & Computing,6,15
+2024-01-31,JBL Flip 6 Bluetooth Speaker,Electronics,5,18
+2024-01-31,Kuber Industries Storage Box,Home & Living,25,45
+2024-01-31,Lakme Absolute Foundation,Beauty,59,45
+2024-01-31,Levi's 511 Slim Fit Jeans,Fashion,18,25
+2024-01-31,Logitech MX Keys Keyboard,Electronics,5,15
+2024-01-31,Mamaearth Vitamin C Face Wash,Beauty,11,70
+2024-01-31,Mi 10000mAh Power Bank,Electronics,5,35
+2024-01-31,Milton Thermosteel Flask 1L,Home & Living,29,35
+2024-01-31,Minimalist 10% Niacinamide Serum,Beauty,65,60
+2024-01-31,Pigeon Aluminium Non-Stick Pan,Home & Living,24,25
+2024-01-31,Plum Green Tea Toner 200ml,Beauty,67,60
+2024-01-31,Portronics Table Lamp LED,Office & Computing,5,20
+2024-01-31,Prestige Induction Cooktop 1200W,Home & Living,5,15
+2024-01-31,Puma Classic Track Pants,Fashion,5,30
+2024-01-31,Royalford Bamboo Chopping Board,Home & Living,5,30
+2024-01-31,Samsung Galaxy Buds3 Pro,Electronics,14,20
+2024-01-31,Sony WH-1000XM5 Headphones,Electronics,5,10
+2024-01-31,Story@Home Blackout Curtains,Home & Living,14,20
+2024-01-31,Syska USB Hub 4-Port,Office & Computing,21,40
+2024-01-31,Woodland Casual Sneakers,Fashion,5,20
+2024-01-31,Wow Skin Science Hair Oil,Beauty,43,55
+2024-01-31,Zebronics ZEB-Crystal Pro Webcam,Electronics,5,25
+2024-01-31,boAt Airdopes 141 TWS Earbuds,Electronics,5,30
+2024-02-29,Allen Solly Polo T-Shirt,Fashion,5,40
+2024-02-29,AmazonBasics Adjustable Laptop Stand,Office & Computing,5,20
+2024-02-29,Anker 65W GaN Fast Charger,Electronics,40,40
+2024-02-29,Biotique Bio Morning Nector SPF,Beauty,75,80
+2024-02-29,FabIndia Cotton Kurta,Fashion,5,25
+2024-02-29,H&M Relaxed Fit Shirt,Fashion,31,50
+2024-02-29,HP 65W Laptop Power Adapter,Office & Computing,5,15
+2024-02-29,JBL Flip 6 Bluetooth Speaker,Electronics,5,18
+2024-02-29,Kuber Industries Storage Box,Home & Living,25,45
+2024-02-29,Lakme Absolute Foundation,Beauty,39,45
+2024-02-29,Levi's 511 Slim Fit Jeans,Fashion,5,25
+2024-02-29,Logitech MX Keys Keyboard,Electronics,7,15
+2024-02-29,Mamaearth Vitamin C Face Wash,Beauty,44,70
+2024-02-29,Mi 10000mAh Power Bank,Electronics,37,35
+2024-02-29,Milton Thermosteel Flask 1L,Home & Living,38,35
+2024-02-29,Minimalist 10% Niacinamide Serum,Beauty,63,60
+2024-02-29,Pigeon Aluminium Non-Stick Pan,Home & Living,23,25
+2024-02-29,Plum Green Tea Toner 200ml,Beauty,34,60
+2024-02-29,Portronics Table Lamp LED,Office & Computing,5,20
+2024-02-29,Prestige Induction Cooktop 1200W,Home & Living,5,15
+2024-02-29,Puma Classic Track Pants,Fashion,5,30
+2024-02-29,Royalford Bamboo Chopping Board,Home & Living,42,30
+2024-02-29,Samsung Galaxy Buds3 Pro,Electronics,17,20
+2024-02-29,Sony WH-1000XM5 Headphones,Electronics,14,10
+2024-02-29,Story@Home Blackout Curtains,Home & Living,6,20
+2024-02-29,Syska USB Hub 4-Port,Office & Computing,33,40
+2024-02-29,Woodland Casual Sneakers,Fashion,12,20
+2024-02-29,Wow Skin Science Hair Oil,Beauty,33,55
+2024-02-29,Zebronics ZEB-Crystal Pro Webcam,Electronics,11,25
+2024-02-29,boAt Airdopes 141 TWS Earbuds,Electronics,28,30
+2024-03-31,Allen Solly Polo T-Shirt,Fashion,23,40
+2024-03-31,AmazonBasics Adjustable Laptop Stand,Office & Computing,37,20
+2024-03-31,Anker 65W GaN Fast Charger,Electronics,18,40
+2024-03-31,Biotique Bio Morning Nector SPF,Beauty,35,80
+2024-03-31,FabIndia Cotton Kurta,Fashion,5,25
+2024-03-31,H&M Relaxed Fit Shirt,Fashion,13,50
+2024-03-31,HP 65W Laptop Power Adapter,Office & Computing,5,15
+2024-03-31,JBL Flip 6 Bluetooth Speaker,Electronics,5,18
+2024-03-31,Kuber Industries Storage Box,Home & Living,32,45
+2024-03-31,Lakme Absolute Foundation,Beauty,36,45
+2024-03-31,Levi's 511 Slim Fit Jeans,Fashion,5,25
+2024-03-31,Logitech MX Keys Keyboard,Electronics,5,15
+2024-03-31,Mamaearth Vitamin C Face Wash,Beauty,39,70
+2024-03-31,Mi 10000mAh Power Bank,Electronics,5,35
+2024-03-31,Milton Thermosteel Flask 1L,Home & Living,27,35
+2024-03-31,Minimalist 10% Niacinamide Serum,Beauty,15,60
+2024-03-31,Pigeon Aluminium Non-Stick Pan,Home & Living,5,25
+2024-03-31,Plum Green Tea Toner 200ml,Beauty,64,60
+2024-03-31,Portronics Table Lamp LED,Office & Computing,5,20
+2024-03-31,Prestige Induction Cooktop 1200W,Home & Living,5,15
+2024-03-31,Puma Classic Track Pants,Fashion,7,30
+2024-03-31,Royalford Bamboo Chopping Board,Home & Living,10,30
+2024-03-31,Samsung Galaxy Buds3 Pro,Electronics,5,20
+2024-03-31,Sony WH-1000XM5 Headphones,Electronics,5,10
+2024-03-31,Story@Home Blackout Curtains,Home & Living,5,20
+2024-03-31,Syska USB Hub 4-Port,Office & Computing,36,40
+2024-03-31,Woodland Casual Sneakers,Fashion,5,20
+2024-03-31,Wow Skin Science Hair Oil,Beauty,14,55
+2024-03-31,Zebronics ZEB-Crystal Pro Webcam,Electronics,17,25
+2024-03-31,boAt Airdopes 141 TWS Earbuds,Electronics,24,30
+2024-04-30,Allen Solly Polo T-Shirt,Fashion,5,40
+2024-04-30,AmazonBasics Adjustable Laptop Stand,Office & Computing,5,20
+2024-04-30,Anker 65W GaN Fast Charger,Electronics,30,40
+2024-04-30,Biotique Bio Morning Nector SPF,Beauty,64,80
+2024-04-30,FabIndia Cotton Kurta,Fashion,20,25
+2024-04-30,H&M Relaxed Fit Shirt,Fashion,32,50
+2024-04-30,HP 65W Laptop Power Adapter,Office & Computing,5,15
+2024-04-30,JBL Flip 6 Bluetooth Speaker,Electronics,5,18
+2024-04-30,Kuber Industries Storage Box,Home & Living,13,45
+2024-04-30,Lakme Absolute Foundation,Beauty,17,45
+2024-04-30,Levi's 511 Slim Fit Jeans,Fashion,5,25
+2024-04-30,Logitech MX Keys Keyboard,Electronics,5,15
+2024-04-30,Mamaearth Vitamin C Face Wash,Beauty,33,70
+2024-04-30,Mi 10000mAh Power Bank,Electronics,44,35
+2024-04-30,Milton Thermosteel Flask 1L,Home & Living,14,35
+2024-04-30,Minimalist 10% Niacinamide Serum,Beauty,38,60
+2024-04-30,Pigeon Aluminium Non-Stick Pan,Home & Living,5,25
+2024-04-30,Plum Green Tea Toner 200ml,Beauty,38,60
+2024-04-30,Portronics Table Lamp LED,Office & Computing,5,20
+2024-04-30,Prestige Induction Cooktop 1200W,Home & Living,5,15
+2024-04-30,Puma Classic Track Pants,Fashion,18,30
+2024-04-30,Royalford Bamboo Chopping Board,Home & Living,9,30
+2024-04-30,Samsung Galaxy Buds3 Pro,Electronics,5,20
+2024-04-30,Sony WH-1000XM5 Headphones,Electronics,5,10
+2024-04-30,Story@Home Blackout Curtains,Home & Living,7,20
+2024-04-30,Syska USB Hub 4-Port,Office & Computing,5,40
+2024-04-30,Woodland Casual Sneakers,Fashion,12,20
+2024-04-30,Wow Skin Science Hair Oil,Beauty,16,55
+2024-04-30,Zebronics ZEB-Crystal Pro Webcam,Electronics,5,25
+2024-04-30,boAt Airdopes 141 TWS Earbuds,Electronics,45,30
+2024-05-31,Allen Solly Polo T-Shirt,Fashion,5,40
+2024-05-31,AmazonBasics Adjustable Laptop Stand,Office & Computing,5,20
+2024-05-31,Anker 65W GaN Fast Charger,Electronics,16,40
+2024-05-31,Biotique Bio Morning Nector SPF,Beauty,58,80
+2024-05-31,FabIndia Cotton Kurta,Fashion,5,25
+2024-05-31,H&M Relaxed Fit Shirt,Fashion,5,50
+2024-05-31,HP 65W Laptop Power Adapter,Office & Computing,5,15
+2024-05-31,JBL Flip 6 Bluetooth Speaker,Electronics,5,18
+2024-05-31,Kuber Industries Storage Box,Home & Living,36,45
+2024-05-31,Lakme Absolute Foundation,Beauty,49,45
+2024-05-31,Levi's 511 Slim Fit Jeans,Fashion,5,25
+2024-05-31,Logitech MX Keys Keyboard,Electronics,5,15
+2024-05-31,Mamaearth Vitamin C Face Wash,Beauty,37,70
+2024-05-31,Mi 10000mAh Power Bank,Electronics,7,35
+2024-05-31,Milton Thermosteel Flask 1L,Home & Living,33,35
+2024-05-31,Minimalist 10% Niacinamide Serum,Beauty,30,60
+2024-05-31,Pigeon Aluminium Non-Stick Pan,Home & Living,25,25
+2024-05-31,Plum Green Tea Toner 200ml,Beauty,73,60
+2024-05-31,Portronics Table Lamp LED,Office & Computing,5,20
+2024-05-31,Prestige Induction Cooktop 1200W,Home & Living,6,15
+2024-05-31,Puma Classic Track Pants,Fashion,5,30
+2024-05-31,Royalford Bamboo Chopping Board,Home & Living,9,30
+2024-05-31,Samsung Galaxy Buds3 Pro,Electronics,5,20
+2024-05-31,Sony WH-1000XM5 Headphones,Electronics,5,10
+2024-05-31,Story@Home Blackout Curtains,Home & Living,5,20
+2024-05-31,Syska USB Hub 4-Port,Office & Computing,7,40
+2024-05-31,Woodland Casual Sneakers,Fashion,20,20
+2024-05-31,Wow Skin Science Hair Oil,Beauty,43,55
+2024-05-31,Zebronics ZEB-Crystal Pro Webcam,Electronics,27,25
+2024-05-31,boAt Airdopes 141 TWS Earbuds,Electronics,5,30
+2024-06-30,Allen Solly Polo T-Shirt,Fashion,7,40
+2024-06-30,AmazonBasics Adjustable Laptop Stand,Office & Computing,5,20
+2024-06-30,Anker 65W GaN Fast Charger,Electronics,39,40
+2024-06-30,Biotique Bio Morning Nector SPF,Beauty,41,80
+2024-06-30,FabIndia Cotton Kurta,Fashion,35,25
+2024-06-30,H&M Relaxed Fit Shirt,Fashion,6,50
+2024-06-30,HP 65W Laptop Power Adapter,Office & Computing,10,15
+2024-06-30,JBL Flip 6 Bluetooth Speaker,Electronics,26,18
+2024-06-30,Kuber Industries Storage Box,Home & Living,25,45
+2024-06-30,Lakme Absolute Foundation,Beauty,5,45
+2024-06-30,Levi's 511 Slim Fit Jeans,Fashion,5,25
+2024-06-30,Logitech MX Keys Keyboard,Electronics,5,15
+2024-06-30,Mamaearth Vitamin C Face Wash,Beauty,63,70
+2024-06-30,Mi 10000mAh Power Bank,Electronics,19,35
+2024-06-30,Milton Thermosteel Flask 1L,Home & Living,11,35
+2024-06-30,Minimalist 10% Niacinamide Serum,Beauty,42,60
+2024-06-30,Pigeon Aluminium Non-Stick Pan,Home & Living,10,25
+2024-06-30,Plum Green Tea Toner 200ml,Beauty,55,60
+2024-06-30,Portronics Table Lamp LED,Office & Computing,26,20
+2024-06-30,Prestige Induction Cooktop 1200W,Home & Living,13,15
+2024-06-30,Puma Classic Track Pants,Fashion,11,30
+2024-06-30,Royalford Bamboo Chopping Board,Home & Living,19,30
+2024-06-30,Samsung Galaxy Buds3 Pro,Electronics,5,20
+2024-06-30,Sony WH-1000XM5 Headphones,Electronics,5,10
+2024-06-30,Story@Home Blackout Curtains,Home & Living,5,20
+2024-06-30,Syska USB Hub 4-Port,Office & Computing,5,40
+2024-06-30,Woodland Casual Sneakers,Fashion,20,20
+2024-06-30,Wow Skin Science Hair Oil,Beauty,24,55
+2024-06-30,Zebronics ZEB-Crystal Pro Webcam,Electronics,5,25
+2024-06-30,boAt Airdopes 141 TWS Earbuds,Electronics,5,30
+2024-07-31,Allen Solly Polo T-Shirt,Fashion,27,40
+2024-07-31,AmazonBasics Adjustable Laptop Stand,Office & Computing,5,20
+2024-07-31,Anker 65W GaN Fast Charger,Electronics,31,40
+2024-07-31,Biotique Bio Morning Nector SPF,Beauty,76,80
+2024-07-31,FabIndia Cotton Kurta,Fashion,5,25
+2024-07-31,H&M Relaxed Fit Shirt,Fashion,39,50
+2024-07-31,HP 65W Laptop Power Adapter,Office & Computing,5,15
+2024-07-31,JBL Flip 6 Bluetooth Speaker,Electronics,5,18
+2024-07-31,Kuber Industries Storage Box,Home & Living,5,45
+2024-07-31,Lakme Absolute Foundation,Beauty,54,45
+2024-07-31,Levi's 511 Slim Fit Jeans,Fashion,5,25
+2024-07-31,Logitech MX Keys Keyboard,Electronics,5,15
+2024-07-31,Mamaearth Vitamin C Face Wash,Beauty,55,70
+2024-07-31,Mi 10000mAh Power Bank,Electronics,5,35
+2024-07-31,Milton Thermosteel Flask 1L,Home & Living,5,35
+2024-07-31,Minimalist 10% Niacinamide Serum,Beauty,34,60
+2024-07-31,Pigeon Aluminium Non-Stick Pan,Home & Living,5,25
+2024-07-31,Plum Green Tea Toner 200ml,Beauty,38,60
+2024-07-31,Portronics Table Lamp LED,Office & Computing,5,20
+2024-07-31,Prestige Induction Cooktop 1200W,Home & Living,14,15
+2024-07-31,Puma Classic Track Pants,Fashion,5,30
+2024-07-31,Royalford Bamboo Chopping Board,Home & Living,33,30
+2024-07-31,Samsung Galaxy Buds3 Pro,Electronics,13,20
+2024-07-31,Sony WH-1000XM5 Headphones,Electronics,5,10
+2024-07-31,Story@Home Blackout Curtains,Home & Living,33,20
+2024-07-31,Syska USB Hub 4-Port,Office & Computing,22,40
+2024-07-31,Woodland Casual Sneakers,Fashion,5,20
+2024-07-31,Wow Skin Science Hair Oil,Beauty,29,55
+2024-07-31,Zebronics ZEB-Crystal Pro Webcam,Electronics,5,25
+2024-07-31,boAt Airdopes 141 TWS Earbuds,Electronics,18,30
+2024-08-31,Allen Solly Polo T-Shirt,Fashion,5,40
+2024-08-31,AmazonBasics Adjustable Laptop Stand,Office & Computing,10,20
+2024-08-31,Anker 65W GaN Fast Charger,Electronics,5,40
+2024-08-31,Biotique Bio Morning Nector SPF,Beauty,44,80
+2024-08-31,FabIndia Cotton Kurta,Fashion,5,25
+2024-08-31,H&M Relaxed Fit Shirt,Fashion,26,50
+2024-08-31,HP 65W Laptop Power Adapter,Office & Computing,5,15
+2024-08-31,JBL Flip 6 Bluetooth Speaker,Electronics,30,18
+2024-08-31,Kuber Industries Storage Box,Home & Living,36,45
+2024-08-31,Lakme Absolute Foundation,Beauty,47,45
+2024-08-31,Levi's 511 Slim Fit Jeans,Fashion,16,25
+2024-08-31,Logitech MX Keys Keyboard,Electronics,12,15
+2024-08-31,Mamaearth Vitamin C Face Wash,Beauty,61,70
+2024-08-31,Mi 10000mAh Power Bank,Electronics,24,35
+2024-08-31,Milton Thermosteel Flask 1L,Home & Living,20,35
+2024-08-31,Minimalist 10% Niacinamide Serum,Beauty,31,60
+2024-08-31,Pigeon Aluminium Non-Stick Pan,Home & Living,5,25
+2024-08-31,Plum Green Tea Toner 200ml,Beauty,36,60
+2024-08-31,Portronics Table Lamp LED,Office & Computing,5,20
+2024-08-31,Prestige Induction Cooktop 1200W,Home & Living,8,15
+2024-08-31,Puma Classic Track Pants,Fashion,22,30
+2024-08-31,Royalford Bamboo Chopping Board,Home & Living,29,30
+2024-08-31,Samsung Galaxy Buds3 Pro,Electronics,5,20
+2024-08-31,Sony WH-1000XM5 Headphones,Electronics,5,10
+2024-08-31,Story@Home Blackout Curtains,Home & Living,17,20
+2024-08-31,Syska USB Hub 4-Port,Office & Computing,5,40
+2024-08-31,Woodland Casual Sneakers,Fashion,5,20
+2024-08-31,Wow Skin Science Hair Oil,Beauty,15,55
+2024-08-31,Zebronics ZEB-Crystal Pro Webcam,Electronics,5,25
+2024-08-31,boAt Airdopes 141 TWS Earbuds,Electronics,5,30
+2024-09-30,Allen Solly Polo T-Shirt,Fashion,6,40
+2024-09-30,AmazonBasics Adjustable Laptop Stand,Office & Computing,5,20
+2024-09-30,Anker 65W GaN Fast Charger,Electronics,20,40
+2024-09-30,Biotique Bio Morning Nector SPF,Beauty,50,80
+2024-09-30,FabIndia Cotton Kurta,Fashion,17,25
+2024-09-30,H&M Relaxed Fit Shirt,Fashion,5,50
+2024-09-30,HP 65W Laptop Power Adapter,Office & Computing,5,15
+2024-09-30,JBL Flip 6 Bluetooth Speaker,Electronics,5,18
+2024-09-30,Kuber Industries Storage Box,Home & Living,15,45
+2024-09-30,Lakme Absolute Foundation,Beauty,11,45
+2024-09-30,Levi's 511 Slim Fit Jeans,Fashion,5,25
+2024-09-30,Logitech MX Keys Keyboard,Electronics,5,15
+2024-09-30,Mamaearth Vitamin C Face Wash,Beauty,39,70
+2024-09-30,Mi 10000mAh Power Bank,Electronics,25,35
+2024-09-30,Milton Thermosteel Flask 1L,Home & Living,5,35
+2024-09-30,Minimalist 10% Niacinamide Serum,Beauty,27,60
+2024-09-30,Pigeon Aluminium Non-Stick Pan,Home & Living,5,25
+2024-09-30,Plum Green Tea Toner 200ml,Beauty,16,60
+2024-09-30,Portronics Table Lamp LED,Office & Computing,5,20
+2024-09-30,Prestige Induction Cooktop 1200W,Home & Living,5,15
+2024-09-30,Puma Classic Track Pants,Fashion,15,30
+2024-09-30,Royalford Bamboo Chopping Board,Home & Living,10,30
+2024-09-30,Samsung Galaxy Buds3 Pro,Electronics,5,20
+2024-09-30,Sony WH-1000XM5 Headphones,Electronics,5,10
+2024-09-30,Story@Home Blackout Curtains,Home & Living,5,20
+2024-09-30,Syska USB Hub 4-Port,Office & Computing,5,40
+2024-09-30,Woodland Casual Sneakers,Fashion,5,20
+2024-09-30,Wow Skin Science Hair Oil,Beauty,62,55
+2024-09-30,Zebronics ZEB-Crystal Pro Webcam,Electronics,8,25
+2024-09-30,boAt Airdopes 141 TWS Earbuds,Electronics,5,30
+2024-10-31,Allen Solly Polo T-Shirt,Fashion,12,40
+2024-10-31,AmazonBasics Adjustable Laptop Stand,Office & Computing,5,20
+2024-10-31,Anker 65W GaN Fast Charger,Electronics,30,40
+2024-10-31,Biotique Bio Morning Nector SPF,Beauty,29,80
+2024-10-31,FabIndia Cotton Kurta,Fashion,7,25
+2024-10-31,H&M Relaxed Fit Shirt,Fashion,13,50
+2024-10-31,HP 65W Laptop Power Adapter,Office & Computing,19,15
+2024-10-31,JBL Flip 6 Bluetooth Speaker,Electronics,13,18
+2024-10-31,Kuber Industries Storage Box,Home & Living,46,45
+2024-10-31,Lakme Absolute Foundation,Beauty,45,45
+2024-10-31,Levi's 511 Slim Fit Jeans,Fashion,14,25
+2024-10-31,Logitech MX Keys Keyboard,Electronics,5,15
+2024-10-31,Mamaearth Vitamin C Face Wash,Beauty,29,70
+2024-10-31,Mi 10000mAh Power Bank,Electronics,5,35
+2024-10-31,Milton Thermosteel Flask 1L,Home & Living,11,35
+2024-10-31,Minimalist 10% Niacinamide Serum,Beauty,22,60
+2024-10-31,Pigeon Aluminium Non-Stick Pan,Home & Living,24,25
+2024-10-31,Plum Green Tea Toner 200ml,Beauty,57,60
+2024-10-31,Portronics Table Lamp LED,Office & Computing,5,20
+2024-10-31,Prestige Induction Cooktop 1200W,Home & Living,5,15
+2024-10-31,Puma Classic Track Pants,Fashion,5,30
+2024-10-31,Royalford Bamboo Chopping Board,Home & Living,5,30
+2024-10-31,Samsung Galaxy Buds3 Pro,Electronics,5,20
+2024-10-31,Sony WH-1000XM5 Headphones,Electronics,9,10
+2024-10-31,Story@Home Blackout Curtains,Home & Living,5,20
+2024-10-31,Syska USB Hub 4-Port,Office & Computing,5,40
+2024-10-31,Woodland Casual Sneakers,Fashion,5,20
+2024-10-31,Wow Skin Science Hair Oil,Beauty,9,55
+2024-10-31,Zebronics ZEB-Crystal Pro Webcam,Electronics,15,25
+2024-10-31,boAt Airdopes 141 TWS Earbuds,Electronics,17,30
+2024-11-30,Allen Solly Polo T-Shirt,Fashion,5,40
+2024-11-30,AmazonBasics Adjustable Laptop Stand,Office & Computing,5,20
+2024-11-30,Anker 65W GaN Fast Charger,Electronics,18,40
+2024-11-30,Biotique Bio Morning Nector SPF,Beauty,45,80
+2024-11-30,FabIndia Cotton Kurta,Fashion,5,25
+2024-11-30,H&M Relaxed Fit Shirt,Fashion,31,50
+2024-11-30,HP 65W Laptop Power Adapter,Office & Computing,6,15
+2024-11-30,JBL Flip 6 Bluetooth Speaker,Electronics,5,18
+2024-11-30,Kuber Industries Storage Box,Home & Living,12,45
+2024-11-30,Lakme Absolute Foundation,Beauty,49,45
+2024-11-30,Levi's 511 Slim Fit Jeans,Fashion,5,25
+2024-11-30,Logitech MX Keys Keyboard,Electronics,5,15
+2024-11-30,Mamaearth Vitamin C Face Wash,Beauty,60,70
+2024-11-30,Mi 10000mAh Power Bank,Electronics,21,35
+2024-11-30,Milton Thermosteel Flask 1L,Home & Living,5,35
+2024-11-30,Minimalist 10% Niacinamide Serum,Beauty,11,60
+2024-11-30,Pigeon Aluminium Non-Stick Pan,Home & Living,5,25
+2024-11-30,Plum Green Tea Toner 200ml,Beauty,21,60
+2024-11-30,Portronics Table Lamp LED,Office & Computing,25,20
+2024-11-30,Prestige Induction Cooktop 1200W,Home & Living,5,15
+2024-11-30,Puma Classic Track Pants,Fashion,5,30
+2024-11-30,Royalford Bamboo Chopping Board,Home & Living,5,30
+2024-11-30,Samsung Galaxy Buds3 Pro,Electronics,7,20
+2024-11-30,Sony WH-1000XM5 Headphones,Electronics,5,10
+2024-11-30,Story@Home Blackout Curtains,Home & Living,11,20
+2024-11-30,Syska USB Hub 4-Port,Office & Computing,6,40
+2024-11-30,Woodland Casual Sneakers,Fashion,5,20
+2024-11-30,Wow Skin Science Hair Oil,Beauty,48,55
+2024-11-30,Zebronics ZEB-Crystal Pro Webcam,Electronics,5,25
+2024-11-30,boAt Airdopes 141 TWS Earbuds,Electronics,5,30
+2024-12-31,Allen Solly Polo T-Shirt,Fashion,14,40
+2024-12-31,AmazonBasics Adjustable Laptop Stand,Office & Computing,5,20
+2024-12-31,Anker 65W GaN Fast Charger,Electronics,5,40
+2024-12-31,Biotique Bio Morning Nector SPF,Beauty,64,80
+2024-12-31,FabIndia Cotton Kurta,Fashion,5,25
+2024-12-31,H&M Relaxed Fit Shirt,Fashion,38,50
+2024-12-31,HP 65W Laptop Power Adapter,Office & Computing,5,15
+2024-12-31,JBL Flip 6 Bluetooth Speaker,Electronics,5,18
+2024-12-31,Kuber Industries Storage Box,Home & Living,5,45
+2024-12-31,Lakme Absolute Foundation,Beauty,38,45
+2024-12-31,Levi's 511 Slim Fit Jeans,Fashion,50,25
+2024-12-31,Logitech MX Keys Keyboard,Electronics,5,15
+2024-12-31,Mamaearth Vitamin C Face Wash,Beauty,66,70
+2024-12-31,Mi 10000mAh Power Bank,Electronics,5,35
+2024-12-31,Milton Thermosteel Flask 1L,Home & Living,5,35
+2024-12-31,Minimalist 10% Niacinamide Serum,Beauty,13,60
+2024-12-31,Pigeon Aluminium Non-Stick Pan,Home & Living,5,25
+2024-12-31,Plum Green Tea Toner 200ml,Beauty,53,60
+2024-12-31,Portronics Table Lamp LED,Office & Computing,17,20
+2024-12-31,Prestige Induction Cooktop 1200W,Home & Living,22,15
+2024-12-31,Puma Classic Track Pants,Fashion,5,30
+2024-12-31,Royalford Bamboo Chopping Board,Home & Living,5,30
+2024-12-31,Samsung Galaxy Buds3 Pro,Electronics,41,20
+2024-12-31,Sony WH-1000XM5 Headphones,Electronics,5,10
+2024-12-31,Story@Home Blackout Curtains,Home & Living,14,20
+2024-12-31,Syska USB Hub 4-Port,Office & Computing,5,40
+2024-12-31,Woodland Casual Sneakers,Fashion,9,20
+2024-12-31,Wow Skin Science Hair Oil,Beauty,44,55
+2024-12-31,Zebronics ZEB-Crystal Pro Webcam,Electronics,5,25
+2024-12-31,boAt Airdopes 141 TWS Earbuds,Electronics,5,30
+2025-01-31,Allen Solly Polo T-Shirt,Fashion,35,40
+2025-01-31,AmazonBasics Adjustable Laptop Stand,Office & Computing,5,20
+2025-01-31,Anker 65W GaN Fast Charger,Electronics,7,40
+2025-01-31,Biotique Bio Morning Nector SPF,Beauty,72,80
+2025-01-31,FabIndia Cotton Kurta,Fashion,21,25
+2025-01-31,H&M Relaxed Fit Shirt,Fashion,42,50
+2025-01-31,HP 65W Laptop Power Adapter,Office & Computing,22,15
+2025-01-31,JBL Flip 6 Bluetooth Speaker,Electronics,5,18
+2025-01-31,Kuber Industries Storage Box,Home & Living,16,45
+2025-01-31,Lakme Absolute Foundation,Beauty,5,45
+2025-01-31,Levi's 511 Slim Fit Jeans,Fashion,6,25
+2025-01-31,Logitech MX Keys Keyboard,Electronics,5,15
+2025-01-31,Mamaearth Vitamin C Face Wash,Beauty,66,70
+2025-01-31,Mi 10000mAh Power Bank,Electronics,23,35
+2025-01-31,Milton Thermosteel Flask 1L,Home & Living,5,35
+2025-01-31,Minimalist 10% Niacinamide Serum,Beauty,20,60
+2025-01-31,Pigeon Aluminium Non-Stick Pan,Home & Living,5,25
+2025-01-31,Plum Green Tea Toner 200ml,Beauty,52,60
+2025-01-31,Portronics Table Lamp LED,Office & Computing,5,20
+2025-01-31,Prestige Induction Cooktop 1200W,Home & Living,5,15
+2025-01-31,Puma Classic Track Pants,Fashion,5,30
+2025-01-31,Royalford Bamboo Chopping Board,Home & Living,5,30
+2025-01-31,Samsung Galaxy Buds3 Pro,Electronics,5,20
+2025-01-31,Sony WH-1000XM5 Headphones,Electronics,5,10
+2025-01-31,Story@Home Blackout Curtains,Home & Living,5,20
+2025-01-31,Syska USB Hub 4-Port,Office & Computing,46,40
+2025-01-31,Woodland Casual Sneakers,Fashion,9,20
+2025-01-31,Wow Skin Science Hair Oil,Beauty,15,55
+2025-01-31,Zebronics ZEB-Crystal Pro Webcam,Electronics,5,25
+2025-01-31,boAt Airdopes 141 TWS Earbuds,Electronics,13,30
+2025-02-28,Allen Solly Polo T-Shirt,Fashion,15,40
+2025-02-28,AmazonBasics Adjustable Laptop Stand,Office & Computing,5,20
+2025-02-28,Anker 65W GaN Fast Charger,Electronics,5,40
+2025-02-28,Biotique Bio Morning Nector SPF,Beauty,79,80
+2025-02-28,FabIndia Cotton Kurta,Fashion,5,25
+2025-02-28,H&M Relaxed Fit Shirt,Fashion,17,50
+2025-02-28,HP 65W Laptop Power Adapter,Office & Computing,5,15
+2025-02-28,JBL Flip 6 Bluetooth Speaker,Electronics,5,18
+2025-02-28,Kuber Industries Storage Box,Home & Living,26,45
+2025-02-28,Lakme Absolute Foundation,Beauty,53,45
+2025-02-28,Levi's 511 Slim Fit Jeans,Fashion,15,25
+2025-02-28,Logitech MX Keys Keyboard,Electronics,5,15
+2025-02-28,Mamaearth Vitamin C Face Wash,Beauty,64,70
+2025-02-28,Mi 10000mAh Power Bank,Electronics,15,35
+2025-02-28,Milton Thermosteel Flask 1L,Home & Living,7,35
+2025-02-28,Minimalist 10% Niacinamide Serum,Beauty,17,60
+2025-02-28,Pigeon Aluminium Non-Stick Pan,Home & Living,5,25
+2025-02-28,Plum Green Tea Toner 200ml,Beauty,38,60
+2025-02-28,Portronics Table Lamp LED,Office & Computing,10,20
+2025-02-28,Prestige Induction Cooktop 1200W,Home & Living,5,15
+2025-02-28,Puma Classic Track Pants,Fashion,5,30
+2025-02-28,Royalford Bamboo Chopping Board,Home & Living,30,30
+2025-02-28,Samsung Galaxy Buds3 Pro,Electronics,24,20
+2025-02-28,Sony WH-1000XM5 Headphones,Electronics,6,10
+2025-02-28,Story@Home Blackout Curtains,Home & Living,43,20
+2025-02-28,Syska USB Hub 4-Port,Office & Computing,18,40
+2025-02-28,Woodland Casual Sneakers,Fashion,33,20
+2025-02-28,Wow Skin Science Hair Oil,Beauty,19,55
+2025-02-28,Zebronics ZEB-Crystal Pro Webcam,Electronics,5,25
+2025-02-28,boAt Airdopes 141 TWS Earbuds,Electronics,5,30
+2025-03-31,Allen Solly Polo T-Shirt,Fashion,40,40
+2025-03-31,AmazonBasics Adjustable Laptop Stand,Office & Computing,8,20
+2025-03-31,Anker 65W GaN Fast Charger,Electronics,22,40
+2025-03-31,Biotique Bio Morning Nector SPF,Beauty,55,80
+2025-03-31,FabIndia Cotton Kurta,Fashion,5,25
+2025-03-31,H&M Relaxed Fit Shirt,Fashion,9,50
+2025-03-31,HP 65W Laptop Power Adapter,Office & Computing,5,15
+2025-03-31,JBL Flip 6 Bluetooth Speaker,Electronics,5,18
+2025-03-31,Kuber Industries Storage Box,Home & Living,29,45
+2025-03-31,Lakme Absolute Foundation,Beauty,30,45
+2025-03-31,Levi's 511 Slim Fit Jeans,Fashion,5,25
+2025-03-31,Logitech MX Keys Keyboard,Electronics,5,15
+2025-03-31,Mamaearth Vitamin C Face Wash,Beauty,30,70
+2025-03-31,Mi 10000mAh Power Bank,Electronics,5,35
+2025-03-31,Milton Thermosteel Flask 1L,Home & Living,5,35
+2025-03-31,Minimalist 10% Niacinamide Serum,Beauty,74,60
+2025-03-31,Pigeon Aluminium Non-Stick Pan,Home & Living,5,25
+2025-03-31,Plum Green Tea Toner 200ml,Beauty,5,60
+2025-03-31,Portronics Table Lamp LED,Office & Computing,21,20
+2025-03-31,Prestige Induction Cooktop 1200W,Home & Living,5,15
+2025-03-31,Puma Classic Track Pants,Fashion,28,30
+2025-03-31,Royalford Bamboo Chopping Board,Home & Living,5,30
+2025-03-31,Samsung Galaxy Buds3 Pro,Electronics,5,20
+2025-03-31,Sony WH-1000XM5 Headphones,Electronics,5,10
+2025-03-31,Story@Home Blackout Curtains,Home & Living,5,20
+2025-03-31,Syska USB Hub 4-Port,Office & Computing,28,40
+2025-03-31,Woodland Casual Sneakers,Fashion,8,20
+2025-03-31,Wow Skin Science Hair Oil,Beauty,20,55
+2025-03-31,Zebronics ZEB-Crystal Pro Webcam,Electronics,18,25
+2025-03-31,boAt Airdopes 141 TWS Earbuds,Electronics,27,30
+2025-04-30,Allen Solly Polo T-Shirt,Fashion,5,40
+2025-04-30,AmazonBasics Adjustable Laptop Stand,Office & Computing,5,20
+2025-04-30,Anker 65W GaN Fast Charger,Electronics,17,40
+2025-04-30,Biotique Bio Morning Nector SPF,Beauty,49,80
+2025-04-30,FabIndia Cotton Kurta,Fashion,5,25
+2025-04-30,H&M Relaxed Fit Shirt,Fashion,25,50
+2025-04-30,HP 65W Laptop Power Adapter,Office & Computing,24,15
+2025-04-30,JBL Flip 6 Bluetooth Speaker,Electronics,5,18
+2025-04-30,Kuber Industries Storage Box,Home & Living,46,45
+2025-04-30,Lakme Absolute Foundation,Beauty,28,45
+2025-04-30,Levi's 511 Slim Fit Jeans,Fashion,13,25
+2025-04-30,Logitech MX Keys Keyboard,Electronics,5,15
+2025-04-30,Mamaearth Vitamin C Face Wash,Beauty,63,70
+2025-04-30,Mi 10000mAh Power Bank,Electronics,23,35
+2025-04-30,Milton Thermosteel Flask 1L,Home & Living,17,35
+2025-04-30,Minimalist 10% Niacinamide Serum,Beauty,62,60
+2025-04-30,Pigeon Aluminium Non-Stick Pan,Home & Living,18,25
+2025-04-30,Plum Green Tea Toner 200ml,Beauty,42,60
+2025-04-30,Portronics Table Lamp LED,Office & Computing,5,20
+2025-04-30,Prestige Induction Cooktop 1200W,Home & Living,24,15
+2025-04-30,Puma Classic Track Pants,Fashion,9,30
+2025-04-30,Royalford Bamboo Chopping Board,Home & Living,32,30
+2025-04-30,Samsung Galaxy Buds3 Pro,Electronics,15,20
+2025-04-30,Sony WH-1000XM5 Headphones,Electronics,5,10
+2025-04-30,Story@Home Blackout Curtains,Home & Living,5,20
+2025-04-30,Syska USB Hub 4-Port,Office & Computing,24,40
+2025-04-30,Woodland Casual Sneakers,Fashion,16,20
+2025-04-30,Wow Skin Science Hair Oil,Beauty,19,55
+2025-04-30,Zebronics ZEB-Crystal Pro Webcam,Electronics,5,25
+2025-04-30,boAt Airdopes 141 TWS Earbuds,Electronics,5,30
+2025-05-31,Allen Solly Polo T-Shirt,Fashion,5,40
+2025-05-31,AmazonBasics Adjustable Laptop Stand,Office & Computing,5,20
+2025-05-31,Anker 65W GaN Fast Charger,Electronics,29,40
+2025-05-31,Biotique Bio Morning Nector SPF,Beauty,48,80
+2025-05-31,FabIndia Cotton Kurta,Fashion,26,25
+2025-05-31,H&M Relaxed Fit Shirt,Fashion,43,50
+2025-05-31,HP 65W Laptop Power Adapter,Office & Computing,38,15
+2025-05-31,JBL Flip 6 Bluetooth Speaker,Electronics,5,18
+2025-05-31,Kuber Industries Storage Box,Home & Living,41,45
+2025-05-31,Lakme Absolute Foundation,Beauty,5,45
+2025-05-31,Levi's 511 Slim Fit Jeans,Fashion,5,25
+2025-05-31,Logitech MX Keys Keyboard,Electronics,5,15
+2025-05-31,Mamaearth Vitamin C Face Wash,Beauty,66,70
+2025-05-31,Mi 10000mAh Power Bank,Electronics,11,35
+2025-05-31,Milton Thermosteel Flask 1L,Home & Living,5,35
+2025-05-31,Minimalist 10% Niacinamide Serum,Beauty,57,60
+2025-05-31,Pigeon Aluminium Non-Stick Pan,Home & Living,17,25
+2025-05-31,Plum Green Tea Toner 200ml,Beauty,12,60
+2025-05-31,Portronics Table Lamp LED,Office & Computing,5,20
+2025-05-31,Prestige Induction Cooktop 1200W,Home & Living,12,15
+2025-05-31,Puma Classic Track Pants,Fashion,15,30
+2025-05-31,Royalford Bamboo Chopping Board,Home & Living,5,30
+2025-05-31,Samsung Galaxy Buds3 Pro,Electronics,5,20
+2025-05-31,Sony WH-1000XM5 Headphones,Electronics,6,10
+2025-05-31,Story@Home Blackout Curtains,Home & Living,5,20
+2025-05-31,Syska USB Hub 4-Port,Office & Computing,5,40
+2025-05-31,Woodland Casual Sneakers,Fashion,5,20
+2025-05-31,Wow Skin Science Hair Oil,Beauty,34,55
+2025-05-31,Zebronics ZEB-Crystal Pro Webcam,Electronics,5,25
+2025-05-31,boAt Airdopes 141 TWS Earbuds,Electronics,5,30
+2025-06-30,Allen Solly Polo T-Shirt,Fashion,44,40
+2025-06-30,AmazonBasics Adjustable Laptop Stand,Office & Computing,16,20
+2025-06-30,Anker 65W GaN Fast Charger,Electronics,23,40
+2025-06-30,Biotique Bio Morning Nector SPF,Beauty,55,80
+2025-06-30,FabIndia Cotton Kurta,Fashion,20,25
+2025-06-30,H&M Relaxed Fit Shirt,Fashion,29,50
+2025-06-30,HP 65W Laptop Power Adapter,Office & Computing,5,15
+2025-06-30,JBL Flip 6 Bluetooth Speaker,Electronics,5,18
+2025-06-30,Kuber Industries Storage Box,Home & Living,45,45
+2025-06-30,Lakme Absolute Foundation,Beauty,23,45
+2025-06-30,Levi's 511 Slim Fit Jeans,Fashion,5,25
+2025-06-30,Logitech MX Keys Keyboard,Electronics,12,15
+2025-06-30,Mamaearth Vitamin C Face Wash,Beauty,34,70
+2025-06-30,Mi 10000mAh Power Bank,Electronics,5,35
+2025-06-30,Milton Thermosteel Flask 1L,Home & Living,10,35
+2025-06-30,Minimalist 10% Niacinamide Serum,Beauty,15,60
+2025-06-30,Pigeon Aluminium Non-Stick Pan,Home & Living,5,25
+2025-06-30,Plum Green Tea Toner 200ml,Beauty,14,60
+2025-06-30,Portronics Table Lamp LED,Office & Computing,13,20
+2025-06-30,Prestige Induction Cooktop 1200W,Home & Living,5,15
+2025-06-30,Puma Classic Track Pants,Fashion,30,30
+2025-06-30,Royalford Bamboo Chopping Board,Home & Living,12,30
+2025-06-30,Samsung Galaxy Buds3 Pro,Electronics,5,20
+2025-06-30,Sony WH-1000XM5 Headphones,Electronics,5,10
+2025-06-30,Story@Home Blackout Curtains,Home & Living,5,20
+2025-06-30,Syska USB Hub 4-Port,Office & Computing,5,40
+2025-06-30,Woodland Casual Sneakers,Fashion,5,20
+2025-06-30,Wow Skin Science Hair Oil,Beauty,57,55
+2025-06-30,Zebronics ZEB-Crystal Pro Webcam,Electronics,5,25
+2025-06-30,boAt Airdopes 141 TWS Earbuds,Electronics,5,30

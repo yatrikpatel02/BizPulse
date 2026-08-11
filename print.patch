@@ -1,0 +1,92 @@
+diff --git a/frontend/src/index.css b/frontend/src/index.css
+index f34d44b..d0bd351 100644
+--- a/frontend/src/index.css
++++ b/frontend/src/index.css
+@@ -58,32 +58,41 @@ input:-internal-autofill-selected {
+ 
+ /* @media print overrides for clean report PDF output */
+ @media print {
+-  /* Hide all dashboard layout elements, sidebar, header, and dialog buttons */
+-  #root > div > div > aside,
+-  #root > div > div > div > header,
+-  #root > div > div > div > main,
+-  button,
+-  .fixed button,
+-  .fixed > div:not(#report-print-area) {
+-    display: none !important;
+-  }
+-
+-  /* Make sure the fixed modal backdrop doesn't cover or gray out the print output */
+-  .fixed {
+-    position: relative !important;
+-    background: transparent !important;
+-    backdrop-filter: none !important;
+-    z-index: auto !important;
+-    padding: 0 !important;
+-    display: block !important;
+-  }
+-
+-  /* Reset layout constraints that cause print clipping */
+-  html, body, #root, #root > div {
+-    height: auto !important;
+-    overflow: visible !important;
+-    background: white !important;
+-    color: black !important;
+-  }
+-
+-  /* Expand report container to full width and reset styles for paper output */
++  /* 1. Hide everything on the page using standard CSS print recipe */
++  body * {
++    visibility: hidden !important;
++  }
++
++  /* 2. Show only the printable report container and its nested children */
++  #report-print-area,
++  #report-print-area * {
++    visibility: visible !important;
++  }
++
++  /* 3. Position the report container at the top left of the printed paper */
++  #report-print-area {
++    position: absolute !important;
++    left: 0 !important;
++    top: 0 !important;
++    width: 100% !important;
++    max-width: 100% !important;
++    margin: 0 !important;
++    padding: 20px !important;
++    border: none !important;
++    background: transparent !important;
++    box-shadow: none !important;
++  }
++
++  /* 4. Force white background and black text on all printing elements */
++  #report-print-area * {
++    color: #000000 !important;
++    background-color: transparent !important;
++  }
++
++  /* 5. Force layout containers to allow scroll and height expansion to prevent clipping */
++  html, body, #root, #root > div, main, .print-modal-backdrop, .print-modal-content {
++    height: auto !important;
++    min-height: auto !important;
++    max-height: none !important;
++    overflow: visible !important;
++    background: white !important;
++    border: none !important;
++    box-shadow: none !important;
++    padding: 0 !important;
++    margin: 0 !important;
++  }
+ }
+diff --git a/frontend/src/pages/Reports.jsx b/frontend/src/pages/Reports.jsx
+index e863ee3..e54de70 100644
+--- a/frontend/src/pages/Reports.jsx
++++ b/frontend/src/pages/Reports.jsx
+@@ -635,4 +635,4 @@ export default function Reports() {
+       {/* Report Viewer Modal — shows REAL data */}
+       {reportViewer && (
+-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-sm animate-fade-in">
+-          <div className="w-full max-w-3xl bg-white dark:bg-slate-900 border border-gray-200 dark:border-slate-800 rounded-3xl p-6 shadow-2xl space-y-4 animate-scale-up max-h-[90vh] overflow-y-auto">
++        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-sm animate-fade-in print-modal-backdrop">
++          <div className="w-full max-w-3xl bg-white dark:bg-slate-900 border border-gray-200 dark:border-slate-800 rounded-3xl p-6 shadow-2xl space-y-4 animate-scale-up max-h-[90vh] overflow-y-auto print-modal-content">
