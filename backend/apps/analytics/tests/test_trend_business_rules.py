@@ -19,7 +19,7 @@ class TrendBusinessRulesServiceTest(unittest.TestCase):
     def test_classify_opportunity_above_threshold(self):
         result = self.rules.classify(percentage_change=25)
         self.assertEqual(result['insight_type'], 'Opportunity')
-        self.assertEqual(result['title'], 'Rapid Search Demand Increase')
+        self.assertEqual(result['title'], 'Strongly Increasing Market Interest')
 
     def test_classify_opportunity_boundary_strict(self):
         # Exactly 20 is NOT an Opportunity (strict > 20), it is Positive Trend.
@@ -47,7 +47,7 @@ class TrendBusinessRulesServiceTest(unittest.TestCase):
     def test_classify_warning_band(self):
         result = self.rules.classify(percentage_change=-10)
         self.assertEqual(result['insight_type'], 'Warning')
-        self.assertEqual(result['title'], 'Declining Search Demand')
+        self.assertEqual(result['title'], 'Declining Market Interest')
 
     def test_classify_warning_negative_twenty_is_not_risk(self):
         # Exactly -20 is Warning (Risk is strict < -20).
@@ -68,6 +68,7 @@ class TrendBusinessRulesServiceTest(unittest.TestCase):
         # Every real percentage should map to a known insight type.
         for pct in [-100, -25, -20, -19.9, -10, -5, -4.9, 0, 5, 5.01, 10, 20, 20.01, 50, 100]:
             result = self.rules.classify(pct)
+            self.assertIsNotNone(result)
             self.assertIn(result['insight_type'], TrendBusinessRulesService.INSIGHT_TYPES)
 
 

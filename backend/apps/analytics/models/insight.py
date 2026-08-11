@@ -7,6 +7,9 @@ class Insight(models.Model):
         ('competitor_price_lower', 'Competitor Price Lower'),
         ('growing_demand', 'Growing Market Demand'),
         ('declining_demand', 'Declining Market Demand'),
+        ('market_intelligence', 'Market Intelligence'),
+        ('market_intel_existing', 'Market Intelligence - Existing Product'),
+        ('market_intel_opportunity', 'Market Intelligence - Opportunity Keyword'),
         ('inventory_risk', 'Inventory Risk'),
     ]
     business = models.ForeignKey('businesses.Business', on_delete=models.CASCADE, related_name='insights')

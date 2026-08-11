@@ -9,7 +9,8 @@ from integrations.views import (
     ImportPreviewView,
     SalesImportCommitView,
     InventoryImportCommitView,
-    ReviewsImportCommitView
+    ReviewsImportCommitView,
+    MarketKeywordViewSet
 )
 
 router = DefaultRouter()
@@ -17,6 +18,7 @@ router.register('column-mappings', ColumnMappingViewSet, basename='column-mappin
 router.register('competitor-prices', CompetitorPriceViewSet, basename='competitor-price')
 router.register('google-trends', GoogleTrendsDataViewSet, basename='google-trends-data')
 router.register('import-batches', ImportBatchViewSet, basename='import-batch')
+router.register('market-keywords', MarketKeywordViewSet, basename='market-keyword')
 
 urlpatterns = [
     path('upload/', FileUploadView.as_view(), name='file-upload'),

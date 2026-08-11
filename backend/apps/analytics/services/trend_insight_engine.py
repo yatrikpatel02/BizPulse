@@ -8,6 +8,7 @@ from django.utils import timezone
 
 from integrations.services.google_trends_service import GoogleTrendsService
 from analytics.services.trend_business_rules import TrendBusinessRulesService
+from analytics.services.business_demand_engine import BusinessDemandEngine
 
 Point = Dict[str, Any]
 
@@ -21,16 +22,20 @@ class TrendInsightEngine:
     in the ``GoogleTrendsData`` table.
     """
 
-    CURRENT_WINDOW_DAYS = 30
-    PREVIOUS_WINDOW_DAYS = 30
+    # Google Trends is a short-term market signal.  We retain the 90-day raw
+    # series, but compare the latest fortnight with the preceding fortnight.
+    CURRENT_WINDOW_DAYS = 14
+    PREVIOUS_WINDOW_DAYS = 14
 
     def __init__(
         self,
         data_service: Optional[GoogleTrendsService] = None,
         rules_service: Optional[TrendBusinessRulesService] = None,
+        business_demand_engine: Optional[BusinessDemandEngine] = None,
     ):
         self.data_service = data_service or GoogleTrendsService()
         self.rules = rules_service or TrendBusinessRulesService()
+        self.business_demand = business_demand_engine or BusinessDemandEngine(self.rules)
 
     def calculate_metrics(self, timeseries: List[Point]) -> Dict[str, Any]:
         """Compute all trend metrics from a raw interest-over-time series.
@@ -69,8 +74,9 @@ class TrendInsightEngine:
             'volatility_score': volatility_score,
             'current_period_avg': round(current_avg, 2),
             'previous_period_avg': round(previous_avg, 2),
-            'data_points_last_30_days': len(current_values),
-            'data_points_previous_30_days': len(previous_values),
+            'data_points_last_14_days': len(current_values),
+            'data_points_previous_14_days': len(previous_values),
+            'observation_count': len(points),
             'latest_date': latest_date.isoformat(),
         }
 
@@ -82,24 +88,41 @@ class TrendInsightEngine:
             volatility_score=metrics['volatility_score'],
             trend_score=metrics['trend_score'],
         )
-        confidence = self._confidence_score(metrics, has_baseline=bool(metrics['data_points_previous_30_days']))
+        has_baseline = bool(metrics['data_points_previous_14_days'])
+        confidence = self._confidence_score(metrics, has_baseline=has_baseline)
 
-        return {
+        payload: Dict[str, Any] = {
             'keyword': keyword,
             'trend_score': metrics['trend_score'],
             'percentage_change': metrics['percentage_change'],
             'trend_direction': metrics['trend_direction'],
             'volatility_score': metrics['volatility_score'],
-            'insight_type': classification['insight_type'],
-            'title': classification['title'],
-            'description': classification['description'],
-            'recommended_actions': classification['recommended_actions'],
             'confidence_score': confidence,
             'current_period_avg': metrics['current_period_avg'],
             'previous_period_avg': metrics['previous_period_avg'],
             'latest_date': metrics['latest_date'],
-            'data_points_last_30_days': metrics['data_points_last_30_days'],
+            'data_points_last_14_days': metrics['data_points_last_14_days'],
+            'data_points_previous_14_days': metrics['data_points_previous_14_days'],
+            'observation_count': metrics['observation_count'],
+            'comparison_window_days': self.CURRENT_WINDOW_DAYS,
         }
+
+        if metrics['data_points_last_14_days'] < self.CURRENT_WINDOW_DAYS or not has_baseline:
+            payload.update({
+                'insight_type': 'Insufficient Data',
+                'title': 'Early Market Signal',
+                'description': 'There is not yet enough complete Google Trends history for a reliable 14-day comparison.',
+                'recommended_actions': ['Continue collecting daily relative search-interest observations.'],
+            })
+        elif classification:
+            payload.update({
+                'insight_type': classification['insight_type'],
+                'title': classification['title'],
+                'description': classification['description'],
+                'recommended_actions': classification['recommended_actions'],
+            })
+
+        return payload
 
     def analyze(
         self,
@@ -135,12 +158,20 @@ class TrendInsightEngine:
 
         insights: List[Dict[str, Any]] = []
         for keyword in keyword_list:
-            insights.append(self.analyze_timeseries(keyword, series_by_keyword.get(keyword, [])))
+            insight = self.analyze_timeseries(keyword, series_by_keyword.get(keyword, []))
+            business_insight = self.business_demand.analyze(business, keyword, insight)
+            if business_insight:
+                insight['market_intelligence'] = business_insight
+            insights.append(insight)
         return insights
 
     def _confidence_score(self, metrics: Dict[str, Any], has_baseline: bool) -> float:
-        coverage = metrics['data_points_last_30_days'] / float(self.CURRENT_WINDOW_DAYS)
-        coverage = max(0.0, min(1.0, coverage))
+        current_coverage = metrics['data_points_last_14_days'] / float(self.CURRENT_WINDOW_DAYS)
+        baseline_coverage = metrics['data_points_previous_14_days'] / float(self.PREVIOUS_WINDOW_DAYS)
+        historical_coverage = min(metrics['observation_count'] / 90.0, 1.0)
+        coverage = (0.45 * min(current_coverage, 1.0) +
+                    0.30 * min(baseline_coverage, 1.0) +
+                    0.25 * historical_coverage)
         volatility_norm = min(metrics['volatility_score'] / 100.0, 1.0)
         confidence = 100.0 * coverage * (1.0 - 0.5 * volatility_norm)
         if not has_baseline:
@@ -168,10 +199,17 @@ class TrendInsightEngine:
     def _normalize_series(timeseries: List[Point]) -> List[Point]:
         points: List[Point] = []
         for item in timeseries:
-            date = item['date']
-            interest = item['interest']
+            date = item.get('date')
+            interest = item.get('interest')
+            if date is None:
+                continue
             if isinstance(date, datetime.datetime):
                 date = date.date()
+            elif isinstance(date, str):
+                try:
+                    date = datetime.date.fromisoformat(date)
+                except ValueError:
+                    continue
             if interest is None:
                 continue
             points.append({'date': date, 'interest': float(interest)})
@@ -180,9 +218,16 @@ class TrendInsightEngine:
 
     @staticmethod
     def _parse_keywords(keywords: Union[str, List[str]]) -> List[str]:
-        if isinstance(keywords, str):
-            return [kw.strip() for kw in keywords.split(',') if kw.strip()]
-        return [str(kw).strip() for kw in keywords if kw]
+        values = keywords.split(',') if isinstance(keywords, str) else keywords
+        result = []
+        seen = set()
+        for value in values:
+            keyword = str(value).strip() if value else ''
+            normalized = keyword.casefold()
+            if keyword and normalized not in seen:
+                seen.add(normalized)
+                result.append(keyword)
+        return result
 
     @staticmethod
     def _empty_metrics() -> Dict[str, Any]:
@@ -193,7 +238,8 @@ class TrendInsightEngine:
             'volatility_score': 0.0,
             'current_period_avg': 0.0,
             'previous_period_avg': 0.0,
-            'data_points_last_30_days': 0,
-            'data_points_previous_30_days': 0,
+            'data_points_last_14_days': 0,
+            'data_points_previous_14_days': 0,
+            'observation_count': 0,
             'latest_date': None,
         }

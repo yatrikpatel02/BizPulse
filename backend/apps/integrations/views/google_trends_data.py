@@ -99,8 +99,11 @@ class GoogleTrendsDataViewSet(viewsets.ModelViewSet):
     def _parse_keywords(value):
         if not value:
             return []
-        if isinstance(value, list):
-            return [str(v).strip() for v in value if v]
-        if isinstance(value, str):
-            return [kw.strip() for kw in value.split(',') if kw.strip()]
-        return []
+        values = value if isinstance(value, list) else value.split(',') if isinstance(value, str) else []
+        result, seen = [], set()
+        for item in values:
+            keyword = str(item).strip() if item else ''
+            if keyword and keyword.casefold() not in seen:
+                seen.add(keyword.casefold())
+                result.append(keyword)
+        return result

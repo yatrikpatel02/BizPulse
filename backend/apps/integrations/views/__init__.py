@@ -8,3 +8,4 @@ from .import_views import (
 from .competitor_price import CompetitorPriceViewSet
 from .google_trends_data import GoogleTrendsDataViewSet
 from .import_batch import ImportBatchViewSet
+from .market_keyword import MarketKeywordViewSet

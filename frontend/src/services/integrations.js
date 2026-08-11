@@ -31,3 +31,28 @@ export const commitImport = async (tempFileId, sourceType, mapping, originalFile
   });
   return response.data;
 };
+
+export const getMarketKeywords = async (params = {}) => {
+  const response = await api.get('/integrations/market-keywords/', { params });
+  return response.data;
+};
+
+export const createMarketKeyword = async (data) => {
+  const response = await api.post('/integrations/market-keywords/', data);
+  return response.data;
+};
+
+export const updateMarketKeyword = async (id, data) => {
+  const response = await api.patch(`/integrations/market-keywords/${id}/`, data);
+  return response.data;
+};
+
+export const deleteMarketKeyword = async (id) => {
+  const response = await api.delete(`/integrations/market-keywords/${id}/`);
+  return response.data;
+};
+
+export const analyzeMarketIntelligence = async (params = {}) => {
+  const response = await api.post('/analytics/market-insights/', {}, { params });
+  return response.data;
+};

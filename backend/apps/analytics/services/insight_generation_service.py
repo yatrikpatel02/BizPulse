@@ -32,6 +32,7 @@ class InsightGenerationService:
     DEMAND_GROWTH_THRESHOLD = 5.0      # % change that flags growing demand
     DEMAND_DECLINE_THRESHOLD = -5.0    # % change that flags declining demand
     COMPETITOR_SPREAD_THRESHOLD = 15.0  # % gap that flags a competitor price gap
+    HIGH_DEMAND_THRESHOLD = 60.0       # sustained absolute interest score that flags high demand
 
     def generate_insights(self, business) -> List[dict]:
         """Return a list of insight dicts derived from real data for ``business``."""
@@ -42,15 +43,13 @@ class InsightGenerationService:
             insights.append(revenue)
 
         competitor = self._analyze_competitor_prices(business)
-        if competitor:
-            insights.append(competitor)
+        insights.extend(competitor)
 
         demand = self._analyze_market_demand(business)
         insights.extend(demand)
 
         inventory = self._analyze_inventory_risk(business)
-        if inventory:
-            insights.append(inventory)
+        insights.extend(inventory)
 
         return insights
 
@@ -60,20 +59,24 @@ class InsightGenerationService:
     def _analyze_revenue_trend(self, business) -> Optional[dict]:
         from analytics.models import SalesRecord
 
-        if not SalesRecord.objects.filter(business=business).exists():
+        latest_date_result = SalesRecord.objects.filter(
+            business=business
+        ).aggregate(latest_date=Max('date'))
+        latest_date = latest_date_result.get('latest_date')
+        if not latest_date:
             return None
 
-        today = timezone.now().date()
-        recent_start = today - timedelta(days=30)
-        prev_start = recent_start - timedelta(days=30)
-        prev_end = recent_start - timedelta(days=1)
+        recent_end = latest_date
+        recent_start = recent_end - timedelta(days=29)
+        previous_end = recent_start - timedelta(days=1)
+        previous_start = previous_end - timedelta(days=29)
 
         recent = float(SalesRecord.objects.filter(
-            business=business, date__gte=recent_start, date__lte=today
+            business=business, date__gte=recent_start, date__lte=recent_end
         ).aggregate(total=Sum('revenue'))['total'] or 0)
 
         previous = float(SalesRecord.objects.filter(
-            business=business, date__gte=prev_start, date__lte=prev_end
+            business=business, date__gte=previous_start, date__lte=previous_end
         ).aggregate(total=Sum('revenue'))['total'] or 0)
 
         if previous > 0:
@@ -81,7 +84,6 @@ class InsightGenerationService:
         else:
             change_pct = 0.0 if recent == 0 else 100.0
 
-        # Only flag a clear, material decline.
         if change_pct >= self.REVENUE_DECLINE_THRESHOLD:
             return None
 
@@ -104,62 +106,42 @@ class InsightGenerationService:
     # ------------------------------------------------------------------ #
     # 2. Competitor pricing
     # ------------------------------------------------------------------ #
-    def _analyze_competitor_prices(self, business) -> Optional[dict]:
+    def _analyze_competitor_prices(self, business) -> List[dict]:
         from integrations.models import CompetitorPrice
 
         competitor_prices = CompetitorPrice.objects.filter(business=business)
         if not competitor_prices.exists():
-            return None
-
-        # For each product, compare our listed price (max stored price) with the
-        # lowest competitor price to detect a meaningful price gap.
-        from django.db.models import Min, Max as MaxAgg
+            return []
 
         rows = (
             competitor_prices
-            .values('product__name')
-            .annotate(min_price=Min('price'), max_price=MaxAgg('price'))
+            .values('product_id', 'product__name', 'product__price')
+            .annotate(avg_competitor_price=Avg('price'))
         )
 
-        flagged = []
+        insights: List[dict] = []
         for row in rows:
-            min_price = float(row['min_price'] or 0)
-            max_price = float(row['max_price'] or 0)
-            if min_price > 0 and max_price > min_price:
-                spread = ((max_price - min_price) / min_price) * 100.0
-                if spread >= self.COMPETITOR_SPREAD_THRESHOLD:
-                    flagged.append({
-                        'name': row['product__name'] or 'Unknown product',
-                        'spread': spread,
+            our_price = float(row['product__price'] or 0)
+            avg_competitor_price = float(row['avg_competitor_price'] or 0)
+            if our_price > 0 and avg_competitor_price > 0:
+                difference_pct = ((our_price - avg_competitor_price) / avg_competitor_price) * 100
+                if difference_pct > 5:
+                    name = row['product__name'] or 'Unknown product'
+                    insights.append({
+                        'business': business,
+                        'insight_type': 'competitor_price_lower',
+                        'severity': 'medium',
+                        'title': f'Higher Price Than Competitors: {name}',
+                        'description': (
+                            'Problem: This product is currently priced '
+                            'higher than the average observed competitor price.\n\n'
+                            'Recommendation: Review pricing and determine whether '
+                            'the higher price is justified by product quality, brand '
+                            'positioning, pack size, shipping, or other value-added benefits.'
+                        ),
                     })
 
-        if not flagged:
-            return None
-
-        avg_spread = sum(f['spread'] for f in flagged) / len(flagged)
-        names = ', '.join(f['name'] for f in flagged[:3])
-        extra = ' (and others)' if len(flagged) > 3 else ''
-
-        # Determine severity based on average spread
-        if avg_spread > 25:
-            severity = 'high'
-        else:
-            severity = 'medium'
-
-        return {
-            'business': business,
-            'insight_type': 'competitor_price_lower',
-            'severity': severity,
-            'title': 'Competitor Selling At Lower Price Point',
-            'description': (
-                f"Problem: Competitors are offering {names}{extra} at prices "
-                f"up to {avg_spread:.1f}% lower than your current listing.\n\n"
-                f"Reason: Live competitor price tracking detected a gap of "
-                f"{avg_spread:.1f}% across {len(flagged)} SKU(s).\n\n"
-                "Recommendation: Benchmark catalog pricing and offer value-added "
-                "packages (e.g. extended warranty or free shipping) to preserve margin."
-            ),
-        }
+        return insights
 
     # ------------------------------------------------------------------ #
     # 3. Market demand (Google Trends)
@@ -174,69 +156,72 @@ class InsightGenerationService:
         if not trends.exists():
             return []
 
+        keywords = list(dict.fromkeys(trends.values_list('keyword', flat=True)))
         growing = []
         declining = []
-        for keyword in trends.values_list('keyword', flat=True).distinct():
+        high_demand = []
+        from analytics.services.trend_insight_engine import TrendInsightEngine
+        trend_engine = TrendInsightEngine()
+        for keyword in keywords:
             series = list(
                 trends.filter(keyword=keyword).order_by('date')
-                .values_list('interest_score', flat=True)
+                .values('date', 'interest_score')
             )
-            if len(series) < 2:
+            if len(series) < 28:
                 continue
-            first, last = series[0], series[-1]
-            if first > 0:
-                change = ((last - first) / first) * 100.0
-            else:
-                change = 0.0 if last == 0 else 100.0
+            metrics = trend_engine.calculate_metrics([
+                {'date': row['date'], 'interest': row['interest_score']} for row in series
+            ])
+            if metrics['data_points_last_14_days'] < 14 or metrics['data_points_previous_14_days'] < 14:
+                continue
+            change = metrics['percentage_change']
             if change >= self.DEMAND_GROWTH_THRESHOLD:
                 growing.append({'keyword': keyword, 'change': change})
             elif change <= self.DEMAND_DECLINE_THRESHOLD:
                 declining.append({'keyword': keyword, 'change': change})
+            elif metrics['trend_score'] >= self.HIGH_DEMAND_THRESHOLD:
+                high_demand.append({'keyword': keyword, 'score': metrics['trend_score']})
 
         insights: List[dict] = []
 
-        if growing:
-            avg_change = sum(g['change'] for g in growing) / len(growing)
-            names = ', '.join(g['keyword'] for g in growing[:3])
-            extra = ' (and others)' if len(growing) > 3 else ''
-            if avg_change > 40:
-                severity = 'medium'
-            else:
-                severity = 'low'
-
+        for item in growing:
             insights.append({
                 'business': business,
                 'insight_type': 'growing_demand',
-                'severity': severity,
-                'title': f'Growing Market Demand for {names}{extra}',
+                'severity': 'medium' if item['change'] > 40 else 'low',
+                'title': f'Rising Market Interest for {item["keyword"]}',
                 'description': (
-                    f"Problem: Google Trends data indicates a {avg_change:.1f}% surge "
-                    f"in consumer search volume for {names}{extra}.\n\n"
-                    f"Reason: Search interest rose across {len(growing)} tracked "
-                    f"keyword(s) over the last 90 days.\n\n"
-                    "Recommendation: Increase stock allocation for these products and "
-                    "raise social media ad budgets in these active categories."
+                    f"Problem: Google Trends indicates a {item['change']:.1f}% increase "
+                    f"in relative search interest for {item['keyword']}.\n\n"
+                    "Recommendation: Monitor this keyword as a potential market opportunity."
                 ),
             })
 
-        if declining:
-            avg_change = sum(d['change'] for d in declining) / len(declining)
-            names = ', '.join(d['keyword'] for d in declining[:3])
-            extra = ' (and others)' if len(declining) > 3 else ''
-            severity = 'medium' if avg_change < -20 else 'low'
-
+        for item in declining:
             insights.append({
                 'business': business,
                 'insight_type': 'declining_demand',
-                'severity': severity,
-                'title': f'Declining Market Demand for {names}{extra}',
+                'severity': 'medium' if item['change'] < -20 else 'low',
+                'title': f'Declining Market Interest for {item["keyword"]}',
                 'description': (
-                    f"Problem: Google Trends data indicates a {abs(avg_change):.1f}% drop "
-                    f"in consumer search volume for {names}{extra}.\n\n"
-                    f"Reason: Search interest fell across {len(declining)} tracked "
-                    f"keyword(s) over the last 90 days.\n\n"
-                    "Recommendation: Reduce stock levels for these products, "
-                    "run clearance promotions, and shift marketing spend to stronger categories."
+                    f"Problem: Google Trends indicates a {abs(item['change']):.1f}% decrease "
+                    f"in relative search interest for {item['keyword']}.\n\n"
+                    "Recommendation: Continue monitoring market interest alongside business-specific signals."
+                ),
+            })
+
+        for item in high_demand:
+            insights.append({
+                'business': business,
+                'insight_type': 'high_demand',
+                'severity': 'low',
+                'title': f'Sustained High Market Interest for {item["keyword"]}',
+                'description': (
+                    'Problem: This tracked search term shows consistently '
+                    'high market interest and strong consumer demand.\n\n'
+                    'Recommendation: Ensure adequate stock and consider prioritising '
+                    'this product in promotions, as sustained search interest often '
+                    'precedes increased sales.'
                 ),
             })
 
@@ -245,53 +230,54 @@ class InsightGenerationService:
     # ------------------------------------------------------------------ #
     # 4. Inventory risk
     # ------------------------------------------------------------------ #
-    def _analyze_inventory_risk(self, business) -> Optional[dict]:
+    def _analyze_inventory_risk(self, business) -> List[dict]:
         from analytics.models import InventorySnapshot
 
         snapshots = InventorySnapshot.objects.filter(business=business)
         if not snapshots.exists():
-            return None
+            return []
 
         latest = snapshots.values('product').annotate(latest_date=Max('date'))
         at_risk = []
         for entry in latest:
             snap = snapshots.filter(
                 product_id=entry['product'], date=entry['latest_date']
-            ).first()
+            ).select_related('product').first()
             if not snap:
                 continue
             reorder = snap.reorder_point or 0
             if snap.quantity_on_hand == 0 or snap.quantity_on_hand < reorder:
-                at_risk.append(snap.quantity_on_hand)
+                at_risk.append({
+                    'name': snap.product.name,
+                    'quantity': snap.quantity_on_hand,
+                    'reorder_point': reorder,
+                })
 
         if not at_risk:
-            return None
+            return []
 
-        out_of_stock = sum(1 for q in at_risk if q == 0)
-        below = len(at_risk) - out_of_stock
+        insights: List[dict] = []
+        for item in at_risk:
+            if item['quantity'] == 0:
+                severity = 'high'
+                problem = 'This product is completely out of stock'
+            else:
+                severity = 'medium'
+                problem = (
+                    f"This product has {item['quantity']} units on hand, "
+                    f"which is below the reorder threshold of {item['reorder_point']}"
+                )
 
-        parts = []
-        if out_of_stock:
-            parts.append(f"{out_of_stock} product(s) completely out of stock")
-        if below:
-            parts.append(f"{below} product(s) below reorder threshold")
-        problem = ' and '.join(parts)
+            insights.append({
+                'business': business,
+                'insight_type': 'inventory_risk',
+                'severity': severity,
+                'title': f'Inventory Stockout Risk: {item["name"]}',
+                'description': (
+                    f"Problem: {problem}.\n\n"
+                    "Recommendation: Reorder this item immediately and consider "
+                    "adjusting the reorder point upwards to prevent future stockouts."
+                ),
+            })
 
-        if out_of_stock >= 3 or len(at_risk) > 5:
-            severity = 'high'
-        else:
-            severity = 'medium'
-
-        return {
-            'business': business,
-            'insight_type': 'inventory_risk',
-            'severity': severity,
-            'title': 'Critical Inventory Stockout Risk',
-            'description': (
-                f"Problem: {problem}.\n\n"
-                f"Reason: {len(at_risk)} SKU(s) are at stockout risk based on the "
-                f"latest inventory snapshots.\n\n"
-                "Recommendation: Immediately reorder at-risk items, adjust baseline "
-                "reorder points upwards, and establish alternative distributor agreements."
-            ),
-        }
+        return insights

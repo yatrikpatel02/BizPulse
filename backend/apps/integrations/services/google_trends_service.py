@@ -22,7 +22,9 @@ class GoogleTrendsService:
     """
 
     DEFAULT_REGION = 'worldwide'
-    DEFAULT_DAYS = 7
+    # Retain a useful historical baseline; analyses derive their windows from
+    # these raw daily observations rather than collapsing them into averages.
+    DEFAULT_DAYS = 90
 
     def __init__(self, hl: str = 'en-US', tz: int = 0):
         self.hl = hl

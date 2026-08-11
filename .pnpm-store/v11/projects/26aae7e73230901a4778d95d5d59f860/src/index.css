@@ -1,0 +1,57 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Override browser auto-fill styling to prevent white background on inputs */
+input:-webkit-autofill,
+input:-webkit-autofill:hover, 
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+  -webkit-box-shadow: 0 0 0 100px #13151b inset !important;
+  -webkit-text-fill-color: #ffffff !important;
+  caret-color: #ffffff !important;
+  transition: background-color 5000s ease-in-out 0s;
+}
+
+/* Fallback autofill style overrides */
+input:-internal-autofill-selected {
+  background-color: #13151b !important;
+  color: #ffffff !important;
+}
+
+@layer base {
+  body {
+    @apply font-sans text-gray-900 bg-gray-50 dark:bg-[#090d16] dark:text-gray-100 transition-colors duration-200;
+  }
+  
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-sans tracking-tight;
+  }
+}
+
+/* Premium Background Grid Pattern */
+.grid-bg {
+  background-image: radial-gradient(rgba(99, 102, 241, 0.09) 1px, transparent 1px);
+  background-size: 24px 24px;
+}
+
+.dark .grid-bg {
+  background-image: radial-gradient(rgba(99, 102, 241, 0.04) 1px, transparent 1px);
+}
+
+/* Ambient Glow Orbs for Glassmorphism */
+.glow-orb {
+  filter: blur(120px);
+  opacity: 0.45;
+  pointer-events: none;
+  border-radius: 9999px;
+}
+
+.dark .glow-orb {
+  opacity: 0.18;
+}
+
+/* Glassmorphism Card Style */
+.glass-card {
+  @apply bg-white/85 dark:bg-slate-900/50 backdrop-blur-md border border-gray-200/50 dark:border-slate-800/50;
+}

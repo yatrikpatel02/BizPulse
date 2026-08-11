@@ -67,30 +67,7 @@ class CompetitorPriceService:
         print(f"[COMPETITOR-PRICE] Total raw results from all providers: {len(all_results)}")
 
         if not all_results:
-            print(f"[COMPETITOR-PRICE] No results from any provider. Falling back to dynamic mock pricing.")
-            import random
-            from decimal import Decimal
-            
-            product_price = float(product.price or 100.0)
-            if product_price <= 0:
-                product_price = 100.0
-                
-            mock_competitors = [
-                {"name": "Amazon", "domain": "amazon.in", "range": (0.95, 1.08)},
-                {"name": "Flipkart", "domain": "flipkart.com", "range": (0.93, 1.05)},
-                {"name": "Google Shopping", "domain": "google.com/shopping", "range": (0.97, 1.12)}
-            ]
-            
-            for comp in mock_competitors:
-                factor = random.uniform(comp["range"][0], comp["range"][1])
-                comp_price = round(product_price * factor, 2)
-                clean_name = product.name.lower().replace(" ", "-")
-                url = f"https://www.{comp['domain']}/search?q={clean_name}"
-                all_results.append({
-                    "competitor_name": comp["name"],
-                    "price": Decimal(str(comp_price)),
-                    "url": url
-                })
+            print(f"[COMPETITOR-PRICE] No results from any provider. Could not find competitor prices for {product.name}.")
 
         # Deduplicate by URL within the same collection run
         seen_urls: set[str] = set()
@@ -118,6 +95,7 @@ class CompetitorPriceService:
             )
 
         if to_create:
+            CompetitorPrice.objects.filter(business=business, product=product).delete()
             CompetitorPrice.objects.bulk_create(to_create)
             print(f"[COMPETITOR-PRICE] Saved {len(to_create)} records to database")
         else:

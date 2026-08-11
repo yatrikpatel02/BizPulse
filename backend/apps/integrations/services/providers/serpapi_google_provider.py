@@ -36,12 +36,6 @@ class SerpApiGoogleProvider(BaseProvider):
                 timeout=15,
             )
 
-            print("=" * 80)
-            print(response.url)
-            print(response.status_code)
-            print(response.text[:1000])
-            print("=" * 80)
-
             response.raise_for_status()
 
             data = response.json()

@@ -151,11 +151,6 @@ class InsightViewSet(BusinessScopedViewSet):
         business = self.get_user_business()
         queryset = Insight.objects.filter(business=business)
         
-        # Auto-seed dynamic insights if none exist yet for the business
-        if not queryset.exists():
-            self.generate_default_insights(business)
-            queryset = Insight.objects.filter(business=business)
-            
         return queryset
 
     def generate_default_insights(self, business):

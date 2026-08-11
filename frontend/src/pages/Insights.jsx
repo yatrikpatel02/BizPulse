@@ -10,7 +10,7 @@ export default function Insights() {
 
   // Filters
   const [severityFilter, setSeverityFilter] = useState('all'); // 'all', 'high', 'medium', 'low'
-  const [typeFilter, setTypeFilter] = useState('all'); // 'all', 'revenue_declining', 'competitor_price_lower', 'growing_demand', 'inventory_risk'
+  const [typeFilter, setTypeFilter] = useState('all'); // 'all', 'revenue_declining', 'competitor_price_lower', 'growing_demand', 'declining_demand', 'high_demand', 'inventory_risk'
 
   // Action Modal State
   const [actionModal, setActionModal] = useState(null);
@@ -54,7 +54,7 @@ export default function Insights() {
 
   // Helper to parse Problem/Reason/Recommendation from description
   const parseDescription = (desc) => {
-    const result = { problem: '', reason: '', recommendation: '' };
+    const result = { problem: '', reason: '', affectedProducts: '', recommendation: '' };
     if (!desc) return result;
     
     const parts = desc.split('\n\n');
@@ -64,6 +64,8 @@ export default function Insights() {
         result.problem = cleanPart.substring(8).trim();
       } else if (cleanPart.toLowerCase().startsWith('reason:')) {
         result.reason = cleanPart.substring(7).trim();
+      } else if (cleanPart.toLowerCase().startsWith('affected products:')) {
+        result.affectedProducts = cleanPart.substring(18).trim();
       } else if (part.toLowerCase().startsWith('recommendation:')) {
         result.recommendation = cleanPart.substring(15).trim();
       }
@@ -74,6 +76,11 @@ export default function Insights() {
       result.problem = desc;
     }
     return result;
+  };
+
+  const previewDescription = (desc) => {
+    const parsed = parseDescription(desc);
+    return [parsed.problem, parsed.affectedProducts].filter(Boolean).join(' ');
   };
 
   // Filter insights
@@ -149,7 +156,7 @@ export default function Insights() {
                     </span>
                   </div>
                   <p className="text-xs text-gray-500 dark:text-slate-400 leading-relaxed">
-                    {insight.description ? insight.description.split('\n\n')[0].replace(/^Problem:\s*/i, '') : ''}
+                    {previewDescription(insight.description)}
                   </p>
                 </div>
               </div>
@@ -187,6 +194,8 @@ export default function Insights() {
               <option value="revenue_declining">Revenue Decline</option>
               <option value="competitor_price_lower">Competitor Price Watch</option>
               <option value="growing_demand">Market Demand</option>
+              <option value="declining_demand">Declining Demand</option>
+              <option value="high_demand">High Demand</option>
               <option value="inventory_risk">Inventory Risks</option>
             </select>
           </div>
@@ -305,6 +314,14 @@ export default function Insights() {
                       <div>
                         <span className="font-bold text-[10px] text-gray-400 dark:text-slate-500 uppercase tracking-wide block mb-0.5">Reason</span>
                         <p>{parsed.reason}</p>
+                      </div>
+                    )}
+
+                    {/* Affected Products */}
+                    {parsed.affectedProducts && (
+                      <div>
+                        <span className="font-bold text-[10px] text-gray-400 dark:text-slate-500 uppercase tracking-wide block mb-0.5">Affected Products</span>
+                        <p>{parsed.affectedProducts}</p>
                       </div>
                     )}
 

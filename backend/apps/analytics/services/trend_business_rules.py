@@ -25,10 +25,9 @@ class TrendBusinessRulesService:
             'min_change': OPPORTUNITY_THRESHOLD,
             'strict_min': True,
             'max_change': None,
-            'title': 'Rapid Search Demand Increase',
+            'title': 'Strongly Increasing Market Interest',
             'description': (
-                'Search demand is increasing rapidly. Consider increasing '
-                'inventory and launching marketing campaigns.'
+                'Relative search interest is increasing rapidly.'
             ),
             'recommended_actions': [
                 'Increase inventory levels ahead of peak demand',
@@ -42,10 +41,9 @@ class TrendBusinessRulesService:
             'min_change': STABLE_THRESHOLD,
             'strict_min': True,
             'max_change': OPPORTUNITY_THRESHOLD,
-            'title': 'Steady Demand Growth',
+            'title': 'Increasing Market Interest',
             'description': (
-                'Demand is steadily growing. Monitor inventory and '
-                'advertising performance.'
+                'Relative search interest is increasing.'
             ),
             'recommended_actions': [
                 'Monitor inventory turnover and lead times',
@@ -59,9 +57,9 @@ class TrendBusinessRulesService:
             'min_change': -STABLE_THRESHOLD,
             'strict_min': False,
             'max_change': STABLE_THRESHOLD,
-            'title': 'Stable Market Demand',
+            'title': 'Stable Market Interest',
             'description': (
-                'Demand is stable. Maintain current inventory levels.'
+                'Relative search interest is stable.'
             ),
             'recommended_actions': [
                 'Maintain current inventory levels',
@@ -76,10 +74,9 @@ class TrendBusinessRulesService:
             'strict_min': False,
             'max_change': -STABLE_THRESHOLD,
             'strict_max': True,
-            'title': 'Declining Search Demand',
+            'title': 'Declining Market Interest',
             'description': (
-                'Search demand is declining. Reduce marketing spend and '
-                'monitor sales.'
+                'Relative search interest is declining.'
             ),
             'recommended_actions': [
                 'Reduce discretionary marketing spend',
@@ -93,10 +90,9 @@ class TrendBusinessRulesService:
             'min_change': None,
             'max_change': -OPPORTUNITY_THRESHOLD,
             'strict_max': True,
-            'title': 'Significant Demand Drop',
+            'title': 'Strongly Decreasing Market Interest',
             'description': (
-                'Demand has dropped significantly. Consider discounting '
-                'excess inventory or reviewing product strategy.'
+                'Relative search interest has decreased significantly.'
             ),
             'recommended_actions': [
                 'Discount excess inventory proactively',
@@ -134,7 +130,60 @@ class TrendBusinessRulesService:
                     'description': rule['description'],
                     'recommended_actions': list(rule['recommended_actions']),
                 }
-        return self._default_insight()
+        return None
+
+    def build_market_insight(self, keyword: str, market: Dict[str, Any]) -> Dict[str, Any]:
+        """Make an evidence-bounded insight for a keyword not sold by the business."""
+        if market.get('insight_type') == 'Insufficient Data':
+            return {}
+        change = market['percentage_change']
+        direction = market['trend_direction']
+        if direction == 'Growing':
+            title = 'Rising Market Interest'
+            action = 'Consider monitoring this product as a potential market opportunity.'
+        elif direction == 'Declining':
+            title = 'Declining Consumer Interest'
+            action = None
+        else:
+            title = 'Stable Market Interest'
+            action = 'Continue monitoring relative search interest for meaningful changes.'
+        description = (
+            f'Relative search interest for {keyword} {"increased" if change >= 0 else "decreased"} '
+            f'by {abs(change):.1f}% over the previous 14-day period.'
+        )
+        return {'title': title, 'description': description,
+                'recommended_actions': [action] if action else [],
+                'intelligence_type': 'market'}
+
+    def build_business_insight(self, keyword, market, sales, inventory) -> Dict[str, Any]:
+        """Combine only signals that exist; market-only remains a valid result."""
+        market_only = self.build_market_insight(keyword, market)
+        if not sales.get('available'):
+            return market_only
+        growing = market['trend_direction'] == 'Growing'
+        sales_direction = sales['direction']
+        inventory_direction = inventory.get('direction') if inventory.get('available') else None
+        if growing and sales_direction == 'Growing' and inventory_direction == 'Declining':
+            return {'title': 'High Demand & Stock Risk', 'intelligence_type': 'business',
+                    'description': 'Consumer search interest and sales are increasing while inventory is declining.',
+                    'recommended_actions': ['Consider replenishing inventory to avoid potential stockouts.']}
+        if growing and sales_direction == 'Growing':
+            return {'title': 'Growing Product Momentum', 'intelligence_type': 'business',
+                    'description': 'Consumer search interest and sales are increasing, indicating positive momentum for this product.',
+                    'recommended_actions': ['Monitor stock coverage and maintain availability.']}
+        if growing and sales_direction == 'Declining' and inventory_direction == 'Declining':
+            return {'title': 'Potential Stock Constraint', 'intelligence_type': 'business',
+                    'description': 'Consumer interest is increasing while sales and inventory are declining. Reduced inventory may be limiting conversion.',
+                    'recommended_actions': ['Review inventory availability before judging product demand.']}
+        if growing and sales_direction == 'Declining':
+            return {'title': 'Low Conversion Signal', 'intelligence_type': 'business',
+                    'description': 'Consumer search interest is increasing, but sales are declining.',
+                    'recommended_actions': ['Review pricing, availability, product positioning, and customer feedback.']}
+        if market['trend_direction'] == 'Declining' and sales_direction == 'Declining' and inventory_direction == 'Growing':
+            return {'title': 'Declining Demand / Overstock Risk', 'intelligence_type': 'business',
+                    'description': 'Consumer interest and sales are declining while inventory remains elevated.',
+                    'recommended_actions': ['Review inventory levels and promotional strategies.']}
+        return market_only
 
     @staticmethod
     def _matches(pct: float, rule: Dict[str, Any]) -> bool:
@@ -156,12 +205,3 @@ class TrendBusinessRulesService:
                 upper_ok = pct <= max_change
 
         return lower_ok and upper_ok
-
-    @classmethod
-    def _default_insight(cls) -> Dict[str, Any]:
-        return {
-            'insight_type': 'Stable',
-            'title': 'Market Demand Stable',
-            'description': 'Demand is stable. Maintain current inventory levels.',
-            'recommended_actions': ['Monitor search demand for emerging changes'],
-        }
