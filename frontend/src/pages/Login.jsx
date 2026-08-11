@@ -88,7 +88,7 @@ export default function Login() {
                 name="email"
                 type="email"
                 autoComplete="email"
-                className={`w-full pl-11 pr-4 py-2.5 bg-white dark:bg-white dark:bg-white dark:bg-navy-900/40 border border-slate-200 dark:border-slate-200 dark:border-slate-200 dark:border-white/[0.06] text-slate-800 dark:text-slate-700 dark:text-slate-700 dark:text-slate-200/40 border border-slate-200 dark:border-slate-200 dark:border-slate-200 dark:border-white/[0.06] text-slate-800 dark:text-slate-700 dark:text-slate-700 dark:text-slate-200/40 border border-slate-200 dark:border-slate-200 dark:border-slate-200 dark:border-white/[0.06] text-slate-800 dark:text-slate-700 dark:text-slate-700 dark:text-slate-200 border rounded-xl text-white placeholder-slate-600 focus:outline-none focus-glow transition-all duration-200 text-sm ${
+                className={`w-full pl-11 pr-4 py-2.5 bg-white dark:bg-navy-900/40 border border-slate-200 dark:border-white/[0.06] text-slate-800 dark:text-slate-200 placeholder-slate-400 dark:placeholder-slate-600 rounded-xl focus:outline-none focus-glow transition-all duration-200 text-sm ${
                   fieldErrors.email ? 'border-red-500/50 focus:border-red-500 focus:ring-red-500/10' : 'border-slate-200 dark:border-slate-200 dark:border-white/[0.08]'
                 }`}
                 placeholder="you@example.com"
@@ -120,7 +120,7 @@ export default function Login() {
                 name="password"
                 type={showPassword ? 'text' : 'password'}
                 autoComplete="current-password"
-                className={`w-full pl-11 pr-12 py-2.5 bg-white dark:bg-white dark:bg-white dark:bg-navy-900/40 border border-slate-200 dark:border-slate-200 dark:border-slate-200 dark:border-white/[0.06] text-slate-800 dark:text-slate-700 dark:text-slate-700 dark:text-slate-200/40 border border-slate-200 dark:border-slate-200 dark:border-slate-200 dark:border-white/[0.06] text-slate-800 dark:text-slate-700 dark:text-slate-700 dark:text-slate-200/40 border border-slate-200 dark:border-slate-200 dark:border-slate-200 dark:border-white/[0.06] text-slate-800 dark:text-slate-700 dark:text-slate-700 dark:text-slate-200 border rounded-xl text-white placeholder-slate-600 focus:outline-none focus-glow transition-all duration-200 text-sm ${
+                className={`w-full pl-11 pr-12 py-2.5 bg-white dark:bg-navy-900/40 border border-slate-200 dark:border-white/[0.06] text-slate-800 dark:text-slate-200 placeholder-slate-400 dark:placeholder-slate-600 rounded-xl focus:outline-none focus-glow transition-all duration-200 text-sm ${
                   fieldErrors.password ? 'border-red-500/50 focus:border-red-500 focus:ring-red-500/10' : 'border-slate-200 dark:border-slate-200 dark:border-white/[0.08]'
                 }`}
                 placeholder="Enter your password"

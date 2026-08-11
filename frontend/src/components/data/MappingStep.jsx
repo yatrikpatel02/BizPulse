@@ -91,10 +91,10 @@ export default function MappingStep({ headers, suggestedMappings, sourceType, on
         <table className="min-w-full divide-y divide-gray-200 dark:divide-slate-700">
           <thead className="glass-surface">
             <tr>
-              <th scope="col" className="px-6 py-3 text-left text-xs font-bold text-slate-650 dark:text-slate-650 dark:text-slate-300 text-slate-700 dark:text-slate-700 dark:text-slate-200 uppercase tracking-wider">
+              <th scope="col" className="px-6 py-3 text-left text-xs font-bold text-slate-700 dark:text-slate-700 dark:text-slate-300 text-slate-700 dark:text-slate-700 dark:text-slate-200 uppercase tracking-wider">
                 Your File Column
               </th>
-              <th scope="col" className="px-6 py-3 text-left text-xs font-bold text-slate-650 dark:text-slate-650 dark:text-slate-300 text-slate-700 dark:text-slate-700 dark:text-slate-200 uppercase tracking-wider">
+              <th scope="col" className="px-6 py-3 text-left text-xs font-bold text-slate-700 dark:text-slate-700 dark:text-slate-300 text-slate-700 dark:text-slate-700 dark:text-slate-200 uppercase tracking-wider">
                 System Field
               </th>
             </tr>
@@ -129,7 +129,7 @@ export default function MappingStep({ headers, suggestedMappings, sourceType, on
         <button
           type="button"
           onClick={onBack}
-          className="px-6 py-2.5 glass-card border border-slate-200/80 dark:border-slate-200 dark:border-slate-200 dark:border-white/[0.06] hover:glass-surface hover:bg-navy-700 text-slate-650 dark:text-slate-650 dark:text-slate-650 dark:text-slate-300 font-medium rounded-lg transition-colors"
+          className="px-6 py-2.5 glass-card border border-slate-200/80 dark:border-slate-200 dark:border-slate-200 dark:border-white/[0.06] hover:bg-slate-150/50 dark:hover:bg-navy-700 text-slate-750 dark:text-slate-300 font-medium rounded-lg transition-colors"
         >
           Back
         </button>

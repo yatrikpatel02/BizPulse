@@ -450,7 +450,7 @@ export default function Analytics() {
 
                 return (
                   <div key={prod.productId} className="flex items-center gap-4 text-xs hover:glass-surface dark:hover:bg-slate-800/20 p-1 rounded-lg transition-colors">
-                    <div className="w-1/3 font-semibold text-slate-650 dark:text-slate-650 dark:text-slate-300 truncate" title={prod.productName}>
+                    <div className="w-1/3 font-semibold text-slate-700 dark:text-slate-700 dark:text-slate-300 truncate" title={prod.productName}>
                       {prod.productName}
                     </div>
                     <div className="flex-1 relative h-6 glass-surface rounded-lg flex items-center px-1">
@@ -668,7 +668,7 @@ export default function Analytics() {
               onClick={() => setActiveTab(tab.id)}
               className={`flex-1 flex items-center justify-center px-4 py-2 text-xs font-semibold rounded-lg transition-all duration-200 whitespace-nowrap min-w-max ${activeTab === tab.id
                   ? 'bg-gradient-to-r from-violet-600 to-indigo-600 text-white shadow-glow-purple-sm nav-active-glow'
-                  : 'text-slate-500 dark:text-slate-500 dark:text-slate-400 hover:text-white hover:bg-slate-50 dark:hover:bg-slate-50 dark:hover:bg-slate-50 dark:hover:bg-white/[0.03]'
+                  : 'text-slate-500 dark:text-slate-400 hover:text-slate-850 hover:bg-slate-150/50 dark:hover:text-white dark:hover:bg-white/[0.03]'
                 }`}
             >
               {tab.icon}
@@ -682,7 +682,7 @@ export default function Analytics() {
           <div className="flex flex-wrap items-center gap-3">
             {(activeTab === 'sales' || activeTab === 'inventory') && (
               <>
-                <div className="flex items-center gap-2 bg-slate-100/80 px-3 py-1.5 rounded-lg border border-slate-200 dark:bg-white dark:bg-white dark:bg-white dark:bg-navy-900/40 border border-slate-200 dark:border-slate-200 dark:border-slate-200 dark:border-white/[0.06] text-slate-800 dark:text-slate-700 dark:text-slate-700 dark:text-slate-200/40 border border-slate-200 dark:border-slate-200 dark:border-slate-200 dark:border-white/[0.06] text-slate-800 dark:text-slate-700 dark:text-slate-700 dark:text-slate-200/40 border border-slate-200 dark:border-slate-200 dark:border-slate-200 dark:border-white/[0.06] text-slate-800 dark:text-slate-700 dark:text-slate-700 dark:text-slate-200 dark:border-slate-200 dark:border-slate-200 dark:border-white/[0.08] focus-within:border-violet-500/50 transition-colors">
+                <div className="flex items-center gap-2 bg-slate-100/80 px-3 py-1.5 rounded-lg border border-slate-200 dark:dark:bg-navy-900/40 border border-slate-200 dark:border-white/[0.08] focus-within:border-violet-500/50 transition-colors">
                   <span className="text-xs font-medium text-slate-500">From</span>
                   <input
                     type="date"
@@ -692,7 +692,7 @@ export default function Analytics() {
                     className="bg-transparent text-xs font-semibold text-slate-700 dark:text-slate-700 dark:text-slate-200 focus:outline-none cursor-pointer [color-scheme:dark]"
                   />
                 </div>
-                <div className="flex items-center gap-2 bg-slate-100/80 px-3 py-1.5 rounded-lg border border-slate-200 dark:bg-white dark:bg-white dark:bg-white dark:bg-navy-900/40 border border-slate-200 dark:border-slate-200 dark:border-slate-200 dark:border-white/[0.06] text-slate-800 dark:text-slate-700 dark:text-slate-700 dark:text-slate-200/40 border border-slate-200 dark:border-slate-200 dark:border-slate-200 dark:border-white/[0.06] text-slate-800 dark:text-slate-700 dark:text-slate-700 dark:text-slate-200/40 border border-slate-200 dark:border-slate-200 dark:border-slate-200 dark:border-white/[0.06] text-slate-800 dark:text-slate-700 dark:text-slate-700 dark:text-slate-200 dark:border-slate-200 dark:border-slate-200 dark:border-white/[0.08] focus-within:border-violet-500/50 transition-colors">
+                <div className="flex items-center gap-2 bg-slate-100/80 px-3 py-1.5 rounded-lg border border-slate-200 dark:dark:bg-navy-900/40 border border-slate-200 dark:border-white/[0.08] focus-within:border-violet-500/50 transition-colors">
                   <span className="text-xs font-medium text-slate-500">To</span>
                   <input
                     type="date"
@@ -829,7 +829,7 @@ export default function Analytics() {
                     <tbody className="divide-y divide-gray-100 dark:divide-slate-800/60">
                       {currentSales.product_performance.map((item, idx) => (
                         <tr key={idx} className="hover:glass-surface dark:hover:bg-slate-800/30 transition-colors">
-                          <td className="py-3 font-medium text-slate-650 dark:text-slate-650 dark:text-slate-300">{item.label}</td>
+                          <td className="py-3 font-medium text-slate-700 dark:text-slate-700 dark:text-slate-300">{item.label}</td>
                           <td className="py-3 text-right font-bold text-slate-800 dark:text-white">
                             ₹{item.value.toLocaleString(undefined, { maximumFractionDigits: 0 })}
                           </td>
@@ -1042,7 +1042,7 @@ export default function Analytics() {
                     const pct = (item.value / maxVal) * 100;
                     return (
                       <div key={idx} className="space-y-1.5">
-                        <div className="flex justify-between items-center text-xs font-semibold text-slate-650 dark:text-slate-650 dark:text-slate-300">
+                        <div className="flex justify-between items-center text-xs font-semibold text-slate-700 dark:text-slate-700 dark:text-slate-300">
                           <span className="flex items-center">
                             <span className="w-2.5 h-2.5 bg-rose-500 rounded-full mr-2"></span>
                             {item.label}
@@ -1305,7 +1305,7 @@ export default function Analytics() {
                               {typeLabel}
                             </span>
                           </td>
-                          <td className="py-3.5 text-xs font-medium text-slate-650 dark:text-slate-650 dark:text-slate-300">
+                          <td className="py-3.5 text-xs font-medium text-slate-700 dark:text-slate-700 dark:text-slate-300">
                             {pred.product || '—'}
                           </td>
                           <td className="py-3.5 text-xs text-slate-500 dark:text-slate-500 dark:text-slate-400">

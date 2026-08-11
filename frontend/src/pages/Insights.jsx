@@ -173,7 +173,7 @@ export default function Insights() {
             <select
               value={severityFilter}
               onChange={(e) => setSeverityFilter(e.target.value)}
-              className="glass-surface/40 border border-slate-200 dark:border-slate-200 dark:border-white/[0.06] text-sm font-semibold rounded-xl px-4 py-2 outline-none focus:ring-1 focus:ring-violet-500 text-slate-700 dark:text-slate-700 dark:text-slate-200 text-slate-650 dark:text-slate-650 dark:text-slate-300"
+              className="glass-surface/40 border border-slate-200 dark:border-slate-200 dark:border-white/[0.06] text-sm font-semibold rounded-xl px-4 py-2 outline-none focus:ring-1 focus:ring-violet-500 text-slate-700 dark:text-slate-700 dark:text-slate-200 text-slate-700 dark:text-slate-700 dark:text-slate-300"
             >
               <option value="all">All Severities</option>
               <option value="high">High Severity</option>
@@ -188,7 +188,7 @@ export default function Insights() {
             <select
               value={typeFilter}
               onChange={(e) => setTypeFilter(e.target.value)}
-              className="glass-surface/40 border border-slate-200 dark:border-slate-200 dark:border-white/[0.06] text-sm font-semibold rounded-xl px-4 py-2 outline-none focus:ring-1 focus:ring-violet-500 text-slate-700 dark:text-slate-700 dark:text-slate-200 text-slate-650 dark:text-slate-650 dark:text-slate-300"
+              className="glass-surface/40 border border-slate-200 dark:border-slate-200 dark:border-white/[0.06] text-sm font-semibold rounded-xl px-4 py-2 outline-none focus:ring-1 focus:ring-violet-500 text-slate-700 dark:text-slate-700 dark:text-slate-200 text-slate-700 dark:text-slate-700 dark:text-slate-300"
             >
               <option value="all">All Recommendation Types</option>
               <option value="revenue_declining">Revenue Decline</option>
@@ -222,7 +222,7 @@ export default function Insights() {
           <svg className="w-14 h-14 text-violet-400/70 mb-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
           </svg>
-          <h4 className="text-lg font-bold text-slate-650 dark:text-slate-650 dark:text-slate-300">All Clear! No alerts found</h4>
+          <h4 className="text-lg font-bold text-slate-700 dark:text-slate-700 dark:text-slate-300">All Clear! No alerts found</h4>
           <p className="text-sm text-slate-500 mt-1">
             Your operations are currently performing optimally. Try adjusting your filters.
           </p>
@@ -290,7 +290,7 @@ export default function Insights() {
                     </div>
                     <button
                       onClick={() => handleDismiss(insight.id)}
-                      className="p-1 text-slate-500 hover:text-slate-500 dark:text-slate-500 dark:text-slate-400 dark:hover:text-slate-650 dark:text-slate-650 dark:text-slate-300 rounded-lg hover:glass-surface dark:hover:bg-slate-800 transition-colors self-start"
+                      className="p-1 text-slate-500 hover:text-slate-500 dark:text-slate-500 dark:text-slate-400 dark:hover:text-slate-700 dark:text-slate-700 dark:text-slate-300 rounded-lg hover:glass-surface dark:hover:bg-slate-800 transition-colors self-start"
                       title="Dismiss Recommendation"
                     >
                       <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -300,7 +300,7 @@ export default function Insights() {
                   </div>
 
                   {/* Body Text Sections */}
-                  <div className="space-y-3 pt-2 text-xs leading-relaxed text-slate-650 dark:text-slate-650 dark:text-slate-300">
+                  <div className="space-y-3 pt-2 text-xs leading-relaxed text-slate-700 dark:text-slate-700 dark:text-slate-300">
                     {/* Problem */}
                     {parsed.problem && (
                       <div>
@@ -376,7 +376,7 @@ export default function Insights() {
 
               <div>
                 <span className="text-[10px] font-bold text-slate-500 uppercase tracking-wide block mb-1">Action Plan</span>
-                <p className="text-xs leading-relaxed text-slate-650 dark:text-slate-650 dark:text-slate-300 p-3 glass-surface/40 rounded-xl border border-slate-200/50 dark:border-slate-200/50 dark:border-white/[0.04] border-slate-200 dark:border-slate-200 dark:border-white/[0.06]">
+                <p className="text-xs leading-relaxed text-slate-700 dark:text-slate-700 dark:text-slate-300 p-3 glass-surface/40 rounded-xl border border-slate-200/50 dark:border-slate-200/50 dark:border-white/[0.04] border-slate-200 dark:border-slate-200 dark:border-white/[0.06]">
                   {actionModal.recommendation}
                 </p>
               </div>

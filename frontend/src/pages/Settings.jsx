@@ -289,7 +289,7 @@ export default function Settings() {
     <div className="flex flex-col gap-6 animate-fade-in pb-12">
       {/* Toast Notification */}
       {showToast && (
-        <div className="fixed bottom-6 right-6 z-50 bg-slate-900 bg-white dark:bg-white dark:bg-navy-900/40 border border-slate-200 dark:border-slate-200 dark:border-slate-200 dark:border-white/[0.06] text-slate-800 dark:text-slate-700 dark:text-slate-700 dark:text-slate-200/40 border border-slate-200 dark:border-slate-200 dark:border-slate-200 dark:border-white/[0.06] text-slate-800 dark:text-slate-700 dark:text-slate-700 dark:text-slate-200 border border-slate-200 border-slate-200 dark:border-slate-200 dark:border-white/[0.06] text-slate-100 px-5 py-3 rounded-xl shadow-xl text-sm font-semibold flex items-center gap-2">
+        <div className="fixed bottom-6 right-6 z-50 bg-slate-900 dark:bg-navy-900/90 border border-slate-800 dark:border-white/[0.06] text-white px-5 py-3 rounded-xl shadow-xl text-sm font-semibold flex items-center gap-2">
           <span className="w-2 h-2 rounded-full bg-indigo-500 animate-ping"></span>
           {toastMessage}
         </div>
@@ -309,7 +309,7 @@ export default function Settings() {
               className={`flex items-center gap-2.5 px-5 py-3 rounded-2xl text-sm font-semibold transition-all duration-200 cursor-pointer ${
                 activeSubTab === item.id
                   ? 'bg-violet-600 bg-violet-600 text-white shadow-md shadow-indigo-500/20'
-                  : 'glass-surface/60 hover:bg-gray-200 hover:bg-navy-700 text-slate-650 dark:text-slate-650 dark:text-slate-300'
+                  : 'glass-surface/60 hover:bg-slate-200 dark:hover:bg-navy-700 text-slate-700 dark:text-slate-300'
               }`}
             >
               <span className={activeSubTab === item.id ? 'text-white' : 'text-slate-500 dark:text-slate-500 dark:text-slate-400'}>
@@ -353,7 +353,7 @@ export default function Settings() {
                   </div>
                 )}
 
-                <div className="border border-slate-200 dark:border-slate-200 dark:border-white/[0.06] rounded-2xl overflow-hidden glass-card/20 bg-white dark:bg-white dark:bg-navy-900/40 border border-slate-200 dark:border-slate-200 dark:border-slate-200 dark:border-white/[0.06] text-slate-800 dark:text-slate-700 dark:text-slate-700 dark:text-slate-200/40 border border-slate-200 dark:border-slate-200 dark:border-slate-200 dark:border-white/[0.06] text-slate-800 dark:text-slate-700 dark:text-slate-700 dark:text-slate-200/20">
+                <div className="border border-slate-200 dark:border-white/[0.06] rounded-2xl overflow-hidden bg-white dark:bg-navy-900/40 text-slate-800 dark:text-slate-200">
                   <table className="w-full text-xs">
                     <thead>
                       <tr className="glass-surface border-b border-slate-200 dark:border-slate-200 dark:border-white/[0.06]">
@@ -393,7 +393,7 @@ export default function Settings() {
                                   </button>
                                   <button
                                     onClick={() => setEditingId(null)}
-                                    className="px-3 py-1 border border-slate-200 dark:border-slate-200 dark:border-white/[0.06] dark:border-slate-850 hover:bg-slate-800 text-slate-500 dark:text-slate-500 dark:text-slate-500 dark:text-slate-400 text-xs font-bold rounded-lg transition-colors cursor-pointer"
+                                    className="px-3 py-1 border border-slate-200 dark:border-slate-200 dark:border-white/[0.06] hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-500 dark:text-slate-500 dark:text-slate-500 dark:text-slate-400 text-xs font-bold rounded-lg transition-colors cursor-pointer"
                                   >
                                     Cancel
                                   </button>
@@ -517,7 +517,7 @@ export default function Settings() {
                   <button
                     type="button"
                     onClick={() => document.getElementById('avatar-input').click()}
-                    className="mb-2 px-3 py-1.5 border border-gray-250 border-slate-200 dark:border-slate-200 dark:border-white/[0.06] hover:glass-surface dark:hover:bg-slate-800 text-slate-650 dark:text-slate-650 dark:text-slate-300 dark:text-slate-500 dark:text-slate-500 dark:text-slate-400 text-xs font-semibold rounded-xl transition-all shadow-sm cursor-pointer"
+                    className="mb-2 px-3 py-1.5 border border-gray-250 border-slate-200 dark:border-slate-200 dark:border-white/[0.06] hover:glass-surface dark:hover:bg-slate-800 text-slate-700 dark:text-slate-700 dark:text-slate-300 dark:text-slate-500 dark:text-slate-500 dark:text-slate-400 text-xs font-semibold rounded-xl transition-all shadow-sm cursor-pointer"
                   >
                     Edit Photo
                   </button>
@@ -587,7 +587,7 @@ export default function Settings() {
               {/* Password update and danger zones */}
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6 pt-8 border-t border-slate-200 dark:border-slate-200 dark:border-white/[0.06]/40 border-slate-200 dark:border-slate-200 dark:border-white/[0.06]/40">
                 {/* Security change password */}
-                <div className="border border-slate-200 dark:border-slate-200 dark:border-white/[0.06] rounded-2xl p-5 space-y-4 glass-card/20 bg-white dark:bg-white dark:bg-navy-900/40 border border-slate-200 dark:border-slate-200 dark:border-slate-200 dark:border-white/[0.06] text-slate-800 dark:text-slate-700 dark:text-slate-700 dark:text-slate-200/40 border border-slate-200 dark:border-slate-200 dark:border-slate-200 dark:border-white/[0.06] text-slate-800 dark:text-slate-700 dark:text-slate-700 dark:text-slate-200/10">
+                <div className="border border-slate-200 dark:border-white/[0.06] rounded-2xl p-5 space-y-4 bg-white dark:bg-navy-900/40 text-slate-800 dark:text-slate-200">
                   {!showPasswordForm ? (
                     <div className="text-center py-4 space-y-3">
                       <div className="w-10 h-10 bg-violet-500/10 rounded-full flex items-center justify-center text-violet-400 mx-auto">
@@ -720,7 +720,7 @@ export default function Settings() {
                             setShowDeleteConfirm(false);
                             setConfirmPassword('');
                           }}
-                          className="flex-1 py-2 border border-slate-200 dark:border-slate-200 dark:border-white/[0.06] text-slate-650 dark:text-slate-650 dark:text-slate-300 text-xs font-bold rounded-lg cursor-pointer"
+                          className="flex-1 py-2 border border-slate-200 dark:border-slate-200 dark:border-white/[0.06] text-slate-700 dark:text-slate-700 dark:text-slate-300 text-xs font-bold rounded-lg cursor-pointer"
                         >
                           Cancel
                         </button>
@@ -792,7 +792,7 @@ export default function Settings() {
                   <p className="text-xs text-slate-500">Trigger warnings if the aggregate catalog sentiment drops below this star index.</p>
                 </div>
 
-                <div className="flex items-center justify-between p-4 glass-card/20 bg-white dark:bg-white dark:bg-navy-900/40 border border-slate-200 dark:border-slate-200 dark:border-slate-200 dark:border-white/[0.06] text-slate-800 dark:text-slate-700 dark:text-slate-700 dark:text-slate-200/40 border border-slate-200 dark:border-slate-200 dark:border-slate-200 dark:border-white/[0.06] text-slate-800 dark:text-slate-700 dark:text-slate-700 dark:text-slate-200/20 border border-slate-200 dark:border-slate-200 dark:border-white/[0.06] rounded-2xl">
+                <div className="flex items-center justify-between p-4 bg-white dark:bg-navy-900/40 border border-slate-200 dark:border-white/[0.06] text-slate-800 dark:text-slate-200 rounded-2xl">
                   <div>
                     <h5 className="text-base font-bold text-slate-800 dark:text-white">Send Email Alerts</h5>
                     <p className="text-xs text-slate-500 mt-1">Receive immediate notification updates on high severity anomalies.</p>
@@ -833,7 +833,7 @@ export default function Settings() {
                 <h4 className="text-xs font-bold text-slate-500 uppercase tracking-wider">Active Integrations</h4>
 
                 {/* CSV Import */}
-                <div className="flex items-center justify-between p-4 glass-card/20 bg-white dark:bg-white dark:bg-navy-900/40 border border-slate-200 dark:border-slate-200 dark:border-slate-200 dark:border-white/[0.06] text-slate-800 dark:text-slate-700 dark:text-slate-700 dark:text-slate-200/40 border border-slate-200 dark:border-slate-200 dark:border-slate-200 dark:border-white/[0.06] text-slate-800 dark:text-slate-700 dark:text-slate-700 dark:text-slate-200/20 border border-slate-200 dark:border-slate-200 dark:border-white/[0.06] rounded-2xl group hover:border-indigo-500/30 transition-colors">
+                <div className="flex items-center justify-between p-4 bg-white dark:bg-navy-900/40 border border-slate-200 dark:border-white/[0.06] text-slate-800 dark:text-slate-200 rounded-2xl group hover:border-indigo-500/30 transition-colors">
                   <div className="flex items-center gap-3">
                     <div className="w-9 h-9 rounded-xl bg-violet-500/10 bg-violet-600/20 flex items-center justify-center text-violet-400 flex-shrink-0">
                       <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -852,7 +852,7 @@ export default function Settings() {
                 </div>
 
                 {/* Competitor Price Scraper — SerpAPI + Flipkart */}
-                <div className="flex items-center justify-between p-4 glass-card/20 bg-white dark:bg-white dark:bg-navy-900/40 border border-slate-200 dark:border-slate-200 dark:border-slate-200 dark:border-white/[0.06] text-slate-800 dark:text-slate-700 dark:text-slate-700 dark:text-slate-200/40 border border-slate-200 dark:border-slate-200 dark:border-slate-200 dark:border-white/[0.06] text-slate-800 dark:text-slate-700 dark:text-slate-700 dark:text-slate-200/20 border border-slate-200 dark:border-slate-200 dark:border-white/[0.06] rounded-2xl group hover:border-indigo-500/30 transition-colors">
+                <div className="flex items-center justify-between p-4 bg-white dark:bg-navy-900/40 border border-slate-200 dark:border-white/[0.06] text-slate-800 dark:text-slate-200 rounded-2xl group hover:border-indigo-500/30 transition-colors">
                   <div className="flex items-center gap-3">
                     <div className="w-9 h-9 rounded-xl bg-amber-500/10 dark:bg-amber-500/20 flex items-center justify-center text-amber-600 text-amber-400 flex-shrink-0">
                       <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -871,7 +871,7 @@ export default function Settings() {
                 </div>
 
                 {/* Google Trends */}
-                <div className="flex items-center justify-between p-4 glass-card/20 bg-white dark:bg-white dark:bg-navy-900/40 border border-slate-200 dark:border-slate-200 dark:border-slate-200 dark:border-white/[0.06] text-slate-800 dark:text-slate-700 dark:text-slate-700 dark:text-slate-200/40 border border-slate-200 dark:border-slate-200 dark:border-slate-200 dark:border-white/[0.06] text-slate-800 dark:text-slate-700 dark:text-slate-700 dark:text-slate-200/20 border border-slate-200 dark:border-slate-200 dark:border-white/[0.06] rounded-2xl group hover:border-indigo-500/30 transition-colors">
+                <div className="flex items-center justify-between p-4 bg-white dark:bg-navy-900/40 border border-slate-200 dark:border-white/[0.06] text-slate-800 dark:text-slate-200 rounded-2xl group hover:border-indigo-500/30 transition-colors">
                   <div className="flex items-center gap-3">
                     <div className="w-9 h-9 rounded-xl bg-rose-500/10 dark:bg-rose-500/20 flex items-center justify-center text-rose-600 dark:text-rose-600 dark:text-rose-600 dark:text-rose-600 dark:text-rose-400 flex-shrink-0">
                       <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -894,7 +894,7 @@ export default function Settings() {
               <form onSubmit={handleSaveSync} className="space-y-5 pt-2 border-t border-slate-200 dark:border-slate-200 dark:border-white/[0.06]/40 border-slate-200 dark:border-slate-200 dark:border-white/[0.06]/40">
                 <h4 className="text-xs font-bold text-slate-500 uppercase tracking-wider pt-2">Scraper Settings</h4>
 
-                <div className="flex items-center justify-between p-4 glass-card/20 bg-white dark:bg-white dark:bg-navy-900/40 border border-slate-200 dark:border-slate-200 dark:border-slate-200 dark:border-white/[0.06] text-slate-800 dark:text-slate-700 dark:text-slate-700 dark:text-slate-200/40 border border-slate-200 dark:border-slate-200 dark:border-slate-200 dark:border-white/[0.06] text-slate-800 dark:text-slate-700 dark:text-slate-700 dark:text-slate-200/20 border border-slate-200 dark:border-slate-200 dark:border-white/[0.06] rounded-2xl">
+                <div className="flex items-center justify-between p-4 bg-white dark:bg-navy-900/40 border border-slate-200 dark:border-white/[0.06] text-slate-800 dark:text-slate-200 rounded-2xl">
                   <div>
                     <h5 className="text-base font-bold text-slate-800 dark:text-white">Auto-refresh Competitor Prices</h5>
                     <p className="text-xs text-slate-500 mt-1">Automatically trigger scraper on each product view.</p>

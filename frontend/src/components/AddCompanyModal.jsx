@@ -53,7 +53,7 @@ export default function AddCompanyModal({ isOpen, onClose }) {
           
           <div className="space-y-4">
             <div>
-              <label htmlFor="companyName" className="block text-sm font-medium text-slate-650 dark:text-slate-650 dark:text-slate-300 mb-1.5">
+              <label htmlFor="companyName" className="block text-sm font-medium text-slate-700 dark:text-slate-700 dark:text-slate-300 mb-1.5">
                 Company Name <span className="text-red-400">*</span>
               </label>
               <input
@@ -62,13 +62,13 @@ export default function AddCompanyModal({ isOpen, onClose }) {
                 required
                 value={name}
                 onChange={(e) => setName(e.target.value)}
-                className="w-full px-3 py-2.5 bg-white dark:bg-white dark:bg-white dark:bg-navy-900/40 border border-slate-200 dark:border-slate-200 dark:border-slate-200 dark:border-white/[0.06] text-slate-800 dark:text-slate-700 dark:text-slate-700 dark:text-slate-200/40 border border-slate-200 dark:border-slate-200 dark:border-slate-200 dark:border-white/[0.06] text-slate-800 dark:text-slate-700 dark:text-slate-700 dark:text-slate-200/40 border border-slate-200 dark:border-slate-200 dark:border-slate-200 dark:border-white/[0.06] text-slate-800 dark:text-slate-700 dark:text-slate-700 dark:text-slate-200 border border-slate-200 dark:border-slate-200 dark:border-white/[0.08] rounded-xl text-white placeholder-slate-600 focus:outline-none focus-glow sm:text-sm transition-all"
+                className="w-full px-3 py-2.5 bg-white dark:bg-navy-900/40 border border-slate-200 dark:border-white/[0.08] text-slate-800 dark:text-slate-200 placeholder-slate-400 dark:placeholder-slate-600 focus:outline-none focus-glow sm:text-sm rounded-xl transition-all"
                 placeholder="e.g. Acme Corp"
               />
             </div>
             
             <div>
-              <label htmlFor="industry" className="block text-sm font-medium text-slate-650 dark:text-slate-650 dark:text-slate-300 mb-1.5">
+              <label htmlFor="industry" className="block text-sm font-medium text-slate-700 dark:text-slate-700 dark:text-slate-300 mb-1.5">
                 Industry
               </label>
               <input
@@ -76,7 +76,7 @@ export default function AddCompanyModal({ isOpen, onClose }) {
                 type="text"
                 value={industry}
                 onChange={(e) => setIndustry(e.target.value)}
-                className="w-full px-3 py-2.5 bg-white dark:bg-white dark:bg-white dark:bg-navy-900/40 border border-slate-200 dark:border-slate-200 dark:border-slate-200 dark:border-white/[0.06] text-slate-800 dark:text-slate-700 dark:text-slate-700 dark:text-slate-200/40 border border-slate-200 dark:border-slate-200 dark:border-slate-200 dark:border-white/[0.06] text-slate-800 dark:text-slate-700 dark:text-slate-700 dark:text-slate-200/40 border border-slate-200 dark:border-slate-200 dark:border-slate-200 dark:border-white/[0.06] text-slate-800 dark:text-slate-700 dark:text-slate-700 dark:text-slate-200 border border-slate-200 dark:border-slate-200 dark:border-white/[0.08] rounded-xl text-white placeholder-slate-600 focus:outline-none focus-glow sm:text-sm transition-all"
+                className="w-full px-3 py-2.5 bg-white dark:bg-navy-900/40 border border-slate-200 dark:border-white/[0.08] text-slate-800 dark:text-slate-200 placeholder-slate-400 dark:placeholder-slate-600 focus:outline-none focus-glow sm:text-sm rounded-xl transition-all"
                 placeholder="e.g. Retail, Tech, Manufacturing"
               />
             </div>
@@ -86,7 +86,7 @@ export default function AddCompanyModal({ isOpen, onClose }) {
             <button
               type="button"
               onClick={onClose}
-              className="px-4 py-2 border border-slate-200 dark:border-slate-200 dark:border-white/[0.08] rounded-xl text-sm font-medium text-slate-650 dark:text-slate-650 dark:text-slate-300 glass-surface hover:bg-navy-700 focus:outline-none transition-colors"
+              className="px-4 py-2 border border-slate-200 dark:border-slate-200 dark:border-white/[0.08] rounded-xl text-sm font-medium text-slate-700 dark:text-slate-300 glass-surface hover:bg-slate-100 dark:hover:bg-navy-700 focus:outline-none transition-colors"
               disabled={loading}
             >
               Cancel

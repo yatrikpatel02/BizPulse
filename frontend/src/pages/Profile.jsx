@@ -187,7 +187,7 @@ export default function Profile() {
           <button
             type="button"
             onClick={() => document.getElementById('avatar-input').click()}
-            className="mt-1 mb-3 px-3.5 py-1.5 border border-gray-250 border-slate-200 dark:border-slate-200 dark:border-white/[0.06] hover:glass-surface dark:hover:bg-slate-800 text-slate-650 dark:text-slate-650 dark:text-slate-300 dark:text-slate-500 dark:text-slate-500 dark:text-slate-400 text-[11px] font-semibold rounded-xl transition-all shadow-sm flex items-center gap-1"
+            className="mt-1 mb-3 px-3.5 py-1.5 border border-gray-250 border-slate-200 dark:border-slate-200 dark:border-white/[0.06] hover:glass-surface dark:hover:bg-slate-800 text-slate-700 dark:text-slate-700 dark:text-slate-300 dark:text-slate-500 dark:text-slate-500 dark:text-slate-400 text-[11px] font-semibold rounded-xl transition-all shadow-sm flex items-center gap-1"
           >
             <svg className="w-3.5 h-3.5 text-slate-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15.232 5.232l3.536 3.536m-2.036-2.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />
@@ -444,7 +444,7 @@ export default function Profile() {
                       setConfirmPassword('');
                       setDeleteError('');
                     }}
-                    className="flex-1 py-2 border border-slate-200 dark:border-slate-200 dark:border-white/[0.06] hover:glass-surface dark:hover:bg-slate-800 text-slate-650 dark:text-slate-650 dark:text-slate-300 text-xs font-semibold rounded-xl transition-all"
+                    className="flex-1 py-2 border border-slate-200 dark:border-slate-200 dark:border-white/[0.06] hover:glass-surface dark:hover:bg-slate-800 text-slate-700 dark:text-slate-700 dark:text-slate-300 text-xs font-semibold rounded-xl transition-all"
                   >
                     Cancel
                   </button>
@@ -509,7 +509,7 @@ export default function Profile() {
                               </button>
                               <button
                                 onClick={() => setEditingId(null)}
-                                className="px-3 py-1 border border-slate-200 dark:border-slate-200 dark:border-white/[0.06] hover:bg-slate-800 text-slate-500 text-slate-650 dark:text-slate-650 dark:text-slate-300 text-xs font-semibold rounded-lg transition-colors"
+                                className="px-3 py-1 border border-slate-200 dark:border-slate-200 dark:border-white/[0.06] hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-500 text-slate-700 dark:text-slate-300 text-xs font-semibold rounded-lg transition-colors"
                               >
                                 Cancel
                               </button>

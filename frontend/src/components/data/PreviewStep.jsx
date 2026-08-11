@@ -86,7 +86,7 @@ export default function PreviewStep({ tempFileId, sourceType, mapping, onPreview
               <thead className="glass-surface">
                 <tr>
                   {previewData.length > 0 && Object.keys(previewData[0]).map((key) => (
-                    <th key={key} scope="col" className="px-6 py-3 text-left text-xs font-bold text-slate-650 dark:text-slate-650 dark:text-slate-300 text-slate-700 dark:text-slate-700 dark:text-slate-200 uppercase tracking-wider">
+                    <th key={key} scope="col" className="px-6 py-3 text-left text-xs font-bold text-slate-700 dark:text-slate-700 dark:text-slate-300 text-slate-700 dark:text-slate-700 dark:text-slate-200 uppercase tracking-wider">
                       {key}
                     </th>
                   ))}
@@ -96,7 +96,7 @@ export default function PreviewStep({ tempFileId, sourceType, mapping, onPreview
                 {previewData.map((row, idx) => (
                   <tr key={idx}>
                     {Object.values(row).map((val, i) => (
-                      <td key={i} className="px-6 py-4 whitespace-nowrap text-sm text-slate-650 dark:text-slate-650 dark:text-slate-300">
+                      <td key={i} className="px-6 py-4 whitespace-nowrap text-sm text-slate-700 dark:text-slate-700 dark:text-slate-300">
                         {val !== null ? String(val) : '-'}
                       </td>
                     ))}
@@ -117,7 +117,7 @@ export default function PreviewStep({ tempFileId, sourceType, mapping, onPreview
         <button
           type="button"
           onClick={onBack}
-          className="px-6 py-2.5 glass-card border border-slate-200/80 dark:border-slate-200 dark:border-slate-200 dark:border-white/[0.06] hover:glass-surface hover:bg-navy-700 text-slate-650 dark:text-slate-650 dark:text-slate-650 dark:text-slate-300 font-medium rounded-lg transition-colors"
+          className="px-6 py-2.5 glass-card border border-slate-200/80 dark:border-slate-200 dark:border-slate-200 dark:border-white/[0.06] hover:bg-slate-150/50 dark:hover:bg-navy-700 text-slate-750 dark:text-slate-300 font-medium rounded-lg transition-colors"
         >
           Back
         </button>

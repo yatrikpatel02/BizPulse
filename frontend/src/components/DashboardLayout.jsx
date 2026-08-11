@@ -279,7 +279,7 @@ export default function DashboardLayout({ children }) {
       <Sidebar isOpen={isSidebarOpen} setIsOpen={setIsSidebarOpen} />
       <div className="flex-1 flex flex-col overflow-hidden w-full relative z-10 grid-bg">
         {/* Top Header */}
-        <header className="flex-shrink-0 flex items-center justify-between px-6 py-3.5 bg-white/80 dark:bg-white dark:bg-white dark:bg-white dark:bg-navy-900/40 border border-slate-200 dark:border-slate-200 dark:border-slate-200 dark:border-white/[0.06] text-slate-800 dark:text-slate-700 dark:text-slate-700 dark:text-slate-200/40 border border-slate-200 dark:border-slate-200 dark:border-slate-200 dark:border-white/[0.06] text-slate-800 dark:text-slate-700 dark:text-slate-700 dark:text-slate-200/40 border border-slate-200 dark:border-slate-200 dark:border-slate-200 dark:border-white/[0.06] text-slate-800 dark:text-slate-700 dark:text-slate-700 dark:text-slate-200 backdrop-blur-xl border-b border-slate-200 dark:border-slate-200 dark:border-slate-200 dark:border-white/[0.06] z-40 relative transition-colors duration-200">
+        <header className="flex-shrink-0 flex items-center justify-between px-6 py-3.5 bg-white/80 dark:bg-navy-900/80 backdrop-blur-xl border-b border-slate-200 dark:border-white/[0.06] z-40 relative text-slate-800 dark:text-slate-200 transition-colors duration-200">
           <div className="flex items-center space-x-3">
             <button 
               onClick={() => setIsSidebarOpen(!isSidebarOpen)}
@@ -420,7 +420,7 @@ export default function DashboardLayout({ children }) {
                   {(user?.first_name?.charAt(0) || '') + (user?.last_name?.charAt(0) || '') || user?.username?.charAt(0) || 'U'}
                 </div>
               )}
-              <span className="text-sm font-semibold text-slate-700 dark:text-slate-650 dark:text-slate-650 dark:text-slate-300 hidden sm:block">
+              <span className="text-sm font-semibold text-slate-700 dark:text-slate-300 hidden sm:block">
                 {user?.first_name || user?.last_name ? `${user.first_name} ${user.last_name}` : user?.username}
               </span>
             </Link>

@@ -59,7 +59,7 @@ export default function SuccessStep({ tempFileId, sourceType, mapping, originalF
           <div className="flex justify-center space-x-4">
             <button
               onClick={onReset}
-              className="px-6 py-2.5 glass-card border border-slate-200/80 dark:border-slate-200 dark:border-slate-200 dark:border-white/[0.06] hover:glass-surface hover:bg-navy-700 text-slate-650 dark:text-slate-650 dark:text-slate-650 dark:text-slate-300 font-medium rounded-lg transition-colors"
+              className="px-6 py-2.5 glass-card border border-slate-200/80 dark:border-slate-200 dark:border-slate-200 dark:border-white/[0.06] hover:bg-slate-150/50 dark:hover:bg-navy-700 text-slate-750 dark:text-slate-300 font-medium rounded-lg transition-colors"
             >
               Upload Another File
             </button>

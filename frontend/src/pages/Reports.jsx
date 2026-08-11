@@ -412,15 +412,15 @@ export default function Reports() {
             <table className="w-full text-xs">
               <thead>
                 <tr className="border-b border-slate-200 dark:border-slate-200 dark:border-white/[0.06]">
-                  <th className="text-left py-1.5 font-bold text-slate-650 dark:text-slate-650 dark:text-slate-300">Product</th>
-                  <th className="text-right py-1.5 font-bold text-slate-650 dark:text-slate-650 dark:text-slate-300">Revenue</th>
-                  <th className="text-right py-1.5 font-bold text-slate-650 dark:text-slate-650 dark:text-slate-300">Qty</th>
+                  <th className="text-left py-1.5 font-bold text-slate-700 dark:text-slate-700 dark:text-slate-300">Product</th>
+                  <th className="text-right py-1.5 font-bold text-slate-700 dark:text-slate-700 dark:text-slate-300">Revenue</th>
+                  <th className="text-right py-1.5 font-bold text-slate-700 dark:text-slate-700 dark:text-slate-300">Qty</th>
                 </tr>
               </thead>
               <tbody>
                 {products.slice(0, 5).map((p, i) => (
                   <tr key={i} className="border-b border-slate-200 dark:border-slate-200 dark:border-white/[0.06]/40">
-                    <td className="py-1.5 font-semibold text-slate-650 dark:text-slate-650 dark:text-slate-300">{p.product_name || `Product ${i+1}`}</td>
+                    <td className="py-1.5 font-semibold text-slate-700 dark:text-slate-700 dark:text-slate-300">{p.product_name || `Product ${i+1}`}</td>
                     <td className="py-1.5 text-right text-slate-500 dark:text-slate-500 dark:text-slate-400">{formatCurrency(p.total_revenue)}</td>
                     <td className="py-1.5 text-right text-slate-500 dark:text-slate-500 dark:text-slate-400">{p.total_quantity || '-'}</td>
                   </tr>
@@ -464,7 +464,7 @@ export default function Reports() {
             <h6 className="text-xs font-bold text-slate-500 dark:text-slate-500 dark:text-slate-400 uppercase mt-3 mb-2">Stock Anomalies</h6>
             <ul className="space-y-1.5 text-xs">
               {anomalies.slice(0, 5).map((a, i) => (
-                <li key={i} className="flex items-center gap-2 text-slate-650 dark:text-slate-650 dark:text-slate-300">
+                <li key={i} className="flex items-center gap-2 text-slate-700 dark:text-slate-700 dark:text-slate-300">
                   <span className={`w-2 h-2 rounded-full flex-shrink-0 ${a.quantity_on_hand === 0 ? 'bg-red-500' : 'bg-amber-400'}`}></span>
                   <span className="font-semibold">{a.product__name || a.product_name || `Item ${i+1}`}</span>
                   <span className="text-slate-500">— Qty: {a.quantity_on_hand ?? a.quantity}</span>
@@ -521,7 +521,7 @@ export default function Reports() {
             <h6 className="text-xs font-bold text-slate-500 dark:text-slate-500 dark:text-slate-400 uppercase mt-3 mb-2">Top Complaint Categories</h6>
             <ul className="space-y-1 text-xs">
               {complaints.slice(0, 5).map((c, i) => (
-                <li key={i} className="text-slate-650 dark:text-slate-650 dark:text-slate-300 font-medium">
+                <li key={i} className="text-slate-700 dark:text-slate-700 dark:text-slate-300 font-medium">
                   • {c.category} — {c.count} reports
                 </li>
               ))}
@@ -656,7 +656,7 @@ export default function Reports() {
               <svg className="w-12 h-12 text-slate-600 mb-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
               </svg>
-              <h4 className="text-lg font-bold text-slate-650 dark:text-slate-650 dark:text-slate-300">No reports generated yet</h4>
+              <h4 className="text-lg font-bold text-slate-700 dark:text-slate-700 dark:text-slate-300">No reports generated yet</h4>
               <p className="text-sm text-slate-500 mt-1">
                 Go to the Generate tab to create and export your first business report.
               </p>
@@ -686,7 +686,7 @@ export default function Reports() {
                           Range: {report.parameters?.start_date || '-'} to {report.parameters?.end_date || '-'}
                         </div>
                       </td>
-                      <td className="px-6 py-4 text-xs font-semibold text-slate-650 dark:text-slate-650 dark:text-slate-300">
+                      <td className="px-6 py-4 text-xs font-semibold text-slate-700 dark:text-slate-700 dark:text-slate-300">
                         {formatDate(report.generated_at)}
                       </td>
                       <td className="px-6 py-4">
@@ -774,14 +774,14 @@ export default function Reports() {
                 <select
                   value={formData.format}
                   onChange={(e) => setFormData(prev => ({ ...prev, format: e.target.value }))}
-                  className="w-full px-4 py-2.5 glass-surface/40 border border-slate-200 dark:border-slate-200 dark:border-white/[0.06] focus:border-indigo-500 focus:ring-1 focus:ring-violet-500 rounded-xl text-sm outline-none text-slate-700 dark:text-slate-700 dark:text-slate-200 text-slate-650 dark:text-slate-650 dark:text-slate-300 font-semibold transition-all duration-200"
+                  className="w-full px-4 py-2.5 glass-surface/40 border border-slate-200 dark:border-slate-200 dark:border-white/[0.06] focus:border-indigo-500 focus:ring-1 focus:ring-violet-500 rounded-xl text-sm outline-none text-slate-700 dark:text-slate-700 dark:text-slate-200 text-slate-700 dark:text-slate-700 dark:text-slate-300 font-semibold transition-all duration-200"
                 >
                   <option value="PDF">Adobe PDF (.pdf)</option>
                 </select>
               </div>
               <div className="flex items-center justify-end gap-3 pt-4 border-t border-slate-200 dark:border-slate-200 dark:border-white/[0.06]">
                 <button type="button" onClick={() => setGenerationModal(null)}
-                  className="px-5 py-2.5 bg-gray-100 hover:bg-gray-200 glass-surface hover:bg-navy-700 text-slate-650 dark:text-slate-650 dark:text-slate-300 font-semibold text-sm rounded-xl transition-all duration-200">
+                  className="px-5 py-2.5 bg-gray-100 hover:bg-gray-200 dark:glass-surface dark:hover:bg-navy-700 text-slate-700 dark:text-slate-300 font-semibold text-sm rounded-xl transition-all duration-200">
                   Cancel
                 </button>
                 <button type="submit" disabled={generating}
@@ -812,7 +812,7 @@ export default function Reports() {
             </div>
 
             {/* Document Content */}
-            <div id="report-print-area" className="space-y-6 text-sm text-slate-650 dark:text-slate-650 dark:text-slate-300 p-6 glass-surface/40 rounded-2xl border border-slate-200/50 dark:border-slate-200/50 dark:border-white/[0.04] border-slate-200 dark:border-slate-200 dark:border-white/[0.06]">
+            <div id="report-print-area" className="space-y-6 text-sm text-slate-700 dark:text-slate-700 dark:text-slate-300 p-6 glass-surface/40 rounded-2xl border border-slate-200/50 dark:border-slate-200/50 dark:border-white/[0.04] border-slate-200 dark:border-slate-200 dark:border-white/[0.06]">
               {/* Report Header */}
               <div className="flex justify-between items-start border-b border-slate-200 dark:border-slate-200 dark:border-white/[0.06] pb-4">
                 <div>
@@ -866,7 +866,7 @@ export default function Reports() {
             {/* Actions */}
             <div className="pt-4 border-t dark:border-slate-800/80 flex items-center justify-end gap-3 ">
               <button onClick={() => { setReportViewer(null); setViewerData(null); }}
-                className="px-5 py-2.5 bg-gray-100 hover:bg-gray-200 glass-surface hover:bg-navy-700 text-slate-650 dark:text-slate-650 dark:text-slate-300 font-semibold text-xs rounded-xl transition-all duration-200">
+                className="px-5 py-2.5 bg-gray-100 hover:bg-gray-200 dark:glass-surface dark:hover:bg-navy-700 text-slate-700 dark:text-slate-300 font-semibold text-xs rounded-xl transition-all duration-200">
                 Close
               </button>
               <button onClick={handlePrint}
