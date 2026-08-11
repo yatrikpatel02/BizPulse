@@ -58,32 +58,41 @@ input:-internal-autofill-selected {
 
 /* @media print overrides for clean report PDF output */
 @media print {
-  /* Hide all dashboard layout elements, sidebar, header, and dialog buttons */
-  #root > div > div > aside,
-  #root > div > div > div > header,
-  #root > div > div > div > main,
+  /* Hide the main dashboard page content, sidebar, header and modal close buttons */
+  .no-print,
+  aside,
+  header,
   button,
   .fixed button,
-  .fixed > div:not(#report-print-area) {
+  .fixed > div > div > div:last-child {
     display: none !important;
+    height: 0 !important;
+    padding: 0 !important;
+    margin: 0 !important;
   }
 
-  /* Make sure the fixed modal backdrop doesn't cover or gray out the print output */
+  /* Force modal backdrop to be invisible/transparent */
   .fixed {
-    position: relative !important;
+    position: absolute !important;
+    left: 0 !important;
+    top: 0 !important;
+    width: 100% !important;
     background: transparent !important;
     backdrop-filter: none !important;
-    z-index: auto !important;
-    padding: 0 !important;
     display: block !important;
+    padding: 0 !important;
+    z-index: auto !important;
+    box-shadow: none !important;
   }
 
   /* Reset layout constraints that cause print clipping */
-  html, body, #root, #root > div {
+  html, body, #root, #root > div, main {
     height: auto !important;
     overflow: visible !important;
     background: white !important;
     color: black !important;
+    margin: 0 !important;
+    padding: 0 !important;
   }
 
   /* Expand report container to full width and reset styles for paper output */

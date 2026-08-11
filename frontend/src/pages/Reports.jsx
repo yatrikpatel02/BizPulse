@@ -404,7 +404,8 @@ export default function Reports() {
 
   return (
     <div className="space-y-6">
-      {/* Header */}
+      <div className="space-y-6 no-print">
+        {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
         <div>
           <h2 className="text-3xl font-extrabold text-gray-900 dark:text-slate-100 tracking-tight font-display">
@@ -567,6 +568,7 @@ export default function Reports() {
           )}
         </div>
       )}
+      </div>
 
       {/* Modal Dialog for PDF generation settings */}
       {generationModal && (
