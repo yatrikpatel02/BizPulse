@@ -55,3 +55,54 @@ input:-internal-autofill-selected {
 .glass-card {
   @apply bg-white/85 dark:bg-slate-900/50 backdrop-blur-md border border-gray-200/50 dark:border-slate-800/50;
 }
+
+/* @media print overrides for clean report PDF output */
+@media print {
+  /* Hide all dashboard layout elements, sidebar, header, and dialog buttons */
+  #root > div > div > aside,
+  #root > div > div > div > header,
+  #root > div > div > div > main,
+  button,
+  .fixed button,
+  .fixed > div:not(#report-print-area) {
+    display: none !important;
+  }
+
+  /* Make sure the fixed modal backdrop doesn't cover or gray out the print output */
+  .fixed {
+    position: relative !important;
+    background: transparent !important;
+    backdrop-filter: none !important;
+    z-index: auto !important;
+    padding: 0 !important;
+    display: block !important;
+  }
+
+  /* Reset layout constraints that cause print clipping */
+  html, body, #root, #root > div {
+    height: auto !important;
+    overflow: visible !important;
+    background: white !important;
+    color: black !important;
+  }
+
+  /* Expand report container to full width and reset styles for paper output */
+  #report-print-area {
+    visibility: visible !important;
+    position: absolute !important;
+    left: 0 !important;
+    top: 0 !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    margin: 0 !important;
+    padding: 20px !important;
+    border: none !important;
+    background: transparent !important;
+    box-shadow: none !important;
+  }
+
+  #report-print-area * {
+    visibility: visible !important;
+    color: black !important;
+  }
+}
