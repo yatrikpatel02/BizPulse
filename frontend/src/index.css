@@ -21,7 +21,7 @@ input:-internal-autofill-selected {
 
 @layer base {
   body {
-    @apply font-sans bg-slate-50 dark:bg-navy-950 text-slate-800 dark:text-slate-100 transition-colors duration-200;
+    @apply font-sans bg-[#f3f6fa] dark:bg-navy-950 text-slate-800 dark:text-slate-100 transition-colors duration-200;
   }
 
   h1,
@@ -58,12 +58,12 @@ input:-internal-autofill-selected {
 
 /* Glassmorphism Card Style */
 .glass-card {
-  @apply bg-white/70 dark:bg-navy-800/60 backdrop-blur-xl border border-slate-200/50 dark:border-white/[0.06] shadow-sm dark:shadow-glass;
+  @apply bg-white dark:bg-navy-800/60 dark:backdrop-blur-xl border border-slate-200/60 dark:border-white/[0.06] shadow-sm dark:shadow-glass;
 }
 
 /* Glass Surface — secondary translucent surface */
 .glass-surface {
-  @apply bg-slate-100/50 dark:bg-navy-800/40 backdrop-blur-md border border-slate-200/30 dark:border-white/[0.04];
+  @apply bg-slate-50 dark:bg-navy-800/40 dark:backdrop-blur-md border border-slate-200/40 dark:border-white/[0.04];
 }
 
 /* Neon Glow Shadow */

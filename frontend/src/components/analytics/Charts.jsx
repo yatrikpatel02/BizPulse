@@ -47,7 +47,7 @@ export function AreaChart({ data = [], xKey = 'label', yKey = 'value', height = 
 
   if (!Array.isArray(data) || data.length === 0) {
     return (
-      <div className="flex items-center justify-center bg-navy-800/60 bg-navy-800/60 rounded-2xl border border-white/[0.06] backdrop-blur-md" style={{ height }}>
+      <div className="flex items-center justify-center bg-white dark:bg-navy-800/60 rounded-2xl border border-slate-200/60 dark:border-white/[0.06] shadow-sm dark:shadow-glass backdrop-blur-md" style={{ height }}>
         <p className="text-slate-500 text-sm">No trend data available</p>
       </div>
     );
@@ -246,7 +246,7 @@ export function AreaChart({ data = [], xKey = 'label', yKey = 'value', height = 
       {/* Glassmorphism Tooltip absolute overlay */}
       {hoveredIndex !== null && points[hoveredIndex] && (
         <div 
-          className="absolute z-20 pointer-events-none transition-all duration-75 transform -translate-x-1/2 -translate-y-full p-3 bg-navy-800/60 bg-navy-800/60 backdrop-blur-md border border-white/[0.06] rounded-xl shadow-xl min-w-[120px] text-center"
+          className="absolute z-20 pointer-events-none transition-all duration-75 transform -translate-x-1/2 -translate-y-full p-3 bg-white dark:bg-navy-800/95 backdrop-blur-md border border-slate-200 dark:border-white/[0.06] rounded-xl shadow-md dark:shadow-xl min-w-[120px] text-center"
           style={{ 
             left: `${tooltipPos.x}px`, 
             top: `${tooltipPos.y}px` 
@@ -274,7 +274,7 @@ export function BarChart({ data = [], xKey = 'label', yKey = 'value', height = 2
 
   if (!Array.isArray(data) || data.length === 0) {
     return (
-      <div className="flex items-center justify-center bg-navy-800/60 bg-navy-800/60 rounded-2xl border border-white/[0.06] backdrop-blur-md" style={{ height }}>
+      <div className="flex items-center justify-center bg-white dark:bg-navy-800/60 rounded-2xl border border-slate-200/60 dark:border-white/[0.06] shadow-sm dark:shadow-glass backdrop-blur-md" style={{ height }}>
         <p className="text-slate-500 text-sm">No visualization data available</p>
       </div>
     );
@@ -417,7 +417,7 @@ export function BarChart({ data = [], xKey = 'label', yKey = 'value', height = 2
       {/* Tooltip Overlay */}
       {hoveredIdx !== null && bars[hoveredIdx] && (
         <div 
-          className="absolute z-20 pointer-events-none transition-all duration-75 transform -translate-x-1/2 -translate-y-full p-3 bg-navy-800/60 backdrop-blur-md border border-white/[0.06] rounded-xl shadow-xl min-w-[120px] text-center"
+          className="absolute z-20 pointer-events-none transition-all duration-75 transform -translate-x-1/2 -translate-y-full p-3 bg-white dark:bg-navy-800/95 backdrop-blur-md border border-slate-200 dark:border-white/[0.06] rounded-xl shadow-md dark:shadow-xl min-w-[120px] text-center"
           style={{ 
             left: `${tooltipPos.x}px`, 
             top: `${tooltipPos.y}px` 
@@ -443,7 +443,7 @@ export function DonutChart({ data = [], size = 200, innerLabel = 'CSAT', innerVa
 
   if (!Array.isArray(data) || data.length === 0) {
     return (
-      <div className="flex items-center justify-center bg-navy-800/60 bg-navy-800/60 rounded-2xl border border-white/[0.06] backdrop-blur-md" style={{ height: size }}>
+      <div className="flex items-center justify-center bg-white dark:bg-navy-800/60 rounded-2xl border border-slate-200/60 dark:border-white/[0.06] shadow-sm dark:shadow-glass backdrop-blur-md" style={{ height: size }}>
         <p className="text-slate-500 text-sm">No sentiment data</p>
       </div>
     );

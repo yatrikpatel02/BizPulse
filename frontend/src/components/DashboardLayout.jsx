@@ -275,7 +275,7 @@ export default function DashboardLayout({ children }) {
   const { title, subtitle } = getHeaderDetails();
 
   return (
-    <div className="flex h-screen bg-navy-950 transition-colors duration-200 overflow-hidden font-sans">
+    <div className="flex h-screen bg-[#f3f6fa] dark:bg-navy-950 transition-colors duration-200 overflow-hidden font-sans">
       <Sidebar isOpen={isSidebarOpen} setIsOpen={setIsSidebarOpen} />
       <div className="flex-1 flex flex-col overflow-hidden w-full relative z-10 grid-bg">
         {/* Top Header */}
@@ -315,7 +315,7 @@ export default function DashboardLayout({ children }) {
                   <div className="absolute right-0 mt-2 w-80 sm:w-96 bg-white dark:bg-navy-800/95 backdrop-blur-xl border border-slate-200 dark:border-white/[0.08] rounded-2xl shadow-md dark:shadow-glass-lg z-50 py-3 animate-fade-in">
                     <div className="flex items-center justify-between px-4 pb-2 border-b border-white/[0.06]">
                       <div className="flex items-center gap-1.5">
-                        <span className="text-sm font-bold text-slate-100 font-display">Notifications</span>
+                        <span className="text-sm font-bold text-slate-800 dark:text-slate-100 font-display">Notifications</span>
                         {unreadCount > 0 && (
                           <span className="text-[10px] font-bold bg-violet-500/15 text-violet-400 px-1.5 py-0.5 rounded">
                             {unreadCount} new
@@ -370,12 +370,12 @@ export default function DashboardLayout({ children }) {
                             </div>
                             <div className="flex-1 space-y-1">
                               <div className="flex items-center justify-between">
-                                <span className={`text-xs font-bold ${notif.unread ? 'text-slate-100' : 'text-slate-400'}`}>
+                                <span className={`text-xs font-bold ${notif.unread ? 'text-slate-800 dark:text-slate-100' : 'text-slate-500 dark:text-slate-400'}`}>
                                   {notif.title}
                                 </span>
                                 <span className="text-[10px] text-gray-400 dark:text-slate-500">{formatTimeAgo(notif.date)}</span>
                               </div>
-                              <p className="text-[11px] text-slate-400 leading-relaxed">{notif.desc}</p>
+                              <p className="text-[11px] text-slate-600 dark:text-slate-400 leading-relaxed">{notif.desc}</p>
                             </div>
                           </div>
                         ))
@@ -412,7 +412,7 @@ export default function DashboardLayout({ children }) {
               )}
             </button>
 
-            <Link to="/profile" className="flex items-center space-x-2 border-l border-white/[0.08] pl-3 hover:opacity-80 transition-opacity">
+            <Link to="/profile" className="flex items-center space-x-2 border-l border-slate-200 dark:border-white/[0.08] pl-3 hover:opacity-80 transition-opacity">
               {user?.avatar ? (
                 <img src={user.avatar} alt="Avatar" className="w-8 h-8 rounded-full object-cover ring-2 ring-violet-500/30 shadow-glow-purple-sm" />
               ) : (
@@ -420,7 +420,7 @@ export default function DashboardLayout({ children }) {
                   {(user?.first_name?.charAt(0) || '') + (user?.last_name?.charAt(0) || '') || user?.username?.charAt(0) || 'U'}
                 </div>
               )}
-              <span className="text-sm font-semibold text-slate-300 hidden sm:block">
+              <span className="text-sm font-semibold text-slate-700 dark:text-slate-300 hidden sm:block">
                 {user?.first_name || user?.last_name ? `${user.first_name} ${user.last_name}` : user?.username}
               </span>
             </Link>

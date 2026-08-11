@@ -91,7 +91,7 @@ export default function Sidebar({ isOpen, setIsOpen }) {
       
       {/* Sidebar */}
 
-      <div className={`fixed lg:static inset-y-0 left-0 z-30 flex flex-col bg-white dark:bg-navy-950 border-r border-slate-200 dark:border-white/[0.06] h-screen transition-all duration-300 ease-in-out overflow-hidden ${
+      <div className={`fixed lg:static inset-y-0 left-0 z-30 flex flex-col bg-navy-950 border-r border-white/[0.06] h-screen transition-all duration-300 ease-in-out overflow-hidden ${
         isOpen ? 'w-64 translate-x-0' : 'w-0 -translate-x-full lg:translate-x-0'
       }`}>
 

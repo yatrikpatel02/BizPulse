@@ -25,7 +25,7 @@ export default function CompanySwitcher() {
     <div className="relative w-full px-3 py-2.5 border-b border-white/[0.06]" ref={dropdownRef}>
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="w-full flex items-center justify-between bg-slate-100 hover:bg-slate-200/80 dark:bg-navy-800/60 dark:hover:bg-navy-700/60 px-3 py-2 rounded-xl border border-slate-200 dark:border-white/[0.06] text-sm font-medium text-slate-700 dark:text-slate-300 transition-all duration-200"
+        className="w-full flex items-center justify-between bg-navy-800/60 hover:bg-navy-700/60 px-3 py-2 rounded-xl border border-white/[0.06] text-sm font-medium text-slate-300 transition-all duration-200"
       >
         <span className="truncate flex-1 text-left">
           {activeBusiness ? activeBusiness.name : 'No Company Selected'}
@@ -36,8 +36,8 @@ export default function CompanySwitcher() {
       </button>
 
       {isOpen && (
-        <div className="absolute top-full left-3 right-3 mt-1 bg-white dark:bg-navy-800/95 backdrop-blur-xl border border-slate-200 dark:border-white/[0.08] rounded-xl shadow-md dark:shadow-glass-lg z-50 overflow-hidden animate-fade-in">
-          <div className="max-h-60 overflow-y-auto divide-y divide-slate-150 dark:divide-slate-150 dark:divide-slate-150 dark:divide-white/[0.04]">
+        <div className="absolute top-full left-3 right-3 mt-1 bg-navy-800/95 backdrop-blur-xl border border-white/[0.08] rounded-xl shadow-glass-lg z-50 overflow-hidden animate-fade-in">
+          <div className="max-h-60 overflow-y-auto divide-y divide-white/[0.04]">
             {businesses.length === 0 ? (
               <div className="px-4 py-2 text-sm text-slate-500 italic">No companies found</div>
             ) : (
@@ -51,7 +51,7 @@ export default function CompanySwitcher() {
                     className={`flex-1 text-left px-4 py-2.5 text-sm transition-colors ${
                       activeBusiness?.id === business.id 
                         ? 'text-violet-400 font-semibold bg-violet-500/10' 
-                        : 'text-slate-700 hover:bg-slate-50 dark:text-slate-300 dark:hover:bg-white/[0.04]'
+                        : 'text-slate-300 hover:bg-white/[0.04]'
                     }`}
                   >
                     <span className="truncate block">{business.name}</span>
