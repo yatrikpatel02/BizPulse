@@ -51,9 +51,10 @@ export default function DashboardLayout({ children }) {
         try {
           const settings = await getUserSettings();
           thresholds = {
-            safetyStock: settings.safety_stock || 50,
-            starRating: parseFloat(settings.star_rating) || 4.0,
+            safetyStock: settings.safety_stock !== undefined ? settings.safety_stock : 50,
+            starRating: settings.star_rating !== undefined ? parseFloat(settings.star_rating) : 4.0,
           };
+          console.log("BizPulse Notification System: Loaded user thresholds", thresholds);
         } catch (e) {
           console.error("Failed to load user settings, using default thresholds", e);
         }
@@ -64,8 +65,11 @@ export default function DashboardLayout({ children }) {
         try {
           const invData = await getInventoryAnalytics({ business_id: activeBusiness.id });
           const anomalies = invData?.anomalies || [];
+          console.log("BizPulse Notification System: Loaded stock anomalies count:", anomalies.length);
+          
           anomalies.forEach((prod) => {
             const qty = prod.quantity_on_hand || 0;
+            // Respect user-defined Safety Stock threshold
             const reorderThreshold = thresholds.safetyStock;
             if (qty <= reorderThreshold) {
               list.push({
@@ -85,47 +89,51 @@ export default function DashboardLayout({ children }) {
 
         // 3. Fetch customer reviews and alert if rating is below threshold
         try {
-          const reviews = await getCustomerReviews({ business_id: activeBusiness.id });
-          if (Array.isArray(reviews)) {
-            reviews.forEach((review) => {
-              const rating = parseFloat(review.rating) || 0;
-              if (rating <= thresholds.starRating) {
-                list.push({
-                  id: `review-${review.id}`,
-                  title: `Low Review Alert (${rating}★)`,
-                  desc: `"${review.comment_text || 'No comment'}" on ${review.product_name || 'Product'}`,
-                  time: formatTimeAgo(review.created_at),
-                  unread: true,
-                  type: 'info',
-                  date: new Date(review.created_at) // for sorting
-                });
-              }
-            });
-          }
+          const reviewsData = await getCustomerReviews({ business_id: activeBusiness.id });
+          // Handle DRF paginated responses (object with results key)
+          const reviews = Array.isArray(reviewsData) ? reviewsData : (reviewsData?.results || []);
+          console.log("BizPulse Notification System: Loaded customer reviews count:", reviews.length);
+          
+          reviews.forEach((review) => {
+            const rating = parseFloat(review.rating) || 0;
+            if (rating <= thresholds.starRating) {
+              list.push({
+                id: `review-${review.id}`,
+                title: `Low Review Alert (${rating}★)`,
+                desc: `"${review.comment_text || 'No comment'}" on ${review.product_name || 'Product'}`,
+                time: formatTimeAgo(review.review_date || review.created_at),
+                unread: true,
+                type: 'info',
+                date: new Date(review.review_date || review.created_at || Date.now()) // for sorting
+              });
+            }
+          });
         } catch (e) {
           console.error("Failed to fetch customer reviews alerts", e);
         }
 
         // 4. Fetch ML insights and competitor price mismatches
         try {
-          const insights = await getInsights({ business_id: activeBusiness.id });
-          if (Array.isArray(insights)) {
-            insights.forEach((insight) => {
-              let alertType = 'info';
-              if (insight.severity === 'high') alertType = 'warning';
-              else if (insight.insight_type === 'growing_demand') alertType = 'success';
-              
-              list.push({
-                id: `insight-${insight.id}`,
-                title: insight.title,
-                desc: insight.description,
-                time: formatTimeAgo(insight.generated_at),
-                unread: !insight.is_read,
-                type: alertType,
-                date: new Date(insight.generated_at) // for sorting
-              });
+          const insightsData = await getInsights({ business_id: activeBusiness.id });
+          // Handle DRF paginated responses (object with results key)
+          const insights = Array.isArray(insightsData) ? insightsData : (insightsData?.results || []);
+          console.log("BizPulse Notification System: Loaded ML insights count:", insights.length);
+          
+          insights.forEach((insight) => {
+            let alertType = 'info';
+            if (insight.severity === 'high') alertType = 'warning';
+            else if (insight.insight_type === 'growing_demand') alertType = 'success';
+            
+            list.push({
+              id: `insight-${insight.id}`,
+              title: insight.title,
+              desc: insight.description,
+              time: formatTimeAgo(insight.generated_at),
+              unread: !insight.is_read,
+              type: alertType,
+              date: new Date(insight.generated_at || Date.now()) // for sorting
             });
-          }
+          });
         } catch (e) {
           console.error("Failed to fetch ML insights", e);
         }
@@ -136,6 +144,7 @@ export default function DashboardLayout({ children }) {
         // Remove the temporary date object before setting state
         const sanitizedList = list.map(({ date, ...rest }) => rest);
         setNotifications(sanitizedList);
+        console.log("BizPulse Notification System: Dynamic notifications populated. Count:", sanitizedList.length);
 
       } catch (err) {
         console.error("Error generating notifications:", err);
