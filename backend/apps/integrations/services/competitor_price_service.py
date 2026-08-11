@@ -95,6 +95,7 @@ class CompetitorPriceService:
             )
 
         if to_create:
+            CompetitorPrice.objects.filter(business=business, product=product).delete()
             CompetitorPrice.objects.bulk_create(to_create)
             print(f"[COMPETITOR-PRICE] Saved {len(to_create)} records to database")
         else:

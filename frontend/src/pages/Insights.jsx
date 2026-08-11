@@ -10,7 +10,7 @@ export default function Insights() {
 
   // Filters
   const [severityFilter, setSeverityFilter] = useState('all'); // 'all', 'high', 'medium', 'low'
-  const [typeFilter, setTypeFilter] = useState('all'); // 'all', 'revenue_declining', 'competitor_price_lower', 'growing_demand', 'inventory_risk'
+  const [typeFilter, setTypeFilter] = useState('all'); // 'all', 'revenue_declining', 'competitor_price_lower', 'growing_demand', 'declining_demand', 'high_demand', 'inventory_risk'
 
   // Action Modal State
   const [actionModal, setActionModal] = useState(null);
@@ -194,6 +194,8 @@ export default function Insights() {
               <option value="revenue_declining">Revenue Decline</option>
               <option value="competitor_price_lower">Competitor Price Watch</option>
               <option value="growing_demand">Market Demand</option>
+              <option value="declining_demand">Declining Demand</option>
+              <option value="high_demand">High Demand</option>
               <option value="inventory_risk">Inventory Risks</option>
             </select>
           </div>
