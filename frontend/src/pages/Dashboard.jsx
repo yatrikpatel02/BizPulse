@@ -204,7 +204,7 @@ export default function Dashboard() {
             </svg>
           </div>
           <h2 className="text-3xl font-extrabold text-white tracking-tight font-display mb-3">Welcome to BizPulse</h2>
-          <p className="text-sm text-slate-500 dark:text-slate-500 dark:text-slate-400 mb-8 leading-relaxed">To get started, please create your first company to start analyzing data.</p>
+          <p className="text-sm text-slate-500 dark:text-slate-400 mb-8 leading-relaxed">To get started, please create your first company to start analyzing data.</p>
           <button 
             onClick={() => setIsModalOpen(true)}
             className="w-full py-3 bg-gradient-to-r from-violet-600 to-indigo-600 hover:from-violet-500 hover:to-indigo-500 text-white font-semibold rounded-xl hover:shadow-lg hover:shadow-violet-500/20 hover:-translate-y-0.5 transition-all duration-300"

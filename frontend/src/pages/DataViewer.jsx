@@ -43,7 +43,7 @@ function EmptyState({ type, onUpload }) {
   return (
     <div className="flex flex-col items-center justify-center py-24 text-center">
       <div className="text-indigo-300 dark:text-indigo-800 mb-4"><UploadIcon /></div>
-      <h3 className="text-lg font-semibold text-slate-700 dark:text-slate-700 dark:text-slate-300 mb-1">No {type} data yet</h3>
+      <h3 className="text-lg font-semibold text-slate-700 dark:text-slate-300 mb-1">No {type} data yet</h3>
       <p className="text-sm text-slate-500 mb-6">Upload a {type.toLowerCase()} CSV file to get started.</p>
       <button
         onClick={onUpload}
@@ -60,21 +60,21 @@ function Pagination({ page, numPages, onPageChange }) {
   if (numPages <= 1) return null;
   return (
     <div className="flex items-center justify-between px-4 py-3 border-t border-slate-200 dark:border-slate-200 dark:border-white/[0.06]">
-      <p className="text-sm text-slate-500 dark:text-slate-500 dark:text-slate-400">
+      <p className="text-sm text-slate-500 dark:text-slate-400">
         Page <span className="font-medium">{page}</span> of <span className="font-medium">{numPages}</span>
       </p>
       <div className="flex gap-2">
         <button
           onClick={() => onPageChange(page - 1)}
           disabled={page <= 1}
-          className="p-1.5 rounded-md border border-slate-200 dark:border-slate-200 dark:border-white/[0.06] text-slate-500 dark:text-slate-500 dark:text-slate-400 hover:glass-surface dark:hover:bg-slate-800 disabled:opacity-40 disabled:cursor-not-allowed transition-colors"
+          className="p-1.5 rounded-md border border-slate-200 dark:border-slate-200 dark:border-white/[0.06] text-slate-500 dark:text-slate-400 hover:glass-surface dark:hover:bg-slate-800 disabled:opacity-40 disabled:cursor-not-allowed transition-colors"
         >
           <ChevronLeft />
         </button>
         <button
           onClick={() => onPageChange(page + 1)}
           disabled={page >= numPages}
-          className="p-1.5 rounded-md border border-slate-200 dark:border-slate-200 dark:border-white/[0.06] text-slate-500 dark:text-slate-500 dark:text-slate-400 hover:glass-surface dark:hover:bg-slate-800 disabled:opacity-40 disabled:cursor-not-allowed transition-colors"
+          className="p-1.5 rounded-md border border-slate-200 dark:border-slate-200 dark:border-white/[0.06] text-slate-500 dark:text-slate-400 hover:glass-surface dark:hover:bg-slate-800 disabled:opacity-40 disabled:cursor-not-allowed transition-colors"
         >
           <ChevronRight />
         </button>
@@ -91,7 +91,7 @@ function SalesTable({ data }) {
         <thead>
           <tr className="glass-surface/60 border-b border-slate-200 dark:border-slate-200 dark:border-white/[0.06]">
             {['Product', 'Date', 'Quantity', 'Unit Price', 'Revenue'].map(h => (
-              <th key={h} className="px-4 py-3 text-left text-xs font-bold text-slate-700 dark:text-slate-700 dark:text-slate-200 uppercase tracking-wide">{h}</th>
+              <th key={h} className="px-4 py-3 text-left text-xs font-bold text-slate-700 dark:text-slate-200 uppercase tracking-wide">{h}</th>
             ))}
           </tr>
         </thead>
@@ -99,9 +99,9 @@ function SalesTable({ data }) {
           {data.map(row => (
             <tr key={row.id} className="hover:glass-surface dark:hover:bg-slate-800/40 transition-colors">
               <td className="px-4 py-3 font-medium text-slate-800 dark:text-white">{row.product_name}</td>
-              <td className="px-4 py-3 text-slate-500 dark:text-slate-500 dark:text-slate-400">{row.date}</td>
-              <td className="px-4 py-3 text-slate-700 dark:text-slate-700 dark:text-slate-300">{row.quantity}</td>
-              <td className="px-4 py-3 text-slate-700 dark:text-slate-700 dark:text-slate-300">
+              <td className="px-4 py-3 text-slate-500 dark:text-slate-400">{row.date}</td>
+              <td className="px-4 py-3 text-slate-700 dark:text-slate-300">{row.quantity}</td>
+              <td className="px-4 py-3 text-slate-700 dark:text-slate-300">
                 {row.unit_price != null ? `₹${parseFloat(row.unit_price).toFixed(2)}` : '—'}
               </td>
               <td className="px-4 py-3 font-semibold text-emerald-600 text-emerald-600 dark:text-emerald-600 dark:text-emerald-600 dark:text-emerald-400">
@@ -123,7 +123,7 @@ function InventoryTable({ data }) {
         <thead>
           <tr className="glass-surface/60 border-b border-slate-200 dark:border-slate-200 dark:border-white/[0.06]">
             {['Product', 'Date', 'Qty on Hand', 'Reorder Point', 'Status'].map(h => (
-              <th key={h} className="px-4 py-3 text-left text-xs font-bold text-slate-700 dark:text-slate-700 dark:text-slate-200 uppercase tracking-wide">{h}</th>
+              <th key={h} className="px-4 py-3 text-left text-xs font-bold text-slate-700 dark:text-slate-200 uppercase tracking-wide">{h}</th>
             ))}
           </tr>
         </thead>
@@ -133,9 +133,9 @@ function InventoryTable({ data }) {
             return (
               <tr key={row.id} className="hover:glass-surface dark:hover:bg-slate-800/40 transition-colors">
                 <td className="px-4 py-3 font-medium text-slate-800 dark:text-white">{row.product_name}</td>
-                <td className="px-4 py-3 text-slate-500 dark:text-slate-500 dark:text-slate-400">{row.date}</td>
-                <td className="px-4 py-3 text-slate-700 dark:text-slate-700 dark:text-slate-300 font-semibold">{row.quantity_on_hand}</td>
-                <td className="px-4 py-3 text-slate-500 dark:text-slate-500 dark:text-slate-400">{row.reorder_point ?? '—'}</td>
+                <td className="px-4 py-3 text-slate-500 dark:text-slate-400">{row.date}</td>
+                <td className="px-4 py-3 text-slate-700 dark:text-slate-300 font-semibold">{row.quantity_on_hand}</td>
+                <td className="px-4 py-3 text-slate-500 dark:text-slate-400">{row.reorder_point ?? '—'}</td>
                 <td className="px-4 py-3">
                   {low
                     ? <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-xs font-medium bg-red-100 bg-red-500/10 text-red-700 text-red-400">⚠ Low Stock</span>
@@ -159,7 +159,7 @@ function ReviewsTable({ data }) {
         <thead>
           <tr className="glass-surface/60 border-b border-slate-200 dark:border-slate-200 dark:border-white/[0.06]">
             {['Rating', 'Product', 'Author', 'Date', 'Review'].map(h => (
-              <th key={h} className="px-4 py-3 text-left text-xs font-bold text-slate-700 dark:text-slate-700 dark:text-slate-200 uppercase tracking-wide">{h}</th>
+              <th key={h} className="px-4 py-3 text-left text-xs font-bold text-slate-700 dark:text-slate-200 uppercase tracking-wide">{h}</th>
             ))}
           </tr>
         </thead>
@@ -168,9 +168,9 @@ function ReviewsTable({ data }) {
             <tr key={row.id} className="hover:glass-surface dark:hover:bg-slate-800/40 transition-colors">
               <td className="px-4 py-3"><StarRating rating={row.rating} /></td>
               <td className="px-4 py-3 font-medium text-slate-800 dark:text-white">{row.product_name ?? '—'}</td>
-              <td className="px-4 py-3 text-slate-500 dark:text-slate-500 dark:text-slate-400">{row.author_name || '—'}</td>
-              <td className="px-4 py-3 text-slate-500 dark:text-slate-500 dark:text-slate-400">{row.review_date}</td>
-              <td className="px-4 py-3 text-slate-700 dark:text-slate-700 dark:text-slate-300 max-w-xs truncate" title={row.text}>{row.text}</td>
+              <td className="px-4 py-3 text-slate-500 dark:text-slate-400">{row.author_name || '—'}</td>
+              <td className="px-4 py-3 text-slate-500 dark:text-slate-400">{row.review_date}</td>
+              <td className="px-4 py-3 text-slate-700 dark:text-slate-300 max-w-xs truncate" title={row.text}>{row.text}</td>
             </tr>
           ))}
         </tbody>
@@ -292,12 +292,12 @@ export default function DataViewer() {
                   className={`px-5 py-4 text-sm font-medium border-b-2 transition-colors ${
                     isActive
                       ? activeStyle + ' border-current'
-                      : 'border-transparent text-slate-500 dark:text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:text-slate-700 dark:text-slate-300 dark:hover:text-slate-700 dark:text-slate-700 dark:text-slate-200'
+                      : 'border-transparent text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:text-slate-300 dark:hover:text-slate-700 dark:text-slate-200'
                   }`}
                 >
                   {tab.label}
                   {data && isActive && (
-                    <span className="ml-2 px-1.5 py-0.5 text-xs rounded-full glass-surface text-slate-700 dark:text-slate-700 dark:text-slate-300">
+                    <span className="ml-2 px-1.5 py-0.5 text-xs rounded-full glass-surface text-slate-700 dark:text-slate-300">
                       {data.count}
                     </span>
                   )}
@@ -317,7 +317,7 @@ export default function DataViewer() {
               placeholder={activeTab === 'reviews' ? 'Search text or product...' : 'Search product...'}
               value={search}
               onChange={handleSearch}
-              className="w-full pl-9 pr-3 py-2 text-sm glass-card border border-slate-200 dark:border-slate-200 dark:border-white/[0.06] rounded-lg focus:ring-2 focus:ring-violet-500 focus:border-transparent outline-none text-slate-700 dark:text-slate-700 dark:text-slate-200 placeholder-gray-400 dark:placeholder-slate-500"
+              className="w-full pl-9 pr-3 py-2 text-sm glass-card border border-slate-200 dark:border-slate-200 dark:border-white/[0.06] rounded-lg focus:ring-2 focus:ring-violet-500 focus:border-transparent outline-none text-slate-700 dark:text-slate-200 placeholder-gray-400 dark:placeholder-slate-500"
             />
           </div>
 
@@ -326,7 +326,7 @@ export default function DataViewer() {
             type="date"
             value={dateFrom}
             onChange={e => { setDateFrom(e.target.value); setPage(1); }}
-            className="px-3 py-2 text-sm glass-card border border-slate-200 dark:border-slate-200 dark:border-white/[0.06] rounded-lg focus:ring-2 focus:ring-violet-500 outline-none text-slate-700 dark:text-slate-700 dark:text-slate-200"
+            className="px-3 py-2 text-sm glass-card border border-slate-200 dark:border-slate-200 dark:border-white/[0.06] rounded-lg focus:ring-2 focus:ring-violet-500 outline-none text-slate-700 dark:text-slate-200"
             title="From date"
           />
           <span className="text-slate-500 text-sm">to</span>
@@ -334,7 +334,7 @@ export default function DataViewer() {
             type="date"
             value={dateTo}
             onChange={e => { setDateTo(e.target.value); setPage(1); }}
-            className="px-3 py-2 text-sm glass-card border border-slate-200 dark:border-slate-200 dark:border-white/[0.06] rounded-lg focus:ring-2 focus:ring-violet-500 outline-none text-slate-700 dark:text-slate-700 dark:text-slate-200"
+            className="px-3 py-2 text-sm glass-card border border-slate-200 dark:border-slate-200 dark:border-white/[0.06] rounded-lg focus:ring-2 focus:ring-violet-500 outline-none text-slate-700 dark:text-slate-200"
             title="To date"
           />
 
@@ -343,7 +343,7 @@ export default function DataViewer() {
             <select
               value={ratingFilter}
               onChange={e => { setRatingFilter(e.target.value); setPage(1); }}
-              className="px-3 py-2 text-sm glass-card border border-slate-200 dark:border-slate-200 dark:border-white/[0.06] rounded-lg focus:ring-2 focus:ring-violet-500 outline-none text-slate-700 dark:text-slate-700 dark:text-slate-200"
+              className="px-3 py-2 text-sm glass-card border border-slate-200 dark:border-slate-200 dark:border-white/[0.06] rounded-lg focus:ring-2 focus:ring-violet-500 outline-none text-slate-700 dark:text-slate-200"
             >
               <option value="">All Ratings</option>
               {[5, 4, 3, 2, 1].map(r => <option key={r} value={r}>{'★'.repeat(r)} ({r} star)</option>)}
@@ -354,7 +354,7 @@ export default function DataViewer() {
           {(search || dateFrom || dateTo || ratingFilter) && (
             <button
               onClick={() => { setSearch(''); setDateFrom(''); setDateTo(''); setRatingFilter(''); setPage(1); }}
-              className="px-3 py-2 text-sm text-slate-500 dark:text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:text-slate-700 dark:text-slate-300 dark:hover:text-slate-700 dark:text-slate-700 dark:text-slate-200 transition-colors"
+              className="px-3 py-2 text-sm text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:text-slate-300 dark:hover:text-slate-700 dark:text-slate-200 transition-colors"
             >
               Clear
             </button>

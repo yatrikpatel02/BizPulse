@@ -4,7 +4,7 @@ export default function KPICard({ title, value, subtitle, change, isPositive, tr
   return (
     <div className="glass-card hover:border-violet-500/20 hover:-translate-y-1 hover:shadow-glow-purple rounded-2xl p-6 flex flex-col transition-all duration-300 group">
       <div className="flex items-center justify-between mb-4">
-        <h3 className="text-sm font-semibold text-slate-500 dark:text-slate-500 dark:text-slate-500 dark:text-slate-400 font-display">{title}</h3>
+        <h3 className="text-sm font-semibold text-slate-500 dark:text-slate-400 font-display">{title}</h3>
         {icon && (
           <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-violet-600/15 to-indigo-600/10 flex items-center justify-center text-violet-400 border border-violet-500/10 group-hover:shadow-glow-purple-sm transition-all duration-300">
             {icon}

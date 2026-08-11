@@ -36,7 +36,7 @@ export default function PreviewStep({ tempFileId, sourceType, mapping, onPreview
           <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
         </svg>
         <h3 className="text-lg font-medium text-slate-800 dark:text-white">Analyzing Your Data...</h3>
-        <p className="text-slate-500 text-slate-500 dark:text-slate-500 dark:text-slate-400 mt-2">Checking data types and formatting</p>
+        <p className="text-slate-500 text-slate-500 dark:text-slate-400 mt-2">Checking data types and formatting</p>
       </div>
     );
   }
@@ -67,7 +67,7 @@ export default function PreviewStep({ tempFileId, sourceType, mapping, onPreview
         <>
           <div className="grid grid-cols-3 gap-4 mb-8">
             <div className="glass-surface p-4 rounded-lg border border-slate-200/50 dark:border-slate-200/50 dark:border-white/[0.04] border-slate-200 dark:border-slate-200 dark:border-white/[0.06] text-center">
-              <p className="text-sm text-slate-500 text-slate-500 dark:text-slate-500 dark:text-slate-400 mb-1">Total Rows</p>
+              <p className="text-sm text-slate-500 text-slate-500 dark:text-slate-400 mb-1">Total Rows</p>
               <p className="text-2xl font-bold text-slate-800 dark:text-white">{stats.total}</p>
             </div>
             <div className="bg-green-50 dark:bg-green-900/20 p-4 rounded-lg border border-green-100 dark:border-green-800/30 text-center">
@@ -75,7 +75,7 @@ export default function PreviewStep({ tempFileId, sourceType, mapping, onPreview
               <p className="text-2xl font-bold text-green-700 dark:text-green-300">{stats.cleaned}</p>
             </div>
             <div className={`p-4 rounded-lg border text-center ${stats.invalid > 0 ? 'bg-orange-50 border-orange-100 dark:bg-orange-900/20 dark:border-orange-800/30' : 'glass-surface border-slate-200/50 dark:border-slate-200/50 dark:border-white/[0.04] border-slate-200 dark:border-slate-200 dark:border-white/[0.06]'}`}>
-              <p className={`text-sm mb-1 ${stats.invalid > 0 ? 'text-orange-600 dark:text-orange-400' : 'text-slate-500 text-slate-500 dark:text-slate-500 dark:text-slate-400'}`}>Invalid Rows (Will be skipped)</p>
+              <p className={`text-sm mb-1 ${stats.invalid > 0 ? 'text-orange-600 dark:text-orange-400' : 'text-slate-500 text-slate-500 dark:text-slate-400'}`}>Invalid Rows (Will be skipped)</p>
               <p className={`text-2xl font-bold ${stats.invalid > 0 ? 'text-orange-700 dark:text-orange-300' : 'text-slate-800 dark:text-white'}`}>{stats.invalid}</p>
             </div>
           </div>
@@ -86,7 +86,7 @@ export default function PreviewStep({ tempFileId, sourceType, mapping, onPreview
               <thead className="glass-surface">
                 <tr>
                   {previewData.length > 0 && Object.keys(previewData[0]).map((key) => (
-                    <th key={key} scope="col" className="px-6 py-3 text-left text-xs font-bold text-slate-700 dark:text-slate-700 dark:text-slate-300 text-slate-700 dark:text-slate-700 dark:text-slate-200 uppercase tracking-wider">
+                    <th key={key} scope="col" className="px-6 py-3 text-left text-xs font-bold text-slate-700 dark:text-slate-300 text-slate-700 dark:text-slate-200 uppercase tracking-wider">
                       {key}
                     </th>
                   ))}
@@ -96,7 +96,7 @@ export default function PreviewStep({ tempFileId, sourceType, mapping, onPreview
                 {previewData.map((row, idx) => (
                   <tr key={idx}>
                     {Object.values(row).map((val, i) => (
-                      <td key={i} className="px-6 py-4 whitespace-nowrap text-sm text-slate-700 dark:text-slate-700 dark:text-slate-300">
+                      <td key={i} className="px-6 py-4 whitespace-nowrap text-sm text-slate-700 dark:text-slate-300">
                         {val !== null ? String(val) : '-'}
                       </td>
                     ))}

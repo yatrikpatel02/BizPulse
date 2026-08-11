@@ -10,7 +10,7 @@ export default function RecentActivity({ activities }) {
             {/* Timeline dot with hover scale animation */}
             <div className="absolute -left-[31px] top-1.5 w-2.5 h-2.5 rounded-full bg-white dark:bg-navy-950 border-2 border-violet-500 ring-4 ring-violet-500/10 group-hover:scale-125 group-hover:ring-violet-500/20 transition-all duration-300"></div>
             <div>
-              <p className="text-sm font-semibold text-slate-700 dark:text-slate-700 dark:text-slate-700 dark:text-slate-200 group-hover:text-violet-400 transition-colors">{activity.title}</p>
+              <p className="text-sm font-semibold text-slate-700 dark:text-slate-200 group-hover:text-violet-400 transition-colors">{activity.title}</p>
               <p className="text-xs text-slate-500 mt-1">{activity.time}</p>
             </div>
           </div>

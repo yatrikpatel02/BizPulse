@@ -163,7 +163,7 @@ export default function RevenueByCategory({ productPerformance = [] }) {
                 style={{ backgroundColor: seg.color }}
               />
               <span className={`font-semibold transition-colors ${
-                hoveredIdx === idx ? 'text-violet-450 dark:text-violet-400 font-bold' : 'text-slate-500 dark:text-slate-500 dark:text-slate-500 dark:text-slate-400'
+                hoveredIdx === idx ? 'text-violet-450 dark:text-violet-400 font-bold' : 'text-slate-500 dark:text-slate-400'
               }`}>{seg.label}</span>
             </div>
             <span className={`font-bold transition-colors ${

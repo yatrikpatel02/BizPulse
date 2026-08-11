@@ -187,7 +187,7 @@ export default function Profile() {
           <button
             type="button"
             onClick={() => document.getElementById('avatar-input').click()}
-            className="mt-1 mb-3 px-3.5 py-1.5 border border-gray-250 border-slate-200 dark:border-slate-200 dark:border-white/[0.06] hover:glass-surface dark:hover:bg-slate-800 text-slate-700 dark:text-slate-700 dark:text-slate-300 dark:text-slate-500 dark:text-slate-500 dark:text-slate-400 text-[11px] font-semibold rounded-xl transition-all shadow-sm flex items-center gap-1"
+            className="mt-1 mb-3 px-3.5 py-1.5 border border-gray-250 border-slate-200 dark:border-slate-200 dark:border-white/[0.06] hover:glass-surface dark:hover:bg-slate-800 text-slate-700 dark:text-slate-300 dark:text-slate-400 text-[11px] font-semibold rounded-xl transition-all shadow-sm flex items-center gap-1"
           >
             <svg className="w-3.5 h-3.5 text-slate-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15.232 5.232l3.536 3.536m-2.036-2.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />
@@ -197,7 +197,7 @@ export default function Profile() {
           <h2 className="text-xl font-bold text-slate-800 dark:text-white font-display">
             {user?.first_name || user?.last_name ? `${user.first_name} ${user.last_name}` : user?.username}
           </h2>
-          <p className="text-xs text-slate-500 dark:text-slate-500 dark:text-slate-400 mt-1">{user?.email}</p>
+          <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">{user?.email}</p>
         </div>
 
         {/* Right: Personal details fields side-by-side */}
@@ -247,7 +247,7 @@ export default function Profile() {
               </div>
               <div>
                 <span className="block text-[10px] font-semibold text-slate-500 uppercase tracking-wider mb-1.5">Email Address</span>
-                <div className="px-3.5 py-2 bg-gray-100/70 glass-card border border-slate-200 dark:border-slate-200 dark:border-white/[0.06] dark:border-slate-850 rounded-xl text-slate-500 dark:text-slate-500 dark:text-slate-400 text-xs font-semibold">
+                <div className="px-3.5 py-2 bg-gray-100/70 glass-card border border-slate-200 dark:border-slate-200 dark:border-white/[0.06] dark:border-slate-850 rounded-xl text-slate-500 dark:text-slate-400 text-xs font-semibold">
                   {user?.email}
                 </div>
               </div>
@@ -281,7 +281,7 @@ export default function Profile() {
                 </div>
                 <div>
                   <h3 className="text-lg font-bold text-slate-800 dark:text-white font-display">Account Security</h3>
-                  <p className="text-xs text-slate-500 dark:text-slate-500 dark:text-slate-400 mt-1 max-w-[220px] mx-auto leading-relaxed">
+                  <p className="text-xs text-slate-500 dark:text-slate-400 mt-1 max-w-[220px] mx-auto leading-relaxed">
                     Update your account password to secure your metrics and uploads.
                   </p>
                 </div>
@@ -349,7 +349,7 @@ export default function Profile() {
                       placeholder="••••••••"
                     />
                     {newPassword && (
-                      <ul className="mt-3 grid grid-cols-1 gap-1 text-[10px] font-semibold text-slate-500 dark:text-slate-500 dark:text-slate-400 bg-slate-950/20 border border-slate-900 rounded-xl p-2.5">
+                      <ul className="mt-3 grid grid-cols-1 gap-1 text-[10px] font-semibold text-slate-500 dark:text-slate-400 bg-slate-950/20 border border-slate-900 rounded-xl p-2.5">
                         {passwordChecks.map((c, i) => (
                           <li key={i} className={`flex items-center gap-1.5 ${c.passed ? 'text-emerald-600 dark:text-emerald-600 dark:text-emerald-600 dark:text-emerald-400' : 'text-slate-500'}`}>
                             <span>{c.passed ? '✓' : '•'}</span> {c.label}
@@ -389,7 +389,7 @@ export default function Profile() {
           {/* Danger Zone Card */}
           <div className="glass-card rounded-2xl p-6 border border-red-200/10 dark:border-red-500/10 shadow-sm bg-red-500/[0.01] space-y-4">
             <h3 className="text-lg font-bold text-red-600 text-red-400 font-display">Delete Account</h3>
-            <p className="text-xs text-slate-500 dark:text-slate-500 dark:text-slate-400 leading-relaxed">
+            <p className="text-xs text-slate-500 dark:text-slate-400 leading-relaxed">
               Once you delete your account, all your uploaded datasets and analytics will be permanently removed.
             </p>
             
@@ -444,7 +444,7 @@ export default function Profile() {
                       setConfirmPassword('');
                       setDeleteError('');
                     }}
-                    className="flex-1 py-2 border border-slate-200 dark:border-slate-200 dark:border-white/[0.06] hover:glass-surface dark:hover:bg-slate-800 text-slate-700 dark:text-slate-700 dark:text-slate-300 text-xs font-semibold rounded-xl transition-all"
+                    className="flex-1 py-2 border border-slate-200 dark:border-slate-200 dark:border-white/[0.06] hover:glass-surface dark:hover:bg-slate-800 text-slate-700 dark:text-slate-300 text-xs font-semibold rounded-xl transition-all"
                   >
                     Cancel
                   </button>
@@ -477,8 +477,8 @@ export default function Profile() {
               <table className="w-full text-sm">
                 <thead>
                   <tr className="glass-surface border-b border-slate-200 dark:border-slate-200 dark:border-white/[0.06]">
-                    <th className="px-5 py-3 text-left text-xs font-bold text-slate-700 dark:text-slate-700 dark:text-slate-200 uppercase tracking-wider">Company Name</th>
-                    <th className="px-5 py-3 text-right text-xs font-bold text-slate-700 dark:text-slate-700 dark:text-slate-200 uppercase tracking-wider">Actions</th>
+                    <th className="px-5 py-3 text-left text-xs font-bold text-slate-700 dark:text-slate-200 uppercase tracking-wider">Company Name</th>
+                    <th className="px-5 py-3 text-right text-xs font-bold text-slate-700 dark:text-slate-200 uppercase tracking-wider">Actions</th>
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-gray-150 dark:divide-slate-800/60">
@@ -494,7 +494,7 @@ export default function Profile() {
                             autoFocus
                           />
                         ) : (
-                          <span className="font-semibold text-slate-700 dark:text-slate-700 dark:text-slate-200">{business.name}</span>
+                          <span className="font-semibold text-slate-700 dark:text-slate-200">{business.name}</span>
                         )}
                       </td>
                       <td className="px-5 py-4 text-right">
@@ -568,7 +568,7 @@ export default function Profile() {
             </div>
             <div>
               <h3 className="text-lg font-bold text-slate-800 dark:text-white font-display">Profile Saved</h3>
-              <p className="text-xs text-slate-500 dark:text-slate-500 dark:text-slate-400 mt-1.5 leading-relaxed">
+              <p className="text-xs text-slate-500 dark:text-slate-400 mt-1.5 leading-relaxed">
                 Your profile details and custom photo have been updated and synced successfully.
               </p>
             </div>

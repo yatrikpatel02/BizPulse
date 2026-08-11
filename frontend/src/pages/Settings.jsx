@@ -299,7 +299,7 @@ export default function Settings() {
       <div className="glass-card backdrop-blur-md border border-slate-200 dark:border-slate-200 dark:border-white/[0.06] rounded-3xl p-6 shadow-md">
         <div className="mb-5">
           <h2 className="text-2xl font-bold text-slate-800 dark:text-white font-display">System Settings</h2>
-          <p className="text-sm text-slate-500 dark:text-slate-500 dark:text-slate-500 dark:text-slate-500 dark:text-slate-500 dark:text-slate-400 font-medium mt-1">Configure preferences and platform rules</p>
+          <p className="text-sm text-slate-500 dark:text-slate-400 font-medium mt-1">Configure preferences and platform rules</p>
         </div>
         <div className="grid grid-cols-2 gap-2">
           {menuItems.map((item) => (
@@ -312,7 +312,7 @@ export default function Settings() {
                   : 'glass-surface/60 hover:bg-slate-200 dark:hover:bg-navy-700 text-slate-700 dark:text-slate-300'
               }`}
             >
-              <span className={activeSubTab === item.id ? 'text-white' : 'text-slate-500 dark:text-slate-500 dark:text-slate-400'}>
+              <span className={activeSubTab === item.id ? 'text-white' : 'text-slate-500 dark:text-slate-400'}>
                 {item.icon}
               </span>
               {item.title}
@@ -357,8 +357,8 @@ export default function Settings() {
                   <table className="w-full text-xs">
                     <thead>
                       <tr className="glass-surface border-b border-slate-200 dark:border-slate-200 dark:border-white/[0.06]">
-                        <th className="px-5 py-3 text-left font-bold text-slate-700 dark:text-slate-700 dark:text-slate-200 uppercase tracking-wider">Company Name</th>
-                        <th className="px-5 py-3 text-right font-bold text-slate-700 dark:text-slate-700 dark:text-slate-200 uppercase tracking-wider">Actions</th>
+                        <th className="px-5 py-3 text-left font-bold text-slate-700 dark:text-slate-200 uppercase tracking-wider">Company Name</th>
+                        <th className="px-5 py-3 text-right font-bold text-slate-700 dark:text-slate-200 uppercase tracking-wider">Actions</th>
                       </tr>
                     </thead>
                     <tbody className="divide-y divide-gray-200/40 dark:divide-slate-800/60">
@@ -374,7 +374,7 @@ export default function Settings() {
                                 autoFocus
                               />
                             ) : (
-                              <span className="font-semibold text-slate-700 dark:text-slate-700 dark:text-slate-200">
+                              <span className="font-semibold text-slate-700 dark:text-slate-200">
                                 {business.name} {activeBusiness?.id === business.id && (
                                   <span className="ml-2 text-[9px] font-bold text-emerald-600 bg-emerald-100 dark:bg-emerald-950/60 text-emerald-600 dark:text-emerald-600 dark:text-emerald-600 dark:text-emerald-400 px-1.5 py-0.5 rounded">Active</span>
                                 )}
@@ -393,7 +393,7 @@ export default function Settings() {
                                   </button>
                                   <button
                                     onClick={() => setEditingId(null)}
-                                    className="px-3 py-1 border border-slate-200 dark:border-slate-200 dark:border-white/[0.06] hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-500 dark:text-slate-500 dark:text-slate-500 dark:text-slate-400 text-xs font-bold rounded-lg transition-colors cursor-pointer"
+                                    className="px-3 py-1 border border-slate-200 dark:border-slate-200 dark:border-white/[0.06] hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-500 dark:text-slate-400 text-xs font-bold rounded-lg transition-colors cursor-pointer"
                                   >
                                     Cancel
                                   </button>
@@ -447,7 +447,7 @@ export default function Settings() {
                 <div className="border border-red-500/15 dark:border-red-500/30 bg-red-500/[0.01] rounded-2xl p-6 flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
                   <div className="space-y-1 text-left">
                     <span className="text-xs font-bold text-slate-500 uppercase tracking-wider">Active Target Company</span>
-                    <p className="text-base font-bold text-slate-700 dark:text-slate-700 dark:text-slate-200 font-display mt-0.5">
+                    <p className="text-base font-bold text-slate-700 dark:text-slate-200 font-display mt-0.5">
                       {activeBusiness?.name || 'No active company selected'}
                     </p>
                   </div>
@@ -517,7 +517,7 @@ export default function Settings() {
                   <button
                     type="button"
                     onClick={() => document.getElementById('avatar-input').click()}
-                    className="mb-2 px-3 py-1.5 border border-gray-250 border-slate-200 dark:border-slate-200 dark:border-white/[0.06] hover:glass-surface dark:hover:bg-slate-800 text-slate-700 dark:text-slate-700 dark:text-slate-300 dark:text-slate-500 dark:text-slate-500 dark:text-slate-400 text-xs font-semibold rounded-xl transition-all shadow-sm cursor-pointer"
+                    className="mb-2 px-3 py-1.5 border border-gray-250 border-slate-200 dark:border-slate-200 dark:border-white/[0.06] hover:glass-surface dark:hover:bg-slate-800 text-slate-700 dark:text-slate-300 dark:text-slate-400 text-xs font-semibold rounded-xl transition-all shadow-sm cursor-pointer"
                   >
                     Edit Photo
                   </button>
@@ -565,7 +565,7 @@ export default function Settings() {
                       </div>
                       <div>
                         <span className="block text-xs font-semibold text-slate-500 uppercase tracking-wider mb-1.5">Email Address</span>
-                        <div className="px-3.5 py-2.5 bg-gray-200/50 glass-card border border-slate-200 dark:border-slate-200 dark:border-white/[0.06] dark:border-slate-850 rounded-xl text-slate-500 dark:text-slate-500 dark:text-slate-400 text-xs font-semibold">
+                        <div className="px-3.5 py-2.5 bg-gray-200/50 glass-card border border-slate-200 dark:border-slate-200 dark:border-white/[0.06] dark:border-slate-850 rounded-xl text-slate-500 dark:text-slate-400 text-xs font-semibold">
                           {user?.email}
                         </div>
                       </div>
@@ -648,7 +648,7 @@ export default function Settings() {
                           className="block w-full px-3.5 py-2 glass-card glass-surface border border-slate-200 dark:border-slate-200 dark:border-white/[0.06] focus:border-indigo-500 rounded-xl text-white placeholder-gray-400 focus:outline-none text-xs"
                         />
                         {newPassword && (
-                          <ul className="grid grid-cols-1 gap-0.5 text-[9px] font-bold text-slate-500 dark:text-slate-500 dark:text-slate-400 bg-slate-950/20 border border-slate-900 rounded-xl p-2.5">
+                          <ul className="grid grid-cols-1 gap-0.5 text-[9px] font-bold text-slate-500 dark:text-slate-400 bg-slate-950/20 border border-slate-900 rounded-xl p-2.5">
                             {passwordChecks.map((c, i) => (
                               <li key={i} className={`flex items-center gap-1 ${c.passed ? 'text-emerald-600 dark:text-emerald-600 dark:text-emerald-600 dark:text-emerald-400' : 'text-slate-500'}`}>
                                 <span>{c.passed ? '✓' : '•'}</span> {c.label}
@@ -720,7 +720,7 @@ export default function Settings() {
                             setShowDeleteConfirm(false);
                             setConfirmPassword('');
                           }}
-                          className="flex-1 py-2 border border-slate-200 dark:border-slate-200 dark:border-white/[0.06] text-slate-700 dark:text-slate-700 dark:text-slate-300 text-xs font-bold rounded-lg cursor-pointer"
+                          className="flex-1 py-2 border border-slate-200 dark:border-slate-200 dark:border-white/[0.06] text-slate-700 dark:text-slate-300 text-xs font-bold rounded-lg cursor-pointer"
                         >
                           Cancel
                         </button>
@@ -965,7 +965,7 @@ export default function Settings() {
             </div>
             <div>
               <h3 className="text-lg font-bold text-slate-800 dark:text-white font-display">Account Updated</h3>
-              <p className="text-xs text-slate-500 dark:text-slate-500 dark:text-slate-400 mt-1.5 leading-relaxed">
+              <p className="text-xs text-slate-500 dark:text-slate-400 mt-1.5 leading-relaxed">
                 Your personal details and profile credentials have been successfully updated.
               </p>
             </div>

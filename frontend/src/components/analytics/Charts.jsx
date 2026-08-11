@@ -538,7 +538,7 @@ export function DonutChart({ data = [], size = 200, innerLabel = 'CSAT', innerVa
           >
             <div className="flex items-center gap-2">
               <span className="w-3 h-3 rounded-full flex-shrink-0" style={{ backgroundColor: seg.color }}></span>
-              <span className="font-medium text-slate-650 dark:text-slate-650 dark:text-slate-300">{seg.label}</span>
+              <span className="font-medium text-slate-650 dark:text-slate-300">{seg.label}</span>
             </div>
             <span className="font-semibold text-white pl-4">{seg.pct}%</span>
           </div>

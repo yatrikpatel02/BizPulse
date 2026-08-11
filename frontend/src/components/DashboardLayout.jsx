@@ -283,7 +283,7 @@ export default function DashboardLayout({ children }) {
           <div className="flex items-center space-x-3">
             <button 
               onClick={() => setIsSidebarOpen(!isSidebarOpen)}
-              className="p-2 -ml-2 rounded-lg text-slate-500 hover:text-slate-800 hover:bg-slate-100 dark:text-slate-500 dark:text-slate-500 dark:text-slate-400 dark:hover:text-slate-700 dark:text-slate-700 dark:text-slate-200 dark:hover:bg-white/[0.05] focus:outline-none transition-colors"
+              className="p-2 -ml-2 rounded-lg text-slate-500 hover:text-slate-800 hover:bg-slate-100 dark:text-slate-400 dark:hover:text-slate-700 dark:text-slate-200 dark:hover:bg-white/[0.05] focus:outline-none transition-colors"
             >
               <span className="sr-only">Open sidebar</span>
               <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -292,14 +292,14 @@ export default function DashboardLayout({ children }) {
             </button>
             <div className="flex flex-col">
               <h2 className="text-base font-bold text-slate-800 dark:text-white font-display leading-tight">{title}</h2>
-              <span className="text-[11px] text-slate-500 dark:text-slate-500 dark:text-slate-500 dark:text-slate-500 dark:text-slate-500 dark:text-slate-400 font-medium hidden sm:block mt-0.5 leading-none">{subtitle}</span>
+              <span className="text-[11px] text-slate-500 dark:text-slate-400 font-medium hidden sm:block mt-0.5 leading-none">{subtitle}</span>
             </div>
           </div>
           <div className="flex items-center space-x-3">
             <div className="relative" ref={notificationRef}>
               <button
                 onClick={() => setIsNotificationsOpen(!isNotificationsOpen)}
-                className="p-2 rounded-lg text-slate-500 hover:text-slate-800 hover:bg-slate-100 dark:text-slate-500 dark:text-slate-500 dark:text-slate-400 dark:hover:text-slate-700 dark:text-slate-700 dark:text-slate-200 dark:hover:bg-white/[0.05] transition-colors focus:outline-none relative cursor-pointer"
+                className="p-2 rounded-lg text-slate-500 hover:text-slate-800 hover:bg-slate-100 dark:text-slate-400 dark:hover:text-slate-700 dark:text-slate-200 dark:hover:bg-white/[0.05] transition-colors focus:outline-none relative cursor-pointer"
                 title="Notifications"
               >
                 <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -370,12 +370,12 @@ export default function DashboardLayout({ children }) {
                             </div>
                             <div className="flex-1 space-y-1">
                               <div className="flex items-center justify-between">
-                                <span className={`text-xs font-bold ${notif.unread ? 'text-slate-800 dark:text-slate-100' : 'text-slate-500 dark:text-slate-500 dark:text-slate-500 dark:text-slate-400'}`}>
+                                <span className={`text-xs font-bold ${notif.unread ? 'text-slate-800 dark:text-slate-100' : 'text-slate-500 dark:text-slate-400'}`}>
                                   {notif.title}
                                 </span>
                                 <span className="text-[10px] text-gray-400 dark:text-slate-500">{formatTimeAgo(notif.date)}</span>
                               </div>
-                              <p className="text-[11px] text-slate-600 dark:text-slate-500 dark:text-slate-500 dark:text-slate-400 leading-relaxed">{notif.desc}</p>
+                              <p className="text-[11px] text-slate-600 dark:text-slate-400 leading-relaxed">{notif.desc}</p>
                             </div>
                           </div>
                         ))
@@ -398,7 +398,7 @@ export default function DashboardLayout({ children }) {
             </div>
             <button
               onClick={toggleTheme}
-              className="p-2 rounded-lg text-slate-500 hover:text-slate-800 hover:bg-slate-100 dark:text-slate-500 dark:text-slate-500 dark:text-slate-400 dark:hover:text-slate-700 dark:text-slate-700 dark:text-slate-200 dark:hover:bg-white/[0.05] transition-colors focus:outline-none"
+              className="p-2 rounded-lg text-slate-500 hover:text-slate-800 hover:bg-slate-100 dark:text-slate-400 dark:hover:text-slate-700 dark:text-slate-200 dark:hover:bg-white/[0.05] transition-colors focus:outline-none"
               title={isDarkMode ? 'Switch to Light Mode' : 'Switch to Dark Mode'}
             >
               {isDarkMode ? (

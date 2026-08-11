@@ -41,7 +41,7 @@ export default function SuccessStep({ tempFileId, sourceType, mapping, originalF
             <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
           </svg>
           <h2 className="text-2xl font-bold text-slate-800 dark:text-white mb-2">Importing Your Data...</h2>
-          <p className="text-slate-500 text-slate-500 dark:text-slate-500 dark:text-slate-400">Please wait while we save these records to your database. This might take a few moments.</p>
+          <p className="text-slate-500 text-slate-500 dark:text-slate-400">Please wait while we save these records to your database. This might take a few moments.</p>
         </>
       )}
 
@@ -53,7 +53,7 @@ export default function SuccessStep({ tempFileId, sourceType, mapping, originalF
             </svg>
           </div>
           <h2 className="text-2xl font-bold text-slate-800 dark:text-white mb-2">Import Successful!</h2>
-          <p className="text-slate-500 text-slate-500 dark:text-slate-500 dark:text-slate-400 mb-6">
+          <p className="text-slate-500 text-slate-500 dark:text-slate-400 mb-6">
             {result?.records_imported} records were successfully imported into your {sourceType} database.
           </p>
           <div className="flex justify-center space-x-4">

@@ -46,7 +46,7 @@ export default function ForgotPassword() {
       <h2 className="text-xl font-semibold text-center text-white tracking-tight font-display">
         Reset your password
       </h2>
-      <p className="mt-2 text-center text-sm text-slate-500 dark:text-slate-500 dark:text-slate-400 mb-6 leading-relaxed">
+      <p className="mt-2 text-center text-sm text-slate-500 dark:text-slate-400 mb-6 leading-relaxed">
         Enter your email and we will send you a reset link.
       </p>
 
@@ -65,7 +65,7 @@ export default function ForgotPassword() {
         )}
 
         <div>
-          <label htmlFor="email" className="text-xs font-semibold text-slate-500 dark:text-slate-500 dark:text-slate-400 mb-1.5 block">
+          <label htmlFor="email" className="text-xs font-semibold text-slate-500 dark:text-slate-400 mb-1.5 block">
             Email address
           </label>
           <div className="relative">
@@ -115,7 +115,7 @@ export default function ForgotPassword() {
           </button>
         </div>
 
-        <div className="text-sm text-center text-slate-500 dark:text-slate-500 dark:text-slate-400 mt-6">
+        <div className="text-sm text-center text-slate-500 dark:text-slate-400 mt-6">
           <Link to="/login" className="font-semibold text-violet-400 hover:text-violet-300 transition-colors">
             Back to login
           </Link>

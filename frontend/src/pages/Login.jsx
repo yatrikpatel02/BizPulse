@@ -76,7 +76,7 @@ export default function Login() {
         <div className="space-y-4.5">
           {/* Email field */}
           <div>
-            <label htmlFor="email" className="text-xs font-semibold text-slate-500 dark:text-slate-500 dark:text-slate-400 mb-1.5 block">
+            <label htmlFor="email" className="text-xs font-semibold text-slate-500 dark:text-slate-400 mb-1.5 block">
               Email address
             </label>
             <div className="relative">
@@ -107,7 +107,7 @@ export default function Login() {
           {/* Password field */}
           <div>
             <div className="flex justify-between items-center mb-1.5">
-              <label htmlFor="password" className="text-xs font-semibold text-slate-500 dark:text-slate-500 dark:text-slate-400">
+              <label htmlFor="password" className="text-xs font-semibold text-slate-500 dark:text-slate-400">
                 Password
               </label>
             </div>
@@ -133,7 +133,7 @@ export default function Login() {
               <button
                 type="button"
                 onClick={() => setShowPassword(!showPassword)}
-                className="absolute right-4 top-1/2 -translate-y-1/2 text-slate-500 hover:text-slate-650 dark:text-slate-650 dark:text-slate-300 transition-colors"
+                className="absolute right-4 top-1/2 -translate-y-1/2 text-slate-500 hover:text-slate-650 dark:text-slate-300 transition-colors"
                 tabIndex="-1"
               >
                 {showPassword ? <EyeOff size={16} /> : <Eye size={16} />}
@@ -187,7 +187,7 @@ export default function Login() {
         <GoogleLoginButton text="signin_with" />
 
         {/* Sign up Link */}
-        <div className="mt-6 text-center text-sm text-slate-500 dark:text-slate-500 dark:text-slate-400">
+        <div className="mt-6 text-center text-sm text-slate-500 dark:text-slate-400">
           Don&apos;t have an account?{' '}
           <Link to="/signup" className="font-semibold text-violet-400 hover:text-violet-300 transition-colors">
             Sign up

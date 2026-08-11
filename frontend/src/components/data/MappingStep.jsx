@@ -77,7 +77,7 @@ export default function MappingStep({ headers, suggestedMappings, sourceType, on
   return (
     <div className="max-w-4xl mx-auto glass-card rounded-xl shadow-sm border border-slate-200 dark:border-slate-200 dark:border-white/[0.06] p-8">
       <h2 className="text-2xl font-bold text-slate-800 dark:text-white mb-2">Map Your Columns</h2>
-      <p className="text-slate-500 dark:text-slate-500 dark:text-slate-500 dark:text-slate-400 mb-6">
+      <p className="text-slate-500 dark:text-slate-400 mb-6">
          Match the columns from your uploaded file to the required system fields. We&apos;ve auto-matched some based on their names.
       </p>
 
@@ -91,10 +91,10 @@ export default function MappingStep({ headers, suggestedMappings, sourceType, on
         <table className="min-w-full divide-y divide-gray-200 dark:divide-slate-700">
           <thead className="glass-surface">
             <tr>
-              <th scope="col" className="px-6 py-3 text-left text-xs font-bold text-slate-700 dark:text-slate-700 dark:text-slate-300 text-slate-700 dark:text-slate-700 dark:text-slate-200 uppercase tracking-wider">
+              <th scope="col" className="px-6 py-3 text-left text-xs font-bold text-slate-700 dark:text-slate-300 text-slate-700 dark:text-slate-200 uppercase tracking-wider">
                 Your File Column
               </th>
-              <th scope="col" className="px-6 py-3 text-left text-xs font-bold text-slate-700 dark:text-slate-700 dark:text-slate-300 text-slate-700 dark:text-slate-700 dark:text-slate-200 uppercase tracking-wider">
+              <th scope="col" className="px-6 py-3 text-left text-xs font-bold text-slate-700 dark:text-slate-300 text-slate-700 dark:text-slate-200 uppercase tracking-wider">
                 System Field
               </th>
             </tr>
@@ -102,14 +102,14 @@ export default function MappingStep({ headers, suggestedMappings, sourceType, on
           <tbody className="glass-card divide-y divide-gray-200 dark:divide-slate-700">
             {headers.map((header, idx) => (
               <tr key={idx}>
-                <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-slate-700 dark:text-slate-700 dark:text-slate-200">
+                <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-slate-700 dark:text-slate-200">
                   {header}
                 </td>
-                <td className="px-6 py-4 whitespace-nowrap text-sm text-slate-500 text-slate-500 dark:text-slate-500 dark:text-slate-400">
+                <td className="px-6 py-4 whitespace-nowrap text-sm text-slate-500 text-slate-500 dark:text-slate-400">
                   <select
                     value={mapping[header] || ''}
                     onChange={(e) => handleSelectChange(header, e.target.value)}
-                    className="w-full px-3 py-2 glass-surface border border-slate-200/80 dark:border-slate-200 dark:border-slate-200 dark:border-white/[0.06] rounded-md focus:ring-2 focus:ring-violet-500 focus:border-indigo-500 text-slate-700 dark:text-slate-700 dark:text-slate-200 outline-none transition-colors"
+                    className="w-full px-3 py-2 glass-surface border border-slate-200/80 dark:border-slate-200 dark:border-slate-200 dark:border-white/[0.06] rounded-md focus:ring-2 focus:ring-violet-500 focus:border-indigo-500 text-slate-700 dark:text-slate-200 outline-none transition-colors"
                   >
                     <option value="">-- Do not import --</option>
                     {currentExpectedFields.map(field => (

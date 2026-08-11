@@ -66,13 +66,13 @@ export default function UploadStep({ onUploadSuccess, initialFile, onFileSelect,
 
       <form onSubmit={handleSubmit}>
         <div className="mb-6">
-          <label className="block text-sm font-medium text-slate-650 dark:text-slate-650 dark:text-slate-650 dark:text-slate-300 mb-2">
+          <label className="block text-sm font-medium text-slate-650 dark:text-slate-300 mb-2">
             What type of data are you uploading?
           </label>
           <select
             value={sourceType}
             onChange={(e) => setSourceType(e.target.value)}
-            className="w-full px-4 py-2 glass-surface border border-slate-200/80 dark:border-slate-200 dark:border-slate-200 dark:border-white/[0.06] rounded-lg focus:ring-2 focus:ring-violet-500 focus:border-indigo-500 text-slate-700 dark:text-slate-700 dark:text-slate-200 outline-none transition-colors"
+            className="w-full px-4 py-2 glass-surface border border-slate-200/80 dark:border-slate-200 dark:border-slate-200 dark:border-white/[0.06] rounded-lg focus:ring-2 focus:ring-violet-500 focus:border-indigo-500 text-slate-700 dark:text-slate-200 outline-none transition-colors"
           >
             <option value="sales">Sales Records</option>
             <option value="inventory">Inventory Snapshots</option>
@@ -98,21 +98,21 @@ export default function UploadStep({ onUploadSuccess, initialFile, onFileSelect,
           
           <div className="flex flex-col items-center justify-center space-y-4">
             <div className={`p-4 rounded-full ${file ? 'bg-indigo-100 dark:bg-indigo-900/50' : 'bg-gray-100 glass-surface'}`}>
-              <svg className={`w-8 h-8 ${file ? 'text-indigo-600 dark:text-violet-400' : 'text-slate-500 dark:text-slate-500 dark:text-slate-500 dark:text-slate-400'}`} fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <svg className={`w-8 h-8 ${file ? 'text-indigo-600 dark:text-violet-400' : 'text-slate-500 dark:text-slate-400'}`} fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12" />
               </svg>
             </div>
             {file ? (
               <div>
-                <p className="text-sm font-medium text-slate-700 dark:text-slate-700 dark:text-slate-200">{file.name}</p>
-                <p className="text-xs text-slate-500 text-slate-500 dark:text-slate-500 dark:text-slate-400 mt-1">{(file.size / 1024).toFixed(2)} KB</p>
+                <p className="text-sm font-medium text-slate-700 dark:text-slate-200">{file.name}</p>
+                <p className="text-xs text-slate-500 text-slate-500 dark:text-slate-400 mt-1">{(file.size / 1024).toFixed(2)} KB</p>
               </div>
             ) : (
               <div>
-                <p className="text-sm font-medium text-slate-700 dark:text-slate-700 dark:text-slate-200">
+                <p className="text-sm font-medium text-slate-700 dark:text-slate-200">
                   Click to upload or drag and drop
                 </p>
-                <p className="text-xs text-slate-500 text-slate-500 dark:text-slate-500 dark:text-slate-400 mt-1">
+                <p className="text-xs text-slate-500 text-slate-500 dark:text-slate-400 mt-1">
                   CSV or Excel files only
                 </p>
               </div>

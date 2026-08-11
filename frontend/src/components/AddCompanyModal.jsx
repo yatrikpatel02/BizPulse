@@ -35,7 +35,7 @@ export default function AddCompanyModal({ isOpen, onClose }) {
           <h3 className="text-lg font-bold text-slate-800 dark:text-white font-display">Add New Company</h3>
           <button 
             onClick={onClose}
-            className="text-slate-500 dark:text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:text-slate-700 dark:text-slate-200 focus:outline-none transition-colors"
+            className="text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:text-slate-200 focus:outline-none transition-colors"
           >
             <span className="sr-only">Close</span>
             <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -53,7 +53,7 @@ export default function AddCompanyModal({ isOpen, onClose }) {
           
           <div className="space-y-4">
             <div>
-              <label htmlFor="companyName" className="block text-sm font-medium text-slate-700 dark:text-slate-700 dark:text-slate-300 mb-1.5">
+              <label htmlFor="companyName" className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1.5">
                 Company Name <span className="text-red-400">*</span>
               </label>
               <input
@@ -68,7 +68,7 @@ export default function AddCompanyModal({ isOpen, onClose }) {
             </div>
             
             <div>
-              <label htmlFor="industry" className="block text-sm font-medium text-slate-700 dark:text-slate-700 dark:text-slate-300 mb-1.5">
+              <label htmlFor="industry" className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1.5">
                 Industry
               </label>
               <input

@@ -160,7 +160,7 @@ export default function Products() {
           <h2 className="text-3xl font-extrabold text-slate-900 dark:text-white tracking-tight font-display">
             Products Catalog
           </h2>
-          <p className="text-sm text-slate-500 dark:text-slate-500 dark:text-slate-400">
+          <p className="text-sm text-slate-500 dark:text-slate-400">
             Manage your product inventory list, SKUs, and baseline catalog prices.
           </p>
         </div>
@@ -202,7 +202,7 @@ export default function Products() {
               className={`px-4 py-1.5 rounded-lg text-xs font-bold capitalize transition-all duration-200 ${
                 filterActive === status
                   ? 'glass-card text-violet-400 shadow-sm'
-                  : 'text-slate-500 dark:text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:text-slate-700 dark:text-slate-200 dark:hover:text-slate-700 dark:text-slate-700 dark:text-slate-200'
+                  : 'text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:text-slate-200 dark:hover:text-slate-700 dark:text-slate-200'
               }`}
             >
               {status}
@@ -214,7 +214,7 @@ export default function Products() {
       {/* Main List Table */}
       <div className="glass-card backdrop-blur-md border border-slate-200 dark:border-slate-200 dark:border-white/[0.06] rounded-2xl shadow-md overflow-hidden">
         {loading ? (
-          <div className="flex flex-col items-center justify-center py-20 text-slate-500 dark:text-slate-500 dark:text-slate-400 space-y-3">
+          <div className="flex flex-col items-center justify-center py-20 text-slate-500 dark:text-slate-400 space-y-3">
             <svg className="w-8 h-8 animate-spin text-violet-400" fill="none" viewBox="0 0 24 24">
               <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="3" />
               <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" />
@@ -228,7 +228,7 @@ export default function Products() {
             <svg className="w-12 h-12 text-slate-600 mb-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4" />
             </svg>
-            <h4 className="text-lg font-bold text-slate-700 dark:text-slate-700 dark:text-slate-300">No products found</h4>
+            <h4 className="text-lg font-bold text-slate-700 dark:text-slate-300">No products found</h4>
             <p className="text-sm text-slate-500 mt-1">
               {search ? "Try adjusting your search terms or filter status." : "Create your first catalog product to start tracking details."}
             </p>
@@ -238,11 +238,11 @@ export default function Products() {
             <table className="w-full text-left border-collapse">
                <thead>
                  <tr className="border-b border-slate-200 dark:border-slate-200 dark:border-white/[0.06] glass-surface glass-card/50">
-                   <th className="px-6 py-4 text-xs font-bold text-slate-700 dark:text-slate-700 dark:text-slate-200 uppercase tracking-wider">Product Name</th>
-                   <th className="px-6 py-4 text-xs font-bold text-slate-700 dark:text-slate-700 dark:text-slate-200 uppercase tracking-wider">SKU</th>
-                   <th className="px-6 py-4 text-xs font-bold text-slate-700 dark:text-slate-700 dark:text-slate-200 uppercase tracking-wider">Price</th>
-                   <th className="px-6 py-4 text-xs font-bold text-slate-700 dark:text-slate-700 dark:text-slate-200 uppercase tracking-wider">Status</th>
-                   <th className="px-6 py-4 text-xs font-bold text-slate-700 dark:text-slate-700 dark:text-slate-200 uppercase tracking-wider text-right">Actions</th>
+                   <th className="px-6 py-4 text-xs font-bold text-slate-700 dark:text-slate-200 uppercase tracking-wider">Product Name</th>
+                   <th className="px-6 py-4 text-xs font-bold text-slate-700 dark:text-slate-200 uppercase tracking-wider">SKU</th>
+                   <th className="px-6 py-4 text-xs font-bold text-slate-700 dark:text-slate-200 uppercase tracking-wider">Price</th>
+                   <th className="px-6 py-4 text-xs font-bold text-slate-700 dark:text-slate-200 uppercase tracking-wider">Status</th>
+                   <th className="px-6 py-4 text-xs font-bold text-slate-700 dark:text-slate-200 uppercase tracking-wider text-right">Actions</th>
                  </tr>
                </thead>
               <tbody className="divide-y divide-slate-150 dark:divide-slate-150 dark:divide-slate-150 dark:divide-white/[0.04]">
@@ -254,7 +254,7 @@ export default function Products() {
                     <td className="px-6 py-4">
                       <div className="font-semibold text-slate-800 dark:text-white">{product.name}</div>
                       {product.description && (
-                        <div className="text-xs text-slate-500 dark:text-slate-500 dark:text-slate-400 line-clamp-1 mt-0.5 max-w-sm">
+                        <div className="text-xs text-slate-500 dark:text-slate-400 line-clamp-1 mt-0.5 max-w-sm">
                           {product.description}
                         </div>
                       )}
@@ -269,7 +269,7 @@ export default function Products() {
                       <span className={`inline-flex items-center px-2 py-0.5 rounded-full text-xs font-bold ${
                         product.is_active 
                           ? 'bg-emerald-500/10 bg-emerald-500/10 text-emerald-600 dark:text-emerald-600 dark:text-emerald-600 dark:text-emerald-400 text-emerald-600 dark:text-emerald-600 dark:text-emerald-600 dark:text-emerald-400 border border-emerald-500/20' 
-                          : 'glass-surface text-slate-500 dark:text-slate-500 dark:text-slate-400'
+                          : 'glass-surface text-slate-500 dark:text-slate-400'
                       }`}>
                         {product.is_active ? 'Active' : 'Inactive'}
                       </span>
@@ -278,7 +278,7 @@ export default function Products() {
                       <div className="flex items-center justify-end gap-2">
                         <button
                           onClick={() => handleOpenEdit(product)}
-                          className="p-1.5 text-slate-500 hover:text-indigo-600 text-slate-500 dark:text-slate-500 dark:text-slate-400 dark:hover:text-violet-400 hover:bg-violet-500/10 rounded-lg transition-all duration-200"
+                          className="p-1.5 text-slate-500 hover:text-indigo-600 text-slate-500 dark:text-slate-400 dark:hover:text-violet-400 hover:bg-violet-500/10 rounded-lg transition-all duration-200"
                           title="Edit Product"
                         >
                           <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -287,7 +287,7 @@ export default function Products() {
                         </button>
                         <button
                           onClick={() => handleDelete(product.id)}
-                          className="p-1.5 text-slate-500 hover:text-rose-600 text-slate-500 dark:text-slate-500 dark:text-slate-400 dark:hover:text-rose-600 dark:text-rose-600 dark:text-rose-600 dark:text-rose-400 hover:bg-rose-50 dark:hover:bg-rose-950/20 rounded-lg transition-all duration-200"
+                          className="p-1.5 text-slate-500 hover:text-rose-600 text-slate-500 dark:text-slate-400 dark:hover:text-rose-600 dark:text-rose-600 dark:text-rose-600 dark:text-rose-400 hover:bg-rose-50 dark:hover:bg-rose-950/20 rounded-lg transition-all duration-200"
                           title="Delete Product"
                         >
                           <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -314,7 +314,7 @@ export default function Products() {
               </h3>
               <button
                 onClick={() => setIsModalOpen(false)}
-                className="p-1 text-slate-500 hover:text-slate-500 dark:text-slate-500 dark:text-slate-400 dark:hover:text-slate-700 dark:text-slate-700 dark:text-slate-200 hover:glass-card/[0.05] rounded-lg transition-colors"
+                className="p-1 text-slate-500 hover:text-slate-500 dark:text-slate-400 dark:hover:text-slate-700 dark:text-slate-200 hover:glass-card/[0.05] rounded-lg transition-colors"
               >
                 <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
@@ -331,7 +331,7 @@ export default function Products() {
             <form onSubmit={handleSubmit} className="space-y-4">
               {/* Product Name */}
               <div className="space-y-1">
-                <label className="text-xs font-bold text-slate-500 dark:text-slate-500 dark:text-slate-400 uppercase tracking-wide">
+                <label className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wide">
                   Product Name *
                 </label>
                 <input
@@ -348,7 +348,7 @@ export default function Products() {
               {/* SKU & Price Grid */}
               <div className="grid grid-cols-2 gap-4">
                 <div className="space-y-1">
-                  <label className="text-xs font-bold text-slate-500 dark:text-slate-500 dark:text-slate-400 uppercase tracking-wide">
+                  <label className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wide">
                     SKU / Product Code
                   </label>
                   <input
@@ -362,7 +362,7 @@ export default function Products() {
                 </div>
 
                 <div className="space-y-1">
-                  <label className="text-xs font-bold text-slate-500 dark:text-slate-500 dark:text-slate-400 uppercase tracking-wide">
+                  <label className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wide">
                     Price (INR) *
                   </label>
                   <input
@@ -380,7 +380,7 @@ export default function Products() {
 
               {/* Description */}
               <div className="space-y-1">
-                <label className="text-xs font-bold text-slate-500 dark:text-slate-500 dark:text-slate-400 uppercase tracking-wide">
+                <label className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wide">
                   Description
                 </label>
                 <textarea
@@ -403,7 +403,7 @@ export default function Products() {
                   onChange={handleChange}
                   className="w-4.5 h-4.5 text-indigo-600 border-slate-200 dark:border-slate-200 dark:border-white/[0.08] rounded focus:ring-violet-500 cursor-pointer"
                 />
-                <label htmlFor="is_active" className="text-sm font-semibold text-slate-700 dark:text-slate-700 dark:text-slate-300 cursor-pointer">
+                <label htmlFor="is_active" className="text-sm font-semibold text-slate-700 dark:text-slate-300 cursor-pointer">
                   This product is active and visible to analytics
                 </label>
               </div>
@@ -413,7 +413,7 @@ export default function Products() {
                 <button
                   type="button"
                   onClick={() => setIsModalOpen(false)}
-                  className="px-5 py-2.5 bg-gray-100 hover:bg-gray-200 glass-surface hover:bg-navy-700 text-slate-700 dark:text-slate-700 dark:text-slate-300 font-semibold text-sm rounded-xl transition-all duration-200"
+                  className="px-5 py-2.5 bg-gray-100 hover:bg-gray-200 glass-surface hover:bg-navy-700 text-slate-700 dark:text-slate-300 font-semibold text-sm rounded-xl transition-all duration-200"
                 >
                   Cancel
                 </button>
