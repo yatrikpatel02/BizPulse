@@ -727,7 +727,7 @@ export default function Analytics() {
                 }`}
             >
               <span
-                className={`inline-block h-3.5 w-3.5 transform rounded-full bg-white transition-transform ${useDemoData ? 'translate-x-5.5' : 'translate-x-0.5'
+                className={`inline-block h-3.5 w-3.5 transform rounded-full bg-white transition-transform ${useDemoData ? 'translate-x-6' : 'translate-x-0.5'
                   }`}
               />
             </button>
