@@ -653,7 +653,7 @@ export default function Analytics() {
     <div className="space-y-6 pb-12 transition-all duration-300">
       
       {/* Sticky Header Group: Tabs + Filters */}
-      <div className="sticky top-0 z-20 bg-gray-50/95 dark:bg-[#090d16]/95 backdrop-blur-md pb-2 pt-1 flex flex-col gap-2.5 transition-all duration-200">
+      <div className="sticky top-0 z-20 bg-gray-50/95 dark:bg-[#090d16]/95 backdrop-blur-md pb-2 pt-0 -mt-6 sm:-mt-8 -mx-6 sm:-mx-8 px-6 sm:px-8 flex flex-col gap-2.5 transition-all duration-200">
         {/* 1. Tab Selector Bar */}
         <div className="flex p-1.5 bg-gray-100/80 dark:bg-slate-800/80 border dark:border-slate-700/60 rounded-xl w-full overflow-x-auto gap-1">
           {[
