@@ -6,6 +6,7 @@ from .column_mapping import (
 from .competitor_price import CompetitorPriceSerializer, CompetitorPriceCollectSerializer
 from .google_trends_data import GoogleTrendsDataSerializer
 from .import_batch import ImportBatchSerializer
+from .market_keyword import MarketKeywordSerializer
 
 __all__ = [
     'ColumnMappingSerializer',
@@ -15,4 +16,5 @@ __all__ = [
     'CompetitorPriceCollectSerializer',
     'GoogleTrendsDataSerializer',
     'ImportBatchSerializer',
+    'MarketKeywordSerializer',
 ]

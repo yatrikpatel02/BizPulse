@@ -17,6 +17,7 @@ import Analytics from './pages/Analytics';
 import Products from './pages/Products';
 import Insights from './pages/Insights';
 import Reports from './pages/Reports';
+import MarketIntelligence from './pages/MarketIntelligence';
 import ProtectedRoute from './components/ProtectedRoute';
 
 function App() {
@@ -89,6 +90,13 @@ function App() {
               <ProtectedRoute>
                 <DashboardLayout>
                   <Reports />
+                </DashboardLayout>
+              </ProtectedRoute>
+            } />
+            <Route path="/market-intelligence" element={
+              <ProtectedRoute>
+                <DashboardLayout>
+                  <MarketIntelligence />
                 </DashboardLayout>
               </ProtectedRoute>
             } />

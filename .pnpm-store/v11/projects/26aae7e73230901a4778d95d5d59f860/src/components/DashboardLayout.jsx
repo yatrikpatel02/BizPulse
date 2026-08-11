@@ -108,6 +108,11 @@ export default function DashboardLayout({ children }) {
           title: 'Insights',
           subtitle: 'System-generated machine learning recommendations.'
         };
+      case '/market-intelligence':
+        return {
+          title: 'Market Intelligence',
+          subtitle: 'Monitor market demand and expansion opportunities.'
+        };
       case '/reports':
         return {
           title: 'Reports',
