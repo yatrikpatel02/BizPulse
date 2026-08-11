@@ -682,17 +682,17 @@ export default function Analytics() {
           <div className="flex flex-wrap items-center gap-3">
             {(activeTab === 'sales' || activeTab === 'inventory') && (
               <>
-                <div className="flex items-center gap-2 bg-slate-100/80 px-3 py-1.5 rounded-lg border border-slate-200 dark:dark:bg-navy-900/40 border border-slate-200 dark:border-white/[0.08] focus-within:border-violet-500/50 transition-colors">
+                <div className="flex items-center gap-2 bg-slate-100/80 dark:bg-navy-900/40 px-3 py-1.5 rounded-lg border border-slate-200 dark:border-white/[0.08] focus-within:border-violet-500/50 transition-colors">
                   <span className="text-xs font-medium text-slate-500">From</span>
                   <input
                     type="date"
                     value={startDate}
                     onChange={(e) => setStartDate(e.target.value)}
                     max={endDate || todayStr}
-                    className="bg-transparent text-xs font-semibold text-slate-700 dark:text-slate-700 dark:text-slate-200 focus:outline-none cursor-pointer [color-scheme:dark]"
+                    className="bg-transparent text-xs font-semibold text-slate-700 dark:text-slate-200 focus:outline-none cursor-pointer [color-scheme:dark]"
                   />
                 </div>
-                <div className="flex items-center gap-2 bg-slate-100/80 px-3 py-1.5 rounded-lg border border-slate-200 dark:dark:bg-navy-900/40 border border-slate-200 dark:border-white/[0.08] focus-within:border-violet-500/50 transition-colors">
+                <div className="flex items-center gap-2 bg-slate-100/80 dark:bg-navy-900/40 px-3 py-1.5 rounded-lg border border-slate-200 dark:border-white/[0.08] focus-within:border-violet-500/50 transition-colors">
                   <span className="text-xs font-medium text-slate-500">To</span>
                   <input
                     type="date"
@@ -700,7 +700,7 @@ export default function Analytics() {
                     onChange={(e) => setEndDate(e.target.value)}
                     min={startDate}
                     max={todayStr}
-                    className="bg-transparent text-xs font-semibold text-slate-700 dark:text-slate-700 dark:text-slate-200 focus:outline-none cursor-pointer [color-scheme:dark]"
+                    className="bg-transparent text-xs font-semibold text-slate-700 dark:text-slate-200 focus:outline-none cursor-pointer [color-scheme:dark]"
                   />
                 </div>
               </>
@@ -709,7 +709,7 @@ export default function Analytics() {
               <select
                 value={interval}
                 onChange={(e) => setIntervalVal(e.target.value)}
-                className="bg-slate-100/80 text-xs font-semibold text-slate-700 dark:text-slate-700 dark:text-slate-700 dark:text-slate-200 px-3 py-1.5 rounded-lg border border-slate-200 dark:border-slate-200 dark:border-slate-200 dark:border-white/[0.08] focus-glow focus:outline-none cursor-pointer"
+                className="bg-slate-100/80 dark:bg-navy-900/40 text-xs font-semibold text-slate-700 dark:text-slate-200 px-3 py-1.5 rounded-lg border border-slate-200 dark:border-white/[0.08] focus-glow focus:outline-none cursor-pointer"
               >
                 <option value="daily">Daily</option>
                 <option value="weekly">Weekly</option>
@@ -766,7 +766,7 @@ export default function Analytics() {
                     </div>
                   </div>
                   <div className="space-y-1 flex-1">
-                    <div className="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-white font-display tracking-tight break-words">
+                    <div className="text-xl sm:text-2xl xl:text-3xl font-extrabold text-slate-900 dark:text-white font-display tracking-tight break-words">
                       <AnimatedCounter
                         value={card.value}
                         prefix={card.isAmount ? '₹' : ''}
@@ -889,7 +889,7 @@ export default function Analytics() {
                     </div>
                   </div>
                   <div className="space-y-1 flex-1">
-                    <div className="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-white font-display tracking-tight break-words">
+                    <div className="text-xl sm:text-2xl xl:text-3xl font-extrabold text-slate-900 dark:text-white font-display tracking-tight break-words">
                       <AnimatedCounter
                         value={card.value}
                         prefix={card.isAmount ? '₹' : ''}
@@ -988,7 +988,7 @@ export default function Analytics() {
                     </div>
                   </div>
                   <div className="space-y-1 flex-1">
-                    <div className="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-white font-display tracking-tight break-words">
+                    <div className="text-xl sm:text-2xl xl:text-3xl font-extrabold text-slate-900 dark:text-white font-display tracking-tight break-words">
                       <AnimatedCounter
                         value={card.value}
                         prefix={card.isAmount ? '₹' : ''}
@@ -1234,7 +1234,7 @@ export default function Analytics() {
                   <h3 className="text-lg font-bold text-slate-800 dark:text-white mb-1">Predictive Models Output</h3>
                   <p className="text-xs text-slate-500">All ML-generated predictions from the analytics_prediction table ({currentPredictions.list.length} records)</p>
                 </div>
-                <div className="flex flex-wrap gap-1.5 p-1 bg-slate-100/80 dark:glass-surface rounded-xl border border-slate-200 dark:border-slate-200 dark:border-slate-200 dark:border-white/[0.06]">
+                <div className="flex flex-wrap gap-1.5 p-1 bg-slate-100/80 dark:bg-navy-900/40 rounded-xl border border-slate-200 dark:border-white/[0.06]">
                   {[
                     { id: 'all', label: 'All' },
                     { id: 'sales_forecast', label: 'Sales' },
@@ -1246,8 +1246,8 @@ export default function Analytics() {
                       key={tab.id}
                       onClick={() => setPredictionFilter(tab.id)}
                       className={`px-3 py-1 text-xs font-bold rounded-lg transition-colors ${predictionFilter === tab.id
-                          ? 'glass-card text-violet-400 shadow-sm border border-slate-200/50 dark:border-slate-200/50 dark:border-white/[0.04] border-slate-200 dark:border-slate-200 dark:border-white/[0.06]'
-                          : 'text-slate-500 hover:text-slate-800 dark:text-slate-500 dark:text-slate-500 dark:text-slate-400 dark:hover:text-slate-700 dark:text-slate-700 dark:text-slate-200'
+                          ? 'glass-card text-violet-400 shadow-sm border border-slate-200 dark:border-white/[0.04]'
+                          : 'text-slate-500 hover:text-slate-800 dark:text-slate-400 dark:hover:text-white'
                         }`}
                     >
                       {tab.label}

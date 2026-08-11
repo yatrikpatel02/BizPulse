@@ -173,7 +173,7 @@ export default function Insights() {
             <select
               value={severityFilter}
               onChange={(e) => setSeverityFilter(e.target.value)}
-              className="glass-surface/40 border border-slate-200 dark:border-slate-200 dark:border-white/[0.06] text-sm font-semibold rounded-xl px-4 py-2 outline-none focus:ring-1 focus:ring-violet-500 text-slate-700 dark:text-slate-700 dark:text-slate-200 text-slate-700 dark:text-slate-700 dark:text-slate-300"
+              className="bg-white dark:bg-navy-900/40 border border-slate-200 dark:border-white/[0.08] text-sm font-semibold rounded-xl px-4 py-2 outline-none focus:ring-1 focus:ring-violet-500 text-slate-800 dark:text-slate-200"
             >
               <option value="all">All Severities</option>
               <option value="high">High Severity</option>
@@ -188,7 +188,7 @@ export default function Insights() {
             <select
               value={typeFilter}
               onChange={(e) => setTypeFilter(e.target.value)}
-              className="glass-surface/40 border border-slate-200 dark:border-slate-200 dark:border-white/[0.06] text-sm font-semibold rounded-xl px-4 py-2 outline-none focus:ring-1 focus:ring-violet-500 text-slate-700 dark:text-slate-700 dark:text-slate-200 text-slate-700 dark:text-slate-700 dark:text-slate-300"
+              className="bg-white dark:bg-navy-900/40 border border-slate-200 dark:border-white/[0.08] text-sm font-semibold rounded-xl px-4 py-2 outline-none focus:ring-1 focus:ring-violet-500 text-slate-800 dark:text-slate-200"
             >
               <option value="all">All Recommendation Types</option>
               <option value="revenue_declining">Revenue Decline</option>
@@ -376,7 +376,7 @@ export default function Insights() {
 
               <div>
                 <span className="text-[10px] font-bold text-slate-500 uppercase tracking-wide block mb-1">Action Plan</span>
-                <p className="text-xs leading-relaxed text-slate-700 dark:text-slate-700 dark:text-slate-300 p-3 glass-surface/40 rounded-xl border border-slate-200/50 dark:border-slate-200/50 dark:border-white/[0.04] border-slate-200 dark:border-slate-200 dark:border-white/[0.06]">
+                <p className="text-xs leading-relaxed text-slate-700 dark:text-slate-700 dark:text-slate-300 p-3 bg-slate-50 dark:bg-navy-900/40 rounded-xl border border-slate-200 dark:border-white/[0.06]">
                   {actionModal.recommendation}
                 </p>
               </div>

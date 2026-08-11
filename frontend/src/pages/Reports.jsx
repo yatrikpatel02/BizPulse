@@ -756,7 +756,7 @@ export default function Reports() {
                 <input
                   type="date" value={formData.startDate}
                   onChange={(e) => setFormData(prev => ({ ...prev, startDate: e.target.value }))}
-                  className="w-full px-4 py-2.5 glass-surface/40 border border-slate-200 dark:border-slate-200 dark:border-white/[0.06] focus:border-indigo-500 focus:ring-1 focus:ring-violet-500 rounded-xl text-sm outline-none text-white transition-all duration-200"
+                  className="w-full px-4 py-2.5 bg-white dark:bg-navy-900/40 border border-slate-200 dark:border-white/[0.06] focus:border-indigo-500 focus:ring-1 focus:ring-violet-500 rounded-xl text-sm outline-none text-slate-800 dark:text-slate-200 transition-all duration-200"
                   required
                 />
               </div>
@@ -765,7 +765,7 @@ export default function Reports() {
                 <input
                   type="date" value={formData.endDate}
                   onChange={(e) => setFormData(prev => ({ ...prev, endDate: e.target.value }))}
-                  className="w-full px-4 py-2.5 glass-surface/40 border border-slate-200 dark:border-slate-200 dark:border-white/[0.06] focus:border-indigo-500 focus:ring-1 focus:ring-violet-500 rounded-xl text-sm outline-none text-white transition-all duration-200"
+                  className="w-full px-4 py-2.5 bg-white dark:bg-navy-900/40 border border-slate-200 dark:border-white/[0.06] focus:border-indigo-500 focus:ring-1 focus:ring-violet-500 rounded-xl text-sm outline-none text-slate-800 dark:text-slate-200 transition-all duration-200"
                   required
                 />
               </div>
@@ -774,7 +774,7 @@ export default function Reports() {
                 <select
                   value={formData.format}
                   onChange={(e) => setFormData(prev => ({ ...prev, format: e.target.value }))}
-                  className="w-full px-4 py-2.5 glass-surface/40 border border-slate-200 dark:border-slate-200 dark:border-white/[0.06] focus:border-indigo-500 focus:ring-1 focus:ring-violet-500 rounded-xl text-sm outline-none text-slate-700 dark:text-slate-700 dark:text-slate-200 text-slate-700 dark:text-slate-700 dark:text-slate-300 font-semibold transition-all duration-200"
+                  className="w-full px-4 py-2.5 bg-white dark:bg-navy-900/40 border border-slate-200 dark:border-white/[0.06] focus:border-indigo-500 focus:ring-1 focus:ring-violet-500 rounded-xl text-sm outline-none text-slate-700 dark:text-slate-200 font-semibold transition-all duration-200"
                 >
                   <option value="PDF">Adobe PDF (.pdf)</option>
                 </select>
@@ -812,7 +812,7 @@ export default function Reports() {
             </div>
 
             {/* Document Content */}
-            <div id="report-print-area" className="space-y-6 text-sm text-slate-700 dark:text-slate-700 dark:text-slate-300 p-6 glass-surface/40 rounded-2xl border border-slate-200/50 dark:border-slate-200/50 dark:border-white/[0.04] border-slate-200 dark:border-slate-200 dark:border-white/[0.06]">
+            <div id="report-print-area" className="space-y-6 text-sm text-slate-700 dark:text-slate-700 dark:text-slate-300 p-6 bg-slate-50 dark:bg-navy-900/40 rounded-2xl border border-slate-200 dark:border-white/[0.06]">
               {/* Report Header */}
               <div className="flex justify-between items-start border-b border-slate-200 dark:border-slate-200 dark:border-white/[0.06] pb-4">
                 <div>

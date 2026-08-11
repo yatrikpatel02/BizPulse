@@ -217,7 +217,7 @@ export default function Profile() {
                   type="text"
                   value={firstName}
                   onChange={(e) => setFirstName(e.target.value)}
-                  className="block w-full px-3.5 py-2 glass-surface/40 border border-slate-200 dark:border-slate-200 dark:border-white/[0.06] focus:border-indigo-500 rounded-xl text-white placeholder-gray-400 dark:placeholder-slate-500 focus:outline-none text-xs transition-all"
+                  className="block w-full px-3.5 py-2 bg-white dark:bg-navy-900/40 border border-slate-200 dark:border-white/[0.06] focus:border-indigo-500 rounded-xl text-slate-800 dark:text-slate-200 placeholder-gray-400 dark:placeholder-slate-500 focus:outline-none text-xs transition-all"
                   placeholder="First Name"
                 />
               </div>
@@ -227,7 +227,7 @@ export default function Profile() {
                   type="text"
                   value={lastName}
                   onChange={(e) => setLastName(e.target.value)}
-                  className="block w-full px-3.5 py-2 glass-surface/40 border border-slate-200 dark:border-slate-200 dark:border-white/[0.06] focus:border-indigo-500 rounded-xl text-white placeholder-gray-400 dark:placeholder-slate-500 focus:outline-none text-xs transition-all"
+                  className="block w-full px-3.5 py-2 bg-white dark:bg-navy-900/40 border border-slate-200 dark:border-white/[0.06] focus:border-indigo-500 rounded-xl text-slate-800 dark:text-slate-200 placeholder-gray-400 dark:placeholder-slate-500 focus:outline-none text-xs transition-all"
                   placeholder="Last Name"
                 />
               </div>
@@ -241,7 +241,7 @@ export default function Profile() {
                   value={usernameField}
                   onChange={(e) => setUsernameField(e.target.value)}
                   required
-                  className="block w-full px-3.5 py-2 glass-surface/40 border border-slate-200 dark:border-slate-200 dark:border-white/[0.06] focus:border-indigo-500 rounded-xl text-white placeholder-gray-400 dark:placeholder-slate-500 focus:outline-none text-xs transition-all"
+                  className="block w-full px-3.5 py-2 bg-white dark:bg-navy-900/40 border border-slate-200 dark:border-white/[0.06] focus:border-indigo-500 rounded-xl text-slate-800 dark:text-slate-200 placeholder-gray-400 dark:placeholder-slate-500 focus:outline-none text-xs transition-all"
                   placeholder="Username"
                 />
               </div>
@@ -333,7 +333,7 @@ export default function Profile() {
                       required
                       value={oldPassword}
                       onChange={(e) => setOldPassword(e.target.value)}
-                      className="block w-full px-3.5 py-2 glass-surface/40 border border-slate-200 dark:border-slate-200 dark:border-white/[0.06] focus:border-indigo-500 rounded-xl text-white placeholder-gray-400 dark:placeholder-slate-500 focus:outline-none text-sm transition-all"
+                      className="block w-full px-3.5 py-2 bg-white dark:bg-navy-900/40 border border-slate-200 dark:border-white/[0.06] focus:border-indigo-500 rounded-xl text-slate-800 dark:text-slate-200 placeholder-gray-400 dark:placeholder-slate-500 focus:outline-none text-sm transition-all"
                       placeholder="••••••••"
                     />
                   </div>
@@ -345,7 +345,7 @@ export default function Profile() {
                       required
                       value={newPassword}
                       onChange={(e) => setNewPassword(e.target.value)}
-                      className="block w-full px-3.5 py-2 glass-surface/40 border border-slate-200 dark:border-slate-200 dark:border-white/[0.06] focus:border-indigo-500 rounded-xl text-white placeholder-gray-400 dark:placeholder-slate-500 focus:outline-none text-sm transition-all"
+                      className="block w-full px-3.5 py-2 bg-white dark:bg-navy-900/40 border border-slate-200 dark:border-white/[0.06] focus:border-indigo-500 rounded-xl text-slate-800 dark:text-slate-200 placeholder-gray-400 dark:placeholder-slate-500 focus:outline-none text-sm transition-all"
                       placeholder="••••••••"
                     />
                     {newPassword && (
@@ -366,7 +366,7 @@ export default function Profile() {
                       required
                       value={newPasswordConfirm}
                       onChange={(e) => setNewPasswordConfirm(e.target.value)}
-                      className="block w-full px-3.5 py-2 glass-surface/40 border border-slate-200 dark:border-slate-200 dark:border-white/[0.06] focus:border-indigo-500 rounded-xl text-white placeholder-gray-400 dark:placeholder-slate-500 focus:outline-none text-sm transition-all"
+                      className="block w-full px-3.5 py-2 bg-white dark:bg-navy-900/40 border border-slate-200 dark:border-white/[0.06] focus:border-indigo-500 rounded-xl text-slate-800 dark:text-slate-200 placeholder-gray-400 dark:placeholder-slate-500 focus:outline-none text-sm transition-all"
                       placeholder="••••••••"
                     />
                     {newPasswordConfirm && !passwordsMatch && (
@@ -423,7 +423,7 @@ export default function Profile() {
                     value={confirmPassword}
                     onChange={(e) => setConfirmPassword(e.target.value)}
                     required
-                    className="block w-full px-3.5 py-2.5 glass-surface/40 border border-gray-250 border-slate-200 dark:border-slate-200 dark:border-white/[0.06] focus:border-indigo-500 rounded-xl text-white placeholder-gray-400 focus:outline-none text-xs transition-all"
+                    className="block w-full px-3.5 py-2.5 bg-white dark:bg-navy-900/40 border border-slate-200 dark:border-white/[0.06] focus:border-indigo-500 rounded-xl text-slate-800 dark:text-slate-200 placeholder-gray-400 focus:outline-none text-xs transition-all"
                     placeholder="••••••••"
                   />
                 </div>

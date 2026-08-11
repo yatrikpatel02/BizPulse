@@ -189,7 +189,7 @@ export default function Products() {
             placeholder="Search by product name or SKU..."
             value={search}
             onChange={(e) => setSearch(e.target.value)}
-            className="w-full pl-10 pr-4 py-2 glass-surface/40 border border-slate-200 dark:border-slate-200 dark:border-white/[0.06] focus-glow focus:bg-navy-800 rounded-xl text-sm transition-all duration-300 outline-none text-white"
+            className="w-full pl-10 pr-4 py-2 bg-white dark:bg-navy-900/40 border border-slate-200 dark:border-white/[0.06] focus-glow focus:bg-navy-800 rounded-xl text-sm transition-all duration-300 outline-none text-slate-800 dark:text-slate-200"
           />
         </div>
 
@@ -259,7 +259,7 @@ export default function Products() {
                         </div>
                       )}
                     </td>
-                    <td className="px-6 py-4 font-mono text-xs text-slate-700 dark:text-slate-700 dark:text-slate-300">
+                    <td className="px-6 py-4 font-mono text-xs text-slate-500 dark:text-slate-400">
                       {product.sku || '—'}
                     </td>
                     <td className="px-6 py-4 font-semibold text-slate-800 dark:text-white">
@@ -340,7 +340,7 @@ export default function Products() {
                   value={formData.name}
                   onChange={handleChange}
                   placeholder="e.g. Wireless Noise Cancelling Headphones"
-                  className="w-full px-4 py-2.5 glass-surface/40 border border-slate-200 dark:border-slate-200 dark:border-white/[0.06] focus-glow focus:bg-navy-800 rounded-xl text-sm transition-all duration-200 outline-none text-white"
+                  className="w-full px-4 py-2.5 bg-white dark:bg-navy-900/40 border border-slate-200 dark:border-white/[0.06] focus-glow focus:bg-navy-800 rounded-xl text-sm transition-all duration-200 outline-none text-slate-800 dark:text-slate-200"
                   required
                 />
               </div>
@@ -357,7 +357,7 @@ export default function Products() {
                     value={formData.sku}
                     onChange={handleChange}
                     placeholder="e.g. SKU-892"
-                    className="w-full px-4 py-2.5 glass-surface/40 border border-slate-200 dark:border-slate-200 dark:border-white/[0.06] focus-glow focus:bg-navy-800 rounded-xl text-sm transition-all duration-200 outline-none text-white"
+                    className="w-full px-4 py-2.5 bg-white dark:bg-navy-900/40 border border-slate-200 dark:border-white/[0.06] focus-glow focus:bg-navy-800 rounded-xl text-sm transition-all duration-200 outline-none text-slate-800 dark:text-slate-200"
                   />
                 </div>
 
@@ -372,7 +372,7 @@ export default function Products() {
                     value={formData.price}
                     onChange={handleChange}
                     placeholder="e.g. 2999.00"
-                    className="w-full px-4 py-2.5 glass-surface/40 border border-slate-200 dark:border-slate-200 dark:border-white/[0.06] focus-glow focus:bg-navy-800 rounded-xl text-sm transition-all duration-200 outline-none text-white"
+                    className="w-full px-4 py-2.5 bg-white dark:bg-navy-900/40 border border-slate-200 dark:border-white/[0.06] focus-glow focus:bg-navy-800 rounded-xl text-sm transition-all duration-200 outline-none text-slate-800 dark:text-slate-200"
                     required
                   />
                 </div>
@@ -389,7 +389,7 @@ export default function Products() {
                   value={formData.description}
                   onChange={handleChange}
                   placeholder="Tell us more about this product..."
-                  className="w-full px-4 py-2.5 glass-surface/40 border border-slate-200 dark:border-slate-200 dark:border-white/[0.06] focus-glow focus:bg-navy-800 rounded-xl text-sm transition-all duration-200 outline-none text-white resize-none"
+                  className="w-full px-4 py-2.5 bg-white dark:bg-navy-900/40 border border-slate-200 dark:border-white/[0.06] focus-glow focus:bg-navy-800 rounded-xl text-sm transition-all duration-200 outline-none text-slate-800 dark:text-slate-200 resize-none"
                 />
               </div>
 
