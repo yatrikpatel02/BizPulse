@@ -423,7 +423,7 @@ export default function DashboardLayout({ children }) {
         </header>
         
         {/* Main Content Area */}
-        <main className="flex-1 overflow-y-auto p-6 sm:p-8 flex flex-col">
+        <main className={`flex-1 overflow-y-auto flex flex-col ${location.pathname === '/analytics' ? 'px-6 sm:px-8 pb-6 sm:pb-8 pt-0' : 'p-6 sm:p-8'}`}>
           {children}
         </main>
       </div>
