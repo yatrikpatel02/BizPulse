@@ -137,6 +137,7 @@ export default function Settings() {
         email_alerts: alertSettings.emailAlerts
       });
       triggerToast('Alert thresholds saved successfully.');
+      window.dispatchEvent(new Event('bizpulse-settings-updated'));
     } catch (err) {
       triggerToast('Failed to save alert thresholds.');
     }

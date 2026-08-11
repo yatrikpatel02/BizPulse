@@ -154,6 +154,15 @@ export default function DashboardLayout({ children }) {
     };
 
     loadDynamicNotifications();
+
+    const handleSettingsUpdate = () => {
+      console.log("BizPulse Notification System: Settings updated event received. Refreshing notifications...");
+      loadDynamicNotifications();
+    };
+    window.addEventListener('bizpulse-settings-updated', handleSettingsUpdate);
+    return () => {
+      window.removeEventListener('bizpulse-settings-updated', handleSettingsUpdate);
+    };
   }, [activeBusiness?.id]);
 
   const unreadCount = notifications.filter(n => n.unread).length;
