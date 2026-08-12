@@ -65,26 +65,28 @@ class CompetitorPriceViewSet(viewsets.ModelViewSet):
 
     @action(detail=False, methods=['post'], url_path='collect')
     def collect(self, request, *args, **kwargs):
-        """Trigger a competitor price collection for a specific product."""
+        """Trigger competitor price collection for one or more products."""
         serializer = CompetitorPriceCollectSerializer(
             data=request.data,
             context={'request': request},
         )
         serializer.is_valid(raise_exception=True)
 
-        product = serializer.validated_data['product_id']
-        business = product.business
+        business, products = serializer.create_collect_context()
 
         service = CompetitorPriceService()
-        collected = service.collect_prices(business, product)
+        all_collected = []
+        for product in products:
+            collected = service.collect_prices(business, product)
+            all_collected.extend(collected)
 
         return Response(
             {
                 "status": "collected",
-                "product_id": product.id,
                 "business": business.name,
-                "records_collected": len(collected),
-                "results": collected,
+                "products_collected": len(products),
+                "records_collected": len(all_collected),
+                "results": all_collected,
             },
             status=status.HTTP_201_CREATED,
         )

@@ -26,6 +26,7 @@ from analytics.serializers import (
 )
 from analytics.services.ml_pipeline import TrainAllModelsPipeline, RunPredictionsPipeline
 from analytics.services.ml_service import ModelVersioningService
+from analytics.services.retraining_service import RetrainingService
 
 logger = logging.getLogger(__name__)
 
@@ -56,6 +57,13 @@ class MLTrainView(APIView):
         try:
             pipeline = TrainAllModelsPipeline(business_id=business.id)
             results = pipeline.run()
+
+            # Record a training baseline so future dataset changes are
+            # measured from this run for automatic retraining decisions.
+            sales_results = results.get('sales_forecast') or {}
+            demand_results = results.get('demand_forecast') or {}
+            if sales_results or demand_results:
+                RetrainingService.record_training(business.id)
 
             response_data = {
                 "success": True,
@@ -175,6 +183,39 @@ class MLPredictionsListView(APIView):
 
         serializer = PredictionSerializer(queryset, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
+
+
+class MLRetrainingStatusView(APIView):
+    """
+    Endpoint: GET /api/ml/retraining-status/
+    Retrieve the current automatic retraining decision for a business.
+    """
+    permission_classes = [permissions.IsAuthenticated]
+
+    def get(self, request, *args, **kwargs):
+        user = request.user
+        business_id = request.query_params.get('business_id')
+
+        if business_id:
+            try:
+                business = Business.objects.get(id=business_id, owner=user)
+            except (Business.DoesNotExist, ValueError):
+                return Response(
+                    {"detail": "Business not found or access denied."},
+                    status=status.HTTP_404_NOT_FOUND
+                )
+        else:
+            business = Business.objects.filter(owner=user).first()
+            if not business:
+                return Response(
+                    {"detail": "You must create a business before viewing retraining status."},
+                    status=status.HTTP_400_BAD_REQUEST
+                )
+
+        service = RetrainingService(business_id=business.id)
+        decision = service.evaluate()
+
+        return Response(decision, status=status.HTTP_200_OK)
 
 
 class MLModelsListView(APIView):

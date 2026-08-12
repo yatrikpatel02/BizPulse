@@ -4,10 +4,12 @@ from celery import shared_task
 from django.db import transaction
 
 from businesses.models import Business
+from integrations.services.competitor_price_service import CompetitorPriceService
 from integrations.services.market_keyword_service import get_market_keywords
 from integrations.services.google_trends_service import GoogleTrendsService
 from analytics.services.trend_insight_engine import TrendInsightEngine
 from analytics.models import Insight
+from products.models import Product
 
 logger = logging.getLogger(__name__)
 
@@ -90,6 +92,40 @@ def refresh_market_intelligence():
         count += 1
     logger.info("Queued market intelligence generation for %s businesses.", count)
     return {"status": "queued", "businesses": count}
+
+
+@shared_task
+def collect_competitor_prices_daily():
+    """Collect competitor prices for all active products across active businesses."""
+    active_businesses = Business.objects.filter(owner__is_active=True).prefetch_related('products')
+    service = CompetitorPriceService()
+    total_products = 0
+    total_collected = 0
+
+    for business in active_businesses:
+        products = business.products.filter(is_active=True)
+        if not products.exists():
+            logger.info("No active products found for business %s.", business.id)
+            continue
+
+        for product in products:
+            try:
+                collected = service.collect_prices(business, product)
+                total_collected += len(collected)
+                total_products += 1
+            except Exception as exc:
+                logger.exception(
+                    "Competitor price collection failed for product %s in business %s.",
+                    product.id,
+                    business.id,
+                )
+
+    logger.info(
+        "Daily competitor price collection completed: %s products processed, %s prices collected.",
+        total_products,
+        total_collected,
+    )
+    return {"status": "completed", "products_processed": total_products, "prices_collected": total_collected}
 
 
 def _get_product_for_keyword(business, keyword):
