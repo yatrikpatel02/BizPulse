@@ -218,80 +218,26 @@ export default function Landing() {
             </div>
           </div>
 
-          {/* Hero Right: Interactive Dashboard Preview Mockup */}
+          {/* Hero Right: High-Resolution Dashboard Mockup Image */}
           <div className="lg:col-span-6 flex justify-center w-full">
-            <div className="relative w-full max-w-[500px] aspect-[1.3] bg-white dark:bg-navy-900 border border-slate-200 dark:border-white/[0.06] rounded-2xl p-4 shadow-2xl shadow-slate-300/50 dark:shadow-navy-950/80 transition-colors duration-300">
+            <div className="relative w-full max-w-[560px] bg-white dark:bg-navy-900 border border-slate-200 dark:border-white/[0.06] rounded-2xl p-1.5 shadow-2xl shadow-slate-300/60 dark:shadow-navy-950/80 transition-all duration-500 hover:scale-[1.02]">
               {/* Mockup Header Row */}
-              <div className="flex items-center justify-between pb-3 border-b border-slate-100 dark:border-white/[0.04]">
+              <div className="flex items-center justify-between px-3 py-1.5 border-b border-slate-100 dark:border-white/[0.04] mb-1.5">
                 <div className="flex items-center gap-1.5">
                   <span className="w-2.5 h-2.5 rounded-full bg-red-400"></span>
                   <span className="w-2.5 h-2.5 rounded-full bg-yellow-400"></span>
                   <span className="w-2.5 h-2.5 rounded-full bg-green-400"></span>
-                  <span className="text-[10px] font-bold text-slate-400 ml-1">bizpulse-dashboard.local</span>
+                  <span className="text-[10px] font-bold text-slate-400 dark:text-slate-500 ml-1.5">bizpulse-dashboard.local</span>
                 </div>
                 <div className="w-16 h-3 rounded bg-slate-100 dark:bg-white/[0.04]"></div>
               </div>
-
-              {/* Mockup Body Grid */}
-              <div className="grid grid-cols-12 gap-3 pt-3 h-[calc(100%-2rem)]">
-                {/* Mockup Sidebar */}
-                <div className="col-span-3 space-y-2 border-r border-slate-100 dark:border-white/[0.04] pr-2">
-                  <div className="h-5 rounded bg-violet-600/10 dark:bg-violet-600/20 border border-violet-500/10 flex items-center px-1.5">
-                    <div className="w-2.5 h-2.5 rounded-sm bg-violet-500"></div>
-                  </div>
-                  <div className="h-5 rounded bg-slate-100/50 dark:bg-white/[0.02]"></div>
-                  <div className="h-5 rounded bg-slate-100/50 dark:bg-white/[0.02]"></div>
-                  <div className="h-5 rounded bg-slate-100/50 dark:bg-white/[0.02]"></div>
-                  <div className="h-5 rounded bg-slate-100/50 dark:bg-white/[0.02]"></div>
-                </div>
-
-                {/* Mockup Content Panel */}
-                <div className="col-span-9 space-y-3 pl-1">
-                  {/* Cards Row */}
-                  <div className="grid grid-cols-3 gap-2">
-                    <div className="p-2 border border-slate-100 dark:border-white/[0.04] bg-slate-50/50 dark:bg-navy-950/40 rounded-lg">
-                      <span className="text-[7px] text-slate-400 block font-semibold">REVENUE</span>
-                      <span className="text-[10px] font-extrabold text-slate-800 dark:text-white block mt-0.5">₹4.2L</span>
-                      <span className="text-[6px] text-emerald-500 font-bold block mt-0.5">+14%</span>
-                    </div>
-                    <div className="p-2 border border-slate-100 dark:border-white/[0.04] bg-slate-50/50 dark:bg-navy-950/40 rounded-lg">
-                      <span className="text-[7px] text-slate-400 block font-semibold">PRODUCTS</span>
-                      <span className="text-[10px] font-extrabold text-slate-800 dark:text-white block mt-0.5">142</span>
-                      <span className="text-[6px] text-violet-500 font-bold block mt-0.5">Active</span>
-                    </div>
-                    <div className="p-2 border border-slate-100 dark:border-white/[0.04] bg-slate-50/50 dark:bg-navy-950/40 rounded-lg">
-                      <span className="text-[7px] text-slate-400 block font-semibold">DEMAND</span>
-                      <span className="text-[10px] font-extrabold text-slate-800 dark:text-white block mt-0.5">+24.3%</span>
-                      <span className="text-[6px] text-emerald-500 font-bold block mt-0.5">Strong</span>
-                    </div>
-                  </div>
-
-                  {/* Main Graph Card */}
-                  <div className="p-2 border border-slate-100 dark:border-white/[0.04] rounded-xl flex-1 flex flex-col justify-between h-[120px] relative overflow-hidden bg-slate-50/20 dark:bg-navy-950/20">
-                    <div className="flex items-center justify-between mb-1">
-                      <span className="text-[8px] font-bold text-slate-500 uppercase">Monthly Revenue Trend</span>
-                      <div className="w-10 h-2 bg-slate-100 dark:bg-white/[0.04] rounded"></div>
-                    </div>
-                    {/* SVG Vector Line Chart */}
-                    <div className="w-full h-full flex items-end relative">
-                      <svg className="w-full h-[90%] overflow-visible" viewBox="0 0 100 30" preserveAspectRatio="none">
-                        {/* Area Gradient */}
-                        <defs>
-                          <linearGradient id="chartGrad" x1="0" y1="0" x2="0" y2="1">
-                            <stop offset="0%" stopColor="#7c3aed" stopOpacity="0.15" />
-                            <stop offset="100%" stopColor="#7c3aed" stopOpacity="0.0" />
-                          </linearGradient>
-                        </defs>
-                        <path d="M 0,30 Q 15,10 30,22 T 60,8 T 90,5 T 100,10 L 100,30 Z" fill="url(#chartGrad)" />
-                        {/* Stroke Line */}
-                        <path d="M 0,30 Q 15,10 30,22 T 60,8 T 90,5 T 100,10" fill="none" stroke="#6366f1" strokeWidth="1.5" strokeLinecap="round" />
-                        {/* Dots */}
-                        <circle cx="60" cy="8" r="1.5" fill="#7c3aed" />
-                        <circle cx="90" cy="5" r="1.5" fill="#6366f1" />
-                      </svg>
-                    </div>
-                  </div>
-                </div>
+              {/* Actual Screenshot */}
+              <div className="overflow-hidden rounded-xl border border-slate-100 dark:border-white/[0.04]">
+                <img
+                  src="/dashboard_screenshot.png"
+                  alt="BizPulse Dashboard Preview"
+                  className="w-full h-auto object-cover"
+                />
               </div>
             </div>
           </div>
