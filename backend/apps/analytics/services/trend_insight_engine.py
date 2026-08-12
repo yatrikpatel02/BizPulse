@@ -146,15 +146,27 @@ class TrendInsightEngine:
             business=business, keywords=keyword_list, region=region, days=days
         )
 
-        if refresh:
-            fresh = self.data_service.collect_trends(
-                business=business, keywords=keyword_list, region=region, days=days
-            )
-            series_by_keyword = {**series_by_keyword, **{k: v for k, v in fresh.items()}}
-            # Re-read to ensure consistent ordering/shape from persisted store.
-            series_by_keyword = self.data_service.get_time_series(
-                business=business, keywords=keyword_list, region=region, days=days
-            )
+        # Identify keywords that have no data at all in the database, or have fewer than 28 days of data
+        missing_keywords = [
+            kw for kw in keyword_list 
+            if not series_by_keyword.get(kw) or len(series_by_keyword[kw]) < 28
+        ]
+
+        if refresh or missing_keywords:
+            keywords_to_collect = keyword_list if refresh else missing_keywords
+            try:
+                fresh = self.data_service.collect_trends(
+                    business=business, keywords=keywords_to_collect, region=region, days=days
+                )
+                series_by_keyword = {**series_by_keyword, **{k: v for k, v in fresh.items()}}
+                # Re-read to ensure consistent ordering/shape from persisted store.
+                series_by_keyword = self.data_service.get_time_series(
+                    business=business, keywords=keyword_list, region=region, days=days
+                )
+            except Exception as e:
+                import logging
+                logger = logging.getLogger(__name__)
+                logger.error(f"Failed to collect trends live: {str(e)}")
 
         insights: List[Dict[str, Any]] = []
         for keyword in keyword_list:

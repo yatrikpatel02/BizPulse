@@ -361,7 +361,7 @@ export default function Reports() {
       }
       if (report.report_type === 'market') {
         try {
-          const res = await api.get('/analytics/market-insights/', { params: { keywords: 'electronics,apparel,headphones' } });
+          const res = await api.get('/analytics/market-insights/', { params: { business_id: activeBusiness.id } });
           data.market = res.data;
         } catch (e) { data.market = null; }
       }
