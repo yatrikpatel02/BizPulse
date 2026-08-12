@@ -19,6 +19,7 @@ import Insights from './pages/Insights';
 import Reports from './pages/Reports';
 import MarketIntelligence from './pages/MarketIntelligence';
 import ProtectedRoute from './components/ProtectedRoute';
+import Landing from './pages/Landing';
 
 function App() {
   return (
@@ -26,7 +27,7 @@ function App() {
       <AuthProvider>
         <BusinessProvider>
           <Routes>
-            <Route path="/" element={<Navigate to="/dashboard" replace />} />
+            <Route path="/" element={<Landing />} />
             <Route path="/login" element={<AuthLayout><Login /></AuthLayout>} />
             <Route path="/signup" element={<AuthLayout><Signup /></AuthLayout>} />
             <Route path="/forgot-password" element={<AuthLayout><ForgotPassword /></AuthLayout>} />

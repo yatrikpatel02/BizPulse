@@ -2,6 +2,7 @@ from django.urls import path
 from .views import auth
 from .views import social_auth
 from .views.user_settings import UserSettingsView
+from .views.contact import ContactSubmissionView
 
 urlpatterns = [
     path('register/', auth.RegisterView.as_view(), name='register'),
@@ -13,4 +14,5 @@ urlpatterns = [
     path('profile/delete/', auth.DeleteAccountView.as_view(), name='delete_account'),
     path('settings/', UserSettingsView.as_view(), name='user_settings'),
     path('social/google/', social_auth.GoogleAuthView.as_view(), name='social_google'),
+    path('contact/', ContactSubmissionView.as_view(), name='contact_submit'),
 ]
