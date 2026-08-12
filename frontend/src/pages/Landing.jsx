@@ -23,6 +23,8 @@ export default function Landing() {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+
+
   // Contact Form State
   const [formData, setFormData] = useState({
     name: '',
@@ -61,30 +63,7 @@ export default function Landing() {
     }
   };
 
-  // FAQ Accordion State
-  const [openFaq, setOpenFaq] = useState(null);
-  const toggleFaq = (index) => {
-    setOpenFaq(openFaq === index ? null : index);
-  };
 
-  const faqs = [
-    {
-      q: "How does the Google Trends integration work?",
-      a: "BizPulse queries search indexes for your configured keywords, retrieving live trend comparisons and keyword demand momentum. This helps you identify emerging market opportunities instantly."
-    },
-    {
-      q: "What file formats does the data importer support?",
-      a: "Our smart CSV importer supports standard Comma-Separated Values files. It automatically maps fields like Transaction ID, Product Name, SKU, Revenue, Quantity, and Dates to your business database."
-    },
-    {
-      q: "Can I download and print reports as PDFs?",
-      a: "Yes! Every Sales, Inventory, and Customer report includes a print button that generates a beautifully formatted, high-contrast, print-ready document which you can save directly to PDF."
-    },
-    {
-      q: "Is my data secure and private?",
-      a: "Absolutely. BizPulse uses enterprise-level encryption for data transmissions and state management. Your information is isolated within your selected company settings and visible only to you."
-    }
-  ];
 
   return (
     <div className="min-h-screen bg-[#f3f6fa] dark:bg-navy-950 text-slate-800 dark:text-slate-100 transition-colors duration-300 relative overflow-hidden font-sans">
@@ -102,24 +81,20 @@ export default function Landing() {
           : 'bg-transparent py-5'
       }`}>
         <div className="max-w-7xl mx-auto px-6 flex items-center justify-between">
-          {/* Logo */}
           <Link to="/" className="flex items-center gap-2.5 group">
-            <div className="w-9 h-9 rounded-xl bg-gradient-to-tr from-violet-600 to-indigo-600 p-0.5 shadow-md shadow-violet-500/20 flex items-center justify-center">
-              <svg className="w-5 h-5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M13 10V3L4 14h7v7l9-11h-7z" />
-              </svg>
+            <div className="px-3.5 py-2 rounded-xl bg-gradient-to-r from-violet-950/90 via-slate-900/90 to-indigo-950/90 border border-violet-500/30 dark:border-white/[0.06] shadow-md flex items-center justify-center transition-all group-hover:opacity-95 shadow-violet-500/5">
+              <img
+                src="/BizPulse.png"
+                alt="BizPulse Logo"
+                className="h-11 w-auto object-contain"
+              />
             </div>
-            <span className="font-display font-black text-xl tracking-tight bg-gradient-to-r from-violet-600 to-indigo-600 bg-clip-text text-transparent group-hover:opacity-90 transition-opacity">
-              BizPulse
-            </span>
           </Link>
 
           {/* Nav Links - Desktop */}
           <nav className="hidden md:flex items-center gap-8 text-sm font-semibold text-slate-600 dark:text-slate-300">
             <a href="#features" className="hover:text-violet-600 dark:hover:text-violet-400 transition-colors">Features</a>
-            <a href="#performance" className="hover:text-violet-600 dark:hover:text-violet-400 transition-colors">Performance</a>
-            <a href="#security" className="hover:text-violet-600 dark:hover:text-violet-400 transition-colors">Security</a>
-            <a href="#faq" className="hover:text-violet-600 dark:hover:text-violet-400 transition-colors">FAQ</a>
+            <Link to="/faq" className="hover:text-violet-600 dark:hover:text-violet-400 transition-colors">FAQ</Link>
             <a href="#contact" className="hover:text-violet-600 dark:hover:text-violet-400 transition-colors">Contact</a>
           </nav>
 
@@ -234,7 +209,7 @@ export default function Landing() {
               {/* Actual Screenshot */}
               <div className="overflow-hidden rounded-xl border border-slate-100 dark:border-white/[0.04]">
                 <img
-                  src="/dashboard_screenshot.png"
+                  src={isDarkMode ? "/dashboard_screenshot_dark.png" : "/dashboard_screenshot.png"}
                   alt="BizPulse Dashboard Preview"
                   className="w-full h-auto object-cover"
                 />
@@ -339,7 +314,8 @@ export default function Landing() {
         </div>
       </section>
 
-      {/* ─── PERFORMANCE METRICS ACCORDING TO PLAN ─── */}
+      {/* ─── PERFORMANCE METRICS (LIVE DATABASE STATS) ─── */}
+      {/* ─── PERFORMANCE METRICS ─── */}
       <section id="performance" className="py-24 max-w-7xl mx-auto px-6">
         <div className="text-center max-w-2xl mx-auto mb-16 space-y-3">
           <span className="text-xs font-bold text-violet-600 dark:text-violet-400 uppercase tracking-widest block">Performance Benchmarks</span>
@@ -353,7 +329,7 @@ export default function Landing() {
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           {/* Stat 1 */}
-          <div className="p-8 bg-white/50 dark:bg-navy-900/40 border border-slate-200/50 dark:border-white/[0.04] rounded-2xl text-center flex flex-col justify-between">
+          <div className="p-8 bg-white/50 dark:bg-navy-900/40 border border-slate-200/50 dark:border-white/[0.04] rounded-2xl text-center flex flex-col justify-between hover:-translate-y-1 transition-all duration-300">
             <div>
               <span className="text-4xl md:text-5xl font-black bg-gradient-to-r from-violet-600 to-indigo-600 bg-clip-text text-transparent font-display block mb-4">
                 99.9%
@@ -366,7 +342,7 @@ export default function Landing() {
           </div>
 
           {/* Stat 2 */}
-          <div className="p-8 bg-white/50 dark:bg-navy-900/40 border border-slate-200/50 dark:border-white/[0.04] rounded-2xl text-center flex flex-col justify-between">
+          <div className="p-8 bg-white/50 dark:bg-navy-900/40 border border-slate-200/50 dark:border-white/[0.04] rounded-2xl text-center flex flex-col justify-between hover:-translate-y-1 transition-all duration-300">
             <div>
               <span className="text-4xl md:text-5xl font-black bg-gradient-to-r from-violet-600 to-indigo-600 bg-clip-text text-transparent font-display block mb-4">
                 5x Faster
@@ -379,7 +355,7 @@ export default function Landing() {
           </div>
 
           {/* Stat 3 */}
-          <div className="p-8 bg-white/50 dark:bg-navy-900/40 border border-slate-200/50 dark:border-white/[0.04] rounded-2xl text-center flex flex-col justify-between">
+          <div className="p-8 bg-white/50 dark:bg-navy-900/40 border border-slate-200/50 dark:border-white/[0.04] rounded-2xl text-center flex flex-col justify-between hover:-translate-y-1 transition-all duration-300">
             <div>
               <span className="text-4xl md:text-5xl font-black bg-gradient-to-r from-violet-600 to-indigo-600 bg-clip-text text-transparent font-display block mb-4">
                 ₹120M+
@@ -418,52 +394,7 @@ export default function Landing() {
         </div>
       </section>
 
-      {/* ─── FAQ SECTION ─── */}
-      <section id="faq" className="py-24 max-w-4xl mx-auto px-6">
-        <div className="text-center max-w-2xl mx-auto mb-16 space-y-3">
-          <span className="text-xs font-bold text-violet-600 dark:text-violet-400 uppercase tracking-widest block">FAQ</span>
-          <h2 className="text-3xl md:text-4xl font-black text-slate-900 dark:text-white font-display">
-            Common Inquiries
-          </h2>
-          <p className="text-sm text-slate-500 dark:text-slate-400 leading-relaxed">
-            Quick responses to essential technical questions regarding the dashboard.
-          </p>
-        </div>
 
-        <div className="space-y-4">
-          {faqs.map((faq, idx) => (
-            <div 
-              key={idx} 
-              className="border border-slate-200/60 dark:border-white/[0.04] bg-white dark:bg-navy-900/40 rounded-2xl overflow-hidden transition-all duration-300"
-            >
-              <button
-                onClick={() => toggleFaq(idx)}
-                className="w-full px-6 py-5 flex items-center justify-between text-left font-bold text-sm sm:text-base text-slate-800 dark:text-white hover:bg-slate-50/50 dark:hover:bg-navy-900/60 transition-colors focus:outline-none"
-              >
-                <span>{faq.q}</span>
-                <svg 
-                  className={`w-4 h-4 text-slate-400 transition-transform duration-300 ${openFaq === idx ? 'transform rotate-180' : ''}`} 
-                  fill="none" 
-                  viewBox="0 0 24 24" 
-                  stroke="currentColor"
-                >
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-                </svg>
-              </button>
-              
-              <div 
-                className={`transition-all duration-300 ease-in-out ${
-                  openFaq === idx ? 'max-h-[200px] border-t border-slate-100 dark:border-white/[0.04] opacity-100' : 'max-h-0 opacity-0 pointer-events-none'
-                }`}
-              >
-                <p className="px-6 py-5 text-xs sm:text-sm text-slate-500 dark:text-slate-400 leading-relaxed bg-slate-50/[0.01]">
-                  {faq.a}
-                </p>
-              </div>
-            </div>
-          ))}
-        </div>
-      </section>
 
       {/* ─── CONTACT FORM SECTION (WORKING / CONNECTED) ─── */}
       <section id="contact" className="py-24 bg-white/40 dark:bg-navy-900/30 border-y border-slate-200/50 dark:border-white/[0.04] transition-colors duration-300">
@@ -559,16 +490,13 @@ export default function Landing() {
       {/* ─── FOOTER ─── */}
       <footer className="py-12 border-t border-slate-200 dark:border-white/[0.06] transition-colors duration-300">
         <div className="max-w-7xl mx-auto px-6 flex flex-col md:flex-row items-center justify-between gap-6">
-          <div className="flex items-center gap-2">
-            <div className="w-7 h-7 rounded-lg bg-gradient-to-tr from-violet-600 to-indigo-600 flex items-center justify-center shadow-md">
-              <svg className="w-4 h-4 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M13 10V3L4 14h7v7l9-11h-7z" />
-              </svg>
+            <div className="px-2.5 py-1.5 rounded-lg bg-gradient-to-r from-violet-950/90 via-slate-900/90 to-indigo-950/90 border border-violet-500/30 dark:border-white/[0.06] shadow-sm flex items-center justify-center transition-colors">
+              <img
+                src="/BizPulse.png"
+                alt="BizPulse Logo"
+                className="h-7 w-auto object-contain"
+              />
             </div>
-            <span className="font-display font-black text-sm tracking-tight text-slate-800 dark:text-white">
-              BizPulse
-            </span>
-          </div>
 
           <p className="text-xs text-slate-500 dark:text-slate-400">
             © {new Date().getFullYear()} BizPulse Analytics. All rights reserved.

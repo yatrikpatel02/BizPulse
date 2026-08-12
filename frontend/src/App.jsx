@@ -20,6 +20,7 @@ import Reports from './pages/Reports';
 import MarketIntelligence from './pages/MarketIntelligence';
 import ProtectedRoute from './components/ProtectedRoute';
 import Landing from './pages/Landing';
+import FAQ from './pages/FAQ';
 
 function App() {
   return (
@@ -28,6 +29,7 @@ function App() {
         <BusinessProvider>
           <Routes>
             <Route path="/" element={<Landing />} />
+            <Route path="/faq" element={<FAQ />} />
             <Route path="/login" element={<AuthLayout><Login /></AuthLayout>} />
             <Route path="/signup" element={<AuthLayout><Signup /></AuthLayout>} />
             <Route path="/forgot-password" element={<AuthLayout><ForgotPassword /></AuthLayout>} />

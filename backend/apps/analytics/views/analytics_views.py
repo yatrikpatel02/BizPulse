@@ -228,3 +228,4 @@ class BusinessHealthView(APIView):
                 {"detail": f"Error calculating business health: {str(e)}"},
                 status=500
             )
+

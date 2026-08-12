@@ -98,13 +98,11 @@ export default function Sidebar({ isOpen, setIsOpen }) {
         {/* Logo Area */}
         <div className="flex items-center justify-center h-16 border-b border-white/[0.06] min-w-[16rem]">
           <div className="flex items-center gap-2.5">
-            {/* Logo icon */}
-            <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-violet-500 to-indigo-600 flex items-center justify-center shadow-glow-purple-sm">
-              <svg className="w-4.5 h-4.5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
-                <path strokeLinecap="round" strokeLinejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z" />
-              </svg>
-            </div>
-            <h1 className="text-xl font-bold font-display gradient-text">BizPulse</h1>
+            <img
+              src="/BizPulse.png"
+              alt="BizPulse Logo"
+              className="h-10 w-auto object-contain"
+            />
           </div>
         </div>
 
