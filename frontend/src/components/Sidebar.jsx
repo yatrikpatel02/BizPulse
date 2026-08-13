@@ -110,7 +110,7 @@ export default function Sidebar({ isOpen, setIsOpen }) {
           <CompanySwitcher />
         </div>
 
-        <div className="flex flex-col flex-1 overflow-y-auto min-w-[16rem]">
+        <div className="flex flex-col flex-1 overflow-y-auto custom-scrollbar min-w-[16rem]">
 
           <nav className="flex-1 px-3 py-4 space-y-1">
 
