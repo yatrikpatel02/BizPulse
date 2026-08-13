@@ -1135,7 +1135,7 @@ export default function Analytics() {
                         />
                       </svg>
                       <div className="absolute inset-0 flex flex-col items-center justify-center select-none">
-                        <span className="text-4xl font-extrabold text-white">{actualScore}</span>
+                        <span className="text-4xl font-extrabold text-slate-900 dark:text-white">{actualScore}</span>
                         <span className="text-[10px] uppercase font-bold text-slate-500 mt-1">{actualCategory}</span>
                       </div>
                     </div>
@@ -1188,7 +1188,7 @@ export default function Analytics() {
                         />
                       </svg>
                       <div className="absolute inset-0 flex flex-col items-center justify-center select-none">
-                        <span className="text-4xl font-extrabold text-white">
+                        <span className="text-4xl font-extrabold text-slate-900 dark:text-white">
                           {Number(latestHealthPrediction.value).toFixed(1)}
                         </span>
                         <span className="text-[10px] uppercase font-bold text-slate-500 mt-1">
@@ -1311,7 +1311,7 @@ export default function Analytics() {
                           <td className="py-3.5 text-xs text-slate-500 dark:text-slate-400">
                             {pred.period_start} to {pred.period_end}
                           </td>
-                          <td className="py-3.5 text-right font-extrabold text-white">
+                          <td className="py-3.5 text-right font-extrabold text-slate-800 dark:text-white">
                             {displayValue}
                           </td>
                           <td className="py-3.5 text-right">

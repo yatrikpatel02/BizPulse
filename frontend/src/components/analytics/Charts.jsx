@@ -519,7 +519,7 @@ export function DonutChart({ data = [], size = 200, innerLabel = 'CSAT', innerVa
         {/* Inner Centered Label */}
         <div className="absolute inset-0 flex flex-col items-center justify-center pointer-events-none select-none">
           <span className="text-[9px] font-bold text-slate-500 uppercase tracking-wider">{innerLabel}</span>
-          <span className="text-2xl font-extrabold text-white mt-0.5">{innerValue}</span>
+          <span className="text-2xl font-extrabold text-slate-900 dark:text-white mt-0.5">{innerValue}</span>
         </div>
       </div>
 
@@ -540,7 +540,7 @@ export function DonutChart({ data = [], size = 200, innerLabel = 'CSAT', innerVa
               <span className="w-3 h-3 rounded-full flex-shrink-0" style={{ backgroundColor: seg.color }}></span>
               <span className="font-medium text-slate-650 dark:text-slate-300">{seg.label}</span>
             </div>
-            <span className="font-semibold text-white pl-4">{seg.pct}%</span>
+            <span className="font-semibold text-slate-900 dark:text-white pl-4">{seg.pct}%</span>
           </div>
         ))}
       </div>
