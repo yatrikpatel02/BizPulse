@@ -24,6 +24,7 @@ from analytics.serializers import (
     PredictionSerializer,
     InsightSerializer,
 )
+from analytics.services.retraining_service import RetrainingService
 
 
 class BusinessScopedViewSet(viewsets.ModelViewSet):
@@ -67,6 +68,27 @@ class SalesRecordViewSet(BusinessScopedViewSet):
         if getattr(self, 'swagger_fake_view', False):
             return SalesRecord.objects.none()
         return SalesRecord.objects.filter(business__owner=self.request.user)
+
+    def perform_create(self, serializer):
+        business = self.get_user_business()
+        serializer.save(business=business)
+        # A single record was added.
+        RetrainingService.log_changes(business_id=business.id, added=1)
+        RetrainingService(business_id=business.id).retrain_if_needed()
+
+    def perform_update(self, serializer):
+        business = self.get_user_business()
+        serializer.save()
+        # A single record was modified.
+        RetrainingService.log_changes(business_id=business.id, modified=1)
+        RetrainingService(business_id=business.id).retrain_if_needed()
+
+    def perform_destroy(self, instance):
+        business = instance.business
+        instance.delete()
+        # A single record was deleted.
+        RetrainingService.log_changes(business_id=business.id, deleted=1)
+        RetrainingService(business_id=business.id).retrain_if_needed()
 
 
 class InventorySnapshotViewSet(BusinessScopedViewSet):
@@ -143,6 +165,7 @@ class InsightViewSet(BusinessScopedViewSet):
     search_fields = ['title', 'description']
     ordering_fields = ['generated_at']
     ordering = ['-generated_at']
+    pagination_class = None
 
     def get_queryset(self):
         if getattr(self, 'swagger_fake_view', False):

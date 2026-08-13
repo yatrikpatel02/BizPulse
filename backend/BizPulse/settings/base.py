@@ -175,4 +175,25 @@ CELERY_BEAT_SCHEDULE = {
         'task': 'integrations.tasks.refresh_market_intelligence',
         'schedule': crontab(hour=5, minute=30),
     },
+    'collect-competitor-prices-daily': {
+        'task': 'integrations.tasks.collect_competitor_prices_daily',
+        'schedule': crontab(hour=4, minute=30),
+    },
 }
+
+# ---------------------------------------------------------------------------
+# Automatic ML Retraining thresholds
+# ---------------------------------------------------------------------------
+# Retraining is triggered by meaningful changes to the underlying SalesRecord
+# dataset (additions + modifications + deletions) — NOT by time.
+#
+# ML_RETRAIN_CHANGE_THRESHOLD_PERCENT: minimum percent change of the dataset
+#   (changed_records / previously_trained_record_count * 100) required.
+# ML_RETRAIN_MIN_CHANGED_RECORDS: minimum absolute number of changed records
+#   required. Both conditions must be met to retrain.
+# ML_RETRAIN_MIN_TRAINING_RECORDS: the existing ML pipeline's minimum
+#   training-data requirement. If the current dataset is below this, training
+#   is skipped entirely (small dataset exception).
+ML_RETRAIN_CHANGE_THRESHOLD_PERCENT = float(os.getenv('ML_RETRAIN_CHANGE_THRESHOLD_PERCENT', '10'))
+ML_RETRAIN_MIN_CHANGED_RECORDS = int(os.getenv('ML_RETRAIN_MIN_CHANGED_RECORDS', '100'))
+ML_RETRAIN_MIN_TRAINING_RECORDS = int(os.getenv('ML_RETRAIN_MIN_TRAINING_RECORDS', '5'))

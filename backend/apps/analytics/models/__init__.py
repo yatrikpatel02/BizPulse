@@ -5,3 +5,5 @@ from .review_sentiment import ReviewSentiment
 from .complaint_category import ComplaintCategory
 from .prediction import Prediction
 from .insight import Insight
+from .training_history import TrainingHistory
+from .sales_record_change_log import SalesRecordChangeLog

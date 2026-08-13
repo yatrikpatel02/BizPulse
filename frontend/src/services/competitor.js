@@ -9,3 +9,8 @@ export const collectCompetitorPrices = async (data = {}) => {
   const response = await api.post('/integrations/competitor-prices/collect/', data);
   return response.data;
 };
+
+export const collectCompetitorData = async (payload = {}) => {
+  const response = await api.post('/integrations/competitor-prices/collect/', payload);
+  return response.data;
+};

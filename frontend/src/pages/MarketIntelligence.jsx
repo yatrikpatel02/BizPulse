@@ -6,6 +6,8 @@ import {
   deleteMarketKeyword,
   analyzeMarketIntelligence,
 } from '../services/integrations';
+import { getProducts } from '../services/products';
+import { collectCompetitorData } from '../services/competitor';
 
 export default function MarketIntelligence() {
   const { activeBusiness } = useBusiness();
@@ -18,6 +20,13 @@ export default function MarketIntelligence() {
   const [steps, setSteps] = useState([]);
   const [elapsed, setElapsed] = useState(0);
   const timerRef = useRef(null);
+
+  const [products, setProducts] = useState([]);
+  const [scrapeMode, setScrapeMode] = useState('selected');
+  const [selectedProductIds, setSelectedProductIds] = useState([]);
+  const [scraping, setScraping] = useState(false);
+  const [scrapeResult, setScrapeResult] = useState(null);
+  const [scrapeError, setScrapeError] = useState(null);
 
   const fetchKeywords = async () => {
     if (!activeBusiness) return;
@@ -34,8 +43,21 @@ export default function MarketIntelligence() {
     }
   };
 
+  const fetchProducts = async () => {
+    if (!activeBusiness) return;
+    try {
+      const res = await getProducts();
+      const dataArray = Array.isArray(res.data) ? res.data : (res.data?.results || []);
+      const businessProducts = dataArray.filter(p => p.business === activeBusiness.id);
+      setProducts(businessProducts);
+    } catch (err) {
+      console.error('Failed to load products', err);
+    }
+  };
+
   useEffect(() => {
     fetchKeywords();
+    fetchProducts();
   }, [activeBusiness]);
 
   const handleAdd = async (e) => {
@@ -101,6 +123,39 @@ export default function MarketIntelligence() {
         timerRef.current = null;
       }
       setAnalyzing(false);
+    }
+  };
+
+  const handleScrape = async () => {
+    if (!activeBusiness) return;
+    setScraping(true);
+    setScrapeResult(null);
+    setScrapeError(null);
+
+    try {
+      let payload = {};
+      if (scrapeMode === 'all') {
+        payload = { all_products: true };
+      } else {
+        if (selectedProductIds.length === 0) {
+          setScrapeError('Please select at least one product.');
+          setScraping(false);
+          return;
+        }
+        payload = { product_ids: selectedProductIds };
+      }
+
+      const result = await collectCompetitorData(payload);
+      setScrapeResult({
+        ...result,
+        product_ids: scrapeMode === 'all' ? null : selectedProductIds,
+      });
+      setSelectedProductIds([]);
+    } catch (err) {
+      console.error('Failed to scrape competitor data', err);
+      setScrapeError(err.response?.data?.detail || 'Failed to scrape competitor data.');
+    } finally {
+      setScraping(false);
     }
   };
 
@@ -266,6 +321,103 @@ export default function MarketIntelligence() {
         <p className="text-xs text-gray-400 dark:text-slate-500 mt-3">
           Detailed results will appear in the <span className="font-semibold text-indigo-600 dark:text-indigo-400">Insights</span> tab once analysis completes.
         </p>
+      </div>
+
+      {/* Scrape Competitor Data */}
+      <div className="bg-white/60 dark:bg-slate-900/60 backdrop-blur-md border border-white/20 dark:border-slate-800/80 rounded-3xl p-6 shadow-md">
+        <h3 className="text-lg font-bold text-gray-800 dark:text-slate-100 mb-1">Scrape Competitor Data</h3>
+        <p className="text-xs text-gray-400 dark:text-slate-500 mb-4">
+          Fetch live competitor prices for your products from Amazon, Flipkart, and Google Shopping.
+        </p>
+
+        <div className="flex flex-col sm:flex-row sm:items-center gap-3 mb-4">
+          <select
+            value={scrapeMode}
+            onChange={(e) => {
+              setScrapeMode(e.target.value);
+              setSelectedProductIds([]);
+            }}
+            className="bg-gray-50/50 dark:bg-slate-950/40 border border-gray-200 dark:border-slate-800 text-sm font-semibold rounded-xl px-4 py-2 outline-none focus:ring-1 focus:ring-indigo-500 text-gray-800 dark:text-slate-300"
+          >
+            <option value="selected">Selected Products</option>
+            <option value="all">All Products</option>
+          </select>
+
+          {scrapeMode === 'selected' && (
+            <div className="flex flex-wrap gap-2">
+              {products.length === 0 && (
+                <span className="text-xs text-gray-400 dark:text-slate-500">No products available</span>
+              )}
+              {products.map((product) => {
+                const checked = selectedProductIds.includes(product.id);
+                return (
+                  <label
+                    key={product.id}
+                    className={`flex items-center gap-2 px-3 py-2 rounded-xl border cursor-pointer transition-all duration-200 ${
+                      checked
+                        ? 'bg-indigo-50/80 dark:bg-indigo-950/30 border-indigo-200 dark:border-indigo-800/60'
+                        : 'bg-gray-50/50 dark:bg-slate-950/40 border-gray-200 dark:border-slate-800 hover:border-indigo-200 dark:hover:border-indigo-800/60'
+                    }`}
+                  >
+                    <input
+                      type="checkbox"
+                      checked={checked}
+                      onChange={(e) => {
+                        const next = e.target.checked
+                          ? [...selectedProductIds, product.id]
+                          : selectedProductIds.filter(id => id !== product.id);
+                        setSelectedProductIds(next);
+                      }}
+                      className="w-4 h-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
+                    />
+                    <span className="text-xs font-semibold text-gray-800 dark:text-slate-200">{product.name}</span>
+                  </label>
+                );
+              })}
+            </div>
+          )}
+
+          <button
+            onClick={handleScrape}
+            disabled={scraping}
+            className="px-5 py-2.5 bg-indigo-600 hover:bg-indigo-700 dark:bg-indigo-600 dark:hover:bg-indigo-700 text-white font-bold text-xs rounded-xl shadow-sm hover:shadow-lg hover:shadow-indigo-500/10 hover:-translate-y-0.5 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed whitespace-nowrap"
+          >
+            {scraping ? 'Scraping...' : 'Scrape Competitor Data'}
+          </button>
+        </div>
+
+        {scraping && (
+          <div className="mb-4 p-3 bg-amber-50/70 dark:bg-amber-950/20 border border-amber-200/60 dark:border-amber-900/40 text-amber-700 dark:text-amber-400 text-xs rounded-xl flex items-center gap-2">
+            <svg className="w-4 h-4 animate-spin" fill="none" viewBox="0 0 24 24">
+              <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="3" />
+              <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" />
+            </svg>
+            <span className="font-semibold">Scraping in progress...</span>
+            <span className="opacity-80">This may take a moment while we fetch live competitor prices.</span>
+          </div>
+        )}
+
+        {scrapeError && (
+          <div className="mb-4 p-3 bg-red-50 dark:bg-red-950/30 border border-red-200 dark:border-red-900/40 text-red-700 dark:text-red-400 text-xs rounded-xl">
+            {scrapeError}
+          </div>
+        )}
+
+        {scrapeResult && (
+          <div className="mt-4 p-4 bg-emerald-50/50 dark:bg-emerald-950/20 border border-emerald-200/50 dark:border-emerald-900/30 rounded-xl">
+            <div className="flex items-center gap-2 mb-2">
+              <svg className="w-4 h-4 text-emerald-600 dark:text-emerald-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M5 13l4 4L19 7" />
+              </svg>
+              <span className="text-xs font-bold text-emerald-700 dark:text-emerald-400">
+                Scrape completed successfully
+              </span>
+            </div>
+            <p className="text-xs text-gray-600 dark:text-slate-400">
+              Collected <span className="font-semibold">{scrapeResult.records_collected}</span> competitor records across <span className="font-semibold">{scrapeResult.products_collected}</span> product(s).
+            </p>
+          </div>
+        )}
       </div>
     </div>
   );

@@ -13,6 +13,7 @@ from integrations.services import TemporaryStorageService
 from analytics.services import DataValidationService, DataCleaningService
 from products.models import Product
 from analytics.models import SalesRecord, InventorySnapshot, CustomerReview, ReviewSentiment, ComplaintCategory
+from analytics.services.retraining_service import RetrainingService
 
 
 class ImportPreviewView(APIView):
@@ -209,7 +210,29 @@ class SalesImportCommitView(BaseImportCommitView):
                     )
                 print(f"[TIMING] loop + build records_dict: {time.time()-t3:.3f}s")
                     
+                # Determine which records already exist vs. are new so we can
+                # accurately track dataset changes (added vs. modified) for the
+                # automatic retraining decision.
                 t4 = time.time()
+                existing_keys = set()
+                if records_dict:
+                    product_ids = [pid for (pid, _date) in records_dict.keys()]
+                    dates = [date for (_pid, date) in records_dict.keys()]
+                    existing_keys = set(
+                        SalesRecord.objects.filter(
+                            business=business,
+                            product_id__in=product_ids,
+                            date__in=dates,
+                        ).values_list('product_id', 'date')
+                    )
+                added_count = 0
+                modified_count = 0
+                for key in records_dict.keys():
+                    if key in existing_keys:
+                        modified_count += 1
+                    else:
+                        added_count += 1
+
                 if records_dict:
                     SalesRecord.objects.bulk_create(
                         records_dict.values(),
@@ -220,13 +243,27 @@ class SalesImportCommitView(BaseImportCommitView):
                 records_created = len(records_dict)
                 print(f"[TIMING] bulk_create ({records_created} rows): {time.time()-t4:.3f}s")
 
+                # Record dataset changes (added + modified) for retraining.
+                if added_count or modified_count:
+                    RetrainingService.log_changes(
+                        business_id=business.id,
+                        added=added_count,
+                        modified=modified_count,
+                    )
+
+            # Evaluate whether the dataset change should trigger retraining.
+            retrain_decision = RetrainingService(business_id=business.id).retrain_if_needed()
+
             # Delete temporary file from disk upon successful commit
             TemporaryStorageService.delete_temp_file(temp_file_id)
 
             return Response({
                 "message": "Sales records imported successfully.",
                 "import_batch_id": batch.id,
-                "records_imported": records_created
+                "records_imported": records_created,
+                "records_added": added_count,
+                "records_modified": modified_count,
+                "retraining": retrain_decision,
             }, status=status.HTTP_201_CREATED)
 
         except Exception as e:
