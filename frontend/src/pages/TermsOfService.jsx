@@ -1,52 +1,11 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import { useTheme } from '../context/ThemeContext';
 
-export default function FAQ() {
+export default function TermsOfService() {
   const { user } = useAuth();
   const { isDarkMode, toggleTheme } = useTheme();
-
-  // FAQ Accordion State
-  const [openFaq, setOpenFaq] = useState(null);
-  const [searchQuery, setSearchQuery] = useState('');
-
-  const toggleFaq = (index) => {
-    setOpenFaq(openFaq === index ? null : index);
-  };
-
-  const faqs = [
-    {
-      q: "How does the Google Trends integration work?",
-      a: "BizPulse queries search indexes for your configured keywords, retrieving live trend comparisons and keyword demand momentum. This helps you identify emerging market opportunities instantly."
-    },
-    {
-      q: "What file formats does the data importer support?",
-      a: "Our smart CSV importer supports standard Comma-Separated Values files. It automatically maps fields like Transaction ID, Product Name, SKU, Revenue, Quantity, and Dates to your business database."
-    },
-    {
-      q: "Can I download and print reports as PDFs?",
-      a: "Yes! Every Sales, Inventory, and Customer report includes a print button that generates a beautifully formatted, high-contrast, print-ready document which you can save directly to PDF."
-    },
-    {
-      q: "Is my data secure and private?",
-      a: "Absolutely. BizPulse uses enterprise-level encryption for data transmissions and state management. Your information is isolated within your selected company settings and visible only to you."
-    },
-    {
-      q: "How do I add multiple businesses or companies?",
-      a: "You can manage and swap your companies directly via the Business Settings or the dropdown selector in the main sidebar. Each company operates in its own isolated database scope."
-    },
-    {
-      q: "What metrics are analyzed in Customer Intelligence?",
-      a: "BizPulse evaluates total review logs, calculates average scores, traces positive/negative rating distributions, and groups customer reports into primary complaint categories using natural language text matching."
-    }
-  ];
-
-  // Filter FAQs based on search
-  const filteredFaqs = faqs.filter(
-    faq => faq.q.toLowerCase().includes(searchQuery.toLowerCase()) || 
-           faq.a.toLowerCase().includes(searchQuery.toLowerCase())
-  );
 
   return (
     <div className="min-h-screen bg-[#f3f6fa] dark:bg-navy-950 text-slate-800 dark:text-slate-100 transition-colors duration-300 relative overflow-hidden font-sans flex flex-col justify-between">
@@ -75,7 +34,7 @@ export default function FAQ() {
           <nav className="hidden md:flex items-center gap-8 text-sm font-semibold text-slate-600 dark:text-slate-300">
             <Link to="/" className="hover:text-violet-600 dark:hover:text-violet-400 transition-colors">Home</Link>
             <Link to="/about" className="hover:text-violet-600 dark:hover:text-violet-400 transition-colors">About</Link>
-            <Link to="/faq" className="text-violet-600 dark:text-violet-400 font-bold transition-colors">FAQ</Link>
+            <Link to="/faq" className="hover:text-violet-600 dark:hover:text-violet-400 transition-colors">FAQ</Link>
             <Link to="/contact" className="hover:text-violet-600 dark:hover:text-violet-400 transition-colors">Contact</Link>
           </nav>
 
@@ -114,7 +73,7 @@ export default function FAQ() {
                   to="/login"
                   className="hidden sm:inline-block px-4 py-2 text-xs font-bold text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white transition-colors"
                 >
-                  Login
+                  Sign In
                 </Link>
                 <Link
                   to="/signup"
@@ -128,77 +87,79 @@ export default function FAQ() {
         </div>
       </header>
 
-      {/* ─── BODY CONTENT ─── */}
-      <main className="flex-1 pt-32 pb-24 max-w-4xl mx-auto px-6 w-full relative z-10">
-        <div className="text-center max-w-2xl mx-auto mb-12 space-y-3">
-          <span className="text-xs font-bold text-violet-600 dark:text-violet-400 uppercase tracking-widest block">FAQ</span>
-          <h1 className="text-4xl font-black text-slate-900 dark:text-white font-display">
-            Common Inquiries
-          </h1>
-          <p className="text-sm text-slate-500 dark:text-slate-400 leading-relaxed">
-            Quick responses to essential technical questions regarding the dashboard.
-          </p>
-        </div>
-
-        {/* Search Bar */}
-        <div className="mb-8 relative max-w-md mx-auto">
-          <input
-            type="text"
-            value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
-            placeholder="Search questions or keywords..."
-            className="w-full pl-10 pr-4 py-3 bg-white dark:bg-navy-900 text-sm font-semibold text-slate-800 dark:text-slate-100 rounded-xl border border-slate-200 dark:border-white/[0.08] focus:outline-none focus:border-violet-500/50 shadow-sm transition-colors"
-          />
-          <svg className="w-4 h-4 text-slate-400 absolute left-3.5 top-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-          </svg>
-        </div>
-
-        {/* FAQ Accordion list */}
-        <div className="space-y-4">
-          {filteredFaqs.length > 0 ? (
-            filteredFaqs.map((faq, idx) => (
-              <div 
-                key={idx} 
-                className="border border-slate-200/60 dark:border-white/[0.04] bg-white dark:bg-navy-900 rounded-2xl overflow-hidden transition-all duration-300 shadow-sm"
-              >
-                <button
-                  onClick={() => toggleFaq(idx)}
-                  className="w-full px-6 py-5 flex items-center justify-between text-left font-bold text-sm sm:text-base text-slate-800 dark:text-white hover:bg-slate-50/50 dark:hover:bg-navy-900/60 transition-colors focus:outline-none"
-                >
-                  <span>{faq.q}</span>
-                  <svg 
-                    className={`w-4 h-4 text-slate-400 transition-transform duration-300 ${openFaq === idx ? 'transform rotate-180' : ''}`} 
-                    fill="none" 
-                    viewBox="0 0 24 24" 
-                    stroke="currentColor"
-                  >
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-                  </svg>
-                </button>
-                
-                <div 
-                  className={`transition-all duration-300 ease-in-out ${
-                    openFaq === idx ? 'max-h-[200px] border-t border-slate-100 dark:border-white/[0.04] opacity-100' : 'max-h-0 opacity-0 pointer-events-none'
-                  }`}
-                >
-                  <p className="px-6 py-5 text-xs sm:text-sm text-slate-500 dark:text-slate-400 leading-relaxed bg-slate-50/[0.01]">
-                    {faq.a}
-                  </p>
-                </div>
-              </div>
-            ))
-          ) : (
-            <p className="text-center text-xs text-slate-500 italic py-8 bg-white dark:bg-navy-900 rounded-2xl border border-slate-200/60 dark:border-white/[0.04]">
-              No matching questions found. Try search query e.g. "CSV" or "Google".
+      {/* ─── MAIN CONTENT ─── */}
+      <main className="flex-grow pt-28 pb-16 px-6 max-w-4xl mx-auto w-full relative z-10">
+        <div className="bg-white/80 dark:bg-navy-900/50 backdrop-blur-md border border-slate-200 dark:border-white/[0.06] rounded-3xl p-8 lg:p-12 shadow-xl shadow-slate-100 dark:shadow-none space-y-8">
+          <div>
+            <span className="text-xs font-bold tracking-wider text-violet-600 dark:text-violet-400 uppercase bg-violet-500/10 px-3 py-1 rounded-full">
+              Legal
+            </span>
+            <h1 className="text-3xl lg:text-4xl font-black font-display tracking-tight text-slate-950 dark:text-white mt-4 leading-tight">
+              Terms of Service
+            </h1>
+            <p className="text-xs text-slate-500 dark:text-slate-400 mt-2">
+              Last updated: August 13, 2026
             </p>
-          )}
+          </div>
+
+          <div className="space-y-6 text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
+            <p>
+              Welcome to BizPulse. By accessing our website and using our services, you agree to comply with and be bound by the following Terms of Service. Please review these terms carefully.
+            </p>
+
+            <hr className="border-slate-200 dark:border-white/[0.06]" />
+
+            {/* Section 1 */}
+            <div className="space-y-3">
+              <h3 className="font-bold text-lg text-slate-900 dark:text-white">1. Acceptance of Terms</h3>
+              <p>
+                By creating an account or accessing the BizPulse dashboard, you agree to these Terms of Service and our Privacy Policy. If you do not agree to these terms, you may not access or use the platform.
+              </p>
+            </div>
+
+            {/* Section 2 */}
+            <div className="space-y-3">
+              <h3 className="font-bold text-lg text-slate-900 dark:text-white">2. User Accounts</h3>
+              <p>
+                You must provide accurate and complete registration details when signing up. You are solely responsible for maintaining the confidentiality of your account credentials and for all activities that occur under your session. If you suspect any unauthorized access, contact support immediately.
+              </p>
+            </div>
+
+            {/* Section 3 */}
+            <div className="space-y-3">
+              <h3 className="font-bold text-lg text-slate-900 dark:text-white">3. Data & Competitor Price Scraping Rules</h3>
+              <p>
+                Our platform provides competitor price monitoring tools powered by Playwright and SerpAPI integrations. You agree:
+              </p>
+              <ul className="list-disc pl-5 space-y-1.5">
+                <li>Not to trigger requests that place unreasonable or disproportionately large loads on upstream e-commerce sites.</li>
+                <li>To use scraping and trends querying tools strictly in compliance with public site structures and relevant local data privacy laws.</li>
+              </ul>
+            </div>
+
+            {/* Section 4 */}
+            <div className="space-y-3">
+              <h3 className="font-bold text-lg text-slate-900 dark:text-white">4. Intellectual Property</h3>
+              <p>
+                BizPulse owns the intellectual property rights for the platform design, structural layouts, codebase algorithms, and visualization dashboards. You are granted a limited, non-exclusive license to use the service for internal business analysis.
+              </p>
+            </div>
+
+            {/* Section 5 */}
+            <div className="space-y-3">
+              <h3 className="font-bold text-lg text-slate-900 dark:text-white">5. Disclaimer of Warranties</h3>
+              <p>
+                All revenue forecasts, stock alerts, and trend recommendations are generated by machine learning models based on the spreadsheets you upload. These predictions are provided "as-is" without financial guarantees or warranties. BizPulse is not liable for business decisions or losses based on dashboard analytics.
+              </p>
+            </div>
+          </div>
         </div>
       </main>
 
       {/* ─── FOOTER ─── */}
       <footer className="py-12 border-t border-slate-200 dark:border-white/[0.06] transition-colors duration-300 bg-white/20 dark:bg-navy-900/10">
         <div className="max-w-7xl mx-auto px-6 flex flex-col md:flex-row items-center justify-between gap-6">
+          <div className="flex items-center gap-2">
             <div className="px-2.5 py-1.5 rounded-lg bg-gradient-to-tr from-violet-950/90 via-slate-900/90 to-indigo-950/90 border border-violet-500/30 dark:border-white/[0.06] shadow-sm flex items-center justify-center transition-colors">
               <img
                 src="/BizPulse.png"
@@ -206,6 +167,7 @@ export default function FAQ() {
                 className="h-7 w-auto object-contain"
               />
             </div>
+          </div>
 
           <p className="text-xs text-slate-500 dark:text-slate-400">
             © {new Date().getFullYear()} BizPulse Analytics. All rights reserved.
@@ -213,7 +175,7 @@ export default function FAQ() {
 
           <div className="flex gap-6 text-xs text-slate-500 dark:text-slate-400 font-semibold">
             <Link to="/privacy" className="hover:text-violet-600 transition-colors">Privacy Policy</Link>
-            <Link to="/terms" className="hover:text-violet-600 transition-colors">Terms of Service</Link>
+            <Link to="/terms" className="text-violet-600 dark:text-violet-400 hover:underline">Terms of Service</Link>
           </div>
         </div>
       </footer>

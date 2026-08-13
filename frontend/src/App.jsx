@@ -21,6 +21,10 @@ import MarketIntelligence from './pages/MarketIntelligence';
 import ProtectedRoute from './components/ProtectedRoute';
 import Landing from './pages/Landing';
 import FAQ from './pages/FAQ';
+import Contact from './pages/Contact';
+import PrivacyPolicy from './pages/PrivacyPolicy';
+import TermsOfService from './pages/TermsOfService';
+import About from './pages/About';
 
 function App() {
   return (
@@ -30,6 +34,10 @@ function App() {
           <Routes>
             <Route path="/" element={<Landing />} />
             <Route path="/faq" element={<FAQ />} />
+            <Route path="/contact" element={<Contact />} />
+            <Route path="/privacy" element={<PrivacyPolicy />} />
+            <Route path="/terms" element={<TermsOfService />} />
+            <Route path="/about" element={<About />} />
             <Route path="/login" element={<AuthLayout><Login /></AuthLayout>} />
             <Route path="/signup" element={<AuthLayout><Signup /></AuthLayout>} />
             <Route path="/forgot-password" element={<AuthLayout><ForgotPassword /></AuthLayout>} />

@@ -93,9 +93,9 @@ export default function Landing() {
 
           {/* Nav Links - Desktop */}
           <nav className="hidden md:flex items-center gap-8 text-sm font-semibold text-slate-600 dark:text-slate-300">
-            <a href="#features" className="hover:text-violet-600 dark:hover:text-violet-400 transition-colors">Features</a>
+            <Link to="/about" className="hover:text-violet-600 dark:hover:text-violet-400 transition-colors">About</Link>
             <Link to="/faq" className="hover:text-violet-600 dark:hover:text-violet-400 transition-colors">FAQ</Link>
-            <a href="#contact" className="hover:text-violet-600 dark:hover:text-violet-400 transition-colors">Contact</a>
+            <Link to="/contact" className="hover:text-violet-600 dark:hover:text-violet-400 transition-colors">Contact</Link>
           </nav>
 
           {/* Header CTAs */}
@@ -182,12 +182,6 @@ export default function Landing() {
                   >
                     Get Started Free
                   </Link>
-                  <a
-                    href="#features"
-                    className="px-6 py-3 bg-white/60 dark:bg-navy-900/60 hover:bg-white dark:hover:bg-navy-800 border border-slate-200 dark:border-white/[0.06] text-slate-700 dark:text-slate-300 font-bold text-sm rounded-xl hover:-translate-y-0.5 transition-all duration-300 shadow-sm"
-                  >
-                    Explore Features
-                  </a>
                 </>
               )}
             </div>
@@ -503,8 +497,8 @@ export default function Landing() {
           </p>
 
           <div className="flex gap-6 text-xs text-slate-500 dark:text-slate-400 font-semibold">
-            <a href="#features" className="hover:text-violet-600 transition-colors">Privacy Policy</a>
-            <a href="#features" className="hover:text-violet-600 transition-colors">Terms of Service</a>
+            <Link to="/privacy" className="hover:text-violet-600 transition-colors">Privacy Policy</Link>
+            <Link to="/terms" className="hover:text-violet-600 transition-colors">Terms of Service</Link>
           </div>
         </div>
       </footer>

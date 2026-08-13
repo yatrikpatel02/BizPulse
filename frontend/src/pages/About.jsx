@@ -1,52 +1,11 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import { useTheme } from '../context/ThemeContext';
 
-export default function FAQ() {
+export default function About() {
   const { user } = useAuth();
   const { isDarkMode, toggleTheme } = useTheme();
-
-  // FAQ Accordion State
-  const [openFaq, setOpenFaq] = useState(null);
-  const [searchQuery, setSearchQuery] = useState('');
-
-  const toggleFaq = (index) => {
-    setOpenFaq(openFaq === index ? null : index);
-  };
-
-  const faqs = [
-    {
-      q: "How does the Google Trends integration work?",
-      a: "BizPulse queries search indexes for your configured keywords, retrieving live trend comparisons and keyword demand momentum. This helps you identify emerging market opportunities instantly."
-    },
-    {
-      q: "What file formats does the data importer support?",
-      a: "Our smart CSV importer supports standard Comma-Separated Values files. It automatically maps fields like Transaction ID, Product Name, SKU, Revenue, Quantity, and Dates to your business database."
-    },
-    {
-      q: "Can I download and print reports as PDFs?",
-      a: "Yes! Every Sales, Inventory, and Customer report includes a print button that generates a beautifully formatted, high-contrast, print-ready document which you can save directly to PDF."
-    },
-    {
-      q: "Is my data secure and private?",
-      a: "Absolutely. BizPulse uses enterprise-level encryption for data transmissions and state management. Your information is isolated within your selected company settings and visible only to you."
-    },
-    {
-      q: "How do I add multiple businesses or companies?",
-      a: "You can manage and swap your companies directly via the Business Settings or the dropdown selector in the main sidebar. Each company operates in its own isolated database scope."
-    },
-    {
-      q: "What metrics are analyzed in Customer Intelligence?",
-      a: "BizPulse evaluates total review logs, calculates average scores, traces positive/negative rating distributions, and groups customer reports into primary complaint categories using natural language text matching."
-    }
-  ];
-
-  // Filter FAQs based on search
-  const filteredFaqs = faqs.filter(
-    faq => faq.q.toLowerCase().includes(searchQuery.toLowerCase()) || 
-           faq.a.toLowerCase().includes(searchQuery.toLowerCase())
-  );
 
   return (
     <div className="min-h-screen bg-[#f3f6fa] dark:bg-navy-950 text-slate-800 dark:text-slate-100 transition-colors duration-300 relative overflow-hidden font-sans flex flex-col justify-between">
@@ -74,8 +33,8 @@ export default function FAQ() {
           {/* Nav Links - Desktop */}
           <nav className="hidden md:flex items-center gap-8 text-sm font-semibold text-slate-600 dark:text-slate-300">
             <Link to="/" className="hover:text-violet-600 dark:hover:text-violet-400 transition-colors">Home</Link>
-            <Link to="/about" className="hover:text-violet-600 dark:hover:text-violet-400 transition-colors">About</Link>
-            <Link to="/faq" className="text-violet-600 dark:text-violet-400 font-bold transition-colors">FAQ</Link>
+            <Link to="/about" className="text-violet-600 dark:text-violet-400 font-bold transition-colors">About</Link>
+            <Link to="/faq" className="hover:text-violet-600 dark:hover:text-violet-400 transition-colors">FAQ</Link>
             <Link to="/contact" className="hover:text-violet-600 dark:hover:text-violet-400 transition-colors">Contact</Link>
           </nav>
 
@@ -114,7 +73,7 @@ export default function FAQ() {
                   to="/login"
                   className="hidden sm:inline-block px-4 py-2 text-xs font-bold text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white transition-colors"
                 >
-                  Login
+                  Sign In
                 </Link>
                 <Link
                   to="/signup"
@@ -128,77 +87,89 @@ export default function FAQ() {
         </div>
       </header>
 
-      {/* ─── BODY CONTENT ─── */}
-      <main className="flex-1 pt-32 pb-24 max-w-4xl mx-auto px-6 w-full relative z-10">
-        <div className="text-center max-w-2xl mx-auto mb-12 space-y-3">
-          <span className="text-xs font-bold text-violet-600 dark:text-violet-400 uppercase tracking-widest block">FAQ</span>
-          <h1 className="text-4xl font-black text-slate-900 dark:text-white font-display">
-            Common Inquiries
-          </h1>
-          <p className="text-sm text-slate-500 dark:text-slate-400 leading-relaxed">
-            Quick responses to essential technical questions regarding the dashboard.
+      {/* ─── MAIN CONTENT ─── */}
+      <main className="flex-grow pt-28 pb-16 px-6 max-w-5xl mx-auto w-full relative z-10 space-y-12">
+        {/* Intro */}
+        <div className="bg-white/80 dark:bg-navy-900/50 backdrop-blur-md border border-slate-200 dark:border-white/[0.06] rounded-3xl p-8 lg:p-12 shadow-xl shadow-slate-100 dark:shadow-none space-y-6">
+          <div>
+            <span className="text-xs font-bold tracking-wider text-violet-600 dark:text-violet-400 uppercase bg-violet-500/10 px-3 py-1 rounded-full">
+              About BizPulse
+            </span>
+            <h1 className="text-4xl lg:text-5xl font-black font-display tracking-tight text-slate-950 dark:text-white mt-4 leading-tight">
+              Smarter decisions. <br />Powered by <span className="bg-gradient-to-r from-violet-600 to-indigo-600 bg-clip-text text-transparent">real business data</span>.
+            </h1>
+          </div>
+          <p className="text-slate-500 dark:text-slate-400 leading-relaxed text-sm lg:text-base">
+            BizPulse was founded with a singular mission: to provide retail and e-commerce companies with high-fidelity, real-time analytics pipelines. We believe that operational efficiency shouldn't be gated behind enterprise-scale complexity. By integrating inventory forecasting, competitor scraper automation, and Google Trends analysis into a unified interface, we allow merchants to act on signals, not speculations.
           </p>
         </div>
 
-        {/* Search Bar */}
-        <div className="mb-8 relative max-w-md mx-auto">
-          <input
-            type="text"
-            value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
-            placeholder="Search questions or keywords..."
-            className="w-full pl-10 pr-4 py-3 bg-white dark:bg-navy-900 text-sm font-semibold text-slate-800 dark:text-slate-100 rounded-xl border border-slate-200 dark:border-white/[0.08] focus:outline-none focus:border-violet-500/50 shadow-sm transition-colors"
-          />
-          <svg className="w-4 h-4 text-slate-400 absolute left-3.5 top-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-          </svg>
+        {/* Pillars / Values Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div className="p-6 rounded-2xl bg-white/60 dark:bg-navy-900/40 border border-slate-200/50 dark:border-white/[0.04] space-y-3">
+            <div className="w-10 h-10 rounded-xl bg-violet-600/10 dark:bg-violet-600/20 flex items-center justify-center text-violet-600 dark:text-violet-400">
+              <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 002 2h2a2 2 0 002-2z" />
+              </svg>
+            </div>
+            <h4 className="font-bold text-base text-slate-900 dark:text-white">Predictive Forecasting</h4>
+            <p className="text-xs text-slate-500 dark:text-slate-400 leading-relaxed">
+              We run advanced Linear and Random Forest regression models directly on your raw sales sheets to forecast stock trends and prevent costly out-of-stock events.
+            </p>
+          </div>
+
+          <div className="p-6 rounded-2xl bg-white/60 dark:bg-navy-900/40 border border-slate-200/50 dark:border-white/[0.04] space-y-3">
+            <div className="w-10 h-10 rounded-xl bg-indigo-600/10 dark:bg-indigo-600/20 flex items-center justify-center text-indigo-600 dark:text-indigo-400">
+              <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+              </svg>
+            </div>
+            <h4 className="font-bold text-base text-slate-900 dark:text-white">Competitor Scrapers</h4>
+            <p className="text-xs text-slate-500 dark:text-slate-400 leading-relaxed">
+              Automated crawling modules pull pricing details from e-commerce listings, keeping your pricing catalog highly competitive.
+            </p>
+          </div>
+
+          <div className="p-6 rounded-2xl bg-white/60 dark:bg-navy-900/40 border border-slate-200/50 dark:border-white/[0.04] space-y-3">
+            <div className="w-10 h-10 rounded-xl bg-violet-600/10 dark:bg-violet-600/20 flex items-center justify-center text-violet-600 dark:text-violet-400">
+              <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
+              </svg>
+            </div>
+            <h4 className="font-bold text-base text-slate-900 dark:text-white">Market Momentum</h4>
+            <p className="text-xs text-slate-500 dark:text-slate-400 leading-relaxed">
+              Track search demand fluctuations using our built-in Google Trends engine to spot rising niche search keywords before competitors react.
+            </p>
+          </div>
         </div>
 
-        {/* FAQ Accordion list */}
-        <div className="space-y-4">
-          {filteredFaqs.length > 0 ? (
-            filteredFaqs.map((faq, idx) => (
-              <div 
-                key={idx} 
-                className="border border-slate-200/60 dark:border-white/[0.04] bg-white dark:bg-navy-900 rounded-2xl overflow-hidden transition-all duration-300 shadow-sm"
-              >
-                <button
-                  onClick={() => toggleFaq(idx)}
-                  className="w-full px-6 py-5 flex items-center justify-between text-left font-bold text-sm sm:text-base text-slate-800 dark:text-white hover:bg-slate-50/50 dark:hover:bg-navy-900/60 transition-colors focus:outline-none"
-                >
-                  <span>{faq.q}</span>
-                  <svg 
-                    className={`w-4 h-4 text-slate-400 transition-transform duration-300 ${openFaq === idx ? 'transform rotate-180' : ''}`} 
-                    fill="none" 
-                    viewBox="0 0 24 24" 
-                    stroke="currentColor"
-                  >
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-                  </svg>
-                </button>
-                
-                <div 
-                  className={`transition-all duration-300 ease-in-out ${
-                    openFaq === idx ? 'max-h-[200px] border-t border-slate-100 dark:border-white/[0.04] opacity-100' : 'max-h-0 opacity-0 pointer-events-none'
-                  }`}
-                >
-                  <p className="px-6 py-5 text-xs sm:text-sm text-slate-500 dark:text-slate-400 leading-relaxed bg-slate-50/[0.01]">
-                    {faq.a}
-                  </p>
-                </div>
-              </div>
-            ))
-          ) : (
-            <p className="text-center text-xs text-slate-500 italic py-8 bg-white dark:bg-navy-900 rounded-2xl border border-slate-200/60 dark:border-white/[0.04]">
-              No matching questions found. Try search query e.g. "CSV" or "Google".
-            </p>
-          )}
+        {/* Tech Stack Details */}
+        <div className="p-8 rounded-3xl bg-white/80 dark:bg-navy-900/50 border border-slate-200 dark:border-white/[0.06] space-y-6">
+          <h3 className="font-black text-xl text-slate-900 dark:text-white font-display">Under the Hood</h3>
+          <p className="text-xs text-slate-500 dark:text-slate-400 leading-relaxed">
+            BizPulse is engineered with modern framework components to guarantee security, performance, and scaling readiness:
+          </p>
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-xs font-semibold">
+            <div className="p-3.5 rounded-xl bg-slate-50 dark:bg-navy-950/50 border border-slate-100 dark:border-white/[0.02] text-center">
+              Django API
+            </div>
+            <div className="p-3.5 rounded-xl bg-slate-50 dark:bg-navy-950/50 border border-slate-100 dark:border-white/[0.02] text-center">
+              React + Vite
+            </div>
+            <div className="p-3.5 rounded-xl bg-slate-50 dark:bg-navy-950/50 border border-slate-100 dark:border-white/[0.02] text-center">
+              Celery Workers
+            </div>
+            <div className="p-3.5 rounded-xl bg-slate-50 dark:bg-navy-950/50 border border-slate-100 dark:border-white/[0.02] text-center">
+              PostgreSQL
+            </div>
+          </div>
         </div>
       </main>
 
       {/* ─── FOOTER ─── */}
       <footer className="py-12 border-t border-slate-200 dark:border-white/[0.06] transition-colors duration-300 bg-white/20 dark:bg-navy-900/10">
         <div className="max-w-7xl mx-auto px-6 flex flex-col md:flex-row items-center justify-between gap-6">
+          <div className="flex items-center gap-2">
             <div className="px-2.5 py-1.5 rounded-lg bg-gradient-to-tr from-violet-950/90 via-slate-900/90 to-indigo-950/90 border border-violet-500/30 dark:border-white/[0.06] shadow-sm flex items-center justify-center transition-colors">
               <img
                 src="/BizPulse.png"
@@ -206,6 +177,7 @@ export default function FAQ() {
                 className="h-7 w-auto object-contain"
               />
             </div>
+          </div>
 
           <p className="text-xs text-slate-500 dark:text-slate-400">
             © {new Date().getFullYear()} BizPulse Analytics. All rights reserved.
